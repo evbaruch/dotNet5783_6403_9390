@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace a
+namespace Stage0
 {
-    partial class B
+    partial class Program
     {
         static void Main(string[] args)
         {
