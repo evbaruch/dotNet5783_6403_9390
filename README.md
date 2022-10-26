@@ -9,4 +9,4 @@
         cout << B
     }
 
-    console : C
+    console : A
