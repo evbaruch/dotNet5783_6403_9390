@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace DO;
 
 public struct Product

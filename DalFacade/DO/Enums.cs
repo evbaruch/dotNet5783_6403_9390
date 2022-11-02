@@ -1,9 +1,6 @@
-
 namespace DO;
 
-public struct Class1
+public struct Enume
 {
-	public Class1()
-	{
-	}
+
 }

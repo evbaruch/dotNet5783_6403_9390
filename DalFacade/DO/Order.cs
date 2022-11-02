@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace DO;
 
 public struct Order
@@ -11,4 +10,10 @@ public struct Order
     public DateTime? OrderDate { set; get; }
     public DateTime? ShipDate { set; get; }
     public DateTime? DeliveryDate { set; get; }
+
+    public override string ToString()
+    {
+        return "customerName: " + this.CustomerName;
+    }
+    
 };
