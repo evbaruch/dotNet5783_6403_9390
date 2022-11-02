@@ -2,9 +2,11 @@
 
 namespace DO;
 
-public struct Class1
+public struct OrderItem
 {
-	public Class1()
-	{
-	}
+    public int ProductID { set; get; }
+    public int? OrderID { set; get; }
+    public double? Price { set; get; }
+    public string? Amount { set; get; }
+   
 }
