@@ -9,4 +9,12 @@ public struct Product
     public double? Price { set; get; }
     public string? Category { set; get; }
     public int? InStoke { set; get; }
+
+    public override string ToString() => $@"
+    ID: {ID}
+    Name: {Name}
+    Price: {Price}
+    Category: {Category}
+    InStoke: {InStoke}
+    ";
 }
