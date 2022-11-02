@@ -1,8 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Xml.Linq;
-
-namespace DO;
+﻿namespace DO;
 
 public struct Order
 {
