@@ -2,5 +2,10 @@
 
 public class DalOrder
 {
+    public void addOrder ()
+    {
 
+    }
+
+    
 }

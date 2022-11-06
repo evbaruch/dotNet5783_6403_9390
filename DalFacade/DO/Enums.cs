@@ -1,6 +1,6 @@
 namespace DO;
 
-public struct Enume
+public struct Enums
 {
 
 }

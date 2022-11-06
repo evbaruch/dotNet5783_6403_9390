@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,13 @@ partial class Program
         var myOrder = new Order();
         myOrder.CustomerName = "yehuda";
         //a.OrderDate = new DateTime();
-        Console.WriteLine(myOrder.ToString()); 
+        Console.WriteLine(myOrder.ToString());
+
+        var a = new DalOrder();
+
+        //var b = new DataSource();
+
+
     }
 
 }
