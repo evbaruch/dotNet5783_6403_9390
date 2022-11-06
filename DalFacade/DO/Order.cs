@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System.Runtime.InteropServices;
+
+namespace DO;
 
 public struct Order
 {
@@ -9,6 +11,28 @@ public struct Order
     public DateTime? OrderDate { set; get; }
     public DateTime? ShipDate { set; get; }
     public DateTime? DeliveryDate { set; get; }
+    
+    public Order(Order order)
+    {
+        ID = order.ID;
+        CustomerName = order.CustomerName;
+        CustomerEmail = order.CustomerEmail;
+        CstomerAddress = order.CstomerAddress; 
+        OrderDate = order.OrderDate;
+        ShipDate = order.ShipDate;
+        DeliveryDate = order.DeliveryDate;
+    }
+
+    public Order(int id, string customerName, string customerEmail, string customerAddress, DateTime orderDate, DateTime shipDate, DateTime deliveryDate)
+    {
+        this.ID = id;
+        this.CustomerName = customerName;
+        this.CustomerEmail = customerEmail;
+        this.CstomerAddress = customerEmail;
+        this.DeliveryDate = deliveryDate;
+        this.OrderDate = orderDate;
+        this.ShipDate = shipDate;
+    }
 
     public override string ToString() => $@"
     ID: {ID}
