@@ -9,15 +9,16 @@ public class DalOrder
     {
         int ID = DataSource.Config.get_ID_Order;
         Order order = new Order(ID, customerName, customerEmail, customerAddress, orderDate, shipDate, deliveryDate);
+        DataSource.arrOrder[DataSource.Config.I_Order] = order;
         return ID;
     }
-    public Order Read(int I)
+    public Order Read(int ID)
     {
-        if(I == -1 || I > 100 )
+        if(DataSource.searchOrder(ID) == -1)
         {
             throw new Exception("Read range Error");
         }
-        return DataSource.arrOrder[I];
+        return DataSource.arrOrder[DataSource.searchOrder(ID)];
     }
     public void Update(int ID, Order order)
     {

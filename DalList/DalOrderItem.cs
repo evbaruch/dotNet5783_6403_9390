@@ -2,28 +2,27 @@
 using DO;
 public class DalOrderItem
 {
-    public int Create(int OrderID, double Price, string Amount)
+    public int Create(int ProductID, int OrderID, double Price, string Amount)
     {
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
-        // here <--
-        Order order = new Order(ID, customerName, customerEmail, customerAddress, orderDate, shipDate, deliveryDate);
-        return ID;
+        OrderItem orderItem = new OrderItem(ProductID, OrderID, Price, Amount);
+        return ;
     }
-    public Order Read(int I)
+    public OrderItem Read(int ID)
     {
-        if (I == -1 || I > 100)
+        if ()
         {
             throw new Exception("Read range Error");
         }
         return DataSource.arrOrder[I];
     }
-    public void Update(int ID, Order order)
+    public void Update(int ID, OrderItem orderItem)
     {
         int I = DataSource.searchOrder(ID);
         if (I != -1)
         {
-            DataSource.arrOrder[I] = order;
+            DataSource.arrOrderItem[I] = orderItem;
             DataSource.arrOrder[I].ID = ID;
         }
         else
