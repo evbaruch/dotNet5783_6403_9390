@@ -8,6 +8,16 @@ public struct Product
     public string? Category { set; get; }
     public int? InStoke { set; get; }
 
+    public Product(int id, string name, double price, string category, int instoke)
+    {
+        this.ID = id;
+        this.Name = name;
+        this.Price = price;
+        this.Category = category;
+        this.InStoke = instoke;
+
+    }
+
     public override string ToString() => $@"
     ID: {ID}
     Name: {Name}

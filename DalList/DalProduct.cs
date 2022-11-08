@@ -1,5 +1,53 @@
 ﻿namespace Dal;
 using DO;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
 public class DalProduct
 {
+    public int Create(string Name, double Price, string Category, int InStoke)
+    {
+        int ID = DataSource.Config.get_ID_Product;
+        Product product = new Product(ID, Name, Price, Category, InStoke);
+        DataSource.arrProduct[DataSource.Config.get_ID_Product] = product;
+        return ID;
+    }
+    public Product Read(int ID)
+    {
+        if(DataSource.searchProduct(ID) == -1)
+        {
+            throw new IndexOutOfRangeException("Read range Error");
+        }
+        return DataSource.arrProduct[DataSource.searchProduct(ID)];
+    }
+    public void Update(int ID, Product product)
+    {
+        int I = DataSource.searchProduct(ID);
+        if(I != -1)
+        {
+            DataSource.arrProduct[I] = product;
+            DataSource.arrProduct[I].ID = ID;//צריך עיון
+        }
+        else
+        {
+            throw new IndexOutOfRangeException("object doesn't exist - Update");
+        }
+    }
+    public void Delete(int ID)
+    {
+        int I = DataSource.searchProduct(ID);
+        if(I!= -1)
+        {
+            for(int J = I;J < DataSource.arrProduct.Length - 1 ;J++)
+            {
+                DataSource.arrProduct[J] = DataSource.arrProduct[J+1];
+            }
+            DataSource.Config.I_Product = DataSource.Config.I_Product--;
+        }
+        else
+        {
+            throw new IndexOutOfRangeException("Delete range Error ");
+        }
+    }
+
 }
