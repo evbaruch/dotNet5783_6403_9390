@@ -16,7 +16,7 @@ public class DalOrder
     {
         if(DataSource.searchOrder(ID) == -1)
         {
-            throw new Exception("Read range Error");
+            throw new  IndexOutOfRangeException("Read range Error");
         }
         return DataSource.arrOrder[DataSource.searchOrder(ID)];
     }

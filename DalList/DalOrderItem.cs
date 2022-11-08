@@ -2,37 +2,39 @@
 using DO;
 public class DalOrderItem
 {
-    public int Create(int ProductID, int OrderID, double Price, string Amount)
+    public (int, int) Create(int ProductID, int OrderID, double Price, string Amount)
     {
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
         OrderItem orderItem = new OrderItem(ProductID, OrderID, Price, Amount);
-        return ;
+        return (IdProduct, IdOrder);
     }
-    public OrderItem Read(int ID)
+    public OrderItem Read(int ProductID, int OrderID)
     {
-        if ()
+        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        if (I == -1)
         {
             throw new Exception("Read range Error");
         }
-        return DataSource.arrOrder[I];
+        return DataSource.arrOrderItem[I];
     }
-    public void Update(int ID, OrderItem orderItem)
+    public void Update(int ProductID, int OrderID, OrderItem orderItem)
     {
-        int I = DataSource.searchOrder(ID);
-        if (I != -1)
+        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        if (I!= -1)
         {
             DataSource.arrOrderItem[I] = orderItem;
-            DataSource.arrOrder[I].ID = ID;
+            DataSource.arrOrderItem[I].OrderID = OrderID;
+            DataSource.arrOrderItem[I].OrderID = ProductID;
         }
         else
         {
             throw new Exception("object doesn't exist - Update");
         }
     }
-    public void Delete(int ID)
+    public void Delete(int ProductID, int OrderID)
     {
-        int I = DataSource.searchOrder(ID);
+        int I = DataSource.searchOrderItem(ProductID, OrderID);
         if (I!= -1)
         {
             for (int J = I; J < DataSource.arrOrder.Length - 1; J++)
