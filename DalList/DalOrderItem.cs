@@ -2,12 +2,13 @@
 using DO;
 public class DalOrderItem
 {
-    public (int, int) Create(int ID,int ProductID, int OrderID, double Price, string Amount)
+    public int Create(int ID,int ProductID, int OrderID, double Price, string Amount)
     {
+        ID = DataSource.Config.get_ID_OrderItem;
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
         OrderItem orderItem = new OrderItem(ID,ProductID, OrderID, Price, Amount);
-        return (IdProduct, IdOrder);
+        return ID;
     }
     public OrderItem Read(int I)
     {
@@ -56,5 +57,24 @@ public class DalOrderItem
         }
         return DataSource.arrOrderItem[I];
     }
-
+    public OrderItem[] ReadItem(int OrderID)
+    {
+        int I = 0;
+        for (int i = 0; i < DataSource.arrOrderItem.Length; i++)
+        {
+            if (DataSource.arrOrderItem[i].OrderID == OrderID )
+            {
+                I++;
+            }
+        }
+        OrderItem[] specificOrder = new OrderItem[I];
+        for (int i = 0; i < DataSource.arrOrderItem.Length; i++)
+        {
+            if (DataSource.arrOrderItem[i].OrderID == OrderID)
+            {
+                specificOrder[i] = DataSource.arrOrderItem[i];
+            }
+        }
+        return DataSource.arrOrderItem;
+    }
 }
