@@ -2,7 +2,7 @@
 using DO;
 internal static class DataSource
 {
-    static readonly Random random = new Random();
+    internal static readonly Random random = new Random();
     internal static Order[] arrOrder = new Order[100];
     internal static OrderItem[] arrOrderItem = new OrderItem[200];
     internal static Product[] arrProduct = new Product[50];
@@ -92,17 +92,16 @@ internal static class DataSource
             }
         }
 
-        private static int ID_Product = 100000;
+        private static int ID_Product = 0;
         public static int get_ID_Product 
         {
             get 
-            { 
-                ID_Product++;
+            {
+                ID_Product = random.Next(100000,1000000);
                 return ID_Product; 
             }
         }
     }
-
 }
 
 //private void createOrderitems()
