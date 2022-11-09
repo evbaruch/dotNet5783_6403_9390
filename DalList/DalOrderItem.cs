@@ -2,19 +2,18 @@
 using DO;
 public class DalOrderItem
 {
-    public (int, int) Create(int ProductID, int OrderID, double Price, string Amount)
+    public (int, int) Create(int ID,int ProductID, int OrderID, double Price, string Amount)
     {
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
-        OrderItem orderItem = new OrderItem(ProductID, OrderID, Price, Amount);
+        OrderItem orderItem = new OrderItem(ID,ProductID, OrderID, Price, Amount);
         return (IdProduct, IdOrder);
     }
-    public OrderItem Read(int ProductID, int OrderID)
+    public OrderItem Read(int I)
     {
-        int I = DataSource.searchOrderItem(ProductID, OrderID);
         if (I == -1)
         {
-            throw new Exception("Read range Error");
+            throw new IndexOutOfRangeException("Read range Error");
         }
         return DataSource.arrOrderItem[I];
     }
@@ -29,7 +28,7 @@ public class DalOrderItem
         }
         else
         {
-            throw new Exception("object doesn't exist - Update");
+            throw new IndexOutOfRangeException("object doesn't exist - Update");
         }
     }
     public void Delete(int ProductID, int OrderID)
@@ -45,8 +44,17 @@ public class DalOrderItem
         }
         else
         {
-            throw new Exception("Delete range Error ");
+            throw new IndexOutOfRangeException("Delete range Error ");
         }
+    }
+    public OrderItem ReadID(int ProductID, int OrderID)
+    {
+        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        if (I == -1)
+        {
+            throw new IndexOutOfRangeException("Read range Error");
+        }
+        return DataSource.arrOrderItem[I];
     }
 
 }

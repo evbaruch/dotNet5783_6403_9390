@@ -12,13 +12,13 @@ public class DalProduct
         DataSource.arrProduct[DataSource.Config.get_ID_Product] = product;
         return ID;
     }
-    public Product Read(int ID)
+    public Product Read(int I)
     {
-        if(DataSource.searchProduct(ID) == -1)
+        if(I < 0 || I >50)
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrProduct[DataSource.searchProduct(ID)];
+        return DataSource.arrProduct[I];
     }
     public void Update(int ID, Product product)
     {
@@ -48,6 +48,14 @@ public class DalProduct
         {
             throw new IndexOutOfRangeException("Delete range Error ");
         }
+    }
+    public Product ReadID(int ID)
+    {
+        if (DataSource.searchProduct(ID) == -1)
+        {
+            throw new IndexOutOfRangeException("Read range Error");
+        }
+        return DataSource.arrProduct[DataSource.searchProduct(ID)];
     }
 
 }

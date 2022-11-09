@@ -5,20 +5,20 @@ using System.Runtime.InteropServices;
 
 public class DalOrder
 {
-    public int Create(string customerName, string customerEmail, string customerAddress, DateTime orderDate, DateTime shipDate, DateTime deliveryDate)
+    public int Create(string customerName, string customerEmail, string customerAddress, DateTime orderDate = DateTime.MinValue, DateTime shipDate, DateTime deliveryDate)
     {
         int ID = DataSource.Config.get_ID_Order;
         Order order = new Order(ID, customerName, customerEmail, customerAddress, orderDate, shipDate, deliveryDate);
         DataSource.arrOrder[DataSource.Config.I_Order] = order;
         return ID;
     }
-    public Order Read(int ID)
+    public Order Read(int I)
     {
-        if(DataSource.searchOrder(ID) == -1)
+        if(I == -1)
         {
-            throw new  IndexOutOfRangeException("Read range Error");
+            throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrOrder[DataSource.searchOrder(ID)];
+        return DataSource.arrOrder[I];
     }
     public void Update(int ID, Order order)
     {
@@ -30,7 +30,7 @@ public class DalOrder
         }
         else
         {
-            throw new Exception("object doesn't exist - Update");
+            throw new IndexOutOfRangeException("object doesn't exist - Update");
         }
     }
     public void Delete(int ID)
@@ -46,8 +46,16 @@ public class DalOrder
         }
         else
         {
-            throw new Exception("Delete range Error ");
+            throw new IndexOutOfRangeException("Delete range Error ");
         }
+    }
+    public Order ReadID(int ID)
+    {
+        if (DataSource.searchOrder(ID) == -1)
+        {
+            throw new IndexOutOfRangeException("Read range Error");
+        }
+        return DataSource.arrOrder[DataSource.searchOrder(ID)];
     }
 
 }
