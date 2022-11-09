@@ -2,6 +2,11 @@
 using DO;
 internal static class DataSource
 {
+    internal static string[,] products = new string[5,3] { {"angel","centaur","satyr" },
+                                                           {"muscles","brain","sight" },
+                                                           {"cancer","inherited illness","fast healing" },
+                                                           {"boy","girl","hermaphrodite" },
+                                                           {"computer brain","hand weapon","Rick and Morty" } };
     internal static readonly Random random = new Random();
     internal static Order[] arrOrder = new Order[100];
     internal static OrderItem[] arrOrderItem = new OrderItem[200];
@@ -64,18 +69,18 @@ internal static class DataSource
         return -1;
     }
 
-    internal static int searchOrderItem(int ID_O,int ID_P)
+    internal static int searchOrderItem(int ID)
     {
         for (int i = 0; i < Config.I_OrderItem; i++)
 		{
-            if (arrOrderItem[i].OrderID == ID_O && arrOrderItem[i].ProductID == ID_P)
+            if (arrOrderItem[i].OrderID == ID)
             {
                 return i;
             }
 		}
         return -1;
     }
-
+    
     internal static class Config
     {
         internal static int I_Order = 0;
