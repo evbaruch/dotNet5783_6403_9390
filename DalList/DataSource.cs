@@ -2,15 +2,16 @@
 using DO;
 internal static class DataSource
 {
-    internal static string[,] products = new string[5,3] { {"angel","centaur","satyr" },
-                                                           {"muscles","brain","sight" },
-                                                           {"cancer","inherited illness","fast healing" },
-                                                           {"boy","girl","hermaphrodite" },
-                                                           {"computer brain","hand weapon","Rick and Morty" } };
+    internal static string[,] products = new string[5,3] { {"angel 700","centaur 650","satyr 500" },
+                                                           {"muscles 250","brain 800","sight 300" },
+                                                           {"cancer 1000","inherited illness 900","fast healing 750" },
+                                                           {"boy 2000","girl 2000","hermaphrodite 1500" },
+                                                           {"computer brain 5000","hand weapon 400","Rick and Morty 690" } };
     internal static readonly Random random = new Random();
     internal static Order[] arrOrder = new Order[100];
     internal static OrderItem[] arrOrderItem = new OrderItem[200];
     internal static Product[] arrProduct = new Product[50];
+
 
     internal static bool addOrder(Order a)
     {
@@ -43,6 +44,13 @@ internal static class DataSource
             return true;
         }
         return false;
+    }
+
+    internal static void s_Initialize()
+    {
+        string[] CustomerName = new string[] {"yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry","potter" };
+        string[] CustomerEmail = new string[] {"yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
+        string[] CstomerAddress = new string[] { "Jerusalem" };
     }
 
     internal static int searchOrder(int ID)
