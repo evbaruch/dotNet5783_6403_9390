@@ -97,6 +97,16 @@ internal static class DataSource
             }
         }
 
+        private static int ID_OrderItem = 100000;
+        public static int get_ID_OrderItem
+        {
+            get
+            {
+                ID_OrderItem++;
+                return ID_OrderItem;
+            }
+        }
+
         private static int ID_Product = 0;
         public static int get_ID_Product 
         {
