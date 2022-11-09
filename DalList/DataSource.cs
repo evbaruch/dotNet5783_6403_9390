@@ -1,5 +1,7 @@
 ﻿namespace Dal;
 using DO;
+using System.Xml.Linq;
+
 internal static class DataSource
 {
     internal static readonly Random random = new Random();
@@ -76,6 +78,37 @@ internal static class DataSource
         return -1;
     }
 
+    private static Order addOrder(string CustomerName, string CustomerEmail,string CstomerAddress)
+    {
+        Order order = new Order();
+        order.ID = Config.get_ID_Order; 
+        order.CustomerName = CustomerName;
+        order.CustomerEmail = CustomerEmail;
+        order.CstomerAddress = CstomerAddress;
+        order.OrderDate = DateTime.MinValue;
+        order.ShipDate = ;
+        order.DeliveryDate = ;
+        return order;              
+    }
+
+    private static OrderItem addOrderItem(int ID,int Amount)
+    {
+        OrderItem orderItem = new OrderItem();
+        orderItem.ID = ID;
+        orderItem.Amount = Amount;
+        return orderItem;
+    }
+
+    private static void addProduct(Name, inStoke)
+    {
+
+    }
+
+    private static void s_Initialize()
+    {
+
+    }
+
     internal static class Config
     {
         internal static int I_Order = 0;
@@ -112,6 +145,7 @@ internal static class DataSource
             }
         }
     }
+
 }
 
 //private void createOrderitems()

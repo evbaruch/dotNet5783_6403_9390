@@ -6,7 +6,7 @@ public struct OrderItem
     public int? ProductID { set; get; }
     public int? OrderID { set; get; }
     public double? Price { set; get; }
-    public string? Amount { set; get; }
+    public int? Amount { set; get; }
 
     public OrderItem(OrderItem orderItem)
     {
@@ -17,7 +17,7 @@ public struct OrderItem
         this.Amount = orderItem.Amount;
     }
 
-    public OrderItem(int ID,int ProductID ,int OrderID ,double Price, string Amount )
+    public OrderItem(int ID,int ProductID ,int OrderID ,double Price, int Amount )
     {
         this.ID = ProductID;
         this.ProductID = ProductID;
