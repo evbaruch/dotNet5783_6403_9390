@@ -24,16 +24,20 @@ partial class Program
         char option = 'a';
         for (int i = 0;choice != 0; i++)
         {
-            bool isRead = int.TryParse(Console.ReadLine(), out int choise);
-            switch (choise)
+            bool isRead = int.TryParse(Console.ReadLine(), out choice);
+            switch (choice)
             {
+                case 0:
+                    Console.WriteLine("goodbye");
+                    break;
                 case 1:
-                    Console.WriteLine("\nEnter\n" +
+                    Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
-            "e in order to delete an object from its list\n");
+            "e in order to delete an object from its list\n" +
+            "any other letter in order to exit");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
@@ -53,12 +57,13 @@ partial class Program
                     }
                     break;
                 case 2:
-                    Console.WriteLine("Enter\n" +
+                    Console.WriteLine("Order Item\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
-            "e in order to delete an object from its list\n");
+            "e in order to delete an object from its list\n" +
+            "any other letter in order to exit");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
@@ -77,12 +82,13 @@ partial class Program
                     }
                     break;
                 case 3:
-                    Console.WriteLine("Enter\n" +
+                    Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
-            "e in order to delete an object from its list\n");
+            "e in order to delete an object from its list\n" +
+            "any other letter in order to exit");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
