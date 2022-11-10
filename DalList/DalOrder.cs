@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 public class DalOrder
 {
-    public int Create(string customerName, string customerEmail, string customerAddress, DateTime orderDate = DateTime.MinValue, DateTime shipDate, DateTime deliveryDate)
+    public int Create(string customerName, string customerEmail, string customerAddress, DateTime orderDate , DateTime shipDate, DateTime deliveryDate)
     {
         int ID = DataSource.Config.get_ID_Order;
         Order order = new Order(ID, customerName, customerEmail, customerAddress, orderDate, shipDate, deliveryDate);

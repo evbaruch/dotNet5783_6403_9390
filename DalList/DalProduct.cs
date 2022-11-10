@@ -2,10 +2,11 @@
 using DO;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using static DO.Enums;
 
 public class DalProduct
 {
-    public int Create(string Name, double Price, string Category, int InStoke)
+    public int Create(string Name, double Price, productsCategory Category, int InStoke)
     {
         int ID = DataSource.Config.get_ID_Product;
         Product product = new Product(ID, Name, Price, Category, InStoke);

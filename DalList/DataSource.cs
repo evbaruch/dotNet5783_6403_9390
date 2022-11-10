@@ -1,16 +1,16 @@
 ﻿namespace Dal;
 using DO;
-using System.Collections.Concurrent;
-using System.Data;
 using System.Xml.Linq;
+using static DO.Enums;
 
 internal static class DataSource
 {
-    internal static string[,] products = new string[5,3] { {"angel 700","centaur 650","satyr 500" },
+    internal static string[,] productsNames = new string[5,3] { {"angel 700","centaur 650","satyr 500" },
                                                            {"muscles 250","brain 800","sight 300" },
                                                            {"cancer 1000","inherited illness 900","fast healing 750" },
                                                            {"boy 2000","girl 2000","hermaphrodite 1500" },
                                                            {"computer brain 5000","hand weapon 400","Rick and Morty 690" } };
+    
     internal static readonly Random random = new Random();
     internal static Order[] arrOrder = new Order[100];
     internal static OrderItem[] arrOrderItem = new OrderItem[200];
@@ -49,14 +49,32 @@ internal static class DataSource
         }
         return false;
     }
+    private static Product addProduct()
+    {
+        Product _product = new Product();
 
+        _product.ID = Config.get_ID_Product;
+
+        //כול הקישקוש הזה זה כדי לקבל קטגוריה רנדולמלית
+        var v = Enum.GetValues(typeof(productsCategory));
+        productsCategory eunmVal = (productsCategory)v.GetValue(random.Next(v.Length));
+
+        _product.Category = eunmVal;
+        _product.Name = productsNames[(int)eunmVal, random.Next(0, 3)];
+
+
+
+
+
+
+        return _product;
+    }
     internal static void s_Initialize()
     {
         string[] CustomerName = new string[] {"yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry","potter" };
         string[] CustomerEmail = new string[] {"yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
         string[] CstomerAddress = new string[] { "Jerusalem" };
     }
-
     internal static int searchOrder(int ID)
     {
         for (int i = 0; i < Config.I_Order; i++)
@@ -68,7 +86,6 @@ internal static class DataSource
 		}
         return -1;
     }
-
     internal static int searchProduct(int ID)
     {
         for (int i = 0; i < Config.I_Product; i++)
@@ -80,7 +97,6 @@ internal static class DataSource
 		}
         return -1;
     }
-
     internal static int searchOrderItem(int ID)
     {
         for (int i = 0; i < Config.I_OrderItem; i++)
@@ -116,6 +132,16 @@ internal static class DataSource
         orderItem.Price = Price;
         orderItem.Amount = random.Next(1,4);
         return orderItem;
+    }
+
+
+
+
+
+
+    private static void s_Initialize()
+    {
+
     }
 
     internal static class Config

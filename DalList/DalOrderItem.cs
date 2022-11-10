@@ -2,7 +2,7 @@
 using DO;
 public class DalOrderItem
 {
-    public int Create(int ID,int ProductID, int OrderID, double Price, string Amount)
+    public int Create(int ID,int ProductID, int OrderID, double Price, int Amount)
     {
         ID = DataSource.Config.get_ID_OrderItem;
         int IdOrder = DataSource.Config.get_ID_Order;
@@ -18,23 +18,23 @@ public class DalOrderItem
         }
         return DataSource.arrOrderItem[I];
     }
-    public void Update(int ProductID, int OrderID, OrderItem orderItem)
+    public void Update(int ID, OrderItem orderItem)
     {
-        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        int I = DataSource.searchOrderItem(ID);
         if (I!= -1)
         {
             DataSource.arrOrderItem[I] = orderItem;
-            DataSource.arrOrderItem[I].OrderID = OrderID;
-            DataSource.arrOrderItem[I].OrderID = ProductID;
+            //DataSource.arrOrderItem[I].OrderID = OrderID;
+            //DataSource.arrOrderItem[I].OrderID = ProductID;
         }
         else
         {
             throw new IndexOutOfRangeException("object doesn't exist - Update");
         }
     }
-    public void Delete(int ProductID, int OrderID)
+    public void Delete(int ID)
     {
-        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        int I = DataSource.searchOrderItem(ID);
         if (I!= -1)
         {
             for (int J = I; J < DataSource.arrOrder.Length - 1; J++)
@@ -48,9 +48,9 @@ public class DalOrderItem
             throw new IndexOutOfRangeException("Delete range Error ");
         }
     }
-    public OrderItem ReadID(int ProductID, int OrderID)
+    public OrderItem ReadID(int ID)
     {
-        int I = DataSource.searchOrderItem(ProductID, OrderID);
+        int I = DataSource.searchOrderItem(ID);
         if (I == -1)
         {
             throw new IndexOutOfRangeException("Read range Error");
