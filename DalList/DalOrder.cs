@@ -5,6 +5,10 @@ using System.Runtime.InteropServices;
 
 public class DalOrder
 {
+    public DalOrder()
+    {
+        DataSource.s_Initialize();
+    }
     public int Create(string customerName, string customerEmail, string customerAddress)
     {
         int ID = DataSource.Config.get_ID_Order;
@@ -56,6 +60,10 @@ public class DalOrder
             throw new IndexOutOfRangeException("Read range Error");
         }
         return DataSource.arrOrder[DataSource.searchOrder(ID)];
+    }
+    public int Order_Length()
+    {
+        return DataSource.Config.I_Order;
     }
 
 }

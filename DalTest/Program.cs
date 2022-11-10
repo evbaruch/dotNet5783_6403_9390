@@ -159,9 +159,30 @@ partial class Program
                             Console.WriteLine(dalProduct.Read(index));
                             break;
                         case 'd':
-
+                            for (int _i = 0; _i < dalProduct.Product_Length(); _i++)
+                            {
+                                Console.WriteLine(dalProduct.Read(_i));
+                            }
                             break;
                         case 'e':
+                            Console.WriteLine("please enter the ID of the object you want to updat");
+                            int _id;
+                            int.TryParse(Console.ReadLine(), out _id);
+
+                            Console.WriteLine("please enter (name,price,category,inStoke)");
+                            string _name;
+                            double _price;
+                            productsCategory _category;
+                            int _inStoke;
+
+                            _name = Console.ReadLine();
+                            double.TryParse(Console.ReadLine(), out _price);
+                            productsCategory.TryParse(Console.ReadLine(), out _category);
+                            int.TryParse(Console.ReadLine(), out _inStoke);
+
+                            Product product = new Product(_id, _name, _price, _category, _inStoke);
+
+                            dalProduct.Update(_id, product);
                             break;
                         case 'f':
                             break;
