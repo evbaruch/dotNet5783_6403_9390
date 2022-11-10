@@ -6,6 +6,10 @@ using static DO.Enums;
 
 public class DalProduct
 {
+    public DalProduct()
+    {
+        DataSource.s_Initialize();
+    }
     public int Create(string Name, double Price, productsCategory Category, int InStoke)
     {
         int ID = DataSource.Config.get_ID_Product;
@@ -57,6 +61,10 @@ public class DalProduct
             throw new IndexOutOfRangeException("Read range Error");
         }
         return DataSource.arrProduct[DataSource.searchProduct(ID)];
+    }
+    public int Product_Length()
+    {
+        return DataSource.Config.I_Product;
     }
 
 }

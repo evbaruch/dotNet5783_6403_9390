@@ -2,6 +2,10 @@
 using DO;
 public class DalOrderItem
 {
+    public DalOrderItem()
+    {
+        DataSource.s_Initialize();
+    }
     public int Create(int ID,int ProductID, int OrderID, double Price, int Amount)
     {
         ID = DataSource.Config.get_ID_OrderItem;
@@ -77,5 +81,9 @@ public class DalOrderItem
             }
         }
         return DataSource.arrOrderItem;
+    }
+    public int OrderItem_Length()
+    {
+        return DataSource.Config.I_OrderItem;
     }
 }
