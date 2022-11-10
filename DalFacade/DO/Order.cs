@@ -23,15 +23,15 @@ public struct Order
         DeliveryDate = order.DeliveryDate;
     }
 
-    public Order(int id, string customerName, string customerEmail, string customerAddress, DateTime orderDate, DateTime shipDate, DateTime deliveryDate)
+    public Order(int id, string customerName, string customerEmail, string customerAddress)
     {
         this.ID = id;
         this.CustomerName = customerName;
         this.CustomerEmail = customerEmail;
         this.CstomerAddress = customerEmail;
-        this.DeliveryDate = deliveryDate;
-        this.OrderDate = orderDate;
-        this.ShipDate = shipDate;
+        this.OrderDate = DateTime.Now;
+        this.ShipDate = this.OrderDate + new TimeSpan(1,2,3,4);//possebility for random time
+        this.DeliveryDate = this.ShipDate + new TimeSpan(1,3,5,7);
     }
 
     public override string ToString() => $@"

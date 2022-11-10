@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 
 public class DalOrder
 {
-    public int Create(string customerName, string customerEmail, string customerAddress, DateTime orderDate , DateTime shipDate, DateTime deliveryDate)
+    public int Create(string customerName, string customerEmail, string customerAddress)
     {
         int ID = DataSource.Config.get_ID_Order;
-        Order order = new Order(ID, customerName, customerEmail, customerAddress, orderDate, shipDate, deliveryDate);
+        Order order = new Order(ID, customerName, customerEmail, customerAddress);
         DataSource.arrOrder[DataSource.Config.I_Order] = order;
         return ID;
     }
