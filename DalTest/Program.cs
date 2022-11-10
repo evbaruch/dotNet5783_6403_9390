@@ -16,9 +16,8 @@ namespace Dal;
 
 partial class Program
 {
-    static void optionOrder()
+    static void optionOrder(ref DalOrder order)
     {
-        DalOrder order = new DalOrder();
         Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
@@ -81,8 +80,9 @@ partial class Program
                 break;
         }
     }
-    static void optionOrderItem()
+    static void optionOrderItem(ref DalOrderItem orderItem)
     {
+
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
                 "b in order to present the object details according to the ID\n" +
@@ -91,28 +91,62 @@ partial class Program
                 "e in order to update the object's details\n" +
                 "f in order to delete an object from its list\n" +
                 "any other letter in order to exit");
+
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
         {
             case 'a':
+                Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
+                int ProductID;
+                int OrderID;
+                double price;
+                int Amount;
+                int.TryParse(Console.ReadLine(), out ProductID);
+                int.TryParse(Console.ReadLine(), out OrderID);
+                double.TryParse(Console.ReadLine(), out price);
+                int.TryParse(Console.ReadLine(), out Amount);
+                orderItem.Create(ProductID, OrderID, price, Amount);
                 break;
+
+
             case 'b':
                 break;
+
+
             case 'c':
                 break;
+
+
             case 'd':
+
                 break;
+
+
             case 'e':
+                Console.WriteLine("please enter the ID of the object you want to updat");
+                int _id;
+                int.TryParse(Console.ReadLine(), out _id);
+                Console.WriteLine(orderItem.Read(_id));
+                Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
+                int.TryParse(Console.ReadLine(), out ProductID);
+                int.TryParse(Console.ReadLine(), out OrderID);
+                double.TryParse(Console.ReadLine(), out price);
+                int.TryParse(Console.ReadLine(), out Amount);
+                OrderItem Item = new OrderItem(_id, ProductID, OrderID, price, Amount);
+                orderItem.Update(_id, Item);
                 break;
+
+
             case 'f':
                 break;
+
+
             default:
                 break;
         }
     }
-    static void optionProduct()
+    static void optionProduct(ref DalProduct dalProduct)
     {
-        DalProduct dalProduct = new DalProduct();
         bool isRead;
         char option;
 
@@ -186,6 +220,10 @@ partial class Program
 
 
             case 'f':
+                Console.WriteLine("please enter the ID of the object you want to delete");
+                int ID;
+                int.TryParse(Console.ReadLine(), out ID);
+                dalProduct.Delete(ID);
                 break;
 
 
@@ -203,10 +241,9 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
-
-        
-        DalOrderItem item = new DalOrderItem();
-
+        DalOrder order = new DalOrder();
+        DalOrderItem orderItem = new DalOrderItem();
+        DalProduct dalProduct = new DalProduct();
 
         for (int i = 0;choice != 0; i++)
         {
@@ -218,13 +255,13 @@ partial class Program
                     Console.WriteLine("goodbye");
                     break;
                 case 1:
-                    optionOrder();
+                    optionOrder(ref order);
                     break;
                 case 2:
-                    optionOrderItem();
+                    optionOrderItem(ref item);
                     break;
                 case 3:
-                    optionProduct();
+                    optionProduct(ref dalProduct);
                     break;
                 default:
                     Console.WriteLine("wrong input");

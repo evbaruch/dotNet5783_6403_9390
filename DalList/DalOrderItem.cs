@@ -6,9 +6,9 @@ public class DalOrderItem
     {
         DataSource.s_Initialize();
     }
-    public int Create(int ID,int ProductID, int OrderID, double Price, int Amount)
+    public int Create(int ProductID, int OrderID, double Price, int Amount)
     {
-        ID = DataSource.Config.get_ID_OrderItem;
+        int ID = DataSource.Config.get_ID_OrderItem;
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
         OrderItem orderItem = new OrderItem(ID,ProductID, OrderID, Price, Amount);
