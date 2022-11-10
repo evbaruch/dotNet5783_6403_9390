@@ -46,8 +46,24 @@ internal static class DataSource
         order.CstomerAddress = CstomerAddress;
         order.OrderDate = DateTime.Now;
         TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
-        order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
-        order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
+        if (random.Next(0, 10) <= 8)
+        {
+            order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
+        }
+        else
+        {
+            order.ShipDate = DateTime.MinValue;
+
+        }
+        if (random.Next(0, 10) < 5)
+        {
+            order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
+        }
+        else
+        {
+            order.DeliveryDate = DateTime.MinValue;
+
+        }
         return order;
     }
     internal static bool addOrderItem(OrderItem a)
@@ -80,7 +96,6 @@ internal static class DataSource
         }
         return false;
     }
-
     private static Product addProduct()
     {
         Product _product = new Product();
@@ -100,59 +115,17 @@ internal static class DataSource
         return _product;
     }
 
-
-    private static Order addOrder(string CustomerName, string CustomerEmail, string CstomerAddress)
-    {
-        Order order = new Order();
-        order.ID = Config.get_ID_Order;
-        order.CustomerName = CustomerName;
-        order.CustomerEmail = CustomerEmail;
-        order.CstomerAddress = CstomerAddress;
-        order.OrderDate = DateTime.Now;
-        TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
-        if (random.Next(0,10) <= 8)
-        {
-            order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
-        }
-        else
-        {
-            order.ShipDate = DateTime.MinValue;
-
-        }
-        if (random.Next(0,10) < 5)
-        {
-            order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
-        }
-        else
-        {
-            order.DeliveryDate = DateTime.MinValue;
-
-        }
-        return order;
-    }
-
-    private static OrderItem addOrderItem(int ProductID, int OrderID, double Price)
-    {
-        OrderItem orderItem = new OrderItem();
-        orderItem.ID = Config.get_ID_OrderItem;
-        orderItem.ProductID = ProductID;
-        orderItem.OrderID = OrderID;
-        orderItem.Price = Price;
-        orderItem.Amount = random.Next(1,4);
-        return orderItem;
-    }
-
     internal static void s_Initialize()
     {
         string[] CustomerName = new string[] {"yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry","potter" };
         string[] CustomerEmail = new string[] {"yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
-        string[] CstomerAddress = new string[] { "Jerusalem" };
+        string[] CustomerAddress = new string[] { "Jerusalem", "Paris", "Tsfat", "Tel aviv", "Barcelona", "Vina", "Hugurts", "Tberia", "london", "no were street 26 secund floor" };
 
         //ממלה 
         for (int i = 0; i < 20; i++)
         {
             int Index = random.Next(0, 10);
-            arrOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CstomerAddress[Index]);
+            arrOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]);
         }
         for (int i = 0; i < 10; i++)
         {
@@ -171,10 +144,6 @@ internal static class DataSource
         }
     }
 
-        string[] CustomerEmail = new string[] {"yehuda@gmail.com", "Evyatar@gmail.com", "Batman@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
-        string[] CustomerAddress = new string[] { "Jerusalem" ,"Paris","Tsfat","Tel aviv","Barcelona","Vina","Hugurts","Tberia" , "london","no were street 26 secund floor" };
-    }
-
     internal static int searchOrder(int ID)
     {
         for (int i = 0; i < Config.I_Order; i++)
@@ -186,7 +155,6 @@ internal static class DataSource
 		}
         return -1;
     }
-
     internal static int searchProduct(int ID)
     {
         for (int i = 0; i < Config.I_Product; i++)
@@ -198,7 +166,6 @@ internal static class DataSource
 		}
         return -1;
     }
-
     internal static int searchOrderItem(int ID)
     {
         for (int i = 0; i < Config.I_OrderItem; i++)
@@ -209,73 +176,6 @@ internal static class DataSource
             }
 		}
         return -1;
-    }
-
-    private static Order addOrder(string CustomerName, string CustomerEmail,string CstomerAddress, )
-    {
-        Order order = new Order();
-        order.ID = Config.get_ID_Order; 
-        order.CustomerName = CustomerName;
-        order.CustomerEmail = CustomerEmail;
-        order.CstomerAddress = CstomerAddress;
-        order.OrderDate = DateTime.Now;
-        TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
-        order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
-        order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
-        return order;              
-    }
-
-    private static OrderItem addOrderItem(int ProductID, int OrderID, double Price)
-    {
-        OrderItem orderItem = new OrderItem();
-        orderItem.ID = Config.get_ID_OrderItem;
-        orderItem.ProductID = ProductID;
-        orderItem.OrderID = OrderID;
-        orderItem.Price = Price;
-        orderItem.Amount = random.Next(1,4);
-        return orderItem;
-    }
-
-
-
-
-
-
-    private static void s_Initialize()
-    {
-
-    }
-
-        Order order = new Order();
-        order.ID = Config.get_ID_Order; 
-        order.CustomerName = CustomerName;
-}        order.CstomerAddress = CstomerAddress;
-        order.OrderDate = DateTime.Now;
-        TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
-        order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
-        order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
-        return order;              
-    }
-
-    private static OrderItem addOrderItem(int ProductID, int OrderID, double Price)
-    {
-        OrderItem orderItem = new OrderItem();
-        orderItem.ID = Config.get_ID_OrderItem;
-        orderItem.ProductID = ProductID;
-        orderItem.OrderID = OrderID;
-        orderItem.Price = Price;
-        orderItem.Amount = random.Next(1,4);
-        return orderItem;
-    }
-
-
-
-
-
-
-    private static void s_Initialize()
-    {
-
     }
 
     internal static class Config
