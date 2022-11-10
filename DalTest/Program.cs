@@ -1,4 +1,4 @@
-﻿using Dal;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Schema;
 using static DO.Enums;
 
-namespace DO;
+namespace Dal;
 
 partial class Program
 {

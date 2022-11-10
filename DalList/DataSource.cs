@@ -1,9 +1,9 @@
-﻿namespace Dal;
-using DO;
+﻿using DO;
 using System.Diagnostics;
 using System.Xml.Linq;
 using static DO.Enums;
 
+namespace Dal;
 internal static class DataSource
 {
     internal static readonly Random random = new Random();
@@ -45,10 +45,9 @@ internal static class DataSource
         order.CustomerEmail = CustomerEmail;
         order.CstomerAddress = CstomerAddress;
         order.OrderDate = DateTime.Now;
-        TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
         if (random.Next(0, 10) <= 8)
         {
-            order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
+            order.ShipDate = order.OrderDate + new TimeSpan(1, 3, 5, 7);
         }
         else
         {
@@ -57,7 +56,7 @@ internal static class DataSource
         }
         if (random.Next(0, 10) < 5)
         {
-            order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
+            order.DeliveryDate = order.ShipDate + new TimeSpan(1,3,5,7);
         }
         else
         {
@@ -127,10 +126,12 @@ internal static class DataSource
             int Index = random.Next(0, 10);
             arrOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]);
         }
+        Config.I_Order = 20;
         for (int i = 0; i < 10; i++)
         {
             arrProduct[i] = addProduct();
         }
+        Config.I_Product = 10;
         for (int i = 0; i < 40; i++)
         {
             int Index = random.Next(0, 10);
@@ -142,6 +143,7 @@ internal static class DataSource
 
             arrOrderItem[i] = addOrderItem(ProductID, OrderID, Price);
         }
+        Config.I_OrderItem = 40;
     }
 
     internal static int searchOrder(int ID)
