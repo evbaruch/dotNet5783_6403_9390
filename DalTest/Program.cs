@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -23,6 +24,9 @@ partial class Program
 
         int choice = 1;
         char option = 'a';
+        string name = "";
+        string email = "";
+        string address = "";
 
         DalOrder order = new DalOrder();
         DalOrderItem item = new DalOrderItem();
@@ -51,9 +55,9 @@ partial class Program
                     {
                         case 'a':
                             Console.WriteLine("please enter your name, Email and Address\n");
-                            string name = Console.ReadLine();
-                            string email = Console.ReadLine();
-                            string address = Console.ReadLine();
+                            name = Console.ReadLine();
+                            email = Console.ReadLine();
+                            address = Console.ReadLine();
                             order.Create(name, email, address);
                             break;
                         case 'b':
@@ -62,12 +66,27 @@ partial class Program
                             Console.WriteLine(order.ReadID(ID));
                             break;
                         case 'c':
+                            Console.WriteLine("please enter the index you want to display");
+                            isRead = int.TryParse(Console.ReadLine(), out int I);
+                            Console.WriteLine(order.Read(I));
                             break;
                         case 'd':
+                            
                             break;
                         case 'e':
+                            Console.WriteLine("please enter the ID of the object you want to update");
+                            isRead = int.TryParse(Console.ReadLine(), out ID);
+                            Console.WriteLine("please enter your updated name, Email and Address");
+                            name = Console.ReadLine();
+                            email = Console.ReadLine();
+                            address = Console.ReadLine();
+                            Order updateObject = new Order(ID, name, email, address);
+                            order.Update(ID,updateObject);
                             break;
                         case'f':
+                            Console.WriteLine("please enter the ID of the object you want to delete");
+                            isRead = int.TryParse(Console.ReadLine(), out ID);
+                            order.Delete(ID);
                             break;
                         default:
                             break;
@@ -115,7 +134,6 @@ partial class Program
                     {
                         case 'a':
                             Console.WriteLine("please enter (name,price,category,inStoke)");
-                            string name;
                             double price;
                             productsCategory category;
                             int inStoke;
