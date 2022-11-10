@@ -16,7 +16,7 @@ namespace Dal;
 
 partial class Program
 {
-    void optionOrder()
+    static void optionOrder()
     {
         Order order = new Order();
         Console.WriteLine("\nOrder\n" +
@@ -69,7 +69,7 @@ partial class Program
                 break;
         }
     }
-    void optionOrderItem()
+    static void optionOrderItem()
     {
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
@@ -98,8 +98,12 @@ partial class Program
                 break;
         }
     }
-    void optionProduct()
+    static void optionProduct()
     {
+        DalProduct dalProduct = new DalProduct();
+        bool isRead;
+        char option;
+
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
@@ -108,11 +112,13 @@ partial class Program
             "e in order to update the object's details\n" +
             "f in order to delete an object from its list\n" +
             "any other letter in order to exit");
+
         isRead = char.TryParse(Console.ReadLine(), out option);
         switch (option)
         {
             case 'a':
                 Console.WriteLine("please enter (name,price,category,inStoke)");
+                string name;
                 double price;
                 productsCategory category;
                 int inStoke;
@@ -120,51 +126,57 @@ partial class Program
                 double.TryParse(Console.ReadLine(), out price);
                 productsCategory.TryParse(Console.ReadLine(), out category);
                 int.TryParse(Console.ReadLine(), out inStoke);
-
                 dalProduct.Create(name, price, category, inStoke);
                 break;
+
+
             case 'b':
                 Console.WriteLine("please enter Six digits (id)");
-                int id = 0;
+                int id;
                 int.TryParse(Console.ReadLine(), out id);
-
                 Console.WriteLine(dalProduct.Read(id));
                 break;
+
+
             case 'c':
                 Console.WriteLine("please enter (index)");
                 int index = 0;
                 int.TryParse(Console.ReadLine(), out index);
-
                 Console.WriteLine(dalProduct.Read(index));
                 break;
+
+
             case 'd':
                 for (int _i = 0; _i < dalProduct.Product_Length(); _i++)
                 {
                     Console.WriteLine(dalProduct.Read(_i));
                 }
                 break;
+
+
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int _id;
                 int.TryParse(Console.ReadLine(), out _id);
-
+                Console.WriteLine(dalProduct.Read(_id));    
                 Console.WriteLine("please enter (name,price,category,inStoke)");
                 string _name;
                 double _price;
                 productsCategory _category;
                 int _inStoke;
-
                 _name = Console.ReadLine();
                 double.TryParse(Console.ReadLine(), out _price);
                 productsCategory.TryParse(Console.ReadLine(), out _category);
                 int.TryParse(Console.ReadLine(), out _inStoke);
-
                 Product product = new Product(_id, _name, _price, _category, _inStoke);
-
                 dalProduct.Update(_id, product);
                 break;
+
+
             case 'f':
                 break;
+
+
             default:
                 break;
         }
@@ -179,14 +191,10 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
-        char option = 'a';
-        string name = "";
-        string email = "";
-        string address = "";
 
         DalOrder order = new DalOrder();
         DalOrderItem item = new DalOrderItem();
-        DalProduct dalProduct = new DalProduct();
+
 
         for (int i = 0;choice != 0; i++)
         {
