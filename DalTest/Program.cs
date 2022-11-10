@@ -18,10 +18,14 @@ partial class Program
             "0 - exit \n" +
             "1 - Order \n" +
             "2 - Order Item \n" +
-            "3 - product.");
+            "3 - product.\n" +
+            "please enter a choice\n");
 
         int choice = 1;
         char option = 'a';
+        DalOrder order = new DalOrder();
+
+
         for (int i = 0;choice != 0; i++)
         {
             bool isRead = int.TryParse(Console.ReadLine(), out choice);
@@ -37,18 +41,25 @@ partial class Program
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
             "e in order to delete an object from its list\n" +
-            "any other letter in order to exit");
+            "any other letter in order to exit\n");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
                         case 'a':
-
+                            Console.WriteLine("please enter your name, Email and Address\n");
+                            string name = Console.ReadLine();
+                            string email = Console.ReadLine();
+                            string address = Console.ReadLine();
+                            order.Create(name, email, address);
                             break;
                         case 'b':
+                            Console.WriteLine("please enter the ID you want to display");
+                            isRead = int.TryParse(Console.ReadLine(), out int ID);
+                            Console.WriteLine(order.ReadID(ID));
                             break;
                         case 'c':
                             break;
-                        case'd':
+                        case 'd':
                             break;
                         case 'e':
                             break;
@@ -63,7 +74,7 @@ partial class Program
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
             "e in order to delete an object from its list\n" +
-            "any other letter in order to exit");
+            "any other letter in order to exit\n");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
@@ -88,7 +99,7 @@ partial class Program
             "c in order to present the object's list\n" +
             "d in order to update the object's details\n" +
             "e in order to delete an object from its list\n" +
-            "any other letter in order to exit");
+            "any other letter in order to exit\n");
                     isRead = char.TryParse(Console.ReadLine(), out option);
                     switch (option)
                     {
@@ -109,8 +120,8 @@ partial class Program
                 default:
                     Console.WriteLine("wrong input");
                     break;
-
             }
+            Console.WriteLine("please enter another choice\n");
         }
     }
 
