@@ -1,5 +1,7 @@
 ﻿namespace Dal;
 using DO;
+using System.Collections.Concurrent;
+using System.Data;
 using System.Xml.Linq;
 
 internal static class DataSource
@@ -91,35 +93,29 @@ internal static class DataSource
         return -1;
     }
 
-    private static Order addOrder(string CustomerName, string CustomerEmail,string CstomerAddress)
+    private static Order addOrder(string CustomerName, string CustomerEmail,string CstomerAddress, )
     {
         Order order = new Order();
         order.ID = Config.get_ID_Order; 
         order.CustomerName = CustomerName;
         order.CustomerEmail = CustomerEmail;
         order.CstomerAddress = CstomerAddress;
-        order.OrderDate = DateTime.MinValue;
-        order.ShipDate = ;
-        order.DeliveryDate = ;
+        order.OrderDate = DateTime.Now;
+        TimeSpan convert = TimeSpan.FromMinutes(random.Next(60, 1440));
+        order.ShipDate = DateTime.Parse(convert.ToString() + order.OrderDate.ToString());
+        order.DeliveryDate = DateTime.Parse(convert.ToString() + order.ShipDate.ToString());
         return order;              
     }
 
-    private static OrderItem addOrderItem(int ID,int Amount)
+    private static OrderItem addOrderItem(int ProductID, int OrderID, double Price)
     {
         OrderItem orderItem = new OrderItem();
-        orderItem.ID = ID;
-        orderItem.Amount = Amount;
+        orderItem.ID = Config.get_ID_OrderItem;
+        orderItem.ProductID = ProductID;
+        orderItem.OrderID = OrderID;
+        orderItem.Price = Price;
+        orderItem.Amount = random.Next(1,4);
         return orderItem;
-    }
-
-    private static void addProduct(Name, inStoke)
-    {
-
-    }
-
-    private static void s_Initialize()
-    {
-
     }
 
     internal static class Config
