@@ -16,9 +16,10 @@ namespace Dal;
 
 partial class Program
 {
-    void optionOrder()
+    static void optionOrder()
     {
-        Order order = new Order();
+        DalOrder order = new DalOrder();
+        Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
@@ -32,34 +33,45 @@ partial class Program
         {
             case 'a':
                 Console.WriteLine("please enter your name, Email and Address\n");
-                order.CustomerName = Console.ReadLine();
-                order.CustomerEmail = Console.ReadLine();
-                order.CstomerAddress = Console.ReadLine();
-                order.Create(name, email, address);
+                tempOrder.CustomerName = Console.ReadLine();
+                tempOrder.CustomerEmail = Console.ReadLine();
+                tempOrder.CstomerAddress = Console.ReadLine();
+                order.Create(tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
                 break;
+
+
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
                 Console.WriteLine(order.ReadID(ID));
                 break;
+
+
             case 'c':
                 Console.WriteLine("please enter the index you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int I);
                 Console.WriteLine(order.Read(I));
                 break;
+
+
             case 'd':
 
                 break;
+
+
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
+                Console.WriteLine(order.ReadID(ID));
                 Console.WriteLine("please enter your updated name, Email and Address");
-                name = Console.ReadLine();
-                email = Console.ReadLine();
-                address = Console.ReadLine();
-                Order updateObject = new Order(ID, name, email, address);
+               tempOrder.CustomerName =Console.ReadLine();
+               tempOrder.CustomerEmail = Console.ReadLine();
+                tempOrder.CstomerAddress = Console.ReadLine();
+                Order updateObject = new Order(ID, tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
                 order.Update(ID, updateObject);
                 break;
+
+
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
@@ -69,7 +81,7 @@ partial class Program
                 break;
         }
     }
-    void optionOrderItem()
+    static void optionOrderItem()
     {
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
@@ -79,7 +91,7 @@ partial class Program
                 "e in order to update the object's details\n" +
                 "f in order to delete an object from its list\n" +
                 "any other letter in order to exit");
-        isRead = char.TryParse(Console.ReadLine(), out option);
+        bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
         {
             case 'a':
@@ -98,7 +110,7 @@ partial class Program
                 break;
         }
     }
-    void optionProduct()
+    static void optionProduct()
     {
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
@@ -179,12 +191,8 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
-        char option = 'a';
-        string name = "";
-        string email = "";
-        string address = "";
 
-        DalOrder order = new DalOrder();
+        
         DalOrderItem item = new DalOrderItem();
         DalProduct dalProduct = new DalProduct();
 
