@@ -16,9 +16,9 @@ namespace Dal;
 
 partial class Program
 {
-    static void optionOrder()
+    static void optionOrder(ref DalOrder dalOrder)
     {
-        DalOrder order = new DalOrder();
+        
         Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
@@ -36,46 +36,49 @@ partial class Program
                 tempOrder.CustomerName = Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
-                order.Create(tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
+                dalOrder.Create(tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
                 break;
 
 
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
-                Console.WriteLine(order.ReadID(ID));
+                Console.WriteLine(dalOrder.ReadID(ID));
                 break;
 
 
             case 'c':
                 Console.WriteLine("please enter the index you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int I);
-                Console.WriteLine(order.Read(I));
+                Console.WriteLine(dalOrder.Read(I));
                 break;
 
 
             case 'd':
-
+                for (int _i = 0; _i < dalOrder.Order_Length(); _i++)
+                {
+                    Console.WriteLine(dalOrder.Read(_i));
+                }
                 break;
 
 
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                Console.WriteLine(order.ReadID(ID));
+                Console.WriteLine(dalOrder.ReadID(ID));
                 Console.WriteLine("please enter your updated name, Email and Address");
                tempOrder.CustomerName =Console.ReadLine();
                tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
                 Order updateObject = new Order(ID, tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
-                order.Update(ID, updateObject);
+                dalOrder.Update(ID, updateObject);
                 break;
 
 
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                order.Delete(ID);
+                dalOrder.Delete(ID);
                 break;
             default:
                 break;
@@ -97,15 +100,37 @@ partial class Program
             case 'a':
                 break;
             case 'b':
+                Console.WriteLine("please enter the ID you want to display");
+                isRead = int.TryParse(Console.ReadLine(), out int ID);
+                Console.WriteLine(dalOrderItem.ReadID(ID));
                 break;
+
+
             case 'c':
+                Console.WriteLine("please enter the index you want to display");
+                isRead = int.TryParse(Console.ReadLine(), out int I);
+                Console.WriteLine(dalOrderItem.Read(I));
                 break;
+
+
             case 'd':
+                for (int _i = 0; _i < dalOrderItem.OrderItem_Length(); _i++)
+                {
+                    Console.WriteLine(dalOrderItem.Read(_i));
+                }
                 break;
             case 'e':
+
                 break;
+
+
             case 'f':
+                Console.WriteLine("please enter the ID of the object you want to delete");
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                dalOrderItem.Delete(ID);
                 break;
+
+
             default:
                 break;
         }
@@ -195,6 +220,7 @@ partial class Program
     }
     static void Main(string[] args)
     {
+
         Console.WriteLine("welcome to your life ,please enter your choise\n" +
             "0 - exit \n" +
             "1 - Order \n" +
@@ -203,35 +229,43 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
+        DalOrder order = new DalOrder();
 
-        
         DalOrderItem item = new DalOrderItem();
 
 
-        for (int i = 0;choice != 0; i++)
+        for (int i = 0; choice != 0; i++)
         {
-
-            bool isRead = int.TryParse(Console.ReadLine(), out choice);
-            switch (choice)
+            try
             {
-                case 0:
-                    Console.WriteLine("goodbye");
-                    break;
-                case 1:
-                    optionOrder();
-                    break;
-                case 2:
-                    optionOrderItem();
-                    break;
-                case 3:
-                    optionProduct();
-                    break;
-                default:
-                    Console.WriteLine("wrong input");
-                    break;
+                bool isRead = int.TryParse(Console.ReadLine(), out choice);
+                switch (choice)
+                {
+                    case 0:
+                        Console.WriteLine("goodbye");
+                        break;
+                    case 1:
+                        optionOrder(ref order);
+                        break;
+                    case 2:
+                        optionOrderItem();
+                        break;
+                    case 3:
+                        optionProduct();
+                        break;
+                    default:
+                        Console.WriteLine("wrong input");
+                        break;
+                }
+            }
+            catch (Exception messege)
+            {
+                Console.WriteLine(messege.Message);
             }
             Console.WriteLine("please enter another choice\n");
         }
+        
     }
+        
 
 }
