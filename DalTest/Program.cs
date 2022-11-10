@@ -24,10 +24,9 @@ partial class Program
         int choice = 1;
         char option = 'a';
 
-
-        DalProduct dalProduct = new DalProduct();
         DalOrder order = new DalOrder();
-
+        DalOrderItem item = new DalOrderItem();
+        DalProduct dalProduct = new DalProduct();
 
         for (int i = 0;choice != 0; i++)
         {
@@ -68,6 +67,8 @@ partial class Program
                             break;
                         case 'e':
                             break;
+                        case'f':
+                            break;
                         default:
                             break;
                     }
@@ -93,6 +94,8 @@ partial class Program
                         case 'd':
                             break;
                         case 'e':
+                            break;
+                        case 'f':
                             break;
                         default:
                             break;
