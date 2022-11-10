@@ -8,6 +8,7 @@ public class DalOrderItem
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
         OrderItem orderItem = new OrderItem(ID,ProductID, OrderID, Price, Amount);
+        DataSource.arrOrderItem[DataSource.Config.I_OrderItem] = orderItem;
         return ID;
     }
     public OrderItem Read(int I)
