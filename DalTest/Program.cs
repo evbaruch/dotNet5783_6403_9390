@@ -1,6 +1,7 @@
 ﻿using Dal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,29 +14,98 @@ partial class Program
 {
     static void Main(string[] args)
     {
-        //Console.Write("a1");
-        //var myOrder = new Order();
-        //myOrder.CustomerName = "yehuda";
-        //a.OrderDate = new DateTime();
-        Console.WriteLine("GG");
-        //products a;
-        //var a = new DalOrder();
-        Product b = new Product();
-        //b.Category = products.healing;
-        //var b = new DataSource();
+        Console.WriteLine("welcome to your life ,please enter your choise\n" +
+            "0 - exit \n" +
+            "1 - Order \n" +
+            "2 - Order Item \n" +
+            "3 - product.");
 
-
-
-        for (int i = 0; i < 10; i++)
+        int choice = 1;
+        char option = 'a';
+        for (int i = 0;choice != 0; i++)
         {
-            Random _R = new Random();
-            var v = Enum.GetValues(typeof(productsCategory));
-            productsCategory Category = (productsCategory)v.GetValue(_R.Next(v.Length));
+            bool isRead = int.TryParse(Console.ReadLine(), out int choise);
+            switch (choise)
+            {
+                case 1:
+                    Console.WriteLine("\nEnter\n" +
+            "a in order to adding an object\n" +
+            "b in order to present the object details according to the ID\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n");
+                    isRead = char.TryParse(Console.ReadLine(), out option);
+                    switch (option)
+                    {
+                        case 'a':
 
-            Console.WriteLine(Category);
-            Console.WriteLine(_R.Next(0,3));
+                            break;
+                        case 'b':
+                            break;
+                        case 'c':
+                            break;
+                        case'd':
+                            break;
+                        case 'e':
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine("Enter\n" +
+            "a in order to adding an object\n" +
+            "b in order to present the object details according to the ID\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n");
+                    isRead = char.TryParse(Console.ReadLine(), out option);
+                    switch (option)
+                    {
+                        case 'a':
+                            break;
+                        case 'b':
+                            break;
+                        case 'c':
+                            break;
+                        case 'd':
+                            break;
+                        case 'e':
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("Enter\n" +
+            "a in order to adding an object\n" +
+            "b in order to present the object details according to the ID\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n");
+                    isRead = char.TryParse(Console.ReadLine(), out option);
+                    switch (option)
+                    {
+                        case 'a':
+                            break;
+                        case 'b':
+                            break;
+                        case 'c':
+                            break;
+                        case 'd':
+                            break;
+                        case 'e':
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("wrong input");
+                    break;
+
+            }
         }
-
     }
 
 }
