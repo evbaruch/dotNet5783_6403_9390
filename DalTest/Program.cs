@@ -84,7 +84,7 @@ partial class Program
                 break;
         }
     }
-    static void optionOrderItem(ref DalOrderItem orderItem)
+    static void optionOrderItem(ref DalOrderItem dalorderItem)
     {
 
         Console.WriteLine("Order Item\n" +
@@ -109,28 +109,28 @@ partial class Program
                 int.TryParse(Console.ReadLine(), out OrderID);
                 double.TryParse(Console.ReadLine(), out price);
                 int.TryParse(Console.ReadLine(), out Amount);
-                orderItem.Create(ProductID, OrderID, price, Amount);
+                dalorderItem.Create(ProductID, OrderID, price, Amount);
                 break;
 
 
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
-                Console.WriteLine(dalOrderItem.ReadID(ID));
+                Console.WriteLine(dalorderItem.ReadID(ID));
                 break;
 
 
             case 'c':
                 Console.WriteLine("please enter the index you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int I);
-                Console.WriteLine(dalOrderItem.Read(I));
+                Console.WriteLine(dalorderItem.Read(I));
                 break;
 
 
             case 'd':
-                for (int _i = 0; _i < dalOrderItem.OrderItem_Length(); _i++)
+                for (int _i = 0; _i < dalorderItem.OrderItem_Length(); _i++)
                 {
-                    Console.WriteLine(dalOrderItem.Read(_i));
+                    Console.WriteLine(dalorderItem.Read(_i));
                 }
                 break;
 
@@ -139,21 +139,21 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int _id;
                 int.TryParse(Console.ReadLine(), out _id);
-                Console.WriteLine(orderItem.Read(_id));
+                Console.WriteLine(dalorderItem.Read(_id));
                 Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
                 int.TryParse(Console.ReadLine(), out ProductID);
                 int.TryParse(Console.ReadLine(), out OrderID);
                 double.TryParse(Console.ReadLine(), out price);
                 int.TryParse(Console.ReadLine(), out Amount);
                 OrderItem Item = new OrderItem(_id, ProductID, OrderID, price, Amount);
-                orderItem.Update(_id, Item);
+                dalorderItem.Update(_id, Item);
                 break;
 
 
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                dalOrderItem.Delete(ID);
+                dalorderItem.Delete(ID);
                 break;
 
 
@@ -258,8 +258,8 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
-        DalOrder order = new DalOrder();
-        DalOrderItem orderItem = new DalOrderItem();
+        DalOrder dalorder = new DalOrder();
+        DalOrderItem dalorderItem = new DalOrderItem();
         DalProduct dalProduct = new DalProduct();
 
         for (int i = 0; choice != 0; i++)
@@ -273,13 +273,13 @@ partial class Program
                         Console.WriteLine("goodbye");
                         break;
                     case 1:
-                        optionOrder(ref order);
+                        optionOrder(ref dalorder);
                         break;
                     case 2:
-                        optionOrderItem();
+                        optionOrderItem(ref dalorderItem);
                         break;
                     case 3:
-                        optionProduct();
+                        optionProduct(ref dalProduct);
                         break;
                     default:
                         Console.WriteLine("wrong input");
@@ -293,7 +293,5 @@ partial class Program
             Console.WriteLine("please enter another choice\n");
         }
         
-    }
-        
-
+    }       
 }
