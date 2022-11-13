@@ -257,28 +257,28 @@ partial class Program
             "3 - product.\n" +
             "please enter a choice\n");
 
-        int choice = 1;
+        string choice = "1";
         DalOrder dalOrder = new DalOrder();
         DalOrderItem dalOrderItem = new DalOrderItem();
         DalProduct dalProduct = new DalProduct();
 
-        for (int i = 0; choice != 0; i++)
+        for (int i = 0; choice != "0"; i++)
         {
             try
             {
-                bool isRead = int.TryParse(Console.ReadLine(), out choice);
+                choice = Console.ReadLine();
                 switch (choice)
                 {
-                    case 0:
+                    case "0":
                         Console.WriteLine("goodbye");
                         break;
-                    case 1:
+                    case "1":
                         optionOrder(ref dalOrder);
                         break;
-                    case 2:
+                    case "2":
                         optionOrderItem(ref dalOrderItem);
                         break;
-                    case 3:
+                    case "3":
                         optionProduct(ref dalProduct);
                         break;
                     default:
@@ -290,7 +290,10 @@ partial class Program
             {
                 Console.WriteLine(messege.Message);
             }
-            Console.WriteLine("please enter another choice\n");
+            if (choice!="0")
+            {
+                Console.WriteLine("please enter another choice\n");
+            }
         }
         
     }       
