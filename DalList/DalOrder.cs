@@ -1,5 +1,6 @@
 ﻿namespace Dal;
 using DO;
+using Microsoft.VisualBasic;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -18,7 +19,7 @@ public class DalOrder
     }
     public Order Read(int I)
     {
-        if(I == -1)
+        if (I < 0) // if the index is out of the specified range throw an Error
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
@@ -27,7 +28,7 @@ public class DalOrder
     public void Update(int ID, Order order)
     {
         int I = DataSource.searchOrder(ID);
-        if(I != -1)
+        if(I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.arrOrder[I] = order;
             DataSource.arrOrder[I].ID = ID;
@@ -40,9 +41,9 @@ public class DalOrder
     public void Delete(int ID)
     {
         int I = DataSource.searchOrder(ID);
-        if(I!= -1)
+        if(I!= -1) // if the ID exist delete the details else throw an Error
         {
-            for(int J = I;J < DataSource.arrOrder.Length - 1 ;J++)
+            for(int J = I;J < DataSource.arrOrder.Length - 1 ;J++) // push all the orders beyond the spesified order one step back
             {
                 DataSource.arrOrder[J] = DataSource.arrOrder[J+1];
             }
@@ -55,7 +56,7 @@ public class DalOrder
     }
     public Order ReadID(int ID)
     {
-        if (DataSource.searchOrder(ID) == -1)
+        if (DataSource.searchOrder(ID) == -1) // if the ID exist return the details else throw an Error
         {
             throw new IndexOutOfRangeException("Read range Error");
         }

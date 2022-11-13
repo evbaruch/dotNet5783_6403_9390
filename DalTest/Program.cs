@@ -56,7 +56,7 @@ partial class Program
 
             case 'd':
                 for (int _i = 0; _i < dalOrder.Order_Length(); _i++)
-                {
+                { // print all the orders
                     Console.WriteLine(dalOrder.Read(_i));
                 }
                 break;
@@ -129,7 +129,7 @@ partial class Program
 
             case 'd':
                 for (int _i = 0; _i < dalorderItem.OrderItem_Length(); _i++)
-                {
+                { // print all the order items
                     Console.WriteLine(dalorderItem.Read(_i));
                 }
                 break;
@@ -210,7 +210,7 @@ partial class Program
 
             case 'd':
                 for (int _i = 0; _i < dalProduct.Product_Length(); _i++)
-                {
+                { // print all the product
                     Console.WriteLine(dalProduct.Read(_i));
                 }
                 break;
@@ -249,7 +249,7 @@ partial class Program
     }
     static void Main(string[] args)
     {
-
+        // the purpose's program is to check the Dal layer
         Console.WriteLine("welcome to your life ,please enter your choise\n" +
             "0 - exit \n" +
             "1 - Order \n" +
@@ -257,12 +257,12 @@ partial class Program
             "3 - product.\n" +
             "please enter a choice\n");
 
-        string choice = "1";
+        string choice = "";
         DalOrder dalOrder = new DalOrder();
         DalOrderItem dalOrderItem = new DalOrderItem();
         DalProduct dalProduct = new DalProduct();
 
-        for (int i = 0; choice != "0"; i++)
+        for (int i = 0; choice != "0"; i++) // as long as the user haven't enter 0 continue to ask for new choice
         {
             try
             {
@@ -290,7 +290,7 @@ partial class Program
             {
                 Console.WriteLine(messege.Message);
             }
-            if (choice!="0")
+            if (choice!="0") // if the user haven't enter 0 ask for a new choice
             {
                 Console.WriteLine("please enter another choice\n");
             }

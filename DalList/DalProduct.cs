@@ -19,7 +19,7 @@ public class DalProduct
     }
     public Product Read(int I)
     {
-        if(I < 0 || I >50)
+        if(I < 0 || I >50) // if the index exist return the details else throw an Error
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
@@ -28,7 +28,7 @@ public class DalProduct
     public void Update(int ID, Product product)
     {
         int I = DataSource.searchProduct(ID);
-        if(I != -1)
+        if(I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.arrProduct[I] = product;
             DataSource.arrProduct[I].ID = ID;//צריך עיון
@@ -41,9 +41,9 @@ public class DalProduct
     public void Delete(int ID)
     {
         int I = DataSource.searchProduct(ID);
-        if(I!= -1)
+        if(I!= -1)// if the ID exist delete the details else throw an Error
         {
-            for(int J = I;J < DataSource.arrProduct.Length - 1 ;J++)
+            for(int J = I;J < DataSource.arrProduct.Length - 1 ;J++) // push all the products beyond the spesified product one step back
             {
                 DataSource.arrProduct[J] = DataSource.arrProduct[J+1];
             }
@@ -56,7 +56,7 @@ public class DalProduct
     }
     public Product ReadID(int ID)
     {
-        if (DataSource.searchProduct(ID) == -1)
+        if (DataSource.searchProduct(ID) == -1)// if the ID exist return the details else throw an Error
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
