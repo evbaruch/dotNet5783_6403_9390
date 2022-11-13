@@ -258,8 +258,8 @@ partial class Program
             "please enter a choice\n");
 
         int choice = 1;
-        DalOrder dalorder = new DalOrder();
-        DalOrderItem dalorderItem = new DalOrderItem();
+        DalOrder dalOrder = new DalOrder();
+        DalOrderItem dalOrderItem = new DalOrderItem();
         DalProduct dalProduct = new DalProduct();
 
         for (int i = 0; choice != 0; i++)
@@ -273,10 +273,10 @@ partial class Program
                         Console.WriteLine("goodbye");
                         break;
                     case 1:
-                        optionOrder(ref dalorder);
+                        optionOrder(ref dalOrder);
                         break;
                     case 2:
-                        optionOrderItem(ref dalorderItem);
+                        optionOrderItem(ref dalOrderItem);
                         break;
                     case 3:
                         optionProduct(ref dalProduct);

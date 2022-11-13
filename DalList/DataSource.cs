@@ -47,7 +47,7 @@ internal static class DataSource
         order.OrderDate = DateTime.Now;
         if (random.Next(0, 10) <= 8)
         {
-            order.ShipDate = order.OrderDate + new TimeSpan(1, 3, 5, 7);
+            order.ShipDate = order.OrderDate + new TimeSpan(random.Next(0, 2), random.Next(0, 59), random.Next(0, 59), random.Next(0, 59));
         }
         else
         {
@@ -56,7 +56,7 @@ internal static class DataSource
         }
         if (random.Next(0, 10) < 5)
         {
-            order.DeliveryDate = order.ShipDate + new TimeSpan(1,3,5,7);
+            order.DeliveryDate = order.ShipDate + new TimeSpan(random.Next(0, 7), random.Next(0, 59), random.Next(0, 59), random.Next(0, 59));
         }
         else
         {
