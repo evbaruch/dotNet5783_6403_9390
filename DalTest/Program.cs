@@ -220,7 +220,7 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int _id;
                 int.TryParse(Console.ReadLine(), out _id);
-                Console.WriteLine(dalProduct.Read(_id));    
+                Console.WriteLine(dalProduct.Read(_id));
                 Console.WriteLine("please enter (name,price,category,inStoke)");
                 string _name;
                 double _price;

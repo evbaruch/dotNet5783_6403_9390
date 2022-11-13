@@ -235,12 +235,12 @@ internal static class DataSource
 
         //This product gives a random number with six digits
         private static int ID_Product = 0;
-        public static int get_ID_Product 
+        public static int get_ID_Product
         {
-            get 
+            get
             {
-                ID_Product = random.Next(100000,1000000);
-                return ID_Product; 
+                ID_Product = random.Next(100000, 1000000);
+                return ID_Product;
             }
         }
     }
