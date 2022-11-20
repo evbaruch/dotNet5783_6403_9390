@@ -15,6 +15,7 @@ public class DalProduct
         int ID = DataSource.Config.get_ID_Product;
         Product product = new Product(ID, Name, Price, Category, InStoke);
         DataSource.arrProduct[DataSource.Config.I_Product] = product;
+        DataSource.Config.I_Product++;
         return ID;
     }
     public Product Read(int I)

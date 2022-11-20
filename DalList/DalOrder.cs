@@ -15,6 +15,7 @@ public class DalOrder
         int ID = DataSource.Config.get_ID_Order;
         Order order = new Order(ID, customerName, customerEmail, customerAddress);
         DataSource.arrOrder[DataSource.Config.I_Order] = order;
+        DataSource.Config.I_Order++;
         return ID;
     }
     public Order Read(int I)
