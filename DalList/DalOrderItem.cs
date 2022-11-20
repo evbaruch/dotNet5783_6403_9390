@@ -75,14 +75,15 @@ public class DalOrderItem
             }
         }
         OrderItem[] specificOrder = new OrderItem[I];
-        for (int i = 0; i < DataSource.arrOrderItem.Length; i++)
+        for (int i = 0, k = 0; i < DataSource.arrOrderItem.Length; i++)
         {
             if (DataSource.arrOrderItem[i].OrderID == OrderID)
             {
-                specificOrder[i] = DataSource.arrOrderItem[i];
+                specificOrder[k] = DataSource.arrOrderItem[i];
+                k++;
             }
         }
-        return DataSource.arrOrderItem;
+        return specificOrder;
     }
     public int OrderItem_Length()
     {

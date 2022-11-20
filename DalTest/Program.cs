@@ -157,6 +157,16 @@ partial class Program
                 break;
 
 
+            case 'g':
+                Console.WriteLine("please enter the order ID of the item you would");
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                var temp = dalorderItem.ReadItem(ID);
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    Console.WriteLine(temp[i]);
+                }
+                break;
+
             default:
                 break;
         }
