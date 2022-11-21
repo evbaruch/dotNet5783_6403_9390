@@ -14,8 +14,7 @@ public class DalOrder
     {
         int ID = DataSource.Config.get_ID_Order;
         Order order = new Order(ID, customerName, customerEmail, customerAddress);
-        DataSource.arrOrder[DataSource.Config.I_Order] = order;
-        DataSource.Config.I_Order++;
+        DataSource.listOrder.Add(order);
         return ID;
     }
     public Order Read(int I)
@@ -24,15 +23,14 @@ public class DalOrder
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrOrder[I];
+        return DataSource.listOrder[I];
     }
     public void Update(int ID, Order order)
     {
         int I = DataSource.searchOrder(ID);
         if(I != -1) // if the ID exist update the details else throw an Error
         {
-            DataSource.arrOrder[I] = order;
-            DataSource.arrOrder[I].ID = ID;
+            DataSource.listOrder[I] = order;
         }
         else
         {
@@ -44,11 +42,9 @@ public class DalOrder
         int I = DataSource.searchOrder(ID);
         if(I!= -1) // if the ID exist delete the details else throw an Error
         {
-            for(int J = I;J < DataSource.arrOrder.Length - 1 ;J++) // push all the orders beyond the spesified order one step back
-            {
-                DataSource.arrOrder[J] = DataSource.arrOrder[J+1];
-            }
-            DataSource.Config.I_Order = DataSource.Config.I_Order--;
+           
+                DataSource.listOrder.Remove(ReadID(ID));
+            
         }
         else
         {
@@ -61,11 +57,7 @@ public class DalOrder
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrOrder[DataSource.searchOrder(ID)];
-    }
-    public int Order_Length()
-    {
-        return DataSource.Config.I_Order;
+        return DataSource.listOrder[DataSource.searchOrder(ID)];
     }
 
 }

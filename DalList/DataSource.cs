@@ -3,14 +3,15 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using static DO.Enums;
 
+
 namespace Dal;
 internal static class DataSource
 {
     //Our temporary database
     internal static readonly Random random = new Random();
-    internal static Order[] arrOrder = new Order[100];
-    internal static OrderItem[] arrOrderItem = new OrderItem[200];
-    internal static Product[] arrProduct = new Product[50];
+    internal static List<Order> listOrder = new List<Order>();
+    internal static List<OrderItem> listOrderItem = new List<OrderItem>();
+    internal static List<Product> listProduct = new List<Product>();
 
     //Name data and price data
     internal static string[,] productsNames = new string[5, 3] { {"angel","centaur","satyr" },
@@ -32,11 +33,9 @@ internal static class DataSource
 
     internal static bool addOrder(Order a)
     {
-        //We will check here that we have space left in the dataset
-        if (Config.I_Order < arrOrder.Length)
-        {
-            arrOrder[Config.I_Order] = a;
-            Config.I_Order++;
+        if (true) 
+        { 
+            listOrder.Add(a);
             return true;
         }
         return false;
@@ -80,10 +79,9 @@ internal static class DataSource
     internal static bool addOrderItem(OrderItem a)
     {
         //We will check here that we have space left in the dataset
-        if (Config.I_OrderItem < arrOrderItem.Length)
+        if (true)
         {
-            arrOrderItem[Config.I_OrderItem] = a;
-            Config.I_OrderItem++;
+            listOrderItem.Add(a);
             return true;
         }
         return false;
@@ -103,10 +101,9 @@ internal static class DataSource
     internal static bool addProduct(Product a)
     {
         //We will check here that we have space left in the dataset
-        if (Config.I_Product < arrProduct.Length)
+        if (true)
         {
-            arrProduct[Config.I_Product] = a;
-            Config.I_Product++;
+            listProduct.Add(a);  
             return true;
         }
         return false;
@@ -143,38 +140,34 @@ internal static class DataSource
         for (int i = 0; i < 20; i++)
         {
             int Index = random.Next(0, 10);
-            arrOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]);
+            listOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]);
         }
-        Config.I_Order = 20;
 
         //Product
         for (int i = 0; i < 10; i++)
         {
-            arrProduct[i] = addProduct();
+            listProduct[i] = addProduct();
         }
-        Config.I_Product = 10;
 
         //OrderItem
         for (int i = 0; i < 40; i++)
         {
             int Index = random.Next(0, 10);
-            int ProductID = arrProduct[Index].ID;
-            double Price = (double)arrProduct[Index].Price;
-
+            int ProductID = listProduct[Index].ID;
+            double Price = (double)listProduct[Index].Price;
             Index = random.Next(0, 20);
-            int OrderID = arrOrder[Index].ID;
+            int OrderID = listOrder[Index].ID;
 
-            arrOrderItem[i] = addOrderItem(ProductID, OrderID, Price);
+            listOrderItem[i] = addOrderItem(ProductID, OrderID, Price);
         }
-        Config.I_OrderItem = 40;
     }
 
     //These three functions get the hash of the datum and return its index to me
     internal static int searchOrder(int ID)
     {
-        for (int i = 0; i < Config.I_Order; i++)
+        for (int i = 0; i < listOrder.Count; i++)
 		{
-            if (arrOrder[i].ID == ID)
+            if (listOrder[i].ID == ID)
             {
                 return i;
             }
@@ -183,9 +176,9 @@ internal static class DataSource
     }
     internal static int searchProduct(int ID)
     {
-        for (int i = 0; i < Config.I_Product; i++)
+        for (int i = 0; i < listProduct.Count; i++)
 		{
-            if (arrProduct[i].ID == ID)
+            if (listProduct[i].ID == ID)
             {
                 return i;
             }
@@ -194,9 +187,9 @@ internal static class DataSource
     }
     internal static int searchOrderItem(int ID)
     {
-        for (int i = 0; i < Config.I_OrderItem; i++)
+        for (int i = 0; i < listOrderItem.Count; i++)
 		{
-            if (arrOrderItem[i].OrderID == ID)
+            if (listOrderItem[i].OrderID == ID)
             {
                 return i;
             }
@@ -207,9 +200,9 @@ internal static class DataSource
     internal static class Config
     {
         //The index of how many we filled the dataset
-        internal static int I_Order = 0;
-        internal static int I_OrderItem = 0;
-        internal static int I_Product = 0;
+        //internal static int I_Order = 0;
+        //internal static int I_OrderItem = 0;
+        //internal static int I_Product = 0;
 
         //The product will go up by one every time we make another order
         private static int ID_Order = 100000;

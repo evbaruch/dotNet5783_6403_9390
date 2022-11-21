@@ -14,8 +14,7 @@ public class DalProduct
     {
         int ID = DataSource.Config.get_ID_Product;
         Product product = new Product(ID, Name, Price, Category, InStoke);
-        DataSource.arrProduct[DataSource.Config.I_Product] = product;
-        DataSource.Config.I_Product++;
+        DataSource.listProduct.Add(product);
         return ID;
     }
     public Product Read(int I)
@@ -24,15 +23,14 @@ public class DalProduct
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrProduct[I];
+        return DataSource.listProduct[I];
     }
     public void Update(int ID, Product product)
     {
         int I = DataSource.searchProduct(ID);
         if(I != -1) // if the ID exist update the details else throw an Error
         {
-            DataSource.arrProduct[I] = product;
-            DataSource.arrProduct[I].ID = ID;//צריך עיון
+            DataSource.listProduct[I] = product;
         }
         else
         {
@@ -44,11 +42,7 @@ public class DalProduct
         int I = DataSource.searchProduct(ID);
         if(I!= -1)// if the ID exist delete the details else throw an Error
         {
-            for(int J = I;J < DataSource.arrProduct.Length - 1 ;J++) // push all the products beyond the spesified product one step back
-            {
-                DataSource.arrProduct[J] = DataSource.arrProduct[J+1];
-            }
-            DataSource.Config.I_Product = DataSource.Config.I_Product--;
+            DataSource.listProduct.Remove(ReadID(ID));
         }
         else
         {
@@ -61,11 +55,6 @@ public class DalProduct
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrProduct[DataSource.searchProduct(ID)];
+        return DataSource.listProduct[DataSource.searchProduct(ID)];
     }
-    public int Product_Length()
-    {
-        return DataSource.Config.I_Product;
-    }
-
 }
