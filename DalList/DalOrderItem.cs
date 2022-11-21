@@ -14,8 +14,7 @@ public class DalOrderItem
         int IdOrder = DataSource.Config.get_ID_Order;
         int IdProduct = DataSource.Config.get_ID_Product;
         OrderItem orderItem = new OrderItem(ID,ProductID, OrderID, Price, Amount);
-        DataSource.arrOrderItem[DataSource.Config.I_OrderItem] = orderItem;
-        DataSource.Config.I_OrderItem++;
+        DataSource.listOrderItem.Add(orderItem);
         return ID;
     }
     public OrderItem Read(int I)
@@ -24,14 +23,14 @@ public class DalOrderItem
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrOrderItem[I];
+        return DataSource.listOrderItem[I];
     }
     public void Update(int ID, OrderItem orderItem)
     {
         int I = DataSource.searchOrderItem(ID);
         if (I!= -1)// if the ID exist update the details else throw an Error
         {
-            DataSource.arrOrderItem[I] = orderItem;
+            DataSource.listOrderItem[I] = orderItem;
             //DataSource.arrOrderItem[I].OrderID = OrderID;
             //DataSource.arrOrderItem[I].OrderID = ProductID;
         }
@@ -45,11 +44,7 @@ public class DalOrderItem
         int I = DataSource.searchOrderItem(ID);
         if (I!= -1)// if the index exist delete the details else throw an Error
         {
-            for (int J = I; J < DataSource.arrOrder.Length - 1; J++)
-            {
-                DataSource.arrOrder[J] = DataSource.arrOrder[J+1];
-            }
-            DataSource.Config.I_Order = DataSource.Config.I_Order--;
+                DataSource.listOrderItem.Remove(ReadID(ID));
         }
         else
         {
@@ -63,31 +58,27 @@ public class DalOrderItem
         {
             throw new IndexOutOfRangeException("Read range Error");
         }
-        return DataSource.arrOrderItem[I];
+        return DataSource.listOrderItem[I];
     }
     public OrderItem[] ReadItem(int OrderID)
     {// collect all the orderItems with a specific ID into a list and return it
         int I = 0;
-        for (int i = 0; i < DataSource.arrOrderItem.Length; i++)
+        for (int i = 0; i < DataSource.listOrderItem.Count; i++)
         {
-            if (DataSource.arrOrderItem[i].OrderID == OrderID )
+            if (DataSource.listOrderItem[i].OrderID == OrderID )
             {
                 I++;
             }
         }
         OrderItem[] specificOrder = new OrderItem[I];
-        for (int i = 0, k = 0; i < DataSource.arrOrderItem.Length; i++)
+        for (int i = 0, k = 0; i < DataSource.listOrderItem.Count; i++)
         {
-            if (DataSource.arrOrderItem[i].OrderID == OrderID)
+            if (DataSource.listOrderItem[i].OrderID == OrderID)
             {
-                specificOrder[k] = DataSource.arrOrderItem[i];
+                specificOrder[k] = DataSource.listOrderItem[i];
                 k++;
             }
         }
         return specificOrder;
-    }
-    public int OrderItem_Length()
-    {
-        return DataSource.Config.I_OrderItem;
     }
 }

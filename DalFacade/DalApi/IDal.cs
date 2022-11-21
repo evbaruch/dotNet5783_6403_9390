@@ -1,9 +1,17 @@
 ﻿using DO;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace DalApi;
 
-internal class IDal
+internal interface IDal
 {
-    IOrder order { get;}
-    IOrder OrderItem { get; }
-    IOrder Product { get; }
+    public Order Order { get;}
+
+    public OrderItem Item { get;}
+
+    public Product Product { get;}
 }
