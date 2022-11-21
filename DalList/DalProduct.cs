@@ -57,4 +57,8 @@ public class DalProduct
         }
         return DataSource.listProduct[DataSource.searchProduct(ID)];
     }
+    public int Product_Length()
+    {
+        return DataSource.listProduct.Count;
+    }
 }

@@ -81,4 +81,8 @@ public class DalOrderItem
         }
         return specificOrder;
     }
+    public int OrderItem_Length()
+    {
+        return DataSource.listOrderItem.Count;
+    }
 }

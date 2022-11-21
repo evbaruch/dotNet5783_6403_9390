@@ -59,5 +59,9 @@ public class DalOrder
         }
         return DataSource.listOrder[DataSource.searchOrder(ID)];
     }
+    public int Order_Length()
+    {
+        return DataSource.listOrder.Count;
+    }
 
 }
