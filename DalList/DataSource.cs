@@ -132,21 +132,21 @@ internal static class DataSource
         //This function builds our python arrays with data
 
         //User data
-        string[] CustomerName = new string[] {"yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry","potter" };
-        string[] CustomerEmail = new string[] {"yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
+        string[] CustomerName = new string[] { "yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry", "potter" };
+        string[] CustomerEmail = new string[] { "yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
         string[] CustomerAddress = new string[] { "Jerusalem", "Paris", "Tsfat", "Tel aviv", "Barcelona", "Vina", "Hugurts", "Tberia", "london", "no were street 26 secund floor" };
 
         //Order
         for (int i = 0; i < 20; i++)
         {
             int Index = random.Next(0, 10);
-            listOrder[i] = addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]);
+            listOrder.Add(addOrder(CustomerName[Index], CustomerEmail[Index], CustomerAddress[Index]));
         }
 
         //Product
         for (int i = 0; i < 10; i++)
         {
-            listProduct[i] = addProduct();
+            listProduct.Add(addProduct());
         }
 
         //OrderItem
@@ -157,9 +157,9 @@ internal static class DataSource
             double Price = (double)listProduct[Index].Price;
             Index = random.Next(0, 20);
             int OrderID = listOrder[Index].ID;
-
-            listOrderItem[i] = addOrderItem(ProductID, OrderID, Price);
+            listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
         }
+
     }
 
     //These three functions get the hash of the datum and return its index to me
@@ -206,12 +206,12 @@ internal static class DataSource
 
         //The product will go up by one every time we make another order
         private static int ID_Order = 100000;
-        public static int get_ID_Order 
+        public static int get_ID_Order
         {
-            get 
-            { 
+            get
+            {
                 ID_Order++;
-                return ID_Order; 
+                return ID_Order;
             }
         }
 
