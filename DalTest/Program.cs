@@ -108,12 +108,12 @@ partial class Program
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
                 tempOrderItem.ID = ID;
-                Console.WriteLine(dalOrderItem.ReadID(tempOrderItem));
+                Console.WriteLine(dalOrderItem.Read(tempOrderItem));
                 break;
 
 
             case 'c':
-                IEnumerable<Order> listOfOrderItem = dalOrderItem.ReadAll();
+                IEnumerable<OrderItem> listOfOrderItem = dalOrderItem.ReadAll();
                 for (int i = 0; i < listOfOrderItem.Count(); i++)
                 {
                     Console.WriteLine(listOfOrderItem.ElementAt(i));
@@ -185,7 +185,7 @@ partial class Program
 
 
             case 'd':
-                IEnumerable<Order> listOfProduct = dalProduct.ReadAll();
+                IEnumerable<Product> listOfProduct = dalProduct.ReadAll();
                 for (int i = 0; i < listOfProduct.Count(); i++)
                 {
                     Console.WriteLine(listOfProduct.ElementAt(i));
