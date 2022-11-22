@@ -6,61 +6,55 @@ namespace Dal;
 
 
 
-public class DalProduct
+public class DalProduct : IProduct
 {
-    public DalProduct()
+    public int Create(Product product)
     {
-        DataSource.s_Initialize();
-    }
-    public int Create(string Name, double Price, productsCategory Category, int InStoke)
-    {
-        int ID = DataSource.Config.get_ID_Product;
-        Product product = new Product(ID, Name, Price, Category, InStoke);
+        product.ID = DataSource.Config.get_ID_Product;
         DataSource.listProduct.Add(product);
-        return ID;
+        return product.ID;
     }
-    public Product Read(int I)
+    public Product Read(Product product)
     {
-        if(I < 0 || I >50) // if the index exist return the details else throw an Error
+        int I = DataSource.searchOrder(product.ID);
+        if (I != -1) // if the ID exist return the details else throw an Error
         {
-            throw new IndexOutOfRangeException("Read range Error");
+
+            return DataSource.listProduct[I];
+
         }
-        return DataSource.listProduct[I];
+        else
+        {
+            throw new IDWhoException("Delete range Error ");
+        }
+
     }
-    public void Update(int ID, Product product)
+    public void Update(Product product)
     {
-        int I = DataSource.searchProduct(ID);
-        if(I != -1) // if the ID exist update the details else throw an Error
+        int I = DataSource.searchOrder(product.ID);
+        if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listProduct[I] = product;
         }
         else
         {
-            throw new IndexOutOfRangeException("object doesn't exist - Update");
+            throw new IDWhoException("object doesn't exist - Update");
         }
     }
-    public void Delete(int ID)
+    public void Delete(Product product)
     {
-        int I = DataSource.searchProduct(ID);
-        if(I!= -1)// if the ID exist delete the details else throw an Error
+        int I = DataSource.searchOrder(product.ID);
+        if (I != -1) // if the ID exist delete the details else throw an Error
         {
-            DataSource.listProduct.Remove(ReadID(ID));
+            DataSource.listProduct.Remove(product);
         }
         else
         {
-            throw new IndexOutOfRangeException("Delete range Error ");
+            throw new IndexOutOfRangeException("Delete range Error");
         }
     }
-    public Product ReadID(int ID)
+    public IEnumerable<Product> ReadAll()
     {
-        if (DataSource.searchProduct(ID) == -1)// if the ID exist return the details else throw an Error
-        {
-            throw new IndexOutOfRangeException("Read range Error");
-        }
-        return DataSource.listProduct[DataSource.searchProduct(ID)];
-    }
-    public int Product_Length()
-    {
-        return DataSource.listProduct.Count;
+        return DataSource.listOrder;
     }
 }
