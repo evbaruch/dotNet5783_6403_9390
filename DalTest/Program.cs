@@ -62,7 +62,7 @@ partial class Program
                 tempOrder.ID = ID;
                 Console.WriteLine(dalOrder.Read(tempOrder));
                 Console.WriteLine("please enter your updated name, Email and Address");
-                tempOrder.CustomerName =Console.ReadLine();
+                tempOrder.CustomerName = Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
                 dalOrder.Update(tempOrder);
@@ -79,9 +79,9 @@ partial class Program
                 break;
         }
     }
-    static void optionOrderItem(ref DalOrderItem dalorderItem)
+    static void optionOrderItem(ref DalOrderItem dalOrderItem)
     {
-
+        OrderItem tempOrderItem = new OrderItem();
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
                 "b in order to present the object details according to the ID\n" +
@@ -96,71 +96,52 @@ partial class Program
         {
             case 'a':
                 Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
-                int ProductID;
-                int OrderID;
-                double price;
-                int Amount;
-                int.TryParse(Console.ReadLine(), out ProductID);
-                int.TryParse(Console.ReadLine(), out OrderID);
-                double.TryParse(Console.ReadLine(), out price);
-                int.TryParse(Console.ReadLine(), out Amount);
-                dalorderItem.Create(ProductID, OrderID, price, Amount);
+                tempOrderItem.ProductID  = Console.Read();
+                tempOrderItem.OrderID = Console.Read();
+                tempOrderItem.Price = Console.Read();
+                tempOrderItem.Amount = Console.Read();
+                dalOrderItem.Create(tempOrderItem);
                 break;
 
 
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
-                Console.WriteLine(dalorderItem.ReadID(ID));
+                tempOrderItem.ID = ID;
+                Console.WriteLine(dalOrderItem.ReadID(tempOrderItem));
                 break;
 
 
             case 'c':
-                Console.WriteLine("please enter the index you want to display");
-                isRead = int.TryParse(Console.ReadLine(), out int I);
-                Console.WriteLine(dalorderItem.Read(I));
-                break;
-
-
-            case 'd':
-                for (int _i = 0; _i < dalorderItem.OrderItem_Length(); _i++)
-                { // print all the order items
-                    Console.WriteLine(dalorderItem.Read(_i));
+                IEnumerable<Order> listOfOrderItem = dalOrderItem.ReadAll();
+                for (int i = 0; i < listOfOrderItem.Count(); i++)
+                {
+                    Console.WriteLine(listOfOrderItem.ElementAt(i));
                 }
                 break;
 
 
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to updat");
-                int _id;
-                int.TryParse(Console.ReadLine(), out _id);
-                Console.WriteLine(dalorderItem.Read(_id));
+                int.TryParse(Console.ReadLine(), out ID);
+                tempOrderItem.ID = ID;
+                Console.WriteLine(dalOrderItem.Read(tempOrderItem));
                 Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
-                int.TryParse(Console.ReadLine(), out ProductID);
-                int.TryParse(Console.ReadLine(), out OrderID);
-                double.TryParse(Console.ReadLine(), out price);
-                int.TryParse(Console.ReadLine(), out Amount);
-                OrderItem Item = new OrderItem(_id, ProductID, OrderID, price, Amount);
-                dalorderItem.Update(_id, Item);
+                tempOrderItem.ProductID  = Console.Read();
+                tempOrderItem.OrderID = Console.Read();
+                tempOrderItem.Price = Console.Read();
+                tempOrderItem.Amount = Console.Read();
+                dalOrderItem.Update(tempOrderItem);
                 break;
 
 
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                dalorderItem.Delete(ID);
+                tempOrderItem.ID = ID;
+                dalOrderItem.Delete(tempOrderItem);
                 break;
 
-
-            case 'g':
-                Console.WriteLine("please enter the order ID of the item you would");
-                isRead = int.TryParse(Console.ReadLine(), out ID);
-                var temp = dalorderItem.ReadItem(ID);
-                for (int i = 0; i < temp.Length; i++)
-                {
-                    Console.WriteLine(temp[i]);
-                }
-                break;
 
             default:
                 break;
@@ -170,7 +151,7 @@ partial class Program
     {
         bool isRead;
         char option;
-
+        Product tempProduct = new Product();
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
@@ -184,67 +165,54 @@ partial class Program
         switch (option)
         {
             case 'a':
-                Console.WriteLine("please enter (name,price,category,inStoke)");
-                string name;
-                double price;
                 productsCategory category;
-                int inStoke;
-                name = Console.ReadLine();
-                double.TryParse(Console.ReadLine(), out price);
+                Console.WriteLine("please enter (name,price,category,inStoke)");
+                tempProduct.Name = Console.ReadLine();
+                tempProduct.Price = Console.Read();
                 productsCategory.TryParse(Console.ReadLine(), out category);
-                int.TryParse(Console.ReadLine(), out inStoke);
-                dalProduct.Create(name, price, category, inStoke);
+                tempProduct.Category = category;
+                tempProduct.InStoke = Console.Read();
+                dalProduct.Create(tempProduct);
                 break;
 
 
             case 'b':
                 Console.WriteLine("please enter Six digits (id)");
-                int id;
-                int.TryParse(Console.ReadLine(), out id);
-                Console.WriteLine(dalProduct.Read(id));
-                break;
-
-
-            case 'c':
-                Console.WriteLine("please enter (index)");
-                int index = 0;
-                int.TryParse(Console.ReadLine(), out index);
-                Console.WriteLine(dalProduct.Read(index));
+                int.TryParse(Console.ReadLine(), out int ID);
+                tempProduct.ID = ID;
+                Console.WriteLine(dalProduct.Read(tempProduct));
                 break;
 
 
             case 'd':
-                for (int _i = 0; _i < dalProduct.Product_Length(); _i++)
-                { // print all the product
-                    Console.WriteLine(dalProduct.Read(_i));
+                IEnumerable<Order> listOfProduct = dalProduct.ReadAll();
+                for (int i = 0; i < listOfProduct.Count(); i++)
+                {
+                    Console.WriteLine(listOfProduct.ElementAt(i));
                 }
                 break;
 
 
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to updat");
-                int _id;
-                int.TryParse(Console.ReadLine(), out _id);
-                Console.WriteLine(dalProduct.Read(_id));
+                int.TryParse(Console.ReadLine(), out ID);
+                tempProduct.ID = ID;
+                Console.WriteLine(dalProduct.Read(tempProduct));
                 Console.WriteLine("please enter (name,price,category,inStoke)");
-                string _name;
-                double _price;
-                productsCategory _category;
-                int _inStoke;
-                _name = Console.ReadLine();
-                double.TryParse(Console.ReadLine(), out _price);
-                productsCategory.TryParse(Console.ReadLine(), out _category);
-                int.TryParse(Console.ReadLine(), out _inStoke);
-                Product product = new Product(_id, _name, _price, _category, _inStoke);
-                dalProduct.Update(_id, product);
+                tempProduct.Name = Console.ReadLine();
+                tempProduct.Price = Console.Read();
+                productsCategory.TryParse(Console.ReadLine(), out category);
+                tempProduct.Category = category;
+                tempProduct.InStoke = Console.Read();
+                dalProduct.Update(tempProduct);
                 break;
 
 
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
-                int ID;
-                int.TryParse(Console.ReadLine(), out ID);
-                dalProduct.Delete(ID);
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                tempProduct.ID = ID;
+                dalProduct.Delete(tempProduct);
                 break;
 
 
