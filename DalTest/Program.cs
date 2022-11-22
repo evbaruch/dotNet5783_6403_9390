@@ -108,7 +108,7 @@ partial class Program
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
                 tempOrderItem.ID = ID;
-                Console.WriteLine(dalOrderItem.ReadID(tempOrderItem));
+                Console.WriteLine(dalOrderItem.Read(tempOrderItem));
                 break;
 
 
