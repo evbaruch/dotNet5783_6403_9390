@@ -22,10 +22,9 @@ partial class Program
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
-            "c in order to present the object details according to the index\n" +
-            "d in order to present the object's list\n" +
-            "e in order to update the object's details\n" +
-            "f in order to delete an object from its list\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n" +
             "any other letter in order to exit");
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
@@ -56,7 +55,7 @@ partial class Program
                 break;
 
 
-            case 'e':
+            case 'd':
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrder.ID = ID;
@@ -69,7 +68,7 @@ partial class Program
                 break;
 
 
-            case 'f':
+            case 'e':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrder.ID = ID;
@@ -84,12 +83,11 @@ partial class Program
         OrderItem tempOrderItem = new OrderItem();
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
-                "b in order to present the object details according to the ID\n" +
-                "c in order to present the object details according to the index\n" +
-                "d in order to present the object's list\n" +
-                "e in order to update the object's details\n" +
-                "f in order to delete an object from its list\n" +
-                "any other letter in order to exit");
+            "b in order to present the object details according to the ID\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n" +
+            "any other letter in order to exit");
 
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
@@ -154,11 +152,11 @@ partial class Program
         Product tempProduct = new Product();
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
+            "a in order to adding an object\n" +
             "b in order to present the object details according to the ID\n" +
-            "c in order to present the object details according to the index\n" +
-            "d in order to present the object's list\n" +
-            "e in order to update the object's details\n" +
-            "f in order to delete an object from its list\n" +
+            "c in order to present the object's list\n" +
+            "d in order to update the object's details\n" +
+            "e in order to delete an object from its list\n" +
             "any other letter in order to exit");
 
         isRead = char.TryParse(Console.ReadLine(), out option);
