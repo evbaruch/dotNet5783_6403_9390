@@ -119,7 +119,7 @@ partial class Program
                 break;
 
 
-            case 'e':
+            case 'd':
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int.TryParse(Console.ReadLine(), out ID);
                 tempOrderItem.ID = ID;
@@ -133,7 +133,7 @@ partial class Program
                 break;
 
 
-            case 'f':
+            case 'e':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrderItem.ID = ID;
@@ -182,7 +182,7 @@ partial class Program
                 break;
 
 
-            case 'd':
+            case 'c':
                 IEnumerable<Product> listOfProduct = dalProduct.ReadAll();
                 for (int i = 0; i < listOfProduct.Count(); i++)
                 {
@@ -191,7 +191,7 @@ partial class Program
                 break;
 
 
-            case 'e':
+            case 'd':
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int.TryParse(Console.ReadLine(), out ID);
                 tempProduct.ID = ID;
@@ -206,7 +206,7 @@ partial class Program
                 break;
 
 
-            case 'f':
+            case 'e':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempProduct.ID = ID;
