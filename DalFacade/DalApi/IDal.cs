@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DalApi;
 
-internal interface IDal
+public interface IDal
 {
     public Order Order { get;}
 
-    public OrderItem Item { get;}
+    public OrderItem OrderItem { get;}
 
     public Product Product { get;}
 }

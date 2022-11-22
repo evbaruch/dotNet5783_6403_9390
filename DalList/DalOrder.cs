@@ -25,7 +25,6 @@ public class DalOrder : IOrder
         {
             throw new IDWhoException("Delete range Error ");
         }
-
     }
     public void Update(Order order)
     {
