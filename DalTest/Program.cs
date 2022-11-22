@@ -36,21 +36,24 @@ partial class Program
                 tempOrder.CustomerName = Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
-                dalOrder.Create(tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
+                dalOrder.Create(tempOrder);
                 break;
 
 
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
-                isRead = int.TryParse(Console.ReadLine(), out int ID);
-                Console.WriteLine(dalOrder.ReadID(ID));
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                tempOrder.ID = ID;
+                Console.WriteLine(dalOrder.Read(tempOrder));
                 break;
 
 
             case 'c':
-                Console.WriteLine("please enter the index you want to display");
-                isRead = int.TryParse(Console.ReadLine(), out int I);
-                Console.WriteLine(dalOrder.Read(I));
+                List<Order> listOfOrder = tempOrder.readAll();
+                for (int i = 0; i < listOfOrder.Count; i++)
+                {
+                    Console.WriteLine(listOfOrder[i]);
+                }
                 break;
 
 
@@ -67,18 +70,19 @@ partial class Program
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 Console.WriteLine(dalOrder.ReadID(ID));
                 Console.WriteLine("please enter your updated name, Email and Address");
-               tempOrder.CustomerName =Console.ReadLine();
-               tempOrder.CustomerEmail = Console.ReadLine();
+                tempOrder.ID = ID; 
+                tempOrder.CustomerName =Console.ReadLine();
+                tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
-                Order updateObject = new Order(ID, tempOrder.CustomerName, tempOrder.CustomerEmail, tempOrder.CstomerAddress);
-                dalOrder.Update(ID, updateObject);
+                dalOrder.Update(tempOrder);
                 break;
 
 
             case 'f':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                dalOrder.Delete(ID);
+                tempOrder.ID = ID;
+                dalOrder.Delete(tempOrder);
                 break;
             default:
                 break;
