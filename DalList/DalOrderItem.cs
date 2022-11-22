@@ -62,7 +62,7 @@ public class DalOrderItem
         }
         return DataSource.listOrderItem[I];
     }
-    public OrderItem ReadItem(int OrderID)
+    public OrderItem[] ReadItem(int OrderID)
     {// collect all the orderItems with a specific ID into a list and return it
         int I = 0;
         for (int i = 0; i < DataSource.listOrderItem.Count; i++)

@@ -18,7 +18,6 @@ partial class Program
 {
     static void optionOrder(ref DalOrder dalOrder)
     {
-        
         Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
@@ -42,25 +41,17 @@ partial class Program
 
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
-                isRead = int.TryParse(Console.ReadLine(), out ID);
+                isRead = int.TryParse(Console.ReadLine(), out int ID);
                 tempOrder.ID = ID;
                 Console.WriteLine(dalOrder.Read(tempOrder));
                 break;
 
 
             case 'c':
-                List<Order> listOfOrder = tempOrder.readAll();
-                for (int i = 0; i < listOfOrder.Count; i++)
+                IEnumerable<Order> listOfOrder = dalOrder.ReadAll();
+                for (int i = 0; i < listOfOrder.Count(); i++)
                 {
-                    Console.WriteLine(listOfOrder[i]);
-                }
-                break;
-
-
-            case 'd':
-                for (int _i = 0; _i < dalOrder.Order_Length(); _i++)
-                { // print all the orders
-                    Console.WriteLine(dalOrder.Read(_i));
+                    Console.WriteLine(listOfOrder.ElementAt(i));
                 }
                 break;
 
@@ -68,9 +59,9 @@ partial class Program
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                Console.WriteLine(dalOrder.ReadID(ID));
+                tempOrder.ID = ID;
+                Console.WriteLine(dalOrder.Read(tempOrder));
                 Console.WriteLine("please enter your updated name, Email and Address");
-                tempOrder.ID = ID; 
                 tempOrder.CustomerName =Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
