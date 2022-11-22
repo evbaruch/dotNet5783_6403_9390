@@ -1,8 +1,10 @@
-﻿namespace Dal;
+﻿using DalApi;
 using DO;
-using System.Globalization;
-using System.Runtime.InteropServices;
 using static DO.Enums;
+
+namespace Dal;
+
+
 
 public class DalProduct
 {
