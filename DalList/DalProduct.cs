@@ -55,6 +55,6 @@ public class DalProduct : IProduct
     }
     public IEnumerable<Product> ReadAll()
     {
-        return DataSource.listOrder;
+        return DataSource.listProduct;
     }
 }
