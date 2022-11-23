@@ -1,23 +1,14 @@
 ﻿using DO;
-using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.Schema;
+using DalApi;
 using static DO.Enums;
 
 namespace Dal;
 
 partial class Program
 {
-    static void optionOrder(ref DalOrder dalOrder)
+    static void optionOrder()
     {
+        IDal access = new DalList();
         Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
@@ -34,7 +25,7 @@ partial class Program
                 tempOrder.CustomerName = Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
-                dalOrder.Create(tempOrder);
+                access.order.Create(tempOrder);
                 break;
 
 
@@ -42,12 +33,12 @@ partial class Program
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
                 tempOrder.ID = ID;
-                Console.WriteLine(dalOrder.Read(tempOrder));
+                Console.WriteLine(access.order.Read(tempOrder));
                 break;
 
 
             case 'c':
-                IEnumerable<Order> listOfOrder = dalOrder.ReadAll();
+                IEnumerable<Order> listOfOrder = access.order.ReadAll();
                 for (int i = 0; i < listOfOrder.Count(); i++)
                 {
                     Console.WriteLine(listOfOrder.ElementAt(i));
@@ -59,12 +50,12 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrder.ID = ID;
-                Console.WriteLine(dalOrder.Read(tempOrder));
+                Console.WriteLine(access.order.Read(tempOrder));
                 Console.WriteLine("please enter your updated name, Email and Address");
                 tempOrder.CustomerName = Console.ReadLine();
                 tempOrder.CustomerEmail = Console.ReadLine();
                 tempOrder.CstomerAddress = Console.ReadLine();
-                dalOrder.Update(tempOrder);
+                access.order.Update(tempOrder);
                 break;
 
 
@@ -72,14 +63,15 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrder.ID = ID;
-                dalOrder.Delete(tempOrder);
+                access.order.Delete(tempOrder);
                 break;
             default:
                 break;
         }
     }
-    static void optionOrderItem(ref DalOrderItem dalOrderItem)
+    static void optionOrderItem()
     {
+        IDal access = new DalList();
         OrderItem tempOrderItem = new OrderItem();
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
@@ -98,7 +90,7 @@ partial class Program
                 tempOrderItem.OrderID = Console.Read();
                 tempOrderItem.Price = Console.Read();
                 tempOrderItem.Amount = Console.Read();
-                dalOrderItem.Create(tempOrderItem);
+                access.orderItem.Create(tempOrderItem);
                 break;
 
 
@@ -106,12 +98,12 @@ partial class Program
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
                 tempOrderItem.ID = ID;
-                Console.WriteLine(dalOrderItem.Read(tempOrderItem));
+                Console.WriteLine(access.orderItem.Read(tempOrderItem));
                 break;
 
 
             case 'c':
-                IEnumerable<OrderItem> listOfOrderItem = dalOrderItem.ReadAll();
+                IEnumerable<OrderItem> listOfOrderItem = access.orderItem.ReadAll();
                 for (int i = 0; i < listOfOrderItem.Count(); i++)
                 {
                     Console.WriteLine(listOfOrderItem.ElementAt(i));
@@ -123,13 +115,13 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int.TryParse(Console.ReadLine(), out ID);
                 tempOrderItem.ID = ID;
-                Console.WriteLine(dalOrderItem.Read(tempOrderItem));
+                Console.WriteLine(access.orderItem.Read(tempOrderItem));
                 Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
                 tempOrderItem.ProductID  = Console.Read();
                 tempOrderItem.OrderID = Console.Read();
                 tempOrderItem.Price = Console.Read();
                 tempOrderItem.Amount = Console.Read();
-                dalOrderItem.Update(tempOrderItem);
+                access.orderItem.Update(tempOrderItem);
                 break;
 
 
@@ -137,7 +129,7 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempOrderItem.ID = ID;
-                dalOrderItem.Delete(tempOrderItem);
+                access.orderItem.Delete(tempOrderItem);
                 break;
 
 
@@ -145,10 +137,11 @@ partial class Program
                 break;
         }
     }
-    static void optionProduct(ref DalProduct dalProduct)
+    static void optionProduct()
     {
         bool isRead;
         char option;
+        IDal access = new DalList();
         Product tempProduct = new Product();
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +
@@ -170,7 +163,7 @@ partial class Program
                 productsCategory.TryParse(Console.ReadLine(), out category);
                 tempProduct.Category = category;
                 tempProduct.InStoke = Console.Read();
-                dalProduct.Create(tempProduct);
+                access.product.Create(tempProduct);
                 break;
 
 
@@ -178,12 +171,12 @@ partial class Program
                 Console.WriteLine("please enter Six digits (id)");
                 int.TryParse(Console.ReadLine(), out int ID);
                 tempProduct.ID = ID;
-                Console.WriteLine(dalProduct.Read(tempProduct));
+                Console.WriteLine(access.product.Read(tempProduct));
                 break;
 
 
             case 'c':
-                IEnumerable<Product> listOfProduct = dalProduct.ReadAll();
+                IEnumerable<Product> listOfProduct = access.product.ReadAll();
                 for (int i = 0; i < listOfProduct.Count(); i++)
                 {
                     Console.WriteLine(listOfProduct.ElementAt(i));
@@ -195,14 +188,14 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int.TryParse(Console.ReadLine(), out ID);
                 tempProduct.ID = ID;
-                Console.WriteLine(dalProduct.Read(tempProduct));
+                Console.WriteLine(access.product.Read(tempProduct));
                 Console.WriteLine("please enter (name,price,category,inStoke)");
                 tempProduct.Name = Console.ReadLine();
                 tempProduct.Price = Console.Read();
                 productsCategory.TryParse(Console.ReadLine(), out category);
                 tempProduct.Category = category;
                 tempProduct.InStoke = Console.Read();
-                dalProduct.Update(tempProduct);
+                access.product.Update(tempProduct);
                 break;
 
 
@@ -210,7 +203,7 @@ partial class Program
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
                 tempProduct.ID = ID;
-                dalProduct.Delete(tempProduct);
+                access.product.Delete(tempProduct);
                 break;
 
 
@@ -220,6 +213,8 @@ partial class Program
     }
     static void Main(string[] args)
     {
+
+
         // the purpose's program is to check the Dal layer
         Console.WriteLine("welcome to your life ,please enter your choise\n" +
             "0 - exit \n" +
@@ -229,9 +224,6 @@ partial class Program
             "please enter a choice\n");
 
         string choice = "";
-        DalOrder dalOrder = new DalOrder();
-        DalOrderItem dalOrderItem = new DalOrderItem();
-        DalProduct dalProduct = new DalProduct();
 
         for (int i = 0; choice != "0"; i++) // as long as the user haven't enter 0 continue to ask for new choice
         {
@@ -244,13 +236,13 @@ partial class Program
                         Console.WriteLine("goodbye");
                         break;
                     case "1":
-                        optionOrder(ref dalOrder);
+                        optionOrder();
                         break;
                     case "2":
-                        optionOrderItem(ref dalOrderItem);
+                        optionOrderItem();
                         break;
                     case "3":
-                        optionProduct(ref dalProduct);
+                        optionProduct();
                         break;
                     default:
                         Console.WriteLine("wrong input");

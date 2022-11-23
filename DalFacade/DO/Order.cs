@@ -37,15 +37,10 @@ public struct Order
         this.DeliveryDate = this.ShipDate + new TimeSpan(random.Next(0, 7), random.Next(0, 59), random.Next(0, 59), random.Next(0, 59)); // random time from the ship time
     }
     public override string ToString() => $@"
-    ID: 
-    {ID}
-    CustomerName: 
-    {CustomerName} 
-    CustomerEmail: 
-    {CustomerEmail} 
-    CstomerAddress: 
-    {CstomerAddress}
-    DeliveryDate: 
-    {DeliveryDate}
-    ";
+    ID:              {ID}
+    CustomerName:    {CustomerName} 
+    CustomerEmail:   {CustomerEmail} 
+    CstomerAddress:  {CstomerAddress}
+    DeliveryDate:    {DeliveryDate}
+    ";               
 };

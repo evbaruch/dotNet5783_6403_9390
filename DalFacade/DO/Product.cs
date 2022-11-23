@@ -20,10 +20,10 @@ public struct Product
     }
 
     public override string ToString() => $@"
-    ID: {ID}
-    Name: {Name}
-    Price: {Price}
-    Category: {Category}
-    InStoke: {InStoke}
+    ID:        {ID}
+    Name:      {Name}
+    Price:     {Price}
+    Category:  {Category}
+    InStoke:   {InStoke}
     ";
 }
