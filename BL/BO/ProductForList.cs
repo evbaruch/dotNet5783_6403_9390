@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace BO;
 
-namespace BO
+public class ProductForList
 {
-    internal class ProductForList
-    {
-    }
+    public int ID { get; set; }
+    public string CustomerName { get; set; }
+    public productsCategory Status { get; set;}
+    public int AmountOfItems { get; set; }
+    public double TotalPrice { get; set; }
+
+    public override string ToString() => $@"
+    ID:             {ID}
+    CustomerName:   {CustomerName} 
+    Status:         {Status} 
+    AmountOfItems:  {AmountOfItems}
+    TotalPrice:     {TotalPrice}
+    ";
 }
+
+

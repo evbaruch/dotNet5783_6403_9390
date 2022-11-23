@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi;
+namespace BlImplementation;
 
-internal interface IOrderTracking
+internal class OrderTracking
 {
 }

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlImplementation
+namespace BlImplementation;
+
+internal class ProductItem
 {
-    internal interface Interface1
-    {
-    }
 }

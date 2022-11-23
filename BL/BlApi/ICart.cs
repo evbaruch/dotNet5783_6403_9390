@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi
+namespace BlApi;
+
+internal interface ICart
 {
-    internal interface ICart
-    {
-    }
 }
