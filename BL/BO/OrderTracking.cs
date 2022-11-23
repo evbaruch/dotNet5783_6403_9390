@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BO
+namespace BO;
+
+internal class OrderTracking
 {
-    internal class OrderTracking
-    {
-    }
 }
