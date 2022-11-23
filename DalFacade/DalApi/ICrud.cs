@@ -10,4 +10,5 @@ public interface ICrud<T>
     public void Update(T entity);
     public void Delete(T entity);
     public IEnumerable<T> ReadAll();
+
 }
