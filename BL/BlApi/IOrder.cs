@@ -1,16 +1,27 @@
 ﻿using BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BlApi;
 /// <summary>
 /// 
 /// </summary>
 internal interface IOrder
 {
+    /// <summary>
+    /// Order list request (admin screen)
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<Order> OrderListRequest();
+    /// <summary>
+    /// Order details request (for manager screen and buyer screen)
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    public Order OrderDetailsRequest(int orderID);
+    /// <summary>
+    /// Order Shipping Update (Manager Order Management Screen)
+    /// </summary>
+    /// <param name="orderID"></param>
+    /// <returns></returns>
+    public Order OrderShippingUpdate(int orderID);
     /// <summary>
     /// request to update the state of the order delivery and alter it
     /// </summary>
