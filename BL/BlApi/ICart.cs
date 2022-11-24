@@ -3,7 +3,7 @@ namespace BlApi;
 /// <summary>
 /// Operation on the Cart
 /// </summary>
-internal interface ICart
+public interface ICart
 {
     /// <summary>
     /// Adding a product to the cart (for catalog screen, product details screen)

@@ -3,7 +3,7 @@ namespace BlApi;
 /// <summary>
 /// Operation on the Order
 /// </summary>
-internal interface IOrder
+public interface IOrder
 {
     /// <summary>
     /// Order list request (admin screen)
