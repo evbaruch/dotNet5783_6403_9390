@@ -1,7 +1,9 @@
 ﻿using BO;
 namespace BlApi;
-
-public interface ICart
+/// <summary>
+/// 
+/// </summary>
+internal interface ICart
 {
     /// <summary>
     /// Adding a product to the cart (for catalog screen, product details screen)

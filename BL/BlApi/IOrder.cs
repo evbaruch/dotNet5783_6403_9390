@@ -1,7 +1,9 @@
 ﻿using BO;
 namespace BlApi;
-
-public interface IOrder
+/// <summary>
+/// 
+/// </summary>
+internal interface IOrder
 {
     /// <summary>
     /// Order list request (admin screen)
