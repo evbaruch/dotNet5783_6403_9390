@@ -1,7 +1,7 @@
 ﻿using BO;
 namespace BlApi;
 /// <summary>
-/// 
+/// Operation on the Order
 /// </summary>
 internal interface IOrder
 {
