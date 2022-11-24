@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlApi
+namespace BlApi;
+
+public interface IBl
 {
-    public interface IBl
-    {
-        ICart cart { get; }
+    public ICart Cart { get; }
 
-        IOrder order { get; }
+    public IOrder Order { get; }
 
-        IProduct product { get; }
-    }
+    public IProduct Product { get; }
 }
