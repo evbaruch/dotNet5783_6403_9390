@@ -9,7 +9,7 @@ public interface IOrder
     /// Order list request (admin screen)
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Order> OrderListRequest();
+    public IEnumerable<OrderForList> OrderListRequest();
     /// <summary>
     /// Order details request (for manager screen and buyer screen)
     /// </summary>
@@ -38,5 +38,5 @@ public interface IOrder
     /// request to update the order (admin)
     /// </summary>
     /// <param name="id"></param>
-    public void OrderUpdate(int id);
+    public Order OrderUpdate(int id, int productID, int plus_minus);
 }

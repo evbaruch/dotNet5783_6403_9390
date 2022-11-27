@@ -11,7 +11,6 @@ public class Order
     public string? CustomerAdress { get; set; }
     public OrderStatus? Status { get; set; }
     public DateTime? OrderDate { get; set; }
-    public DateTime? PaymentDate { get; set; }
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryrDate { get; set; }
     public List<OrderItem>? Items { get; set; } = new List<OrderItem>();
@@ -24,7 +23,6 @@ public class Order
     CustomerAdress:  {CustomerAdress}
     Status:          {Status}
     OrderDate:       {OrderDate}
-    PaymentDate:     {PaymentDate} 
     ShipDate:        {ShipDate} 
     DeliveryrDate:   {DeliveryrDate}
     Items:           {Items}

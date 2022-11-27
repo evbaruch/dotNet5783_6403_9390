@@ -27,8 +27,6 @@ internal class Product : IProduct
     {
         try
         {
-
-
             BO.Product product = new() { };
             if (id > 0)
             {
@@ -81,7 +79,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm")
+                throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm");
             }
         }
         catch (Exception exeption)
