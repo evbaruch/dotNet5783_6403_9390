@@ -11,7 +11,7 @@ public class DalProduct : IProduct
     {
         product.ID = DataSource.Config.get_ID_Product;
         DataSource.listProduct.Add(product);
-        return product.ID;
+        return (int)product.ID;
     }
     public Product Read(Product product)
     {

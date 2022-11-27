@@ -4,7 +4,7 @@ namespace DO;
 
 public struct Product
 {
-    public int ID { set; get; }
+    public int? ID { set; get; }
     public string? Name { set; get; }
     public double? Price { set; get; }
     public /*enum*/productsCategory? Category { set; get; }

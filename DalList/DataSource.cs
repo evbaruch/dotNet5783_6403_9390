@@ -153,7 +153,7 @@ internal static class DataSource
         for (int i = 0; i < 40; i++)
         {
             int Index = random.Next(0, 10);
-            int ProductID = listProduct[Index].ID;
+            int ProductID = (int)listProduct[Index].ID;
             double Price = (double)listProduct[Index].Price;
             Index = random.Next(0, 20);
             int OrderID = listOrder[Index].ID;
@@ -163,7 +163,7 @@ internal static class DataSource
     }
 
     //These three functions get the hash of the datum and return its index to me
-    internal static int searchOrder(int ID)
+    internal static int searchOrder(int? ID)
     {
         for (int i = 0; i < listOrder.Count; i++)
 		{
