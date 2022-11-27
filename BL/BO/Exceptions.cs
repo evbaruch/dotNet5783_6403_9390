@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BO;
 
-public class Exceptions
+public class IncorrectDataException : Exception
 {
-
+    public IncorrectDataException(string messege) : base() { }
+}
+public class DataNotFoundException : Exception
+{
+    public DataNotFoundException(string messege) : base() { }
 }
