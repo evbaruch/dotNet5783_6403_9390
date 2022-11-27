@@ -3,6 +3,7 @@ using DalApi;
 using BlApi;
 using IProduct = BlApi.IProduct;
 using System.Linq;
+using BO;
 
 namespace BlImplementation;
 
@@ -34,7 +35,7 @@ internal class Product : IProduct
         }
         else
         {
-            throw new Exception("product don't exist - BlIm");
+            throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm");
         }
     }
 
@@ -68,7 +69,7 @@ internal class Product : IProduct
         }
         else
         {
-            throw new Exception("product item don't exist - BlIm");
+            throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm");
         }
     }
 
@@ -91,12 +92,12 @@ internal class Product : IProduct
             }
             else
             {
-                throw new Exception("can't delete ,exist in an order");
+                throw new DataNotFoundException("BlImplementation->Product->DeleteProduct = can't delete ,exist in an order");
             }
         }
         else
         {
-            throw new Exception("out of range exeption");
+            throw new IncorrectDataException("BlImplementation->Product->DeleteProduct = out of range exeption");
         }
     }
 
@@ -109,7 +110,7 @@ internal class Product : IProduct
         }
         else
         {
-            throw new Exception("the product was not able to be updated");
+            throw new DataNotFoundException("BlImplementation->Product->UpdateProduct = the product was not able to be updated");
         }
     }
 
@@ -122,7 +123,7 @@ internal class Product : IProduct
         }
         else
         {
-            throw new Exception("the product was not able to be added");
+            throw new DataNotFoundException("BlImplementation->Product->AddProduct = the product was not able to be updated");
         }
     }
 }

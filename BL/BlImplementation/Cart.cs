@@ -39,7 +39,7 @@ internal class Cart : ICart
                         }
                     }
                     //לא יתכן שתהיה שגיאה שבכלל לא מצאנו את המוצר אבל יתכן שלא נשאר במלאי 
-                    throw new NotImplementedException();
+                    throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not in stock");
                 }
 
 
@@ -64,7 +64,7 @@ internal class Cart : ICart
                 }
             }
             //במקרה שלא מצאני את המוצר את נזרוק חריגה
-            throw new NotImplementedException();
+            throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not found");
         }
         catch (Exception exeption)
         {
@@ -128,7 +128,7 @@ internal class Cart : ICart
 
                 }
                 //במקרה שלא מצאנו בכלל את המוצר
-                throw new NotImplementedException();
+                throw new DataNotFoundException("BlImplementation->ICart->UpdateProductQuantity = Product not found");
             }
             return cart;//נחזיר בלי שינוי
         }
@@ -161,26 +161,8 @@ internal class Cart : ICart
                     }
                     if (!flag)
                     {
-                        //זה אומר שמוצר אחד שישי לי ברשימה אין לי אותו במוצרים
-                        throw new NotImplementedException();
-                    }
-                }
-
-                //בכול התהליך הזה אני בודק שרשימת ההזמנה שלי תקינה
-                foreach (var item in cart.listOfOrder)
-                {
-                    bool flag = false;
-                    foreach (var product in DO_product)
-                    {
-                        if (item.ProductID == product.ID)
-                        {
-                            flag = true;
-                        }
-                    }
-                    if (!flag)
-                    {
-                        //זה אומר שמוצר אחד שישי לי ברשימה אין לי אותו במוצרים
-                        throw new NotImplementedException();
+                        //זה אומר שמוצר אחד שיש לי ברשימה אין לי אותו במוצרים
+                        throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart");
                     }
                 }
 
@@ -211,7 +193,7 @@ internal class Cart : ICart
                             else
                             {
                                 //אין מספיק מוצרים
-                                throw new NotImplementedException();
+                                throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Not enough products");
                             }
                         }
                     }
@@ -242,7 +224,7 @@ internal class Cart : ICart
                 }
             }
             //שם לא חוקי
-            throw new NotImplementedException();
+            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid name");
         }
         catch (Exception exeption)
         {
