@@ -24,105 +24,143 @@ internal class Product : IProduct
 
     public BO.Product ProductDetails(int id)
     {
-        BO.Product product = new() { };
-        if (id > 0)
+        try
         {
-            DO.Product temp = new() { ID = id };
-            temp = Dal.product.Read(temp);
-            product = new() { ID = temp.ID, Name = temp.Name, Price = temp.Price, Category = (BO.Enums.productsCategory?)temp.Category, InStock = temp.InStoke };
-            return product;
+
+
+            BO.Product product = new() { };
+            if (id > 0)
+            {
+                DO.Product temp = new() { ID = id };
+                temp = Dal.product.Read(temp);
+                product = new() { ID = temp.ID, Name = temp.Name, Price = temp.Price, Category = (BO.Enums.productsCategory?)temp.Category, InStock = temp.InStoke };
+                return product;
+            }
+            else
+            {
+                throw new Exception("product don't exist - BlIm");
+            }
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception("product don't exist - BlIm");
+
+            throw exeption;
         }
     }
 
     public BO.ProductItem ProductDetails(int id, BO.Cart cart)
     {
-        BO.ProductItem productItem = new() { };
-        if (id > 0)
+        try
         {
-            productItem.ID = id;
-            productItem.Name = cart.CustomerName;
-            foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the price  
+            BO.ProductItem productItem = new() { };
+            if (id > 0)
             {
-                if (item.ProductID == productItem.ID)
+                productItem.ID = id;
+                productItem.Name = cart.CustomerName;
+                foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the price  
                 {
-                    productItem.Price = item.Price;
-                    break;
+                    if (item.ProductID == productItem.ID)
+                    {
+                        productItem.Price = item.Price;
+                        break;
+                    }
                 }
+                foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the amount
+                {
+                    if (item.ProductID == productItem.ID)
+                    {
+                        productItem.Amount++;
+                    }
+                }
+                productItem.InStock = (productItem.Amount>0) ? true : false;
+                DO.Product preProduct = new() { ID = productItem.ID, Name = productItem.Name };
+                preProduct = Dal.product.Read(preProduct);
+                productItem.Category = (BO.Enums.productsCategory?)preProduct.Category;
+                return productItem;
             }
-            foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the amount
+            else
             {
-                if (item.ProductID == productItem.ID)
-                {
-                    productItem.Amount++;
-                }
+                throw new Exception("product item don't exist - BlIm");
             }
-            productItem.InStock = (productItem.Amount>0) ? true : false;
-            DO.Product preProduct = new() { ID = productItem.ID, Name = productItem.Name };
-            preProduct = Dal.product.Read(preProduct);
-            productItem.Category = (BO.Enums.productsCategory?)preProduct.Category;
-            return productItem;
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception("product item don't exist - BlIm");
+            throw exeption;
         }
     }
 
     public void DeleteProduct(int id)
     {
-        bool exist = false;
-        if (id > 0)
+        try
         {
-            foreach (var item in Dal.product.ReadAll()) // check if the product exist already
+            bool exist = false;
+            if (id > 0)
             {
-                if (id == item.ID)
+                foreach (var item in Dal.product.ReadAll()) // check if the product exist already
                 {
-                    exist = true;
+                    if (id == item.ID)
+                    {
+                        exist = true;
+                    }
                 }
-            }
-            if (!exist)
-            {
-                DO.Product delete = new() { ID = id };
-                Dal.product.Delete(delete);
+                if (!exist)
+                {
+                    DO.Product delete = new() { ID = id };
+                    Dal.product.Delete(delete);
+                }
+                else
+                {
+                    throw new Exception("can't delete ,exist in an order");
+                }
             }
             else
             {
-                throw new Exception("can't delete ,exist in an order");
+                throw new Exception("out of range exeption");
             }
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception("out of range exeption");
+            throw exeption;
         }
     }
 
     public void UpdateProduct(BO.Product product)
     {
-        if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+        try
         {
-            DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
-            Dal.product.Update(addproduct);
+            if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+            {
+                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
+                Dal.product.Update(addproduct);
+            }
+            else
+            {
+                throw new Exception("the product was not able to be updated");
+            }
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception("the product was not able to be updated");
+            throw exeption;
         }
     }
 
     public void AddProduct(BO.Product product)
     {
-        if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+        try
         {
-            DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
-            Dal.product.Create(addproduct);
+            if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+            {
+                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
+                Dal.product.Create(addproduct);
+            }
+            else
+            {
+                throw new Exception("the product was not able to be added");
+            }
         }
-        else
+        catch (Exception exeption)
         {
-            throw new Exception("the product was not able to be added");
+            throw exeption;
         }
     }
 }

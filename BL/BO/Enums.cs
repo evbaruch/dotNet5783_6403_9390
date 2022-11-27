@@ -14,6 +14,8 @@ public class Enums
 
     public enum OrderStatus
     {
-        Status
+        ordered,
+        shiped,
+        delivered
     }
 }
