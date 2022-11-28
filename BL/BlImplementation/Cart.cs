@@ -172,28 +172,31 @@ internal class Cart : ICart
                 }
 
                 //Updating the products from our data
-                foreach (var item in cart.listOfOrder)//אולי זה הבעיה ??
+                foreach (var item in cart.listOfOrder)
                 {
-                    foreach (var product in DO_product)//בעיה
-                    {
-                        if (item.ProductID == product.ID)
-                        {
+                    foreach (var product in DO_product)//בעיה                                                
+                    {                                                                                        
+                        if (item.ProductID == product.ID)                                                    
+                        {                                                                                    
+                                                                                                             
+                            if (product.InStoke - item.Amount == 0)//If I marked the products exactly        
+                            {                                                                                
+                                Dal.product.Delete(product);                                                 
+                            }                                                                                
+                            if (product.InStoke - item.Amount > 0)                                           
+                            {                                                                                
+                                DO.Product newProduct = new DO.Product();                                    
+                                                                                                             
+                                newProduct.ID = item.ProductID;                                              
+                                newProduct.Name = product.Name;                                              
+                                newProduct.Price = item.Price;                                               
+                                newProduct.Category = product.Category;                                      
+                                newProduct.InStoke = product.InStoke - item.Amount;                          
+                                                                                                             
+                                Dal.product.Update(newProduct);
+                                break;
 
-                            if (product.InStoke - item.Amount == 0)//If I marked the products exactly
-                            {
-                                Dal.product.Delete(product);
-                            }
-                            if (product.InStoke - item.Amount > 0)
-                            {
-                                DO.Product newProduct = new DO.Product();
 
-                                newProduct.ID = item.ProductID;
-                                newProduct.Name = product.Name;
-                                newProduct.Price = item.Price;
-                                newProduct.Category = product.Category;
-                                newProduct.InStoke = product.InStoke - item.Amount;
-
-                                Dal.product.Update(newProduct)//יש פה בעיה קשה !!!!!!
                             }
                             else
                             {

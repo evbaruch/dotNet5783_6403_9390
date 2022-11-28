@@ -66,32 +66,59 @@ internal class Program
 
     }
 
-    static void optionOrder()
+    static void optionOrder()//לא סיימיתי עדיין
     {
         Bl access = new Bl();
-        BO.Order order = new BO.Order();
+        int orderID = 0;
+
         Console.WriteLine("\nOrder\n" +
-            "a in order to adding an Product to cart\n" +
-            "b in order to Update Product Quantity in cart\n" +
-            "c in order to Confirme the Order \n" +
+            "a - Order Order List Request\n" +
+            "b - Order Details Request\n" +
+            "c - Order Shipping Update\n" +
+            "d - Update Delivery Order\n" +
+            "e - Order Tracking\n" +
+            "f - Order Update\n" +
             "any other letter in order to exit");
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
         {
             case 'a':
-                Console.WriteLine("aaa\n");
+                IEnumerable<BO.OrderForList> orderForList = access.Order.OrderListRequest();
+                foreach (var item in orderForList)
+                {
+                    Console.WriteLine(item);
+                }
                 break;
 
 
             case 'b':
-                Console.WriteLine("bbb\n");
-
+                Console.WriteLine("Enter order ID number\n");
+                int.TryParse(Console.ReadLine(), out orderID);
+                Console.WriteLine(access.Order.OrderDetailsRequest(orderID));               
                 break;
 
 
             case 'c':
-                Console.WriteLine("ccc\n");
+                Console.WriteLine("Enter order ID number\n");
+                int.TryParse(Console.ReadLine(), out orderID);
+                Console.WriteLine(access.Order.OrderShippingUpdate(orderID));
+                break;
 
+            case 'd':
+                Console.WriteLine("Enter order ID number\n");
+                int.TryParse(Console.ReadLine(), out orderID);
+                Console.WriteLine(access.Order.UpdateDeliveryOrder(option));
+                break;
+
+            case 'e':
+                Console.WriteLine("Enter order ID number\n");
+                int.TryParse(Console.ReadLine(), out orderID);
+                Console.WriteLine(access.Order.OrderTracking(option));
+                break;
+
+            case 'f':
+                Console.WriteLine("fff\n");
+                //access.Order.OrderUpdate();
                 break;
 
             default:
@@ -104,13 +131,13 @@ internal class Program
         Bl access = new Bl();
         BO.Product product = new BO.Product();
         Console.WriteLine("\nProduct\n" +
-    "a in order to view products catalog \n" +
-    "b in order to view the details of a poduct by its id \n" +
-    "c in order to view the details of a poduct by its id and cart\n" +
-    "d in order to add a prudoct\n" +
-    "e in order to delete a product\n" +
-    "f in order to update a product\n" +
-    "any other letter in order to exit");
+             "a in order to view products catalog \n" +
+             "b in order to view the details of a poduct by its id \n" +
+             "c in order to view the details of a poduct by its id and cart\n" +
+             "d in order to add a prudoct\n" +
+             "e in order to delete a product\n" +
+             "f in order to update a product\n" +
+             "any other letter in order to exit");
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
         {
@@ -212,7 +239,7 @@ internal class Program
             {
                 Console.WriteLine(messege.Message);
             }
-            if (choice != '0') // if the user haven't enter 0 ask for a new choice
+            if (choice != "0") // if the user haven't enter 0 ask for a new choice
             {
                 Console.WriteLine("please enter another choice\n");
             }

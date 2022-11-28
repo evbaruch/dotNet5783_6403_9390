@@ -12,7 +12,7 @@ internal class Order : IOrder
 {
     private IDal Dal = new DalList();
 
-    public IEnumerable<BO.OrderForList> OrderListRequest()
+    public IEnumerable<BO.OrderForList> OrderListRequest()//הפונקציה הזאת לא עובדת היא לא מחזירה מה שהיא צריכה להחזיר
     {
         IEnumerable<DO.Order> orders = Dal.order.ReadAll().ToList();
         IEnumerable<DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
@@ -49,7 +49,7 @@ internal class Order : IOrder
         return OrderForList;
     }
 
-    public BO.Order OrderDetailsRequest(int orderID)
+    public BO.Order OrderDetailsRequest(int orderID)// TotalPrice לא עדכנת את 
     {
         try
         {
