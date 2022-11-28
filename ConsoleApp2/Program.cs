@@ -9,10 +9,10 @@ namespace BiTest;
 
 internal class Program
 {
+    static Cart cart = new Cart();
     static void optionCart()
     {
         Bl access = new Bl();
-        Cart cart = new Cart();
         int id = 0, Quantity = 0;
         char option = '1';
 
@@ -44,7 +44,10 @@ internal class Program
 
                 case 'c':
                     Console.WriteLine("Enter your username and email and address\n");
-
+                    cart.CustomerName = Console.ReadLine();
+                    cart.CustomerEmail = Console.ReadLine();
+                    cart.CustomerAddress = Console.ReadLine();
+                    access.Cart.OrderConfirmation(cart);
                     break;
 
                 case 'p':

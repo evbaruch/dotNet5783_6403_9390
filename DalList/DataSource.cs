@@ -174,7 +174,7 @@ internal static class DataSource
 		}
         return -1;
     }
-    internal static int searchProduct(int ID)
+    internal static int searchProduct(int? ID)
     {
         for (int i = 0; i < listProduct.Count; i++)
 		{
