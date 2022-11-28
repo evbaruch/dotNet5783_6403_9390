@@ -13,42 +13,42 @@ internal class Cart : ICart
     {
         try
         {
-            //נקבל פה רשימה של כול המוצרים שלנו
+            //We will get a list of all our products here
             IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
 
             foreach (var item in cart.listOfOrder)
             {
-                //אם זה כבר קיים אצלנו בעגלה
+                //If it already exists in our cart
                 if (item.ProductID == productID)
                 {
-                    //נחפס את אותו מוצר בחנות
+                    //Grab the same product in the store
                     foreach (var product in DO_product)
                     {
-                        //ברגע שנגיע אליו נבדוק אם נשאר מוצרים
+                        //As soon as we reach it we will check if there are any products left
                         if (product.InStoke > 0 && product.ID == productID)
                         {
-                            //נעדכן את הכמות מוצרים באחד והמחיר
+                            //We will update the quantity of products in one and the price
                             item.Amount++;
                             item.TotalPrice = item.Amount * product.Price;
 
-                            //עדכון מחיר הכולל של כול ההזמנה
+                            //Update the total price of the entire order
                             cart.TotalPrice += item.TotalPrice;
 
                             return cart;
                         }
                     }
-                    //לא יתכן שתהיה שגיאה שבכלל לא מצאנו את המוצר אבל יתכן שלא נשאר במלאי 
+                    //It is not possible that there will be an error that we did not find the product at all, but it is possible that it is not left in stock 
                     throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not in stock");
                 }
 
 
             }
-            //אם המוצר לא קיים אצלנו בעגלה
-            //נחפס את אותו מוצר בחנות
+            //If the product is not in our cart
+            //Grab the same product in the store
             foreach (var product in DO_product)
             {
-                //נחפס את המוצר לפי הזאות שלו
+                //We seize the product according to its appearance
                 if (product.ID == productID)
                 {
                     BO.OrderItem orderItem = new BO.OrderItem();
@@ -63,7 +63,7 @@ internal class Cart : ICart
                     return cart;
                 }
             }
-            //במקרה שלא מצאני את המוצר את נזרוק חריגה
+            //In case I can't find the product, we will throw an exception
             throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not found");
         }
         catch (Exception exeption)
@@ -77,13 +77,13 @@ internal class Cart : ICart
     {
         try
         {
-            //אם אני מקבל 0 אז אני לא משנה כלום לכן נחזיר מיד
+            //If I get 0 then I don't change anything so we return immediately
             if (productQuantity == 0)
             {
                 return cart;
             }
 
-            //נקבל פה רשימה של כול המוצרים שלנו
+            //We will get a list of all our products here
             IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
             foreach (var item in cart.listOfOrder)
@@ -91,9 +91,9 @@ internal class Cart : ICart
                 if (item.ProductID == productID)
                 {
 
-                    if (productQuantity > 0)//אם מוסיפים פריטים
+                    if (productQuantity > 0)//If you add items
                     {
-                        //אז נבצע את פונקצית ההוספה ככמות הפעמים 
+                        //So we will perform the addition function the number of times 
                         for (int i = 0; i < productQuantity; i++)
                         {
                             cart = this.AddProduct(cart, productID);
@@ -101,25 +101,25 @@ internal class Cart : ICart
                         }
                         return cart;
                     }
-                    else//אם אני מחסיר מוצרים
+                    else//If I'm missing products
                     {
-                        if (item.Amount - productQuantity > 0)//אם אני מסיר אבל עדין יש מוצרים
+                        if (item.Amount - productQuantity > 0)//If I remove but there are still products
                         {
-                            //נעדכן את הכמות והמחיר הכולל של המוצר
+                            //We will update the total quantity and price of the product
                             item.Amount = item.Amount - productQuantity;
                             item.TotalPrice = item.Amount * item.Price;
 
-                            //נעדכן את המחיר הכולל של ההזמנה
+                            //We will update the total price of the order
                             cart.TotalPrice -= productQuantity * item.Price;
 
                             return cart;
                         }
-                        else//אם נגמר כול המוצרים
+                        else//If all products run out
                         {
-                            //נעדכן את נמחיר
+                            //We will update you
                             cart.TotalPrice -= item.TotalPrice;
 
-                            //נמחוק אותו מההזמנה
+                            //We will delete it from the order
                             cart.listOfOrder.Remove(item);
 
                             return cart;
@@ -127,10 +127,10 @@ internal class Cart : ICart
                     }
 
                 }
-                //במקרה שלא מצאנו בכלל את המוצר
+                //In case we did not find the product at all
                 throw new DataNotFoundException("BlImplementation->ICart->UpdateProductQuantity = Product not found");
             }
-            return cart;//נחזיר בלי שינוי
+            return cart;//We will return without change
         }
         catch (Exception exeption)
         {
@@ -139,16 +139,16 @@ internal class Cart : ICart
         }
     }
 
-    public void OrderConfirmation(BO.Cart cart)
+    public void OrderConfirmation(BO.Cart cart) // the Customer pesonal details are already in the system ,no need to send them
     {
         try
         {
-            //נבדוק שיש בכלל שם חוקי
+            //We will check that there is even a valid name
             if (cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null)
             {
                 IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
-                //בכול התהליך הזה אני בודק שרשימת ההזמנה שלי תקינה
+                //Throughout this process I check that my order list is correct
                 foreach (var item in cart.listOfOrder)
                 {
                     bool flag = false;
@@ -161,12 +161,12 @@ internal class Cart : ICart
                     }
                     if (!flag)
                     {
-                        //זה אומר שמוצר אחד שיש לי ברשימה אין לי אותו במוצרים
+                        //This means that one product that I have in the list I do not have it in the products
                         throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart");
                     }
                 }
 
-                //עדכון המוצרים מהנתונים שלנו
+                //Updating the products from our data
                 foreach (var item in cart.listOfOrder)
                 {
                     foreach (var product in DO_product)
@@ -174,7 +174,7 @@ internal class Cart : ICart
                         if (item.ProductID == product.ID)
                         {
 
-                            if (product.InStoke - item.Amount == 0)//אם סימתי בדיוק את המוצרים
+                            if (product.InStoke - item.Amount == 0)//If I marked the products exactly
                             {
                                 Dal.product.Delete(product);
                             }
@@ -192,7 +192,7 @@ internal class Cart : ICart
                             }
                             else
                             {
-                                //אין מספיק מוצרים
+                                //Not enough products
                                 throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Not enough products");
                             }
                         }
@@ -200,7 +200,7 @@ internal class Cart : ICart
                 }
 
 
-                //נוסיף הזמנה לנתונים שלנו 
+                //We will add an order to our data
                 DO.Order newOrder = new DO.Order();
 
                 newOrder.CustomerName = cart.CustomerName;
@@ -210,7 +210,7 @@ internal class Cart : ICart
 
                 int OrderID = Dal.order.Create(newOrder);
 
-                //נוסחף פריט הזמנה 
+                //Order item formula
                 foreach (var item in cart.listOfOrder)
                 {
                     DO.OrderItem newOrderItem = new DO.OrderItem();
@@ -223,7 +223,7 @@ internal class Cart : ICart
                     Dal.orderItem.Create(newOrderItem);
                 }
             }
-            //שם לא חוקי
+            //Invalid name
             throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid name");
         }
         catch (Exception exeption)
