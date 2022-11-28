@@ -9,6 +9,10 @@ public class Cart
     public  List<OrderItem>? listOfOrder { get; set; } = new List<OrderItem>();
     public double? TotalPrice { get; set; }
 
+    public Cart()
+    {
+        TotalPrice = 0;
+    }
     public override string ToString() => $@"
     CustomerName:     {CustomerName}
     CustomerEmail:    {CustomerEmail} 
