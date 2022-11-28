@@ -30,7 +30,7 @@ public class DalProduct : IProduct
     }
     public void Update(Product product)
     {
-        int I = DataSource.searchOrder(product.ID);
+        int I = DataSource.searchProduct(product.ID);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listProduct[I] = product;

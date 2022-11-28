@@ -2,6 +2,7 @@
 using BO;
 using Dal;
 using DalApi;
+using System.Linq;
 
 namespace BlImplementation;
 
@@ -52,9 +53,13 @@ internal class Cart : ICart
                 {
                     BO.OrderItem orderItem = new BO.OrderItem();
 
+                    orderItem.ID = Dal.orderItem.ReadAll().ElementAt(Dal.orderItem.ReadAll().Count() - 1).ID + 1;
+                    orderItem.Name = product.Name;
                     orderItem.Price = product.Price;
                     orderItem.Amount = 1;
                     orderItem.TotalPrice = product.Price;
+
+                    orderItem.ProductID = productID;
 
                     cart.TotalPrice += product.Price;
                     cart.listOfOrder.Add(orderItem);
@@ -166,9 +171,9 @@ internal class Cart : ICart
                 }
 
                 //Updating the products from our data
-                foreach (var item in cart.listOfOrder)
+                foreach (var item in cart.listOfOrder)//אולי זה הבעיה ??
                 {
-                    foreach (var product in DO_product)
+                    foreach (var product in DO_product)//בעיה
                     {
                         if (item.ProductID == product.ID)
                         {
@@ -182,12 +187,12 @@ internal class Cart : ICart
                                 DO.Product newProduct = new DO.Product();
 
                                 newProduct.ID = item.ProductID;
-                                newProduct.Name = item.Name;
+                                newProduct.Name = product.Name;
                                 newProduct.Price = item.Price;
                                 newProduct.Category = product.Category;
-                                newProduct.Category = newProduct.Category - item.Amount;
+                                newProduct.InStoke = product.InStoke - item.Amount;
 
-                                Dal.product.Update(newProduct);
+                                Dal.product.Update(newProduct)//יש פה בעיה קשה !!!!!!
                             }
                             else
                             {
@@ -221,6 +226,8 @@ internal class Cart : ICart
 
                     Dal.orderItem.Create(newOrderItem);
                 }
+
+                return;
             }
             //Invalid name
             throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid name");
