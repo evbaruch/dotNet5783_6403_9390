@@ -68,6 +68,8 @@ internal class Program
 
     static void optionOrder()
     {
+        Bl access = new Bl();
+        BO.Order order = new BO.Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an Product to cart\n" +
             "b in order to Update Product Quantity in cart\n" +
@@ -99,26 +101,61 @@ internal class Program
 
     static void optionProduct()
     {
-        Console.WriteLine("\nOrder\n" +
-    "a in order to adding an Product to cart\n" +
-    "b in order to Update Product Quantity in cart\n" +
-    "c in order to Confirme the Order \n" +
+        Bl access = new Bl();
+        BO.Product product = new BO.Product();
+        Console.WriteLine("\nProduct\n" +
+    "a in order to view products catalog \n" +
+    "b in order to view the details of a poduct by its id \n" +
+    "c in order to view the details of a poduct by its id and cart\n" +
+    "d in order to add a prudoct\n" +
+    "e in order to delete a product\n" +
+    "f in order to update a product\n" +
     "any other letter in order to exit");
         bool isRead = char.TryParse(Console.ReadLine(), out char option);
         switch (option)
         {
             case 'a':
-                Console.WriteLine("aaa\n");
+                IEnumerable<ProductForList> products = access.Product.Products();
+                foreach (var item in products)
+                {
+                    Console.WriteLine(item);
+                };
                 break;
 
-
             case 'b':
-                Console.WriteLine("bbb\n");
-
+                Console.WriteLine("Enter the ID product you seek to view\n");
+                isRead = int.TryParse(Console.ReadLine(), out int ID);
+                product.ID = ID;
+                Console.WriteLine(access.Product.ProductDetails(ID));
                 break;
 
 
             case 'c':
+                Console.WriteLine("Enter the ID product and the cart you seek to view\n");
+                
+                break;
+
+            case 'd':
+                Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock  of product you seek to add\n");
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                product.ID = ID;
+                product.Name = Console.ReadLine();
+                isRead = int.TryParse(Console.ReadLine(), out int price);
+                product.Price = price;
+                BO.Enums.productsCategory a;
+                BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a );
+                product.Category = a;
+                product.InStock = Console.Read();
+                access.Product.AddProduct(product);
+                Console.WriteLine();
+                break;
+
+            case 'e':
+                Console.WriteLine("ccc\n");
+
+                break;
+
+            case 'f':
                 Console.WriteLine("ccc\n");
 
                 break;
@@ -175,7 +212,7 @@ internal class Program
             {
                 Console.WriteLine(messege.Message);
             }
-            if (choice != "0") // if the user haven't enter 0 ask for a new choice
+            if (choice != '0') // if the user haven't enter 0 ask for a new choice
             {
                 Console.WriteLine("please enter another choice\n");
             }

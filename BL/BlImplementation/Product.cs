@@ -14,13 +14,14 @@ internal class Product : IProduct
     public IEnumerable<BO.ProductForList> Products()
     {
         IEnumerable<DO.Product> products = Dal.product.ReadAll().ToList();
-        IEnumerable<BO.ProductForList> ProductForList = new List<BO.ProductForList>();
+        IEnumerable<BO.ProductForList> ProductForLists = new List<BO.ProductForList>();
+        List<BO.ProductForList> LProductForLists = ProductForLists.ToList();
         foreach (var item in products) // go over the products and get all the data from DO 
         {
             BO.ProductForList temp = new(){ID = item.ID,Name = item.Name,Price = item.Price,Category = (BO.Enums.productsCategory?)item.Category };
-            ProductForList.Append(temp);
+            LProductForLists.Add(temp);
         }
-        return ProductForList;
+        return LProductForLists;
     }
 
     public BO.Product ProductDetails(int id)
@@ -47,14 +48,14 @@ internal class Product : IProduct
         }
     }
 
-    public BO.ProductItem ProductDetails(int id, BO.Cart cart)
+    public BO.ProductItem ProductDetails(int productID, BO.Cart cart)
     {
         try
         {
             BO.ProductItem productItem = new() { };
-            if (id > 0)
+            if (productID > 0)
             {
-                productItem.ID = id;
+                productItem.ID = productID;
                 productItem.Name = cart.CustomerName;
                 foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the price  
                 {
@@ -95,14 +96,14 @@ internal class Product : IProduct
             bool exist = false;
             if (id > 0)
             {
-                foreach (var item in Dal.product.ReadAll()) // check if the product exist already
+                foreach (var item in Dal.product.ReadAll()) // check if the product already exist 
                 {
                     if (id == item.ID)
                     {
                         exist = true;
                     }
                 }
-                if (!exist)
+                if (!exist) // not exist
                 {
                     DO.Product delete = new() { ID = id };
                     Dal.product.Delete(delete);
@@ -127,7 +128,7 @@ internal class Product : IProduct
     {
         try
         {
-            if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+            if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
                 DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
                 Dal.product.Update(addproduct);
@@ -147,7 +148,7 @@ internal class Product : IProduct
     {
         try
         {
-            if ((product == null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0))
+            if ((product != null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
                 DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
                 Dal.product.Create(addproduct);

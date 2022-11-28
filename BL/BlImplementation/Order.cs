@@ -24,7 +24,7 @@ internal class Order : IOrder
                 ID =  item.ID,
                 CustomerName = item.CustomerName,
             };
-            foreach (var inItem in orderItems)
+            foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
             {
                 if (inItem.OrderID == item.ID)
                 {
@@ -32,15 +32,15 @@ internal class Order : IOrder
                     temp.TotalPrice += inItem.Price;
                 }
             }
-            if (Dal.order.Read(new() { ID = (int)item.ID }).ShipDate == DateTime.MinValue)
+            if (Dal.order.Read(new() { ID = (int)item.ID }).ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
             {
                 temp.Status = (BO.Enums.OrderStatus.ordered);
             }
             else if (Dal.order.Read(new() { ID = (int)item.ID }).ShipDate != DateTime.MinValue && Dal.order.Read(new() { ID = (int)item.ID }).DeliveryDate == DateTime.MinValue)
-            {
+            { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                 temp.Status = (BO.Enums.OrderStatus.shiped);
             }
-            else
+            else // else (both define)
             {
                 temp.Status = (BO.Enums.OrderStatus.delivered);
             }
@@ -53,7 +53,7 @@ internal class Order : IOrder
     {
         try
         {
-            if(orderID > 0)
+            if(orderID > 0) // green line (;
             {
                 DO.Order orderItem = Dal.order.Read(new() { ID = orderID });
                 IEnumerable <DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
@@ -67,7 +67,7 @@ internal class Order : IOrder
                     ShipDate = orderItem.ShipDate,
                     DeliveryrDate = orderItem.DeliveryDate,
                 };
-                for (int i = 0; i < orderItems.Count(); i++)
+                for (int i = 0; i < orderItems.Count(); i++) // go over all the Order item and collect the details
                 {
                     if (orderItem.ID == orderItems.ElementAt(i).ID)
                     {
@@ -83,15 +83,15 @@ internal class Order : IOrder
                         order.TotalPrice += orderItems.ElementAt(i).Price;
                     }
                 }
-                if (order.ShipDate == DateTime.MinValue)
+                if (order.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
                 {
                     order.Status = (BO.Enums.OrderStatus.ordered);
                 }
-                else if (order.ShipDate != DateTime.MinValue && order.DeliveryrDate == DateTime.MinValue)
-                {
+                else if (order.ShipDate != DateTime.MinValue && order.DeliveryrDate == DateTime.MinValue) 
+                {// if the value of the shiping is define but the time of the delivery is't it's only shiped
                     order.Status = (BO.Enums.OrderStatus.shiped);
                 }
-                else
+                else // else (both define)
                 {
                     order.Status = (BO.Enums.OrderStatus.delivered);
                 }
@@ -113,7 +113,7 @@ internal class Order : IOrder
         try
         {
             DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
-            if (orderID > 0 && updateOrder.ShipDate == DateTime.MinValue)
+            if (orderID > 0 && updateOrder.ShipDate == DateTime.MinValue) // only if the order hadn't been shiped update the shiping date to now
             {
                 updateOrder.ShipDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
@@ -137,7 +137,7 @@ internal class Order : IOrder
         try
         {
             DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
-            if (orderID > 0 && updateOrder.ShipDate != DateTime.MinValue && updateOrder.DeliveryDate == DateTime.MinValue )
+            if (orderID > 0 && updateOrder.ShipDate != DateTime.MinValue && updateOrder.DeliveryDate == DateTime.MinValue) // only if the order hadn't been deliverd update the delivery date to now
             {
                 updateOrder.DeliveryDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
@@ -164,15 +164,15 @@ internal class Order : IOrder
             if(orderID > 0)
             {
                 BO.OrderTracking tracking = new() {ID = orderID };
-                if (trackedOrder.ShipDate == DateTime.MinValue)
+                if (trackedOrder.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
                 {
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.ordered);
                 }
                 else if (trackedOrder.ShipDate != DateTime.MinValue && trackedOrder.DeliveryDate == DateTime.MinValue)
-                {
+                { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.shiped);
                 }
-                else
+                else // else (both define)
                 {
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.delivered);
                 }
@@ -197,7 +197,7 @@ internal class Order : IOrder
             if (productID > 0 && orderID > 0)
             {
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
-                foreach (var item in orderUpdate.Items)
+                foreach (var item in orderUpdate.Items) // go over the order item and modify the amount 
                 {
                     if (item.ID == orderID)
                     {
