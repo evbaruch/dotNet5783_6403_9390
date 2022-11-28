@@ -16,7 +16,6 @@ internal class Cart : ICart
             //We will get a list of all our products here
             IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
-
             foreach (var item in cart.listOfOrder)
             {
                 //If it already exists in our cart

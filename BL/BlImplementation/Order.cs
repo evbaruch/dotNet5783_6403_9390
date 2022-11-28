@@ -163,19 +163,25 @@ internal class Order : IOrder
             DO.Order trackedOrder = Dal.order.Read(new() { ID = orderID });
             if(orderID > 0)
             {
+                Tuple<DateTime, BO.Enums.OrderStatus> a;
                 BO.OrderTracking tracking = new() {ID = orderID };
                 if (trackedOrder.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
                 {
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.ordered);
+                    a = new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
                 else if (trackedOrder.ShipDate != DateTime.MinValue && trackedOrder.DeliveryDate == DateTime.MinValue)
                 { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.shiped);
+                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
                 else // else (both define)
                 {
                     tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.delivered);
+                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
+
+                tracking.OrderStatuses.Add(a);
                 return tracking;
             }
             else

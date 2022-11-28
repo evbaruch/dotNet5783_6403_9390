@@ -148,13 +148,23 @@ internal class Program
                 break;
 
             case 'e':
-                Console.WriteLine("ccc\n");
-
+                Console.WriteLine("Enter the ID product and the cart you seek to delete\n");
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                product.ID = ID;
+                access.Product.DeleteProduct((int)product.ID);
                 break;
 
             case 'f':
-                Console.WriteLine("ccc\n");
-
+                Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock of the product you seek to update\n");
+                isRead = int.TryParse(Console.ReadLine(), out ID);
+                product.ID = ID;
+                product.Name = Console.ReadLine();
+                isRead = int.TryParse(Console.ReadLine(), out price);
+                product.Price = price;
+                BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a);
+                product.Category = a;
+                product.InStock = Console.Read();
+                access.Product.UpdateProduct(product);
                 break;
 
             default:
@@ -209,8 +219,12 @@ internal class Program
             {
                 Console.WriteLine(messege.Message);
             }
-            if (choice != '0') // if the user haven't enter 0 ask for a new choice
+            if (choice != "0") // if the user haven't enter 0 ask for a new choice
             {
+                if (choice == "")
+                {
+                    choice = Console.ReadLine();
+                }
                 Console.WriteLine("please enter another choice\n");
             }
         }
