@@ -12,11 +12,11 @@ internal class Order : IOrder
 {
     private IDal Dal = new DalList();
 
-    public IEnumerable<BO.OrderForList> OrderListRequest()//הפונקציה הזאת לא עובדת היא לא מחזירה מה שהיא צריכה להחזיר
+    public IEnumerable<BO.OrderForList> OrderListRequest()
     {
         IEnumerable<DO.Order> orders = Dal.order.ReadAll().ToList();
         IEnumerable<DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
-        IEnumerable<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
+        List<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
         foreach (var item in orders) // go over the products and get all the data from DO 
         {
             BO.OrderForList temp = new()
@@ -24,6 +24,8 @@ internal class Order : IOrder
                 ID =  item.ID,
                 CustomerName = item.CustomerName,
             };
+            temp.AmountOfItems = 0;
+            temp.TotalPrice = 0;
             foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
             {
                 if (inItem.OrderID == item.ID)
@@ -44,7 +46,7 @@ internal class Order : IOrder
             {
                 temp.Status = (BO.Enums.OrderStatus.delivered);
             }
-            OrderForList.Append(temp);
+            OrderForList.Add(temp);
         }
         return OrderForList;
     }
@@ -67,20 +69,20 @@ internal class Order : IOrder
                     ShipDate = orderItem.ShipDate,
                     DeliveryrDate = orderItem.DeliveryDate,
                 };
-                for (int i = 0; i < orderItems.Count(); i++) // go over all the Order item and collect the details
+                order.TotalPrice = 0;
+                order.Items = new List<BO.OrderItem>();
+                for (int i = 0,j=0; i < orderItems.Count(); i++) // go over all the Order item and collect the details
                 {
-                    if (orderItem.ID == orderItems.ElementAt(i).ID)
+                    if (orderItem.ID == orderItems.ElementAt(i).OrderID)
                     {
-                        order.Items.Add(new()
-                        {
-                            ID = orderItems.ElementAt(i).ID,
-                            Name = Dal.product.Read(new() { ID = orderID }).Name,
-                            ProductID = orderItems.ElementAt(i).ProductID,
-                            Price = orderItems.ElementAt(i).Price,
-                            Amount = orderItems.ElementAt(i).Amount,
-                        }
-                        ) ;
+                        order.Items.Add(new() { });
+                        order.Items[j].ID = orderItems.ElementAt(i).OrderID;
+                        order.Items[j].ProductID = orderItems.ElementAt(i).ProductID;
+                        order.Items[j].Name = Dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
+                        order.Items[j].Price = orderItems.ElementAt(i).Price;
+                        order.Items[j].Amount = orderItems.ElementAt(i).Amount;
                         order.TotalPrice += orderItems.ElementAt(i).Price;
+                        j++;
                     }
                 }
                 if (order.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
@@ -99,7 +101,7 @@ internal class Order : IOrder
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Order->OrderDetails = order don't exist - BlIm");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderDetails = order don't exist - BlIm"));
             }
         }
         catch(Exception excption)
@@ -123,7 +125,7 @@ internal class Order : IOrder
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Order->OrderShippingUpdate = order don't exist or been shiped - BlIm");
+                throw new DataNotFoundException(" ",new Exception("BlImplementation->Order->OrderShippingUpdate = order don't exist or been shiped - BlIm"));
             }
         }
         catch (Exception excption)
@@ -147,10 +149,10 @@ internal class Order : IOrder
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Order->UpdateDeliveryOrde = order don't exist or been delivered - BlIm");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->UpdateDeliveryOrde = order don't exist or been delivered - BlIm"));
             }
         }
-        catch(Exception excption) 
+        catch(DataNotFoundException excption) 
         {
             throw excption;
         }
@@ -167,29 +169,29 @@ internal class Order : IOrder
                 BO.OrderTracking tracking = new() {ID = orderID };
                 if (trackedOrder.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
                 {
-                    tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.ordered);
+                    tracking.Status = (BO.Enums.OrderStatus.ordered);
                     a = new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
                 else if (trackedOrder.ShipDate != DateTime.MinValue && trackedOrder.DeliveryDate == DateTime.MinValue)
                 { // if the value of the shiping is define but the time of the delivery is't it's only shiped
-                    tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.shiped);
+                    tracking.Status = (BO.Enums.OrderStatus.shiped);
                     a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
                 else // else (both define)
                 {
-                    tracking.Status = ((BO.Enums.productsCategory?)BO.Enums.OrderStatus.delivered);
+                    tracking.Status = (BO.Enums.OrderStatus.delivered);
                     a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
-
+                tracking.OrderStatuses = new() { };
                 tracking.OrderStatuses.Add(a);
                 return tracking;
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Order->OrderTracking = order don't exist - BlIm");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderTracking = order don't exist - BlIm"));
             }
         }
-        catch(Exception excption)
+        catch(DataNotFoundException excption)
         {
             throw excption;
         }
@@ -214,7 +216,7 @@ internal class Order : IOrder
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Order->OrderUpdate = order don't exist - BlIm");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderUpdate = order don't exist - BlIm"));
             }
         }
         catch(Exception exception)

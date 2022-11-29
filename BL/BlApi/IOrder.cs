@@ -38,5 +38,5 @@ public interface IOrder
     /// request to update the order (admin)
     /// </summary>
     /// <param name="id"></param>
-    public Order OrderUpdate(int id, int productID, int plus_minus);
+    public Order OrderUpdate(int OrderID, int productID, int plus_minus);
 }

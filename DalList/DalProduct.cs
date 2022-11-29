@@ -15,7 +15,7 @@ public class DalProduct : IProduct
     }
     public Product Read(Product product)
     {
-        int I = DataSource.searchOrder(product.ID);
+        int I = DataSource.searchProduct(product.ID);
         if (I != -1) // if the ID exist return the details else throw an Error
         {
 

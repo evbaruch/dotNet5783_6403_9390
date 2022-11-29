@@ -38,7 +38,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm"); ;
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
             }
         }
         catch (Exception exeption)
@@ -80,7 +80,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Product->ProductDetails = product don't exist - BlIm");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
             }
         }
         catch (Exception exeption)
@@ -110,12 +110,12 @@ internal class Product : IProduct
                 }
                 else
                 {
-                    throw new DataNotFoundException("BlImplementation->Product->DeleteProduct = can't delete ,exist in an order");
+                    throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->DeleteProduct = can't delete ,exist in an order"));
                 }
             }
             else
             {
-                throw new IncorrectDataException("BlImplementation->Product->DeleteProduct = out of range exeption");
+                throw new IncorrectDataException(" ",new Exception("BlImplementation->Product->DeleteProduct = out of range exeption"));
             }
         }
         catch (Exception exeption)
@@ -135,7 +135,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Product->UpdateProduct = the product was not able to be updated");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->UpdateProduct = the product was not able to be updated"));
             }
         }
         catch (Exception exeption)
@@ -155,7 +155,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException("BlImplementation->Product->AddProduct = the product was not able to be updated");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->AddProduct = the product was not able to be updated"));
             }
         }
         catch (Exception exeption)

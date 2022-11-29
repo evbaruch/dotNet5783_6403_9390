@@ -13,10 +13,13 @@ public class Order
     public DateTime? OrderDate { get; set; }
     public DateTime? ShipDate { get; set; }
     public DateTime? DeliveryrDate { get; set; }
-    public List<OrderItem>? Items { get; set; } = new List<OrderItem>();
+    public List<OrderItem>? Items { get; set; } 
     public double? TotalPrice { get; set; }
 
-    public override string ToString() => $@"
+    public override string ToString()
+    {
+
+        string a = $@"
     ID:              {ID}
     CustomerName:    {CustomerName} 
     CustomerEmail:   {CustomerEmail} 
@@ -25,7 +28,13 @@ public class Order
     OrderDate:       {OrderDate}
     ShipDate:        {ShipDate} 
     DeliveryrDate:   {DeliveryrDate}
-    Items:           {Items}
-    TotalPrice:      {TotalPrice}
-    ";
+    items:";
+        foreach (var item in Items)
+        {
+            a = a + "\n" + item.Name + "\n" + item.ToString();
+        }
+
+    a = a + "\n"+ $@"TotalPrice:      {TotalPrice}";
+        return a;
+    }
 }

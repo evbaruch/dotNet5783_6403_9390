@@ -18,7 +18,7 @@ internal class Program
 
         while (option != '0')
         {
-            Console.WriteLine("\nOrder\n" +
+            Console.WriteLine("\ncart\n" +
                 "a in order to adding an Product to cart\n" +
                 "b in order to Update Product Quantity in cart\n" +
                 "c in order to Confirme the Order \n" +
@@ -68,6 +68,7 @@ internal class Program
 
     static void optionOrder()//לא סיימיתי עדיין
     {
+        BO.Order order = new BO.Order();
         Bl access = new Bl();
         int orderID = 0;
 
@@ -107,17 +108,21 @@ internal class Program
             case 'd':
                 Console.WriteLine("Enter order ID number\n");
                 int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.UpdateDeliveryOrder(option));
+                Console.WriteLine(access.Order.UpdateDeliveryOrder(orderID));
                 break;
 
             case 'e':
                 Console.WriteLine("Enter order ID number\n");
                 int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.OrderTracking(option));
+                Console.WriteLine(access.Order.OrderTracking(orderID));
                 break;
 
             case 'f':
-                Console.WriteLine("fff\n");
+                Console.WriteLine("Enter order ID , product ID and the amount to alter\n");
+                int.TryParse(Console.ReadLine(), out orderID);
+                int.TryParse(Console.ReadLine(), out int productID);
+                int.TryParse(Console.ReadLine(), out int toAlter);
+                access.Order.OrderUpdate(orderID,productID,toAlter);
                 //access.Order.OrderUpdate();
                 break;
 
@@ -245,9 +250,9 @@ internal class Program
                         break;
                 }
             }
-            catch (Exception messege)
+            catch (DataNotFoundException messege)
             {
-                Console.WriteLine(messege.Message);
+                Console.WriteLine(messege.InnerException);
             }
             if (choice != "0") // if the user haven't enter 0 ask for a new choice
             {

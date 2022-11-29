@@ -13,11 +13,20 @@ public class Cart
     {
         TotalPrice = 0;
     }
-    public override string ToString() => $@"
+
+    public override string ToString()
+    {
+
+        string a = $@"
     CustomerName:     {CustomerName}
     CustomerEmail:    {CustomerEmail} 
-    CustomerAddress:  {CustomerAddress} 
-    listOfOrder:      {listOfOrder}
-    TotalPrice:       {TotalPrice}
-    ";
+    CustomerAddress:  {CustomerAddress} ";
+        foreach (var item in listOfOrder)
+        {
+            a = a + "\n" + item.Name + "\n" + item.ToString();
+        }
+       a = a + "\n"+$@" TotalPrice:       {TotalPrice}";
+        return a; 
+    }
+    
 }

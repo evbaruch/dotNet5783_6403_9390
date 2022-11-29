@@ -39,7 +39,7 @@ internal class Cart : ICart
                         }
                     }
                     //It is not possible that there will be an error that we did not find the product at all, but it is possible that it is not left in stock 
-                    throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not in stock");
+                    throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->AddProduct = Product not in stock"));
                 }
 
 
@@ -68,7 +68,7 @@ internal class Cart : ICart
                 }
             }
             //In case I can't find the product, we will throw an exception
-            throw new DataNotFoundException("BlImplementation->ICart->AddProduct = Product not found");
+            throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->AddProduct = Product not found"));
         }
         catch (Exception exeption)
         {
@@ -132,7 +132,7 @@ internal class Cart : ICart
 
                 }
                 //In case we did not find the product at all
-                throw new DataNotFoundException("BlImplementation->ICart->UpdateProductQuantity = Product not found");
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = Product not found"));
             }
             return cart;//We will return without change
         }
