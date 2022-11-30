@@ -14,17 +14,17 @@ public class DalOrder : IOrder
     }
     public Order Read(Order order)
     {
-        int I = DataSource.searchOrder(order.ID);
-        if (I != -1) // if the ID exist return the details else throw an Error
-        {
+            int I = DataSource.searchOrder(order.ID);
+            if (I != -1) // if the ID exist return the details else throw an Error
+            {
 
-            return DataSource.listOrder[I];
+                return DataSource.listOrder[I];
 
-        }
-        else
-        {
-            throw new IDWhoException("Delete range Error ");
-        }
+            }
+            else
+            {
+                throw new IDWhoException("Delete range Error ");
+            }
     }
     public void Update(Order order)
     {

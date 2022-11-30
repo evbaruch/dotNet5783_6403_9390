@@ -70,9 +70,16 @@ internal class Cart : ICart
             //In case I can't find the product, we will throw an exception
             throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->AddProduct = Product not found"));
         }
+        catch(DO.IDWhoException )
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch(DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
         catch (Exception exeption)
         {
-             
             throw exeption;
         }
     }
@@ -107,14 +114,14 @@ internal class Cart : ICart
                     }
                     else//If I'm missing products
                     {
-                        if (item.Amount - productQuantity > 0)//If I remove but there are still products
+                        if (item.Amount + productQuantity > 0)//If I remove but there are still products
                         {
                             //We will update the total quantity and price of the product
-                            item.Amount = item.Amount - productQuantity;
+                            item.Amount = item.Amount + productQuantity;
                             item.TotalPrice = item.Amount * item.Price;
 
                             //We will update the total price of the order
-                            cart.TotalPrice -= productQuantity * item.Price;
+                            cart.TotalPrice += productQuantity * item.Price;
 
                             return cart;
                         }
@@ -135,6 +142,14 @@ internal class Cart : ICart
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = Product not found"));
             }
             return cart;//We will return without change
+        }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
         }
         catch (Exception exeption)
         {
@@ -166,7 +181,7 @@ internal class Cart : ICart
                     if (!flag)
                     {
                         //This means that one product that I have in the list I do not have it in the products
-                        throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart");
+                        throw new IncorrectDataException("",new Exception("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart"));
                     }
                 }
 
@@ -200,7 +215,7 @@ internal class Cart : ICart
                             else
                             {
                                 //Not enough products
-                                throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Not enough products");
+                                throw new IncorrectDataException("", new Exception("BlImplementation->ICart->OrderConfirmation = Not enough products"));
                             }
                         }
                     }
@@ -233,7 +248,15 @@ internal class Cart : ICart
                 return;
             }
             //Invalid name
-            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid name");
+            throw new IncorrectDataException("", new Exception("BlImplementation->ICart->OrderConfirmation = Invalid name"));
+        }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
         }
         catch (Exception exeption)
         {

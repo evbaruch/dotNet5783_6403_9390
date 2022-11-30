@@ -41,6 +41,14 @@ internal class Product : IProduct
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
             }
         }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
         catch (Exception exeption)
         {
 
@@ -83,6 +91,14 @@ internal class Product : IProduct
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
             }
         }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
         catch (Exception exeption)
         {
             throw exeption;
@@ -118,6 +134,14 @@ internal class Product : IProduct
                 throw new IncorrectDataException(" ",new Exception("BlImplementation->Product->DeleteProduct = out of range exeption"));
             }
         }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
         catch (Exception exeption)
         {
             throw exeption;
@@ -138,6 +162,14 @@ internal class Product : IProduct
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->UpdateProduct = the product was not able to be updated"));
             }
         }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
         catch (Exception exeption)
         {
             throw exeption;
@@ -157,6 +189,14 @@ internal class Product : IProduct
             {
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->AddProduct = the product was not able to be updated"));
             }
+        }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
         }
         catch (Exception exeption)
         {

@@ -51,7 +51,7 @@ internal class Order : IOrder
         return OrderForList;
     }
 
-    public BO.Order OrderDetailsRequest(int orderID)// TotalPrice לא עדכנת את 
+    public BO.Order OrderDetailsRequest(int orderID) 
     {
         try
         {
@@ -104,7 +104,15 @@ internal class Order : IOrder
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderDetails = order don't exist - BlIm"));
             }
         }
-        catch(Exception excption)
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
+        catch (Exception excption)
         {
             throw excption;
         }
@@ -127,6 +135,14 @@ internal class Order : IOrder
             {
                 throw new DataNotFoundException(" ",new Exception("BlImplementation->Order->OrderShippingUpdate = order don't exist or been shiped - BlIm"));
             }
+        }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
         }
         catch (Exception excption)
         {
@@ -152,7 +168,15 @@ internal class Order : IOrder
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->UpdateDeliveryOrde = order don't exist or been delivered - BlIm"));
             }
         }
-        catch(DataNotFoundException excption) 
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
+        catch (DataNotFoundException excption) 
         {
             throw excption;
         }
@@ -191,7 +215,15 @@ internal class Order : IOrder
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderTracking = order don't exist - BlIm"));
             }
         }
-        catch(DataNotFoundException excption)
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
+        catch (DataNotFoundException excption)
         {
             throw excption;
         }
@@ -201,15 +233,26 @@ internal class Order : IOrder
     {
         try
         {
-            DO.Order orderToUpdate = Dal.order.Read(new() { ID = orderID });
+            List <DO.OrderItem >orderToUpdate = Dal.orderItem.ReadAll().ToList();
             if (productID > 0 && orderID > 0)
             {
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
                 foreach (var item in orderUpdate.Items) // go over the order item and modify the amount 
                 {
-                    if (item.ID == orderID)
+                    if (item.ProductID == productID)
                     {
-                        item.Amount += plus_minus;
+                        if (item.Amount + plus_minus <= 0)
+                        {
+                            orderUpdate.TotalPrice += item.Price*item.Amount;
+                            orderToUpdate.Remove(new() {ID = (int)item.ID});
+                        }
+                        else
+                        {
+                            orderUpdate.TotalPrice += item.Price*plus_minus;
+                            item.Amount += plus_minus;
+                            // לא מצליח לעדכן את השכבת נתונים
+                        }
+                        
                     }
                 }
                 return orderUpdate;
@@ -219,7 +262,15 @@ internal class Order : IOrder
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderUpdate = order don't exist - BlIm"));
             }
         }
-        catch(Exception exception)
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+        catch (DO.ISawYouAlreadyException)
+        {
+            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+        }
+        catch (Exception exception)
         {
             throw exception;
         }

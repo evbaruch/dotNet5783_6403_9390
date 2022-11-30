@@ -71,63 +71,66 @@ internal class Program
         BO.Order order = new BO.Order();
         Bl access = new Bl();
         int orderID = 0;
-
-        Console.WriteLine("\nOrder\n" +
-            "a - Order Order List Request\n" +
-            "b - Order Details Request\n" +
-            "c - Order Shipping Update\n" +
-            "d - Update Delivery Order\n" +
-            "e - Order Tracking\n" +
-            "f - Order Update\n" +
-            "any other letter in order to exit");
-        bool isRead = char.TryParse(Console.ReadLine(), out char option);
-        switch (option)
+        char option = 'a';
+        while (option >= 'a' && option <='f' )
         {
-            case 'a':
-                IEnumerable<BO.OrderForList> orderForList = access.Order.OrderListRequest();
-                foreach (var item in orderForList)
-                {
-                    Console.WriteLine(item);
-                }
-                break;
+            Console.WriteLine("\nOrder\n" +
+                "a - Order Order List Request\n" +
+                "b - Order Details Request\n" +
+                "c - Order Shipping Update\n" +
+                "d - Update Delivery Order\n" +
+                "e - Order Tracking\n" +
+                "f - Order Update\n" +
+                "any other letter in order to exit");
+            bool isRead = char.TryParse(Console.ReadLine(), out option);
+            switch (option)
+            {
+                case 'a':
+                    IEnumerable<BO.OrderForList> orderForList = access.Order.OrderListRequest();
+                    foreach (var item in orderForList)
+                    {
+                        Console.WriteLine(item);
+                    }
+                    break;
 
 
-            case 'b':
-                Console.WriteLine("Enter order ID number\n");
-                int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.OrderDetailsRequest(orderID));               
-                break;
+                case 'b':
+                    Console.WriteLine("Enter order ID number\n");
+                    int.TryParse(Console.ReadLine(), out orderID);
+                    Console.WriteLine(access.Order.OrderDetailsRequest(orderID));
+                    break;
 
 
-            case 'c':
-                Console.WriteLine("Enter order ID number\n");
-                int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.OrderShippingUpdate(orderID));
-                break;
+                case 'c':
+                    Console.WriteLine("Enter order ID number\n");
+                    int.TryParse(Console.ReadLine(), out orderID);
+                    Console.WriteLine(access.Order.OrderShippingUpdate(orderID));
+                    break;
 
-            case 'd':
-                Console.WriteLine("Enter order ID number\n");
-                int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.UpdateDeliveryOrder(orderID));
-                break;
+                case 'd':
+                    Console.WriteLine("Enter order ID number\n");
+                    int.TryParse(Console.ReadLine(), out orderID);
+                    Console.WriteLine(access.Order.UpdateDeliveryOrder(orderID));
+                    break;
 
-            case 'e':
-                Console.WriteLine("Enter order ID number\n");
-                int.TryParse(Console.ReadLine(), out orderID);
-                Console.WriteLine(access.Order.OrderTracking(orderID));
-                break;
+                case 'e':
+                    Console.WriteLine("Enter order ID number\n");
+                    int.TryParse(Console.ReadLine(), out orderID);
+                    Console.WriteLine(access.Order.OrderTracking(orderID));
+                    break;
 
-            case 'f':
-                Console.WriteLine("Enter order ID , product ID and the amount to alter\n");
-                int.TryParse(Console.ReadLine(), out orderID);
-                int.TryParse(Console.ReadLine(), out int productID);
-                int.TryParse(Console.ReadLine(), out int toAlter);
-                access.Order.OrderUpdate(orderID,productID,toAlter);
-                //access.Order.OrderUpdate();
-                break;
+                case 'f':
+                    Console.WriteLine("Enter order ID , product ID and the amount to alter\n");
+                    int.TryParse(Console.ReadLine(), out orderID);
+                    int.TryParse(Console.ReadLine(), out int productID);
+                    int.TryParse(Console.ReadLine(), out int toAlter);
+                    access.Order.OrderUpdate(orderID, productID, toAlter);
+                    //access.Order.OrderUpdate();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -135,6 +138,9 @@ internal class Program
     {
         Bl access = new Bl();
         BO.Product product = new BO.Product();
+        char option = 'a';
+        while (option >= 'a' && option <='f')
+        {
         Console.WriteLine("\nProduct\n" +
              "a in order to view products catalog \n" +
              "b in order to view the details of a poduct by its id \n" +
@@ -143,67 +149,69 @@ internal class Program
              "e in order to delete a product\n" +
              "f in order to update a product\n" +
              "any other letter in order to exit");
-        bool isRead = char.TryParse(Console.ReadLine(), out char option);
-        switch (option)
-        {
-            case 'a':
-                IEnumerable<ProductForList> products = access.Product.Products();
-                foreach (var item in products)
-                {
-                    Console.WriteLine(item);
-                };
-                break;
+        
+            bool isRead = char.TryParse(Console.ReadLine(), out option);
+            switch (option)
+            {
+                case 'a':
+                    IEnumerable<ProductForList> products = access.Product.Products();
+                    foreach (var item in products)
+                    {
+                        Console.WriteLine(item);
+                    };
+                    break;
 
-            case 'b':
-                Console.WriteLine("Enter the ID product you seek to view\n");
-                isRead = int.TryParse(Console.ReadLine(), out int ID);
-                product.ID = ID;
-                Console.WriteLine(access.Product.ProductDetails(ID));
-                break;
+                case 'b':
+                    Console.WriteLine("Enter the ID product you seek to view\n");
+                    isRead = int.TryParse(Console.ReadLine(), out int ID);
+                    product.ID = ID;
+                    Console.WriteLine(access.Product.ProductDetails(ID));
+                    break;
 
 
-            case 'c':
-                Console.WriteLine("Enter the ID product and the cart you seek to view\n");
-                
-                break;
+                case 'c':
+                    Console.WriteLine("Enter the ID product and the cart you seek to view\n");
+                    //
+                    break;
 
-            case 'd':
-                Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock  of product you seek to add\n");
-                isRead = int.TryParse(Console.ReadLine(), out ID);
-                product.ID = ID;
-                product.Name = Console.ReadLine();
-                isRead = int.TryParse(Console.ReadLine(), out int price);
-                product.Price = price;
-                BO.Enums.productsCategory a;
-                BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a );
-                product.Category = a;
-                product.InStock = Console.Read();
-                access.Product.AddProduct(product);
-                Console.WriteLine();
-                break;
+                case 'd':
+                    Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock  of product you seek to add\n");
+                    isRead = int.TryParse(Console.ReadLine(), out ID);
+                    product.ID = ID;
+                    product.Name = Console.ReadLine();
+                    isRead = int.TryParse(Console.ReadLine(), out int price);
+                    product.Price = price;
+                    BO.Enums.productsCategory a;
+                    BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a);
+                    product.Category = a;
+                    product.InStock = Console.Read();
+                    access.Product.AddProduct(product);
+                    Console.WriteLine();
+                    break;
 
-            case 'e':
-                Console.WriteLine("Enter the ID product and the cart you seek to delete\n");
-                isRead = int.TryParse(Console.ReadLine(), out ID);
-                product.ID = ID;
-                access.Product.DeleteProduct((int)product.ID);
-                break;
+                case 'e':
+                    Console.WriteLine("Enter the ID product and the cart you seek to delete\n");
+                    isRead = int.TryParse(Console.ReadLine(), out ID);
+                    product.ID = ID;
+                    access.Product.DeleteProduct((int)product.ID);
+                    break;
 
-            case 'f':
-                Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock of the product you seek to update\n");
-                isRead = int.TryParse(Console.ReadLine(), out ID);
-                product.ID = ID;
-                product.Name = Console.ReadLine();
-                isRead = int.TryParse(Console.ReadLine(), out price);
-                product.Price = price;
-                BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a);
-                product.Category = a;
-                product.InStock = Console.Read();
-                access.Product.UpdateProduct(product);
-                break;
+                case 'f':
+                    Console.WriteLine("Enter the ID ,Name ,Price ,Category ,InStock of the product you seek to update\n");
+                    isRead = int.TryParse(Console.ReadLine(), out ID);
+                    product.ID = ID;
+                    product.Name = Console.ReadLine();
+                    isRead = int.TryParse(Console.ReadLine(), out price);
+                    product.Price = price;
+                    BO.Enums.productsCategory.TryParse(Console.ReadLine(), out a);
+                    product.Category = a;
+                    product.InStock = Console.Read();
+                    access.Product.UpdateProduct(product);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
