@@ -81,7 +81,7 @@ internal class Order : IOrder
                         order.Items[j].Name = Dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
                         order.Items[j].Price = orderItems.ElementAt(i).Price;
                         order.Items[j].Amount = orderItems.ElementAt(i).Amount;
-                        order.TotalPrice += orderItems.ElementAt(i).Price;
+                        order.TotalPrice += orderItems.ElementAt(i).Price * orderItems.ElementAt(i).Amount;
                         j++;
                     }
                 }
@@ -252,7 +252,14 @@ internal class Order : IOrder
                             item.Amount += plus_minus;
                             // לא מצליח לעדכן את השכבת נתונים
                         }
-                        
+                        foreach (var idFind in orderToUpdate)
+                        {
+                            if(idFind.OrderID == orderID && idFind.ProductID == item.ProductID)
+                            {
+                                item.ID = idFind.ID;
+                            }
+                        }
+                        Dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });
                     }
                 }
                 return orderUpdate;

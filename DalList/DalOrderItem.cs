@@ -26,7 +26,7 @@ public class DalOrderItem : IOrderItem
     }
     public void Update(OrderItem orderItem)
     {
-        int I = DataSource.searchOrder(orderItem.ID);
+        int I = DataSource.searchOrderItem(orderItem.ID);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listOrderItem[I] = orderItem;
