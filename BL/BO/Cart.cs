@@ -6,7 +6,7 @@ public class Cart
     public string? CustomerName { get; set; }
     public string? CustomerEmail { get; set; }
     public string? CustomerAddress { get; set; }
-    public  List<OrderItem>? listOfOrder { get; set; } = new List<OrderItem>();
+    public  List<OrderItem>? listOfOrderItem { get; set; } = new List<OrderItem>();
     public double? TotalPrice { get; set; }
 
     public Cart()
@@ -21,7 +21,7 @@ public class Cart
     CustomerName:     {CustomerName}
     CustomerEmail:    {CustomerEmail} 
     CustomerAddress:  {CustomerAddress} ";
-        foreach (var item in listOfOrder)
+        foreach (var item in listOfOrderItem)
         {
             a = a + "\n" + item.Name + "\n" + item.ToString();
         }

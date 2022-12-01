@@ -17,7 +17,7 @@ internal class Cart : ICart
             //We will get a list of all our products here
             IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
-            foreach (var item in cart.listOfOrder)
+            foreach (var item in cart.listOfOrderItem)
             {
                 //If it already exists in our cart
                 if (item.ProductID == productID)
@@ -65,7 +65,7 @@ internal class Cart : ICart
                     orderItem.ProductID = productID;
 
                     cart.TotalPrice += product.Price;
-                    cart.listOfOrder.Add(orderItem);
+                    cart.listOfOrderItem.Add(orderItem);
 
                     return cart;
                 }
@@ -100,7 +100,7 @@ internal class Cart : ICart
             //We will get a list of all our products here
             IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
-            foreach (var item in cart.listOfOrder)
+            foreach (var item in cart.listOfOrderItem)
             {
                 if (item.ProductID == productID)
                 {
@@ -141,7 +141,7 @@ internal class Cart : ICart
                             cart.TotalPrice -= item.TotalPrice;
 
                             //We will delete it from the order
-                            cart.listOfOrder.Remove(item);
+                            cart.listOfOrderItem.Remove(item);
 
                             return cart;
                         }
@@ -177,7 +177,7 @@ internal class Cart : ICart
                 IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
 
                 //Throughout this process I check that my order list is correct
-                foreach (var item in cart.listOfOrder)
+                foreach (var item in cart.listOfOrderItem)
                 {
                     bool flag = false;
                     foreach (var product in DO_product)
@@ -195,7 +195,7 @@ internal class Cart : ICart
                 }
 
                 //Updating the products from our data
-                foreach (var item in cart.listOfOrder)
+                foreach (var item in cart.listOfOrderItem)
                 {
                     foreach (var product in DO_product)//בעיה                                                
                     {                                                                                        
@@ -242,7 +242,7 @@ internal class Cart : ICart
                 int OrderID = Dal.order.Create(newOrder);
 
                 //Order item formula
-                foreach (var item in cart.listOfOrder)
+                foreach (var item in cart.listOfOrderItem)
                 {
                     DO.OrderItem newOrderItem = new DO.OrderItem();
 

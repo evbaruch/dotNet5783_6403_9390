@@ -4,6 +4,7 @@ using BlApi;
 using IProduct = BlApi.IProduct;
 using System.Linq;
 using BO;
+using System.Reflection.Metadata;
 
 namespace BlImplementation;
 
@@ -41,14 +42,6 @@ internal class Product : IProduct
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
             }
         }
-        catch (DO.IDWhoException)
-        {
-            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
-        }
-        catch (DO.ISawYouAlreadyException)
-        {
-            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
-        }
         catch (Exception exeption)
         {
 
@@ -60,31 +53,70 @@ internal class Product : IProduct
     {
         try
         {
-            BO.ProductItem productItem = new() { };
             if (productID > 0)
             {
-                productItem.ID = productID;
-                productItem.Name = cart.CustomerName;
-                foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the price  
+                int I = 0;
+                int J = 0;
+                List<DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
+                foreach (var item in orderItems)
                 {
-                    if (item.ProductID == productItem.ID)
+                    if (item.ProductID == productID)
                     {
-                        productItem.Price = item.Price;
                         break;
                     }
+                    I++;
                 }
-                foreach (var item in cart.listOfOrder) // looking for an productItem with the same id product in order to find out the amount
+                List<DO.Product> products = Dal.product.ReadAll().ToList();
+                foreach (var item in products)
                 {
-                    if (item.ProductID == productItem.ID)
+                    if (item.ID == productID)
                     {
-                        productItem.Amount++;
+                        break;
                     }
+                    J++;
                 }
-                productItem.InStock = (productItem.Amount>0) ? true : false;
-                DO.Product preProduct = new() { ID = productItem.ID, Name = productItem.Name };
-                preProduct = Dal.product.Read(preProduct);
-                productItem.Category = (BO.Enums.productsCategory?)preProduct.Category;
+                BO.OrderItem orderItem = cart.listOfOrderItem[1];
+                BO.Product product = new()
+                {
+                    Price = products[J].Price,
+                    Name = products[J].Name,
+                    ID = productID,
+                    Category = (Enums.productsCategory?)products[J].Category,
+                    InStock = products[J].InStoke
+                };
+                BO.ProductItem productItem = new() 
+                {
+                    ID = product.ID,
+                    Name = product.Name ,
+                    Price = product.Price,
+                    Category = product.Category,
+                    Amount = orderItems[I].Amount,
+                    InStock = product.InStock > 0 ? true : false
+                };
                 return productItem;
+
+                //productItem.ID = productID;
+                //productItem.Name = cart.CustomerName;
+                //foreach (var item in cart.listOfOrderItem) // looking for an productItem with the same id product in order to find out the price  
+                //{
+                //    if (item.ProductID == productItem.ID)
+                //    {
+                //        productItem.Price = item.Price;
+                //        break;
+                //    }
+                //}
+                //foreach (var item in cart.listOfOrderItem) // looking for an productItem with the same id product in order to find out the amount
+                //{
+                //    if (item.ProductID == productItem.ID)
+                //    {
+                //        productItem.Amount++;
+                //    }
+                //}
+                //productItem.InStock = (productItem.Amount>0) ? true : false;
+                //DO.Product preProduct = new() { ID = productItem.ID, Name = productItem.Name };
+                //preProduct = Dal.product.Read(preProduct);
+                //productItem.Category = (BO.Enums.productsCategory?)preProduct.Category;
+                //return productItem;
             }
             else
             {
