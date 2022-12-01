@@ -28,6 +28,9 @@ internal class Cart : ICart
                         //As soon as we reach it we will check if there are any products left
                         if (product.InStoke > 0 && product.ID == productID)
                         {
+                            //We will reset the previous price because we can update it later
+                            cart.TotalPrice -= item.TotalPrice;
+
                             //We will update the quantity of products in one and the price
                             item.Amount++;
                             item.TotalPrice = item.Amount * product.Price;
@@ -89,9 +92,9 @@ internal class Cart : ICart
         try
         {
             //If I get 0 then I don't change anything so we return immediately
-            if (productQuantity == 0)
+            if (productQuantity < 0)
             {
-                return cart;
+                throw new IncorrectDataException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = A negative update has been entered"));
             }
 
             //We will get a list of all our products here
@@ -101,27 +104,34 @@ internal class Cart : ICart
             {
                 if (item.ProductID == productID)
                 {
-
-                    if (productQuantity > 0)//If you add items
+                    if (item.Amount - productQuantity < 0)//If you add items
                     {
+                        int? size = productQuantity - item.Amount;
                         //So we will perform the addition function the number of times 
-                        for (int i = 0; i < productQuantity; i++)
+                        for (int i = 0; i < size; i++)
                         {
                             cart = this.AddProduct(cart, productID);
 
                         }
                         return cart;
                     }
-                    else//If I'm missing products
+                    if (item.Amount - productQuantity == 0) //There was no change
                     {
-                        if (item.Amount + productQuantity > 0)//If I remove but there are still products
+                        return cart;
+                    }
+                    if (item.Amount - productQuantity > 0)//If I return products
+                    {
+                        if (productQuantity > 0)//If I remove but there are still products
                         {
+                            //We will reset the previous price because we can update it later
+                            cart.TotalPrice -= item.TotalPrice;
+
                             //We will update the total quantity and price of the product
-                            item.Amount = item.Amount + productQuantity;
+                            item.Amount = productQuantity;
                             item.TotalPrice = item.Amount * item.Price;
 
                             //We will update the total price of the order
-                            cart.TotalPrice += productQuantity * item.Price;
+                            cart.TotalPrice += item.TotalPrice;
 
                             return cart;
                         }
@@ -136,7 +146,6 @@ internal class Cart : ICart
                             return cart;
                         }
                     }
-
                 }
                 //In case we did not find the product at all
                 throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = Product not found"));
