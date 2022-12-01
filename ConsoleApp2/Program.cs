@@ -262,6 +262,10 @@ internal class Program
             {
                 Console.WriteLine(messege.InnerException);
             }
+            catch (IncorrectDataException messege)
+            {
+                Console.WriteLine(messege.InnerException);
+            }
             if (choice != "0") // if the user haven't enter 0 ask for a new choice
             {
                 if (choice == "")
