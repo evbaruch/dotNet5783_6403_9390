@@ -171,7 +171,8 @@ internal class Program
 
                 case 'c':
                     Console.WriteLine("Enter the ID product and the cart you seek to view\n");
-                    //
+                    isRead = int.TryParse(Console.ReadLine(), out ID);
+                    Console.WriteLine(access.Product.ProductDetails(ID, cart));
                     break;
 
                 case 'd':
