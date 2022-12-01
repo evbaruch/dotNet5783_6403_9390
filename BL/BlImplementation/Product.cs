@@ -53,47 +53,54 @@ internal class Product : IProduct
     {
         try
         {
+
             if (productID > 0)
             {
                 int I = 0;
                 int J = 0;
-                List<DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
-                foreach (var item in orderItems)
+                List<BO.OrderItem> orderItems = cart.listOfOrderItem;
+                if (orderItems.Count >0)
                 {
-                    if (item.ProductID == productID)
+                    foreach (var item in orderItems)
                     {
-                        break;
+                        if (item.ProductID == productID)
+                        {
+                            break;
+                        }
+                        I++;
                     }
-                    I++;
-                }
-                List<DO.Product> products = Dal.product.ReadAll().ToList();
-                foreach (var item in products)
-                {
-                    if (item.ID == productID)
+                    List<DO.Product> products = Dal.product.ReadAll().ToList();
+                    foreach (var item in products)
                     {
-                        break;
+                        if (item.ID == productID)
+                        {
+                            break;
+                        }
+                        J++;
                     }
-                    J++;
+                    BO.Product product = new()
+                    {
+                        Price = products[J].Price,
+                        Name = products[J].Name,
+                        ID = productID,
+                        Category = (Enums.productsCategory?)products[J].Category,
+                        InStock = products[J].InStoke
+                    };
+                    BO.ProductItem productItem = new()
+                    {
+                        ID = product.ID,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Category = product.Category,
+                        Amount = orderItems[I].Amount,
+                        InStock = product.InStock > 0 ? true : false
+                    };
+                    return productItem;
                 }
-                BO.OrderItem orderItem = cart.listOfOrderItem[1];
-                BO.Product product = new()
+                else
                 {
-                    Price = products[J].Price,
-                    Name = products[J].Name,
-                    ID = productID,
-                    Category = (Enums.productsCategory?)products[J].Category,
-                    InStock = products[J].InStoke
-                };
-                BO.ProductItem productItem = new() 
-                {
-                    ID = product.ID,
-                    Name = product.Name ,
-                    Price = product.Price,
-                    Category = product.Category,
-                    Amount = orderItems[I].Amount,
-                    InStock = product.InStock > 0 ? true : false
-                };
-                return productItem;
+                    throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
+                }
 
                 //productItem.ID = productID;
                 //productItem.Name = cart.CustomerName;
@@ -131,9 +138,9 @@ internal class Product : IProduct
         {
             throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
         }
-        catch (Exception exeption)
+        catch (Exception excption)
         {
-            throw exeption;
+            throw excption;
         }
     }
 
