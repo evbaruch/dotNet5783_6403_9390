@@ -51,8 +51,28 @@ public class DalOrder : IOrder
         }
     }
     public IEnumerable<Order?> ReadAll(Func<Order?, bool>? func)
-    {
-        return DataSource.listOrder;
+    {   
+        List<Order?> finalResult = new List<Order?>();
+        if (func != null)
+        {
+            foreach (var item in DataSource.listOrder)
+            {
+                if (func(item))
+                {
+                    finalResult.Add(item);
+                }
+            }
+            return finalResult;
+        }
+        else
+        {
+            finalResult = DataSource.listOrder;
+            return finalResult;
+        }
     }
 
+    public IEnumerable<Order?> Read(Func<Order?, bool>? func)
+    {
+         =>;
+    }
 }

@@ -50,6 +50,27 @@ public class DalOrderItem : IOrderItem
     }
     public IEnumerable<OrderItem?> ReadAll(Func<OrderItem?, bool>? func)
     {
-        return DataSource.listOrderItem;
+        List<OrderItem?> finalResult = new List<OrderItem?>();
+        if (func != null)
+        {
+            foreach(var item in DataSource.listOrderItem)
+            {
+                if (func(item))
+                {
+                    finalResult.Add(item);
+                }
+            }
+            return finalResult;
+        }
+        else
+        {
+            finalResult = DataSource.listOrderItem;
+            return finalResult;
+        }
+    }
+
+    public IEnumerable<OrderItem?> Read(Func<OrderItem?, bool>? func)
+    {
+        throw new NotImplementedException();
     }
 }

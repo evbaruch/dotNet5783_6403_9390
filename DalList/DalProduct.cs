@@ -56,4 +56,9 @@ public class DalProduct : IProduct
     {
         return DataSource.listProduct;
     }
+
+    public IEnumerable<Product?> Read(Func<Product?, bool>? func)
+    {
+        throw new NotImplementedException();
+    }
 }
