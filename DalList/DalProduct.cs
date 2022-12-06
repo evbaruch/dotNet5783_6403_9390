@@ -54,7 +54,24 @@ public class DalProduct : IProduct
     }
     public IEnumerable<Product?> ReadAll(Func<Product?, bool>? func)
     {
-        return DataSource.listProduct;
+        List<Product?> finalResult = new List<Product?>();
+        if (func != null)
+        {
+
+            foreach (var item in DataSource.listProduct)
+            {
+                if (func(item))
+                {
+                    finalResult.Add(item);
+                }
+            }
+            return finalResult;
+        }
+        else
+        {
+            finalResult = DataSource.listProduct;
+            return finalResult;
+        }
     }
 
     public IEnumerable<Product?> Read(Func<Product?, bool>? func)
