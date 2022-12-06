@@ -38,7 +38,7 @@ partial class Program
 
 
             case 'c':
-                IEnumerable<Order> listOfOrder = access.order.ReadAll();
+                IEnumerable<Order?> listOfOrder = access.order.ReadAll();
                 for (int i = 0; i < listOfOrder.Count(); i++)
                 {
                     Console.WriteLine(listOfOrder.ElementAt(i));
@@ -103,7 +103,7 @@ partial class Program
 
 
             case 'c':
-                IEnumerable<OrderItem> listOfOrderItem = access.orderItem.ReadAll();
+                IEnumerable<OrderItem?> listOfOrderItem = access.orderItem.ReadAll();
                 for (int i = 0; i < listOfOrderItem.Count(); i++)
                 {
                     Console.WriteLine(listOfOrderItem.ElementAt(i));
@@ -176,7 +176,7 @@ partial class Program
 
 
             case 'c':
-                IEnumerable<Product> listOfProduct = access.product.ReadAll();
+                IEnumerable<Product?> listOfProduct = access.product.ReadAll();
                 for (int i = 0; i < listOfProduct.Count(); i++)
                 {
                     Console.WriteLine(listOfProduct.ElementAt(i));
