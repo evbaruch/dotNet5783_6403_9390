@@ -14,12 +14,12 @@ internal class Product : IProduct
 
     public IEnumerable<BO.ProductForList> Products()
     {
-        IEnumerable<DO.Product> products = Dal.product.ReadAll().ToList();
+        IEnumerable<DO.Product?> products = Dal.product.ReadAll().ToList();
         IEnumerable<BO.ProductForList> ProductForLists = new List<BO.ProductForList>();
         List<BO.ProductForList> LProductForLists = ProductForLists.ToList();
         foreach (var item in products) // go over the products and get all the data from DO 
         {
-            BO.ProductForList temp = new(){ID = item.ID,Name = item.Name,Price = item.Price,Category = (BO.Enums.productsCategory?)item.Category };
+            BO.ProductForList temp = new(){ID = (int)(item?.ID), Name = item?.Name,Price = item?.Price,Category = (BO.Enums.productsCategory?)item?.Category };
             LProductForLists.Add(temp);
         }
         return LProductForLists;
@@ -69,10 +69,10 @@ internal class Product : IProduct
                         }
                         I++;
                     }
-                    List<DO.Product> products = Dal.product.ReadAll().ToList();
+                    List<DO.Product?> products = Dal.product.ReadAll().ToList();
                     foreach (var item in products)
                     {
-                        if (item.ID == productID)
+                        if (item?.ID == productID)
                         {
                             break;
                         }
@@ -80,11 +80,11 @@ internal class Product : IProduct
                     }
                     BO.Product product = new()
                     {
-                        Price = products[J].Price,
-                        Name = products[J].Name,
+                        Price = products[J]?.Price,
+                        Name = products[J]?.Name,
                         ID = productID,
-                        Category = (Enums.productsCategory?)products[J].Category,
-                        InStock = products[J].InStoke
+                        Category = (Enums.productsCategory?)products[J]?.Category,
+                        InStock = products[J]?.InStoke
                     };
                     BO.ProductItem productItem = new()
                     {
@@ -153,7 +153,7 @@ internal class Product : IProduct
             {
                 foreach (var item in Dal.product.ReadAll()) // check if the product already exist 
                 {
-                    if (id == item.ID)
+                    if (id == item?.ID)
                     {
                         exist = true;
                     }

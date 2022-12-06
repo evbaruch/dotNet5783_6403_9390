@@ -1,7 +1,7 @@
 ﻿using DO;
 namespace DalApi;
 
-public interface ICrud<T>
+public interface ICrud<T> where T : struct
 {
     //Create,Delete,Update,Read
 
@@ -9,6 +9,6 @@ public interface ICrud<T>
     public T Read(T entity);
     public void Update(T entity);
     public void Delete(T entity);
-    public IEnumerable<T> ReadAll();
+    public IEnumerable<T?> ReadAll(Func<T?, bool>? func = null);
 
 }

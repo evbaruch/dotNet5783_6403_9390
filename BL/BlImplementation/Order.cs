@@ -14,31 +14,31 @@ internal class Order : IOrder
 
     public IEnumerable<BO.OrderForList> OrderListRequest()
     {
-        IEnumerable<DO.Order> orders = Dal.order.ReadAll().ToList();
-        IEnumerable<DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
+        IEnumerable<DO.Order?> orders = Dal.order.ReadAll().ToList();
+        IEnumerable<DO.OrderItem?> orderItems = Dal.orderItem.ReadAll().ToList();
         List<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
         foreach (var item in orders) // go over the products and get all the data from DO 
         {
             BO.OrderForList temp = new()
             {
-                ID =  item.ID,
-                CustomerName = item.CustomerName,
+                ID =  (int)(item?.ID),
+                CustomerName = item?.CustomerName,
             };
             temp.AmountOfItems = 0;
             temp.TotalPrice = 0;
             foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
             {
-                if (inItem.OrderID == item.ID)
+                if (inItem?.OrderID == item?.ID)
                 {
                     temp.AmountOfItems++;
-                    temp.TotalPrice += inItem.Price;
+                    temp.TotalPrice += inItem?.Price;
                 }
             }
-            if (Dal.order.Read(new() { ID = (int)item.ID }).ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
+            if (Dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
             {
                 temp.Status = (BO.Enums.OrderStatus.ordered);
             }
-            else if (Dal.order.Read(new() { ID = (int)item.ID }).ShipDate != DateTime.MinValue && Dal.order.Read(new() { ID = (int)item.ID }).DeliveryDate == DateTime.MinValue)
+            else if (Dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != DateTime.MinValue && Dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == DateTime.MinValue)
             { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                 temp.Status = (BO.Enums.OrderStatus.shiped);
             }
@@ -58,7 +58,7 @@ internal class Order : IOrder
             if(orderID > 0) // green line (;
             {
                 DO.Order orderItem = Dal.order.Read(new() { ID = orderID });
-                IEnumerable <DO.OrderItem> orderItems = Dal.orderItem.ReadAll().ToList();
+                IEnumerable <DO.OrderItem?> orderItems = Dal.orderItem.ReadAll().ToList();
                 BO.Order order = new()
                 {
                     ID = orderID,
@@ -73,15 +73,15 @@ internal class Order : IOrder
                 order.Items = new List<BO.OrderItem>();
                 for (int i = 0,j=0; i < orderItems.Count(); i++) // go over all the Order item and collect the details
                 {
-                    if (orderItem.ID == orderItems.ElementAt(i).OrderID)
+                    if (orderItem.ID == orderItems.ElementAt(i)?.OrderID)
                     {
                         order.Items.Add(new() { });
-                        order.Items[j].ID = orderItems.ElementAt(i).OrderID;
-                        order.Items[j].ProductID = orderItems.ElementAt(i).ProductID;
+                        order.Items[j].ID = (int)(orderItems.ElementAt(i)?.OrderID);
+                        order.Items[j].ProductID = (int)(orderItems.ElementAt(i)?.ProductID);
                         order.Items[j].Name = Dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
-                        order.Items[j].Price = orderItems.ElementAt(i).Price;
-                        order.Items[j].Amount = orderItems.ElementAt(i).Amount;
-                        order.TotalPrice += orderItems.ElementAt(i).Price * orderItems.ElementAt(i).Amount;
+                        order.Items[j].Price = orderItems.ElementAt(i)?.Price;
+                        order.Items[j].Amount = orderItems.ElementAt(i)?.Amount;
+                        order.TotalPrice += orderItems.ElementAt(i)?.Price * orderItems.ElementAt(i)?.Amount;
                         j++;
                     }
                 }
@@ -233,7 +233,7 @@ internal class Order : IOrder
     {
         try
         {
-            List <DO.OrderItem >orderToUpdate = Dal.orderItem.ReadAll().ToList();
+            List <DO.OrderItem?>orderToUpdate = Dal.orderItem.ReadAll().ToList();
             if (productID > 0 && orderID > 0)
             {
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
@@ -254,9 +254,9 @@ internal class Order : IOrder
                         }
                         foreach (var idFind in orderToUpdate)
                         {
-                            if(idFind.OrderID == orderID && idFind.ProductID == item.ProductID)
+                            if(idFind?.OrderID == orderID && idFind?.ProductID == item.ProductID)
                             {
-                                item.ID = idFind.ID;
+                                item.ID = (int)(idFind?.ID);
                             }
                         }
                         Dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });

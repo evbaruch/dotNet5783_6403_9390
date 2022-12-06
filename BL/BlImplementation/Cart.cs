@@ -15,7 +15,7 @@ internal class Cart : ICart
         try
         {
             //We will get a list of all our products here
-            IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
+            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
 
             foreach (var item in cart.listOfOrderItem)
             {
@@ -26,14 +26,14 @@ internal class Cart : ICart
                     foreach (var product in DO_product)
                     {
                         //As soon as we reach it we will check if there are any products left
-                        if (product.InStoke > 0 && product.ID == productID)
+                        if (product?.InStoke > 0 && product?.ID == productID)
                         {
                             //We will reset the previous price because we can update it later
                             cart.TotalPrice -= item.TotalPrice;
 
                             //We will update the quantity of products in one and the price
                             item.Amount++;
-                            item.TotalPrice = item.Amount * product.Price;
+                            item.TotalPrice = item.Amount * product?.Price;
 
                             //Update the total price of the entire order
                             cart.TotalPrice += item.TotalPrice;
@@ -52,19 +52,19 @@ internal class Cart : ICart
             foreach (var product in DO_product)
             {
                 //We seize the product according to its appearance
-                if (product.ID == productID)
+                if (product?.ID == productID)
                 {
                     BO.OrderItem orderItem = new BO.OrderItem();
 
-                    orderItem.ID = Dal.orderItem.ReadAll().ElementAt(Dal.orderItem.ReadAll().Count() - 1).ID + 1;
-                    orderItem.Name = product.Name;
-                    orderItem.Price = product.Price;
+                    orderItem.ID = (int)(Dal.orderItem.ReadAll().ElementAt(Dal.orderItem.ReadAll().Count() - 1)?.ID + 1);
+                    orderItem.Name = product?.Name;
+                    orderItem.Price = product?.Price;
                     orderItem.Amount = 1;
-                    orderItem.TotalPrice = product.Price;
+                    orderItem.TotalPrice = product?.Price;
 
                     orderItem.ProductID = productID;
 
-                    cart.TotalPrice += product.Price;
+                    cart.TotalPrice += product?.Price;
                     cart.listOfOrderItem.Add(orderItem);
 
                     return cart;
@@ -98,7 +98,7 @@ internal class Cart : ICart
             }
 
             //We will get a list of all our products here
-            IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
+            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
 
             foreach (var item in cart.listOfOrderItem)
             {
@@ -174,7 +174,7 @@ internal class Cart : ICart
             //We will check that there is even a valid name
             if (cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null)
             {
-                IEnumerable<DO.Product> DO_product = Dal.product.ReadAll();
+                IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
 
                 //Throughout this process I check that my order list is correct
                 foreach (var item in cart.listOfOrderItem)
@@ -182,7 +182,7 @@ internal class Cart : ICart
                     bool flag = false;
                     foreach (var product in DO_product)
                     {
-                        if (item.ProductID == product.ID)
+                        if (item.ProductID == product?.ID)
                         {
                             flag = true;
                         }
@@ -199,22 +199,22 @@ internal class Cart : ICart
                 {
                     foreach (var product in DO_product)//בעיה                                                
                     {                                                                                        
-                        if (item.ProductID == product.ID)                                                    
+                        if (item.ProductID == product?.ID)                                                    
                         {                                                                                    
                                                                                                              
-                            if (product.InStoke - item.Amount == 0)//If I marked the products exactly        
+                            if (product?.InStoke - item.Amount == 0)//If I marked the products exactly        
                             {                                                                                
-                                Dal.product.Delete(product);                                                 
+                                Dal.product.Delete((DO.Product)product);                                                 
                             }                                                                                
-                            if (product.InStoke - item.Amount > 0)                                           
+                            if (product?.InStoke - item.Amount > 0)                                           
                             {                                                                                
                                 DO.Product newProduct = new DO.Product();                                    
                                                                                                              
                                 newProduct.ID = item.ProductID;                                              
-                                newProduct.Name = product.Name;                                              
+                                newProduct.Name = product?.Name;                                              
                                 newProduct.Price = item.Price;                                               
-                                newProduct.Category = product.Category;                                      
-                                newProduct.InStoke = product.InStoke - item.Amount;                          
+                                newProduct.Category = product?.Category;                                      
+                                newProduct.InStoke = product?.InStoke - item.Amount;                          
                                                                                                              
                                 Dal.product.Update(newProduct);
                                 break;

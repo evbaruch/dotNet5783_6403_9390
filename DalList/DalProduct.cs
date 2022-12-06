@@ -19,7 +19,7 @@ public class DalProduct : IProduct
         if (I != -1) // if the ID exist return the details else throw an Error
         {
 
-            return DataSource.listProduct[I];
+            return (Product)DataSource.listProduct[I];
 
         }
         else
@@ -52,7 +52,7 @@ public class DalProduct : IProduct
             throw new IndexOutOfRangeException("Delete range Error");
         }
     }
-    public IEnumerable<Product> ReadAll()
+    public IEnumerable<Product?> ReadAll(Func<Product?, bool>? func)
     {
         return DataSource.listProduct;
     }

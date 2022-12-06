@@ -17,7 +17,7 @@ public class DalOrderItem : IOrderItem
         int I = DataSource.searchOrder(orderItem.ID);
         if (I != -1) // if the ID exist return the details else throw an Error
         {
-            return DataSource.listOrderItem[I];
+            return (OrderItem)DataSource.listOrderItem[I];
         }
         else
         {
@@ -48,7 +48,7 @@ public class DalOrderItem : IOrderItem
             throw new IndexOutOfRangeException("Delete range Error");
         }
     }
-    public IEnumerable<OrderItem> ReadAll()
+    public IEnumerable<OrderItem?> ReadAll(Func<OrderItem?, bool>? func)
     {
         return DataSource.listOrderItem;
     }

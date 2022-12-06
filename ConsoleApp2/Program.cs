@@ -219,7 +219,7 @@ internal class Program
     static void Main(string[] args)
     {
         IDal access = new DalList();
-        IEnumerable<DO.Product> products = access.product.ReadAll();
+        IEnumerable<DO.Product?> products = access.product.ReadAll();
         foreach (var item in products)
         {
             Console.WriteLine(item);

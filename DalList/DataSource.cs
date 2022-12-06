@@ -9,9 +9,9 @@ internal static class DataSource
 {
     //Our temporary database
     internal static readonly Random random = new Random();
-    internal static List<Order> listOrder = new List<Order>();
-    internal static List<OrderItem> listOrderItem = new List<OrderItem>();
-    internal static List<Product> listProduct = new List<Product>();
+    internal static List<Order?> listOrder = new List<Order?>();
+    internal static List<OrderItem?> listOrderItem = new List<OrderItem?>();
+    internal static List<Product?> listProduct = new List<Product?>();
 
     //Name data and price data
     internal static string[,] productsNames = new string[5, 3] { {"angel","centaur","satyr" },
@@ -153,10 +153,10 @@ internal static class DataSource
         for (int i = 0; i < 40; i++)
         {
             int Index = random.Next(0, 10);
-            int ProductID = (int)listProduct[Index].ID;
-            double Price = (double)listProduct[Index].Price;
+            int ProductID = (int)listProduct[Index]?.ID;
+            double Price = (double)listProduct[Index]?.Price;
             Index = random.Next(0, 20);
-            int OrderID = listOrder[Index].ID;
+            int OrderID = (int)listOrder[Index]?.ID;
             listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
         }
 
@@ -167,7 +167,7 @@ internal static class DataSource
     {
         for (int i = 0; i < listOrder.Count; i++)
 		{
-            if (listOrder[i].ID == ID)
+            if (listOrder[i]?.ID == ID)
             {
                 return i;
             }
@@ -178,7 +178,7 @@ internal static class DataSource
     {
         for (int i = 0; i < listProduct.Count; i++)
 		{
-            if (listProduct[i].ID == ID)
+            if (listProduct[i]?.ID == ID)
             {
                 return i;
             }
@@ -189,7 +189,7 @@ internal static class DataSource
     {
         for (int i = 0; i < listOrderItem.Count; i++)
 		{
-            if (listOrderItem[i].ID == ID)
+            if (listOrderItem[i]?.ID == ID)
             {
                 return i;
             }

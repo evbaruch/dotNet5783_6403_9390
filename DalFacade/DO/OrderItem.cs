@@ -3,8 +3,8 @@
 public struct OrderItem
 {
     public int ID { set; get; }
-    public int? ProductID { set; get; }
-    public int? OrderID { set; get; }
+    public int ProductID { set; get; }
+    public int OrderID { set; get; }
     public double? Price { set; get; }
     public int? Amount { set; get; }
 
