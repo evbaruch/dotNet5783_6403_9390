@@ -21,4 +21,9 @@
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="POrder\" />
+    <Folder Include="PCart\" />
+  </ItemGroup>
+
 </Project>
