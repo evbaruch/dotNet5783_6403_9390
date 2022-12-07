@@ -15,7 +15,9 @@ internal class Cart : ICart
         try
         {
             //We will get a list of all our products here
-            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
+            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll(
+                (DO.Product? a) => a?.InStoke > 0 && a?.ID == productID
+                                                                      );
 
             foreach (var item in cart.listOfOrderItem)
             {

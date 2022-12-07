@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System;
 using System.Net.Http.Headers;
 
 namespace Dal;
@@ -15,7 +16,10 @@ public class DalOrderItem : IOrderItem
     }
     public OrderItem Read(OrderItem orderItem)
     {
-        int I = DataSource.searchOrder(orderItem.ID);
+        OrderItem? isNULL = ReadObject(
+            a => a?.ID == orderItem.ID
+                            );
+        int I = DataSource.listOrderItem.IndexOf(isNULL);
         if (I != -1) // if the ID exist return the details else throw an Error
         {
             return (OrderItem)DataSource.listOrderItem[I];
@@ -27,7 +31,10 @@ public class DalOrderItem : IOrderItem
     }
     public void Update(OrderItem orderItem)
     {
-        int I = DataSource.searchOrderItem(orderItem.ID);
+        OrderItem? isNULL = ReadObject(
+            a => a?.ID == orderItem.ID
+                            );
+        int I = DataSource.listOrderItem.IndexOf(isNULL);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listOrderItem[I] = orderItem;
@@ -39,8 +46,10 @@ public class DalOrderItem : IOrderItem
     }
     public void Delete(OrderItem orderItem)
     {
-        int I = DataSource.searchOrderItem(orderItem.ID);
-        if (I != -1) // if the ID exist delete the details else throw an Error
+        OrderItem? isNULL = ReadObject(
+            a => a?.ID == orderItem.ID
+                            );
+        if (isNULL?.ID != -1) // if the ID exist delete the details else throw an Error
         {
             DataSource.listOrderItem.Remove(orderItem);
         }

@@ -13,7 +13,10 @@ public class DalProduct : IProduct
     }
     public Product Read(Product product)
     {
-        int I = DataSource.searchProduct(product.ID);
+        Product? isNULL = ReadObject(
+            a => a?.ID == product.ID
+                            );
+        int I = DataSource.listProduct.IndexOf(isNULL);
         if (I != -1) // if the ID exist return the details else throw an Error
         {
 
@@ -28,7 +31,10 @@ public class DalProduct : IProduct
     }
     public void Update(Product product)
     {
-        int I = DataSource.searchProduct(product.ID);
+        Product? isNULL = ReadObject(
+            a => a?.ID == product.ID
+                            );
+        int I = DataSource.listProduct.IndexOf(isNULL);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listProduct[I] = product;
@@ -40,7 +46,10 @@ public class DalProduct : IProduct
     }
     public void Delete(Product product)
     {
-        int I = DataSource.searchOrder(product.ID);
+        Product? isNULL = ReadObject(
+            a => a?.ID == product.ID
+                            );
+        int I = DataSource.listProduct.IndexOf(isNULL);
         if (I != -1) // if the ID exist delete the details else throw an Error
         {
             DataSource.listProduct.Remove(product);

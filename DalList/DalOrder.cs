@@ -30,7 +30,10 @@ public class DalOrder : IOrder
     }
     public void Update(Order order)
     {
-        int I = DataSource.searchOrder(order.ID);
+        Order? isNULL = ReadObject(
+            a => a?.ID == order.ID
+                            );
+        int I = DataSource.listOrder.IndexOf(isNULL);//DataSource.searchOrder(order.ID);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             DataSource.listOrder[I] = order;

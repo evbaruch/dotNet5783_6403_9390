@@ -162,39 +162,39 @@ internal static class DataSource
     }
 
     //These three functions get the hash of the datum and return its index to me
-    internal static int searchOrder(int? ID)
-    {
-        for (int i = 0; i < listOrder.Count; i++)
-		{
-            if (listOrder[i]?.ID == ID)
-            {
-                return i;
-            }
-		}
-        return -1;
-    }
-    internal static int searchProduct(int? ID)
-    {
-        for (int i = 0; i < listProduct.Count; i++)
-		{
-            if (listProduct[i]?.ID == ID)
-            {
-                return i;
-            }
-		}
-        return -1;
-    }
-    internal static int searchOrderItem(int ID)
-    {
-        for (int i = 0; i < listOrderItem.Count; i++)
-		{
-            if (listOrderItem[i]?.ID == ID)
-            {
-                return i;
-            }
-		}
-        return -1;
-    }
+  //  internal static int searchOrder(int? ID)
+  //  {
+  //      for (int i = 0; i < listOrder.Count; i++)
+		//{
+  //          if (listOrder[i]?.ID == ID)
+  //          {
+  //              return i;
+  //          }
+		//}
+  //      return -1;
+  //  }
+  //  internal static int searchProduct(int? ID)
+  //  {
+  //      for (int i = 0; i < listProduct.Count; i++)
+		//{
+  //          if (listProduct[i]?.ID == ID)
+  //          {
+  //              return i;
+  //          }
+		//}
+  //      return -1;
+  //  }
+  //  internal static int searchOrderItem(int ID)
+  //  {
+  //      for (int i = 0; i < listOrderItem.Count; i++)
+		//{
+  //          if (listOrderItem[i]?.ID == ID)
+  //          {
+  //              return i;
+  //          }
+		//}
+  //      return -1;
+  //  }
 
     internal static class Config
     {
