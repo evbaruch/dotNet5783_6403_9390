@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.PCart
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CartListWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CartListWindow : Window
     {
-        public MainWindow()
+        public CartListWindow()
         {
-            IBl bl = new Bl();
             InitializeComponent();
         }
-
-        private void ProductListWindow_Click(object sender, RoutedEventArgs e) => new PProduct.ProductListWindow().Show();
     }
 }

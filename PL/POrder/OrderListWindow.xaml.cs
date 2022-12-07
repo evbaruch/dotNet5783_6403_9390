@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.PProduct
+namespace PL.POrder
 {
     /// <summary>
-    /// Interaction logic for ProductWindow.xaml
+    /// Interaction logic for OrderListWindow.xaml
     /// </summary>
-    public partial class ProductWindow : Window
+    public partial class OrderListWindow : Window
     {
-        public ProductWindow()
+        public OrderListWindow()
         {
             InitializeComponent();
         }

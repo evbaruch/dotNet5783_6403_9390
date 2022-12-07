@@ -1,0 +1,30 @@
+﻿<Window x:Class="PL.PProduct.ProductListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.PProduct"
+        mc:Ignorable="d"
+        Title="ProductListWindow" Height="640" Width="800">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+            <ComboBox Name="AttributeSelector"
+                            HorizontalAlignment= "Stretch"
+                            VerticalAlignment="Stretch"
+                            Grid.Column="1"/>
+            <Label Content="Category:" Grid.Row="200" Grid.Column="0" FontSize="20"/>
+        </Grid>
+        <ListView x:Name="Listview"  Grid.Row="1"/>
+    </Grid>
+</Window>

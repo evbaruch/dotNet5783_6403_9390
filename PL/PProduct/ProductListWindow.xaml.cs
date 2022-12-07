@@ -14,19 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.PProduct
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ProductListWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProductListWindow : Window
     {
-        public MainWindow()
+        public ProductListWindow()
         {
-            IBl bl = new Bl();
             InitializeComponent();
-        }
+            IBl bl = new Bl(); 
 
-        private void ProductListWindow_Click(object sender, RoutedEventArgs e) => new PProduct.ProductListWindow().Show();
+        }
     }
 }
