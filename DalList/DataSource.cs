@@ -65,13 +65,12 @@ internal static class DataSource
             else
             {
                 order.DeliveryDate = DateTime.MinValue;
-
             }
         }
         else
         {
             order.ShipDate = DateTime.MinValue;
-
+            order.DeliveryDate = DateTime.MinValue;
         }
 
         return order;

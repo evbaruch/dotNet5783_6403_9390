@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System.Net.Http.Headers;
 
 namespace Dal;
 
@@ -69,8 +70,22 @@ public class DalOrderItem : IOrderItem
         }
     }
 
-    public IEnumerable<OrderItem?> Read(Func<OrderItem?, bool>? func)
+    public OrderItem ReadObject(Func<OrderItem?, bool>? func)
     {
-        throw new NotImplementedException();
+        foreach (var item in DataSource.listOrderItem)
+        {
+            if (func(item))
+            {
+                return (OrderItem)item;
+            }
+        }
+        return new()
+        {
+            ID = -1,
+            ProductID = -1,
+            OrderID = -1,
+            Price = null,
+            Amount = null,
+        };
     }
 }

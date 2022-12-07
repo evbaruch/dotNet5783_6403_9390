@@ -14,17 +14,19 @@ public class DalOrder : IOrder
     }
     public Order Read(Order order)
     {
-            int I = DataSource.searchOrder(order.ID);
-            if (I != -1) // if the ID exist return the details else throw an Error
-            {
+        Order? isNULL = ReadObject(
+            a => a?.ID == order.ID
+                            );
+        if (isNULL?.ID != -1) // if the ID exist return the details else throw an Error
+        {
 
-            return (Order)DataSource.listOrder[I];
+            return (Order)isNULL;
 
-            }
-            else
-            {
-                throw new IDWhoException("Delete range Error ");
-            }
+        }
+        else
+        {
+            throw new IDWhoException("Delete range Error ");
+        }
     }
     public void Update(Order order)
     {
@@ -40,8 +42,10 @@ public class DalOrder : IOrder
     }
     public void Delete(Order order)
     {
-        int I = DataSource.searchOrder(order.ID);
-        if (I != -1) // if the ID exist delete the details else throw an Error
+       Order? isNULL=  ReadObject(
+            a => a?.ID == order.ID
+                            );
+        if ( isNULL?.ID != -1) // if the ID exist delete the details else throw an Error
         {
             DataSource.listOrder.Remove(order);
         }
@@ -71,8 +75,24 @@ public class DalOrder : IOrder
         }
     }
 
-    public IEnumerable<Order?> Read(Func<Order?, bool>? func)
+    public Order ReadObject (Func<Order?, bool>? func)
     {
-         =>;
+        foreach (var item in DataSource.listOrder)
+        {
+            if(func(item))
+            {
+                return (Order)item;
+            }
+        }
+        return new()
+        {
+            ID = -1,
+            CstomerAddress = null,
+            CustomerEmail = null,
+            CustomerName = null,
+            DeliveryDate = null,
+            OrderDate = null,
+            ShipDate = null
+        };
     }
 }

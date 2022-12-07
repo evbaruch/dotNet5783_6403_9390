@@ -3,8 +3,6 @@ using DO;
 
 namespace Dal;
 
-
-
 public class DalProduct : IProduct
 {
     public int Create(Product product)
@@ -74,8 +72,22 @@ public class DalProduct : IProduct
         }
     }
 
-    public IEnumerable<Product?> Read(Func<Product?, bool>? func)
+    public Product ReadObject(Func<Product?, bool>? func)
     {
-        throw new NotImplementedException();
+        foreach (var item in DataSource.listProduct)
+        {
+            if (func(item))
+            {
+                return (Product)item;
+            }
+        }
+        return new()
+        {
+            ID = -1,
+            Name = null,
+            InStoke = null,
+            Price = null,
+            Category = null
+        };
     }
 }
