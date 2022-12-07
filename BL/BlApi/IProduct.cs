@@ -15,7 +15,7 @@ public interface IProduct
     /// asking the products list(admin and catalog)
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<ProductForList> Products();
+    public IEnumerable<ProductForList> Products(Func<DO.Product?, bool>? func = null);
     /// <summary>
     /// request for a product (user and admin)
     /// </summary>

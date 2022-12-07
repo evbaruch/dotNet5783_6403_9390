@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,22 @@ namespace PL.PProduct
         public ProductListWindow()
         {
             InitializeComponent();
-            IBl bl = new Bl(); 
+            IBl bl = new Bl();
+            ProductListview.ItemsSource = bl.Product.Products();
+            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
+        }
 
+        private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            IBl bl = new Bl();
+            if (CategoriesSelector.SelectedItem.ToString() == "All")
+            {
+                ProductListview.ItemsSource = bl.Product.Products();
+            }
+            else
+            {
+                ProductListview.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString());
+            }
         }
     }
 }

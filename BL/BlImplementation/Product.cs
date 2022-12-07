@@ -12,9 +12,9 @@ internal class Product : IProduct
 {
     private IDal Dal => new DalList();
 
-    public IEnumerable<BO.ProductForList> Products()
+    public IEnumerable<BO.ProductForList> Products(Func<DO.Product?, bool>? func = null)
     {
-        IEnumerable<DO.Product?> products = Dal.product.ReadAll().ToList();
+        IEnumerable<DO.Product?> products = Dal.product.ReadAll(func).ToList();
         IEnumerable<BO.ProductForList> ProductForLists = new List<BO.ProductForList>();
         List<BO.ProductForList> LProductForLists = ProductForLists.ToList();
         foreach (var item in products) // go over the products and get all the data from DO 
@@ -22,7 +22,8 @@ internal class Product : IProduct
             BO.ProductForList temp = new(){ID = (int)(item?.ID), Name = item?.Name,Price = item?.Price,Category = (BO.Enums.productsCategory?)item?.Category };
             LProductForLists.Add(temp);
         }
-        return LProductForLists;
+        IEnumerable<BO.ProductForList> a = LProductForLists;
+        return a;
     }
 
     public BO.Product ProductDetails(int id)
