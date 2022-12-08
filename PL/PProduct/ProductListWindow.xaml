@@ -59,7 +59,10 @@
             x:Name="ProductListview" 
             Grid.Row="2" 
             Background ="LightSkyBlue" 
-            Margin="0,0,10,10" />
+            Margin="0,0,10,10"
+            MouseDoubleClick="ListViewProductUpdate"
+            
+            />
 
     </Grid>
 </Window>
