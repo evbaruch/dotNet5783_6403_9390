@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
-    <Grid Name="MainGrid">
+    <Grid
+        Name="MainGrid">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -14,7 +16,23 @@
             <RowDefinition Height="350*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Content="new ceation" Grid.Row="1" Height="60" Width="Auto" FontSize="40" HorizontalAlignment="Center" FontStyle ="Normal"/>
-        <Button x:Name="ProductListWindow" Content="show" Grid.Row="2" Width="100" Height="30" HorizontalAlignment="Stretch" Click="ProductListWindow_Click"/>
+        
+        <Label 
+            Content="Re-Evolution" 
+            Grid.Row="1" 
+            Height="60" 
+            Width="Auto"
+            FontSize="40" 
+            HorizontalAlignment="Center" 
+            FontStyle ="Normal"/>
+        
+        <Button 
+            x:Name="ProductListWindow" 
+            Content="Products" 
+            Grid.Row="2" 
+            Width="100" 
+            Height="30"
+            HorizontalAlignment="Stretch"
+            Click="ProductListWindow_Click"/>
     </Grid>
 </Window>

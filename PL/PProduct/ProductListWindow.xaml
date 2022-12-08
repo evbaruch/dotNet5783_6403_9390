@@ -7,48 +7,59 @@
         mc:Ignorable="d"
         Title="ProductListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
-        
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="200*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="220*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <Grid 
-            Name="UpGrid" 
-            HorizontalAlignment="Stretch"
+            Name="UpGrid"
             Height="auto"
             Grid.Row="0"
-            VerticalAlignment="Stretch"
             Width="auto">
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            
+
             <ComboBox 
                 Name="CategoriesSelector"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch"
-                Grid.Column="1" 
+                Grid.Column="2" 
                 SelectionChanged="CategoriesSelector_SelectionChanged"
                 />
-            
+
 
             <Label
                 Content="Category:" 
                 Grid.Row="200"
                 Grid.Column="0"
                 FontSize="20"/>
+
         </Grid>
-        
+
+        <Button 
+            Content="Add new Product" 
+            Grid.Row="3" 
+            x:Name="addProduct"
+            HorizontalAlignment="Right" 
+            Margin="5,5,5,5"
+            Padding="5"
+            Width="104"
+            Click ="addProduct_Click"
+            />
+
         <ListView
             x:Name="ProductListview" 
-            Grid.Row="1" 
-            Background ="LightSkyBlue" />
-        
+            Grid.Row="2" 
+            Background ="LightSkyBlue" 
+            Margin="0,0,10,10" />
+
     </Grid>
 </Window>

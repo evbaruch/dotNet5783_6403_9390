@@ -42,5 +42,7 @@ namespace PL.PProduct
                 ProductListview.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString());
             }
         }
+
+        private void addProduct_Click(object sender, RoutedEventArgs e) => new addProductWindow().Show();
     }
 }
