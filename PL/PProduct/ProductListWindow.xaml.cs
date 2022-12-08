@@ -45,11 +45,10 @@ namespace PL.PProduct
 
         private void addProduct_Click(object sender, RoutedEventArgs e) => new addProductWindow().Show();
 
-        private void ListViewProductUpdate(object sender, MouseButtonEventArgs e)
+        private void updateProduct_Click(object sender, MouseButtonEventArgs e)
         {
             var product =  (BO.ProductForList)ProductListview.SelectedItem;
-            //MessageBox.Show(ProductListview.SelectedItem.ToString());
-            new addUpdateWindow(product.ID).Show();
+            new addProductWindow(product.ID).Show();
               
         }
 
