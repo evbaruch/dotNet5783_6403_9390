@@ -1,11 +1,11 @@
-﻿<Window x:Class="PL.PProduct.addProductWindow"
+﻿<Window x:Class="PL.PProduct.modifyProductWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.PProduct"
         mc:Ignorable="d"
-        Title="addProductWindow" Height="640" Width="800">
+        Title="modifyProductWindow" Height="640" Width="800">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -28,6 +28,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
+            <Button 
+            Content="Back" 
+            Grid.Column="0" 
+            x:Name="Back"
+            HorizontalAlignment="Left" 
+            Margin="5,5,5,75"
+            Padding="5"
+            Width="104"
+            Click="Back_Click"
+                />
+            
             <TextBlock 
                 Grid.Column="1"
                 Margin="2,2,2,2"
@@ -128,7 +139,7 @@
                 FontSize="15"
                 VerticalAlignment="Center"
                 />
-            
+
             <TextBlock 
                 Grid.Column="1"
                 Grid.Row="3"
@@ -139,16 +150,6 @@
                 VerticalAlignment="Center"
                 TextAlignment="Right"
                 />
-
-            <!--<TextBox 
-                Grid.Column="1"
-                Grid.Row="3"
-                Width="auto"
-                x:Name="Categoty"
-                FontSize="15"
-                Margin="150,0,30,0"
-                VerticalAlignment="Center"
-                />-->
 
             <TextBlock 
                 Grid.Column="1"
@@ -169,8 +170,6 @@
                 Margin="150,0,30,0"
                 VerticalAlignment="Center"
                 />
-
-            <!--<Border BorderBrush="Black" BorderThickness="1" Grid.Column="1"/>-->
 
         </Grid>
 

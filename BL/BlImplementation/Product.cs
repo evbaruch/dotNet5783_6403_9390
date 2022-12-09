@@ -152,13 +152,12 @@ internal class Product : IProduct
             bool exist = false;
             if (id > 0)
             {
-                foreach (var item in Dal.product.ReadAll()) // check if the product already exist 
+
+                if (Dal.product.ReadAll(a => id == a?.ID).Count() > 0)
                 {
-                    if (id == item?.ID)
-                    {
-                        exist = true;
-                    }
+                    exist = true;
                 }
+
                 if (!exist) // not exist
                 {
                     DO.Product delete = new() { ID = id };
@@ -171,7 +170,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new IncorrectDataException(" ",new Exception("BlImplementation->Product->DeleteProduct = out of range exeption"));
+                throw new IncorrectDataException(" ", new Exception("BlImplementation->Product->DeleteProduct = out of range exeption"));
             }
         }
         catch (DO.IDWhoException)

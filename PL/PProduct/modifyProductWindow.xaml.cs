@@ -20,9 +20,9 @@ namespace PL.PProduct
     /// <summary>
     /// Interaction logic for addProductWindow.xaml
     /// </summary>
-    public partial class addProductWindow : Window
+    public partial class modifyProductWindow : Window
     {
-        public addProductWindow()
+        public modifyProductWindow()
         {
             IBl bl = new Bl();
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace PL.PProduct
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
         }
 
-        public addProductWindow(int ID)
+        public modifyProductWindow(int ID)
         {
             IBl bl = new Bl();
             InitializeComponent();
@@ -56,6 +56,8 @@ namespace PL.PProduct
             IBl bl = new Bl();
             BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
             bl.Product.AddProduct(new() {ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor , InStock = int.Parse(inStock.Text)});
+            new ProductListWindow().Show();
+            this.Close();
         }
 
         private void updateProduct_Click(object sender, RoutedEventArgs e)
@@ -63,6 +65,14 @@ namespace PL.PProduct
             IBl bl = new Bl();
             BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
             bl.Product.UpdateProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
+            new ProductListWindow().Show();
+            this.Close();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new ProductListWindow().Show();
+            this.Close();
         }
     }
 }

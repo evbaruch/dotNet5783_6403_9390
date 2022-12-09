@@ -13,9 +13,7 @@ public class DalProduct : IProduct
     }
     public Product Read(Product product)
     {
-        Product? isNULL = ReadObject(
-            a => a?.ID == product.ID
-                            );
+        Product? isNULL = ReadObject(a => a?.ID == product.ID);
         int I = DataSource.listProduct.IndexOf(isNULL);
         if (I != -1) // if the ID exist return the details else throw an Error
         {

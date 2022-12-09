@@ -27,6 +27,11 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ProductListWindow_Click(object sender, RoutedEventArgs e) => new PProduct.ProductListWindow().Show();
+        private void ProductListWindow_Click(object sender, RoutedEventArgs e)
+        {
+            new PProduct.ProductListWindow().Show();
+            this.Close(); 
+        }
+
     }
 }

@@ -43,13 +43,28 @@ namespace PL.PProduct
             }
         }
 
-        private void addProduct_Click(object sender, RoutedEventArgs e) => new addProductWindow().Show();
+        private void addProduct_Click(object sender, RoutedEventArgs e)
+        {
+            new modifyProductWindow().Show();
+            this.Close();
+        }
 
         private void updateProduct_Click(object sender, MouseButtonEventArgs e)
         {
             var product =  (BO.ProductForList)ProductListview.SelectedItem;
-            new addProductWindow(product.ID).Show();
-              
+            new modifyProductWindow(product.ID).Show();
+            this.Close();
+        }
+
+        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {   
+                new MainWindow().Show();
+                this.Close();
         }
 
     }
