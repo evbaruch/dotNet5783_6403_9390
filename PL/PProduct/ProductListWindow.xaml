@@ -162,20 +162,21 @@
                 MouseDoubleClick="updateProduct_Click" 
                 SelectionChanged="ProductListview_SelectionChanged"
                 FontSize="15"
-                Background="#FF9FC4E5">
+                Background="#FF9FC4E5"
+                >
                 
 
                 <ListView.View>
 
                     <GridView>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= ID}" Header="ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= ID}" Header="ID" ButtonBase.Click="SortByID_Click"  Width="100" />
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Name}" Header ="Name" Width="100"/>
-                        
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Category}" Header="Category" Width="180"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= Name}" Header ="Name" ButtonBase.Click="SortByName_Click"  Width="100"/>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Price}" Header="Price" Width="80"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= Category}" Header="Category" ButtonBase.Click="SortByCategory_Click"  Width="180"/>
+
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= Price}" Header="Price" ButtonBase.Click="SortByPrice_Click"  Width="80"/>
                         
                     </GridView>
 
