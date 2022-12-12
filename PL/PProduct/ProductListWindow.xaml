@@ -51,7 +51,7 @@
                 Width="104"
                 Click="Back_Click"
             />
-            
+
             <Label
                 Content="Category:"
                 Margin="0,0,365,0"
@@ -72,13 +72,13 @@
                 Height="auto"
                 Grid.Column="3"
                 Width="auto">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200*"/>
                     <RowDefinition Height="200*"/>
                     <RowDefinition Height="200*"/>
                 </Grid.RowDefinitions >
-                
+
                 <Grid
                     Name="midupRSide"
                     Height="auto"
@@ -88,7 +88,7 @@
                         <ImageBrush ImageSource="/PProduct/product (1).jpeg"/>
                     </Grid.Background>
                 </Grid>
-                
+
                 <Grid
                     Name="midMidRSide"
                     Height="auto"
@@ -155,7 +155,7 @@
                 </Grid>
 
             </Grid>
-            
+
             <ListView 
                 Grid.Column="1"
                 x:Name="ProductListview" 
@@ -214,7 +214,7 @@
             Click ="addProduct_Click"
             />
 
-        
+
 
     </Grid>
 </Window>
