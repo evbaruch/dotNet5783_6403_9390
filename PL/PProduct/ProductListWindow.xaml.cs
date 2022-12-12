@@ -64,6 +64,9 @@ namespace PL.PProduct
             this.Close();
         }
 
+        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 }

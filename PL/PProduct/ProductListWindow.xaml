@@ -159,8 +159,8 @@
             <ListView 
                 Grid.Column="1"
                 x:Name="ProductListview" 
-                MouseDoubleClick="updateProduct_Click" 
-                SelectionChanged ="CategoriesSelector_SelectionChanged"
+                MouseDoubleClick = "updateProduct_Click" 
+                SelectionChanged ="ProductListview_SelectionChanged"
                 FontSize="15"
                 Background="#FF9FC4E5"
                 >
