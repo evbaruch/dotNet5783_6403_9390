@@ -9,7 +9,7 @@
     <Grid Name="MainGrid">
 
         <Grid.Background>
-            <ImageBrush ImageSource="..\background\main window\mainWindow8.jpeg"/>
+            <ImageBrush ImageSource="/PProduct/mainWindow8.jpeg"/>
         </Grid.Background>
 
 
@@ -85,7 +85,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (1).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (1).jpeg"/>
                     </Grid.Background>
                 </Grid>
                 
@@ -95,7 +95,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (10).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (10).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -105,7 +105,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (12).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (12).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -130,7 +130,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (6).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (6).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -140,7 +140,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (2).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (2).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -150,7 +150,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (9).jpeg"/>
+                        <ImageBrush ImageSource="/PProduct/product (9).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -170,13 +170,25 @@
 
                     <GridView>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= ID}" Header="ID" ButtonBase.Click="SortByID_Click"  Width="100" />
+                        <GridViewColumn 
+                            DisplayMemberBinding="{Binding Path= ID}"
+                            Header="ID" 
+                            Width="100" />
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Name}" Header ="Name" ButtonBase.Click="SortByName_Click"  Width="100"/>
+                        <GridViewColumn 
+                            DisplayMemberBinding="{Binding Path= Name}" 
+                            Header ="Name" 
+                            Width="100"/>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Category}" Header="Category" ButtonBase.Click="SortByCategory_Click"  Width="180"/>
+                        <GridViewColumn 
+                            DisplayMemberBinding="{Binding Path= Category}" 
+                            Header="Category" 
+                            Width="180"/>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Price}" Header="Price" ButtonBase.Click="SortByPrice_Click"  Width="80"/>
+                        <GridViewColumn 
+                            DisplayMemberBinding="{Binding Path= Price}"
+                            Header="Price" 
+                            Width="80"/>
                         
                     </GridView>
 

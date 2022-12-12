@@ -20,6 +20,14 @@
   <ItemGroup>
     <None Remove="background\main window\mainWindow1.jpeg" />
     <None Remove="background\main window\mainWindow2.jpeg" />
+    <None Remove="mainWindow2.jpeg" />
+    <None Remove="PProduct\mainWindow8.jpeg" />
+    <None Remove="PProduct\product %281%29.jpeg" />
+    <None Remove="PProduct\product %2810%29.jpeg" />
+    <None Remove="PProduct\product %2812%29.jpeg" />
+    <None Remove="PProduct\product %282%29.jpeg" />
+    <None Remove="PProduct\product %286%29.jpeg" />
+    <None Remove="PProduct\product %289%29.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +39,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="mainWindow2.jpeg" />
+    <Resource Include="PProduct\mainWindow8.jpeg" />
+    <Resource Include="PProduct\product (1).jpeg" />
+    <Resource Include="PProduct\product (10).jpeg" />
+    <Resource Include="PProduct\product (12).jpeg" />
+    <Resource Include="PProduct\product (2).jpeg" />
+    <Resource Include="PProduct\product (6).jpeg" />
+    <Resource Include="PProduct\product (9).jpeg" />
   </ItemGroup>
 
 </Project>

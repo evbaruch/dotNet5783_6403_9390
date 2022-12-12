@@ -68,24 +68,5 @@ namespace PL.PProduct
             this.Close();
         }
 
-        private void SortByID_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SortByName_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SortByCategory_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SortByPrice_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

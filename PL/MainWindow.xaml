@@ -10,7 +10,7 @@
         Name="MainGrid">
 
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\main window\mainWindow2.jpeg"/>
+            <ImageBrush ImageSource="/mainWindow2.jpeg"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
