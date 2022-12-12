@@ -8,9 +8,9 @@
         Title="ProductListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
 
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="..\background\main window\mainWindow8.jpeg"/>
-        </Grid.Background>
+        </Grid.Background>-->
 
 
         <Grid.RowDefinitions>
@@ -51,7 +51,7 @@
                 Width="104"
                 Click="Back_Click"
             />
-            
+
             <Label
                 Content="Category:"
                 Margin="0,0,365,0"
@@ -72,31 +72,31 @@
                 Height="auto"
                 Grid.Column="3"
                 Width="auto">
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200*"/>
                     <RowDefinition Height="200*"/>
                     <RowDefinition Height="200*"/>
                 </Grid.RowDefinitions >
-                
+
                 <Grid
                     Name="midupRSide"
                     Height="auto"
                     Grid.Row="0"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (1).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
-                
+
                 <Grid
                     Name="midMidRSide"
                     Height="auto"
                     Grid.Row="1"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (10).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
 
                 <Grid
@@ -104,9 +104,9 @@
                     Height="auto"
                     Grid.Row="2"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (12).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
 
             </Grid>
@@ -129,9 +129,9 @@
                     Height="auto"
                     Grid.Row="0"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (6).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
 
                 <Grid
@@ -139,9 +139,9 @@
                     Height="auto"
                     Grid.Row="1"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (2).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
 
                 <Grid
@@ -149,43 +149,47 @@
                     Height="auto"
                     Grid.Row="2"
                     Width="auto">
-                    <Grid.Background>
+                    <!--<Grid.Background>
                         <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\products\product (9).jpeg"/>
-                    </Grid.Background>
+                    </Grid.Background>-->
                 </Grid>
 
             </Grid>
-            
+
             <ListView 
                 Grid.Column="1"
                 x:Name="ProductListview" 
                 MouseDoubleClick="updateProduct_Click" 
                 SelectionChanged="ProductListview_SelectionChanged"
                 FontSize="15"
-                Background="#FF9FC4E5">
-                
+                Background="#FF9FC4E5" Grid.ColumnSpan="2"
+                >
+
 
                 <ListView.View>
 
                     <GridView>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= ID}" Header="ID" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= ID}" Header="ID" Width="100" />
 
                         <GridViewColumn DisplayMemberBinding="{Binding Path= Name}" Header ="Name" Width="100"/>
-                        
+
                         <GridViewColumn DisplayMemberBinding="{Binding Path= Category}" Header="Category" Width="180"/>
 
-                        <GridViewColumn DisplayMemberBinding="{Binding Path= Price}" Header="Price" Width="80"/>
-                        
+                        <GridViewColumn DisplayMemberBinding="{Binding Path= Price}" Header="Price" Width="80" />
+
+
+
                     </GridView>
 
                 </ListView.View>
             </ListView>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="600*"/>
-                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="16*"/>
+                <ColumnDefinition Width="33*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="16*"/>
             </Grid.ColumnDefinitions >
 
         </Grid>
@@ -201,7 +205,7 @@
             Click ="addProduct_Click"
             />
 
-        
+
 
     </Grid>
 </Window>

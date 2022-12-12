@@ -9,9 +9,9 @@
     <Grid
         Name="MainGrid">
 
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\main window\mainWindow2.jpeg"/>
-        </Grid.Background>
+        </Grid.Background>-->
 
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>

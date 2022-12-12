@@ -52,20 +52,21 @@ namespace PL.PProduct
 
         private void updateProduct_Click(object sender, MouseButtonEventArgs e)
         {
-            var product =  (BO.ProductForList)ProductListview.SelectedItem;
+            var product =  (BO.ProductForList)ProductListview.SelectedItem;           
             new modifyProductWindow(product.ID).Show();
             this.Close();
         }
 
-        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {   
                 new MainWindow().Show();
                 this.Close();
+        }
+
+        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
     }
