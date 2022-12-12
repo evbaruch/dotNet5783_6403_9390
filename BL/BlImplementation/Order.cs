@@ -34,11 +34,11 @@ internal class Order : IOrder
                     temp.TotalPrice += inItem?.Price;
                 }
             }
-            if (Dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
+            if (Dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
             {
                 temp.Status = (BO.Enums.OrderStatus.ordered);
             }
-            else if (Dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != DateTime.MinValue && Dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == DateTime.MinValue)
+            else if (Dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && Dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
             { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                 temp.Status = (BO.Enums.OrderStatus.shiped);
             }
@@ -85,11 +85,11 @@ internal class Order : IOrder
                         j++;
                     }
                 }
-                if (order.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
+                if (order.ShipDate == null) // if the value of the shiping is not define it's only ordered
                 {
                     order.Status = (BO.Enums.OrderStatus.ordered);
                 }
-                else if (order.ShipDate != DateTime.MinValue && order.DeliveryrDate == DateTime.MinValue) 
+                else if (order.ShipDate != null && order.DeliveryrDate == null) 
                 {// if the value of the shiping is define but the time of the delivery is't it's only shiped
                     order.Status = (BO.Enums.OrderStatus.shiped);
                 }
@@ -123,7 +123,7 @@ internal class Order : IOrder
         try
         {
             DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
-            if (orderID > 0 && updateOrder.ShipDate == DateTime.MinValue) // only if the order hadn't been shiped update the shiping date to now
+            if (orderID > 0 && updateOrder.ShipDate == null) // only if the order hadn't been shiped update the shiping date to now
             {
                 updateOrder.ShipDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
@@ -155,7 +155,7 @@ internal class Order : IOrder
         try
         {
             DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
-            if (orderID > 0 && updateOrder.ShipDate != DateTime.MinValue && updateOrder.DeliveryDate == DateTime.MinValue) // only if the order hadn't been deliverd update the delivery date to now
+            if (orderID > 0 && updateOrder.ShipDate != null && updateOrder.DeliveryDate == null) // only if the order hadn't been deliverd update the delivery date to now
             {
                 updateOrder.DeliveryDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
@@ -191,12 +191,12 @@ internal class Order : IOrder
             {
                 Tuple<DateTime, BO.Enums.OrderStatus> a;
                 BO.OrderTracking tracking = new() {ID = orderID };
-                if (trackedOrder.ShipDate == DateTime.MinValue) // if the value of the shiping is not define it's only ordered
+                if (trackedOrder.ShipDate == null) // if the value of the shiping is not define it's only ordered
                 {
                     tracking.Status = (BO.Enums.OrderStatus.ordered);
                     a = new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
                 }
-                else if (trackedOrder.ShipDate != DateTime.MinValue && trackedOrder.DeliveryDate == DateTime.MinValue)
+                else if (trackedOrder.ShipDate != null && trackedOrder.DeliveryDate == null)
                 { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                     tracking.Status = (BO.Enums.OrderStatus.shiped);
                     a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);

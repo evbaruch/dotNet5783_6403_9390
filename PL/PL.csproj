@@ -18,6 +18,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="background\main window\mainWindow1.jpeg" />
+    <None Remove="background\main window\mainWindow2.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="background\main window\mainWindow1.jpeg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="background\main window\mainWindow2.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 

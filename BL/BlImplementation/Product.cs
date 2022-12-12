@@ -226,7 +226,7 @@ internal class Product : IProduct
             }
             else
             {
-                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->AddProduct = the product was not able to be updated"));
+                throw new IncorrectDataException(" ", new Exception("BlImplementation->Product->AddProduct = the product was not able to be updated"));
             }
         }
         catch (DO.IDWhoException)

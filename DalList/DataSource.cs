@@ -64,13 +64,13 @@ internal static class DataSource
             }
             else
             {
-                order.DeliveryDate = DateTime.MinValue;
+                order.DeliveryDate = null;
             }
         }
         else
         {
-            order.ShipDate = DateTime.MinValue;
-            order.DeliveryDate = DateTime.MinValue;
+            order.ShipDate = null;
+            order.DeliveryDate = null;
         }
 
         return order;
@@ -143,7 +143,7 @@ internal static class DataSource
         }
 
         //Product
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10; i++)
         {
             listProduct.Add(addProduct());
         }

@@ -9,7 +9,7 @@
     <Grid Name="MainGrid">
 
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\Evyatar Bruch\Source\Repos\evbaruch\dotNet5783_6403_9390\PL\background\main window\mainWindow8.jpeg"/>
+            <ImageBrush ImageSource="..\background\main window\mainWindow8.jpeg"/>
         </Grid.Background>
 
 
