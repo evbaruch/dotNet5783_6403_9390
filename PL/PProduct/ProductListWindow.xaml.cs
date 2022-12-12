@@ -59,15 +59,29 @@ namespace PL.PProduct
 
 
         private void Back_Click(object sender, RoutedEventArgs e)
-        {   
-                new MainWindow().Show();
-                this.Close();
+        {
+            new MainWindow().Show();
+            this.Close();
         }
 
-        private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SortByID_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void SortByName_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SortByCategory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SortByPrice_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
