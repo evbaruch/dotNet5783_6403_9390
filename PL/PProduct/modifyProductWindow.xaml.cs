@@ -31,6 +31,7 @@ namespace PL.PProduct
 
             updateProduct.IsEnabled = false;
             updateProduct.Visibility = Visibility.Hidden;
+            
 
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
         }
@@ -39,6 +40,8 @@ namespace PL.PProduct
         {
             IBl bl = new Bl();
             InitializeComponent();
+
+            HeadLine.Text = "Updete product";
 
             var product = bl.Product.ProductDetails(ID);
             IDTextBox.Text = product.ID.ToString();

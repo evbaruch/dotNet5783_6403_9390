@@ -165,31 +165,42 @@
                 Background="#FF9FC4E5"
                 >
                 
-
                 <ListView.View>
 
                     <GridView>
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= ID}"
-                            Header="ID" 
-                            Width="100" />
+                            Width="100">
+                            <GridViewColumnHeader
+                                Click="GridViewSortByID_Click"
+                                Content="ID"/>
+                        </GridViewColumn>
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= Name}" 
-                            Header ="Name" 
-                            Width="100"/>
+                            Width="100">
+                            <GridViewColumnHeader
+                                Click="GridViewSortByName_Click"
+                                Content="Name"/>
+                        </GridViewColumn>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= Category}" 
-                            Header="Category" 
-                            Width="180"/>
+                            DisplayMemberBinding="{Binding Path= Category}"  
+                            Width="180">
+                            <GridViewColumnHeader
+                                Click="GridViewSortByCategory_Click"
+                                Content="Category"/>
+                        </GridViewColumn>
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= Price}"
-                            Header="Price" 
-                            Width="80"/>
-                        
+                            Width="80">
+                            <GridViewColumnHeader
+                                Click="GridViewSortByPrice_Click"
+                                Content="Price"/>
+                        </GridViewColumn>
+
                     </GridView>
 
                 </ListView.View>

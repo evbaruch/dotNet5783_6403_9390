@@ -42,6 +42,7 @@
             <TextBlock 
                 Grid.Column="1"
                 Margin="2,2,2,2"
+                x:Name="HeadLine"
                 Text="New product"
                 Height="30"
                 FontSize="20"
