@@ -5,7 +5,6 @@ public class Enums
 {
     public enum productsCategory 
     {   
-        All = -1,
         externalTransformation,
         internalTransformation,
         healing,

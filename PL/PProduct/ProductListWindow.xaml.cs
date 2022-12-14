@@ -4,8 +4,10 @@ using BO;
 using DO;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,12 +26,20 @@ namespace PL.PProduct
     /// </summary>
     public partial class ProductListWindow : Window
     {
+        public bool hasSorted = true;
+            
         public ProductListWindow()
         {
             InitializeComponent();
             IBl bl = new Bl();
             ProductListview.ItemsSource = bl.Product.Products();
-            CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
+            //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
+            CategoriesSelector.Items.Add("All");
+            for (int i = 0; i<5; i++)
+            {
+                CategoriesSelector.Items.Add($"{(BO.Enums.productsCategory)i}");
+            }
+            
         }
 
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -77,13 +87,15 @@ namespace PL.PProduct
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (true)
+            if (hasSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Descending));
+                hasSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
+                hasSorted = true;
             }
         }
 
@@ -91,13 +103,15 @@ namespace PL.PProduct
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (true)
+            if (hasSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
+                hasSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+                hasSorted = true;
             }
         }
 
@@ -105,13 +119,15 @@ namespace PL.PProduct
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (true)
+            if (hasSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Descending));
+                hasSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Ascending));
+                hasSorted = true;
             }
         }
 
@@ -119,13 +135,15 @@ namespace PL.PProduct
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (true)
+            if (hasSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
+                hasSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Ascending));
+                hasSorted = true;
             }
         }
     }

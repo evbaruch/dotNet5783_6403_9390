@@ -20,36 +20,72 @@
   <ItemGroup>
     <None Remove="background\main window\mainWindow1.jpeg" />
     <None Remove="background\main window\mainWindow2.jpeg" />
-    <None Remove="mainWindow2.jpeg" />
-    <None Remove="PProduct\mainWindow8.jpeg" />
-    <None Remove="PProduct\product %281%29.jpeg" />
-    <None Remove="PProduct\product %2810%29.jpeg" />
-    <None Remove="PProduct\product %2812%29.jpeg" />
-    <None Remove="PProduct\product %282%29.jpeg" />
-    <None Remove="PProduct\product %286%29.jpeg" />
-    <None Remove="PProduct\product %289%29.jpeg" />
+    <None Remove="background\main window\mainWindow3.jpeg" />
+    <None Remove="background\main window\mainWindow4.jpeg" />
+    <None Remove="background\main window\mainWindow5.jpeg" />
+    <None Remove="background\main window\mainWindow6.jpeg" />
+    <None Remove="background\main window\mainWindow7.jpeg" />
+    <None Remove="background\main window\mainWindow8.jpeg" />
+    <None Remove="background\products\product %281%29.jpeg" />
+    <None Remove="background\products\product %2810%29.jpeg" />
+    <None Remove="background\products\product %2811%29.jpeg" />
+    <None Remove="background\products\product %2812%29.jpeg" />
+    <None Remove="background\products\product %2813%29.jpeg" />
+    <None Remove="background\products\product %2814%29.jpeg" />
+    <None Remove="background\products\product %2815%29.jpeg" />
+    <None Remove="background\products\product %2816%29.jpeg" />
+    <None Remove="background\products\product %2817%29.jpeg" />
+    <None Remove="background\products\product %2818%29.jpeg" />
+    <None Remove="background\products\product %2819%29.jpeg" />
+    <None Remove="background\products\product %282%29.jpeg" />
+    <None Remove="background\products\product %2820%29.jpeg" />
+    <None Remove="background\products\product %283%29.jpeg" />
+    <None Remove="background\products\product %284%29.jpeg" />
+    <None Remove="background\products\product %285%29.jpeg" />
+    <None Remove="background\products\product %286%29.jpeg" />
+    <None Remove="background\products\product %287%29.jpeg" />
+    <None Remove="background\products\product %288%29.jpeg" />
+    <None Remove="background\products\product %289%29.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="background\main window\mainWindow1.jpeg">
+    <Resource Include="background\main window\mainWindow3.jpeg" />
+    <Resource Include="background\main window\mainWindow4.jpeg" />
+    <Resource Include="background\main window\mainWindow5.jpeg" />
+    <Resource Include="background\main window\mainWindow6.jpeg" />
+    <Resource Include="background\main window\mainWindow7.jpeg" />
+    <Resource Include="background\main window\mainWindow8.jpeg" />
+    <Resource Include="background\products\product (1).jpeg" />
+    <Resource Include="background\products\product (10).jpeg" />
+    <Resource Include="background\products\product (11).jpeg" />
+    <Resource Include="background\products\product (12).jpeg" />
+    <Resource Include="background\products\product (13).jpeg" />
+    <Resource Include="background\products\product (14).jpeg" />
+    <Resource Include="background\products\product (15).jpeg" />
+    <Resource Include="background\products\product (16).jpeg" />
+    <Resource Include="background\products\product (17).jpeg" />
+    <Resource Include="background\products\product (18).jpeg" />
+    <Resource Include="background\products\product (19).jpeg" />
+    <Resource Include="background\products\product (2).jpeg" />
+    <Resource Include="background\products\product (20).jpeg" />
+    <Resource Include="background\products\product (3).jpeg" />
+    <Resource Include="background\products\product (4).jpeg" />
+    <Resource Include="background\products\product (5).jpeg" />
+    <Resource Include="background\products\product (6).jpeg" />
+    <Resource Include="background\products\product (7).jpeg" />
+    <Resource Include="background\products\product (8).jpeg" />
+    <Resource Include="background\products\product (9).jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="background\main window\mainWindow1.jpeg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="background\main window\mainWindow2.jpeg" />
+    </Resource>
+    <Resource Include="background\main window\mainWindow2.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="mainWindow2.jpeg" />
-    <Resource Include="PProduct\mainWindow8.jpeg" />
-    <Resource Include="PProduct\product (1).jpeg" />
-    <Resource Include="PProduct\product (10).jpeg" />
-    <Resource Include="PProduct\product (12).jpeg" />
-    <Resource Include="PProduct\product (2).jpeg" />
-    <Resource Include="PProduct\product (6).jpeg" />
-    <Resource Include="PProduct\product (9).jpeg" />
   </ItemGroup>
 
 </Project>

@@ -31,9 +31,15 @@ namespace PL.PProduct
 
             updateProduct.IsEnabled = false;
             updateProduct.Visibility = Visibility.Hidden;
+
+            //IDTextBlock.Visibility = Visibility.Hidden;
+            //IDTextBlock.IsEnabled = false;
+            //IDTextBox.Visibility = Visibility.Hidden;
+            //IDTextBox.IsEnabled = false;
             
 
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
+            
         }
 
         public modifyProductWindow(int ID)
@@ -60,12 +66,27 @@ namespace PL.PProduct
         {
             try
             {
-                if ((IDTextBox.Text == "") || (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == ""))
+                if ( (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == ""))
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
                 else
                 {
+                    if(IDTextBox.Text == "")
+                    { 
+                        IDTextBox.Text = "0"; 
+                    }
+                    else if(int.Parse(IDTextBox.Text) < 100000 || int.Parse(IDTextBox.Text) > 999999)
+                    {
+                        if (MessageBox.Show("The ID you entered isn't valid ,would you like to get an automatic ID?", "invalid ID", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
+                        {
+                            IDTextBox.Text = "0";
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
                     IBl bl = new Bl();
                     BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
                     bl.Product.AddProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
@@ -119,6 +140,11 @@ namespace PL.PProduct
         {
             new ProductListWindow().Show();
             this.Close();
+        }
+
+        private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

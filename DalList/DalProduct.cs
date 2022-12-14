@@ -7,9 +7,30 @@ public class DalProduct : IProduct
 {
     public int Create(Product product)
     {
-        product.ID = DataSource.Config.get_ID_Product;
-        DataSource.listProduct.Add(product);
-        return (int)product.ID;
+        int checkIDProduct = product.ID;
+        try
+        {
+            if (checkIDProduct >= 100000 && checkIDProduct <= 999999)
+            {
+                Read(product);
+            }
+            if(product.Name != null)
+            {
+                do
+                {
+                    checkIDProduct = DataSource.Config.get_ID_Product;
+                }
+                while (Read(new() { ID = checkIDProduct }).Name != null);
+            }
+                return checkIDProduct;
+            
+        }
+        catch (IDWhoException)
+        {
+            product.ID = checkIDProduct;
+            DataSource.listProduct.Add(product);
+            return (int)product.ID;
+        }
     }
     public Product Read(Product product)
     {

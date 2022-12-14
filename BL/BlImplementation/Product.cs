@@ -219,7 +219,7 @@ internal class Product : IProduct
     {
         try
         {
-            if ((product != null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
+            if ((product != null) && (product.ID >= 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
                 DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
                 Dal.product.Create(addproduct);

@@ -8,9 +8,9 @@
         Title="MainWindow" Height="640" Width="800">
     <Grid
         Name="MainGrid">
-
+       
         <Grid.Background>
-            <ImageBrush ImageSource="/mainWindow2.jpeg"/>
+            <ImageBrush ImageSource=".\background\main window\mainWindow2.jpeg"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
         <Label 
             Content="Re-Evolution" 
             Grid.Row="1" 
-            Width="404"
+            Width="auto"
             Height="80"
             FontSize="80" 
             HorizontalAlignment="Center" 
