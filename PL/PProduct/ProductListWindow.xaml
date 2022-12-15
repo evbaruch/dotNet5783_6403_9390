@@ -180,7 +180,7 @@
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= ID}"
-                            Width="100">
+                            Width="auto">
                             <GridViewColumnHeader
                                 Click="GridViewSortByID_Click"
                                 Content="ID"/>
@@ -188,7 +188,7 @@
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= Name}" 
-                            Width="100">
+                            Width="auto">
                             <GridViewColumnHeader
                                 Click="GridViewSortByName_Click"
                                 Content="Name"/>
@@ -196,7 +196,7 @@
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= Category}"  
-                            Width="180">
+                            Width="auto">
                             <GridViewColumnHeader
                                 Click="GridViewSortByCategory_Click"
                                 Content="Category"/>
@@ -204,7 +204,7 @@
 
                         <GridViewColumn 
                             DisplayMemberBinding="{Binding Path= Price}"
-                            Width="80">
+                            Width="auto">
                             <GridViewColumnHeader
                                 Click="GridViewSortByPrice_Click"
                                 Content="Price"/>
