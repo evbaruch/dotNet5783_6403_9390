@@ -40,6 +40,16 @@
             Height="30"
             HorizontalAlignment="Stretch"
             Click="ProductListWindow_Click"
-            FontWeight="Bold"/>
+            FontWeight="Bold"
+            >
+            <Button.Resources>
+                <Style 
+                    TargetType="Border">
+                    <Setter 
+                        Property="CornerRadius"
+                        Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

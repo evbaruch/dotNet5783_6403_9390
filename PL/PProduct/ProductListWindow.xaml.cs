@@ -26,15 +26,16 @@ namespace PL.PProduct
     /// </summary>
     public partial class ProductListWindow : Window
     {
-        public bool hasSorted = true;
+        public bool hasBeenSorted = true;
             
         public ProductListWindow()
         {
             InitializeComponent();
             IBl bl = new Bl();
             ProductListview.ItemsSource = bl.Product.Products();
-            //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
-            CategoriesSelector.Items.Add("All");
+            //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory)); 
+            // insted of locking the Item Source i prefer do it like that
+            CategoriesSelector.Items.Add("All"); 
             for (int i = 0; i<5; i++)
             {
                 CategoriesSelector.Items.Add($"{(BO.Enums.productsCategory)i}");
@@ -51,14 +52,14 @@ namespace PL.PProduct
             }
             else
             {
-                ProductListview.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString());
+                ProductListview.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString()); // the way we get only the specific category
             }
         }
 
         private void addProduct_Click(object sender, RoutedEventArgs e)
         {
             new modifyProductWindow().Show();
-            this.Close();
+            this.Close(); // closing the window after moving to another window
         }
 
         private void updateProduct_Click(object sender, MouseButtonEventArgs e)
@@ -80,70 +81,70 @@ namespace PL.PProduct
 
         private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
         }
 
-        private void GridViewSortByID_Click(object sender, RoutedEventArgs e)
+        private void GridViewSortByID_Click(object sender, RoutedEventArgs e) // sort the list by ID
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (hasSorted)
+            if (hasBeenSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Descending));
-                hasSorted = false;
+                hasBeenSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
-                hasSorted = true;
+                hasBeenSorted = true;
             }
         }
 
-        private void GridViewSortByName_Click(object sender, RoutedEventArgs e)
+        private void GridViewSortByName_Click(object sender, RoutedEventArgs e) // sort the list by Name
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (hasSorted)
+            if (hasBeenSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
-                hasSorted = false;
+                hasBeenSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                hasSorted = true;
+                hasBeenSorted = true;
             }
         }
 
-        private void GridViewSortByCategory_Click(object sender, RoutedEventArgs e)
+        private void GridViewSortByCategory_Click(object sender, RoutedEventArgs e) // sort the list by Category
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (hasSorted)
+            if (hasBeenSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Descending));
-                hasSorted = false;
+                hasBeenSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Ascending));
-                hasSorted = true;
+                hasBeenSorted = true;
             }
         }
 
-        private void GridViewSortByPrice_Click(object sender, RoutedEventArgs e)
+        private void GridViewSortByPrice_Click(object sender, RoutedEventArgs e) // sort the list by Price
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
             view.SortDescriptions.Clear();
-            if (hasSorted)
+            if (hasBeenSorted)
             {
                 view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
-                hasSorted = false;
+                hasBeenSorted = false;
             }
             else
             {
                 view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Ascending));
-                hasSorted = true;
+                hasBeenSorted = true;
             }
         }
     }

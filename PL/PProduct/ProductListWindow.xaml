@@ -50,7 +50,16 @@
                 Padding="5"
                 Width="104"
                 Click="Back_Click"
-            />
+            >
+                <Button.Resources>
+                    <Style 
+                        TargetType="Border">
+                        <Setter 
+                            Property="CornerRadius"
+                            Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
             <Label
                 Content="Category:"
@@ -223,7 +232,16 @@
             Padding="5"
             Width="104"
             Click ="addProduct_Click"
-            />
+            >
+            <Button.Resources>
+                <Style 
+                    TargetType="Border">
+                    <Setter 
+                        Property="CornerRadius" 
+                        Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
 
 
