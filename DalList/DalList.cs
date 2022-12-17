@@ -5,6 +5,9 @@ using System.Security.Principal;
 namespace Dal;
 sealed internal class DalList : IDal
 {
+    private DalList() { }
+
+
     public IOrder order => new DalOrder();
     public IOrderItem orderItem => new DalOrderItem();
     public IProduct product => new DalProduct();
