@@ -37,8 +37,14 @@
             Padding="5"
             Width="104"
             Click="Back_Click"
-                />
-            
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
             <TextBlock 
                 Grid.Column="1"
                 Margin="2,2,2,2"
@@ -92,7 +98,13 @@
                 FontSize="15"
                 Margin="150,0,30,0"
                 VerticalAlignment="Center"
-                />
+                >
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
             <TextBlock 
                 Grid.Column="1"
@@ -111,7 +123,13 @@
                 FontSize="15"
                 Margin="150,0,30,0"
                 VerticalAlignment="Center"
-                />
+                >
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
             <TextBlock 
                 Grid.Column="1"
@@ -131,7 +149,13 @@
                 FontSize="15"
                 Margin="150,0,30,0"
                 VerticalAlignment="Center"
-                />
+                >
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
             <ComboBox
                 x:Name="CategoriesSelector"
@@ -173,7 +197,13 @@
                 FontSize="15"
                 Margin="150,0,30,0"
                 VerticalAlignment="Center"
-                />
+                >
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
         </Grid>
 
@@ -200,7 +230,13 @@
                 Height="29" 
                 VerticalAlignment="Center"
                 Click="AddProduct_Click"
-                />
+                >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
             <Button
                 Content="Update"
@@ -213,7 +249,16 @@
                 Height="29" 
                 VerticalAlignment="Center"
                 Click="updateProduct_Click"
-                />
+                >
+                <Button.Resources>
+                    <Style 
+                        TargetType="Border">
+                        <Setter 
+                            Property="CornerRadius" 
+                            Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
 
     </Grid>

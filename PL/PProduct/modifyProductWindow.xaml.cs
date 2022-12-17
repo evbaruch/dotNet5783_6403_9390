@@ -40,21 +40,21 @@ namespace PL.PProduct
             
         }
 
-        public modifyProductWindow(int ID)
+        public modifyProductWindow(int ID) // update mode
         {
             BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
 
-            HeadLine.Text = "Updete product";
+            HeadLine.Text = "Updete product"; // defining to match the purpose in this run
 
-            var product = bl.Product.ProductDetails(ID);
+            var product = bl.Product.ProductDetails(ID); // inserting the relevent informtion into the text box
             IDTextBox.Text = product.ID.ToString();
             Name.Text =  product.Name;
             CategoriesSelector.Text = product.Category.ToString();
             Price.Text = product.Price.ToString();
             inStock.Text = product.InStock.ToString();
 
-            AddProduct.IsEnabled = false;
+            AddProduct.IsEnabled = false; // disable the unnecessary butten and hide it
             AddProduct.Visibility = Visibility.Hidden;
 
             CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
@@ -63,8 +63,11 @@ namespace PL.PProduct
         private void AddProduct_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                if ( (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == ""))
+            { //  notice: the ID is able to not be entered because of it randomness property 
+                // notice: we had make some improvment about the ID , the ID can be entered by the manager or be determined automatically
+                // in case the manager is entering a too short or too long ID the system will notify him and offer to determine it automatically
+                // in evry case of exeption the system notify the manager and give him a chance to fix the exeption by changing the input
+                if ( (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == "")) // making sure the text box isn't empty 
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
@@ -74,7 +77,7 @@ namespace PL.PProduct
                     { 
                         IDTextBox.Text = "0"; 
                     }
-                    else if(int.Parse(IDTextBox.Text) < 100000 || int.Parse(IDTextBox.Text) > 999999)
+                    else if(int.Parse(IDTextBox.Text) < 100000 || int.Parse(IDTextBox.Text) > 999999)// making sure the ID is in the right lenght
                     {
                         if (MessageBox.Show("The ID you entered isn't valid ,would you like to get an automatic ID?", "invalid ID", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
                         {
@@ -110,7 +113,7 @@ namespace PL.PProduct
         {
             try
             {
-                if ((IDTextBox.Text == "") || (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == ""))
+                if ((IDTextBox.Text == "") || (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == "")) // making sure the text box isn't empty 
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
@@ -130,7 +133,7 @@ namespace PL.PProduct
             }
             catch (Exception)
             {
-                MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+                MessageBox.Show("An error has occurred , it might occurred because of some incorrect input", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
             }
         }
 
