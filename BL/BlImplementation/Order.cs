@@ -1,6 +1,5 @@
 ﻿using BlApi;
 using BO;
-using Dal;
 using DalApi;
 using DO;
 using System.Data;
@@ -10,12 +9,12 @@ namespace BlImplementation;
 
 internal class Order : IOrder
 {
-    private IDal Dal = new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
 
     public IEnumerable<BO.OrderForList> OrderListRequest()
     {
-        IEnumerable<DO.Order?> orders = Dal.order.ReadAll().ToList();
-        IEnumerable<DO.OrderItem?> orderItems = Dal.orderItem.ReadAll().ToList();
+        IEnumerable<DO.Order?> orders = dal.order.ReadAll().ToList();
+        IEnumerable<DO.OrderItem?> orderItems = dal.orderItem.ReadAll().ToList();
         List<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
         foreach (var item in orders) // go over the products and get all the data from DO 
         {
@@ -34,11 +33,11 @@ internal class Order : IOrder
                     temp.TotalPrice += inItem?.Price;
                 }
             }
-            if (Dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
+            if (dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
             {
                 temp.Status = (BO.Enums.OrderStatus.ordered);
             }
-            else if (Dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && Dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
+            else if (dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
             { // if the value of the shiping is define but the time of the delivery is't it's only shiped
                 temp.Status = (BO.Enums.OrderStatus.shiped);
             }
@@ -57,8 +56,8 @@ internal class Order : IOrder
         {
             if(orderID > 0) // green line (;
             {
-                DO.Order orderItem = Dal.order.Read(new() { ID = orderID });
-                IEnumerable <DO.OrderItem?> orderItems = Dal.orderItem.ReadAll().ToList();
+                DO.Order orderItem = dal.order.Read(new() { ID = orderID });
+                IEnumerable <DO.OrderItem?> orderItems = dal.orderItem.ReadAll().ToList();
                 BO.Order order = new()
                 {
                     ID = orderID,
@@ -78,7 +77,7 @@ internal class Order : IOrder
                         order.Items.Add(new() { });
                         order.Items[j].ID = (int)(orderItems.ElementAt(i)?.OrderID);
                         order.Items[j].ProductID = (int)(orderItems.ElementAt(i)?.ProductID);
-                        order.Items[j].Name = Dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
+                        order.Items[j].Name = dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
                         order.Items[j].Price = orderItems.ElementAt(i)?.Price;
                         order.Items[j].Amount = orderItems.ElementAt(i)?.Amount;
                         order.TotalPrice += orderItems.ElementAt(i)?.Price * orderItems.ElementAt(i)?.Amount;
@@ -122,13 +121,13 @@ internal class Order : IOrder
     {
         try
         {
-            DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
+            DO.Order updateOrder = dal.order.Read(new() { ID = orderID });
             if (orderID > 0 && updateOrder.ShipDate == null) // only if the order hadn't been shiped update the shiping date to now
             {
                 updateOrder.ShipDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
                 order.ShipDate = DateTime.Now;
-                Dal.order.Update(updateOrder);
+                dal.order.Update(updateOrder);
                 return order;
             }
             else
@@ -154,13 +153,13 @@ internal class Order : IOrder
     {
         try
         {
-            DO.Order updateOrder = Dal.order.Read(new() { ID = orderID });
+            DO.Order updateOrder = dal.order.Read(new() { ID = orderID });
             if (orderID > 0 && updateOrder.ShipDate != null && updateOrder.DeliveryDate == null) // only if the order hadn't been deliverd update the delivery date to now
             {
                 updateOrder.DeliveryDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
                 order.DeliveryrDate = DateTime.Now;
-                Dal.order.Update(updateOrder);
+                dal.order.Update(updateOrder);
                 return order;
             }
             else
@@ -186,7 +185,7 @@ internal class Order : IOrder
     {
         try
         {
-            DO.Order trackedOrder = Dal.order.Read(new() { ID = orderID });
+            DO.Order trackedOrder = dal.order.Read(new() { ID = orderID });
             if(orderID > 0)
             {
                 Tuple<DateTime, BO.Enums.OrderStatus> a;
@@ -233,7 +232,7 @@ internal class Order : IOrder
     {
         try
         {
-            List <DO.OrderItem?>orderToUpdate = Dal.orderItem.ReadAll().ToList();
+            List <DO.OrderItem?>orderToUpdate = dal.orderItem.ReadAll().ToList();
             if (productID > 0 && orderID > 0)
             {
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
@@ -259,7 +258,7 @@ internal class Order : IOrder
                                 item.ID = (int)(idFind?.ID);
                             }
                         }
-                        Dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });
+                        dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });
                     }
                 }
                 return orderUpdate;

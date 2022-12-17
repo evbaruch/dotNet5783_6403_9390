@@ -1,5 +1,4 @@
-﻿using Dal;
-using DalApi;
+﻿using DalApi;
 using BlApi;
 using IProduct = BlApi.IProduct;
 using System.Linq;
@@ -10,11 +9,11 @@ namespace BlImplementation;
 
 internal class Product : IProduct
 {
-    private IDal Dal => new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
 
     public IEnumerable<BO.ProductForList> Products(Func<DO.Product?, bool>? func = null)
     {
-        IEnumerable<DO.Product?> products = Dal.product.ReadAll(func).ToList();
+        IEnumerable<DO.Product?> products = dal.product.ReadAll(func).ToList();
         IEnumerable<BO.ProductForList> ProductForLists = new List<BO.ProductForList>();
         List<BO.ProductForList> LProductForLists = ProductForLists.ToList();
         foreach (var item in products) // go over the products and get all the data from DO 
@@ -34,7 +33,7 @@ internal class Product : IProduct
             if (id > 0)
             {
                 DO.Product temp = new() { ID = id };
-                temp = Dal.product.Read(temp);
+                temp = dal.product.Read(temp);
                 product = new() { ID = temp.ID, Name = temp.Name, Price = temp.Price, Category = (BO.Enums.productsCategory?)temp.Category, InStock = temp.InStoke };
                 return product;
             }
@@ -70,7 +69,7 @@ internal class Product : IProduct
                         }
                         I++;
                     }
-                    List<DO.Product?> products = Dal.product.ReadAll().ToList();
+                    List<DO.Product?> products = dal.product.ReadAll().ToList();
                     foreach (var item in products)
                     {
                         if (item?.ID == productID)
@@ -153,7 +152,7 @@ internal class Product : IProduct
             if (id > 0)
             {
 
-                if (Dal.product.ReadAll(a => id == a?.ID).Count() > 0)
+                if (dal.product.ReadAll(a => id == a?.ID).Count() > 0)
                 {
                     exist = true;
                 }
@@ -161,7 +160,7 @@ internal class Product : IProduct
                 if (!exist) // not exist
                 {
                     DO.Product delete = new() { ID = id };
-                    Dal.product.Delete(delete);
+                    dal.product.Delete(delete);
                 }
                 else
                 {
@@ -194,7 +193,7 @@ internal class Product : IProduct
             if ((product != null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
                 DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
-                Dal.product.Update(addproduct);
+                dal.product.Update(addproduct);
             }
             else
             {
@@ -222,7 +221,7 @@ internal class Product : IProduct
             if ((product != null) && (product.ID >= 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
                 DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
-                Dal.product.Create(addproduct);
+                dal.product.Create(addproduct);
             }
             else
             {

@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +24,7 @@ namespace PL.PProduct
     {
         public modifyProductWindow()
         {
-            IBl bl = new Bl();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
 
             updateProduct.IsEnabled = false;
@@ -44,7 +42,7 @@ namespace PL.PProduct
 
         public modifyProductWindow(int ID)
         {
-            IBl bl = new Bl();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
 
             HeadLine.Text = "Updete product";
@@ -87,7 +85,7 @@ namespace PL.PProduct
                             return;
                         }
                     }
-                    IBl bl = new Bl();
+                    BlApi.IBl? bl = BlApi.Factory.Get();
                     BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
                     bl.Product.AddProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
                     new ProductListWindow().Show();
@@ -116,7 +114,7 @@ namespace PL.PProduct
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
-                IBl bl = new Bl();
+                BlApi.IBl? bl = BlApi.Factory.Get();
                 BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
                 bl.Product.UpdateProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
                 new ProductListWindow().Show();

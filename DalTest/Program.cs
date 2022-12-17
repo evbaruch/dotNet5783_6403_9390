@@ -8,7 +8,7 @@ partial class Program
 {
     static void optionOrder()
     {
-        IDal access = new DalList();
+        DalApi.IDal? access = DalApi.Factory.Get();
         Order tempOrder = new Order();
         Console.WriteLine("\nOrder\n" +
             "a in order to adding an object\n" +
@@ -71,7 +71,7 @@ partial class Program
     }
     static void optionOrderItem()
     {
-        IDal access = new DalList();
+        DalApi.IDal? access = DalApi.Factory.Get();
         OrderItem tempOrderItem = new OrderItem();
         Console.WriteLine("Order Item\n" +
                 "a in order to adding an object\n" +
@@ -141,7 +141,7 @@ partial class Program
     {
         bool isRead;
         char option;
-        IDal access = new DalList();
+        DalApi.IDal? access = DalApi.Factory.Get();
         Product tempProduct = new Product();
         Console.WriteLine("\nProduct\n" +
             "a in order to adding an object\n" +

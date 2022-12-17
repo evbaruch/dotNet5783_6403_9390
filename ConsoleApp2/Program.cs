@@ -1,6 +1,5 @@
 ﻿using BlImplementation;
 using BO;
-using Dal;
 using DalApi;
 using DO;
 
@@ -12,7 +11,7 @@ internal class Program
     static Cart cart = new Cart();
     static void optionCart()
     {
-        Bl access = new Bl();
+        BlApi.IBl? access = BlApi.Factory.Get();
         int id = 0, Quantity = 0;
         char option = '1';
 
@@ -69,7 +68,7 @@ internal class Program
     static void optionOrder()//לא סיימיתי עדיין
     {
         BO.Order order = new BO.Order();
-        Bl access = new Bl();
+        BlApi.IBl? access = BlApi.Factory.Get();
         int orderID = 0;
         char option = 'a';
         while (option >= 'a' && option <='f' )
@@ -136,7 +135,7 @@ internal class Program
 
     static void optionProduct()
     {
-        Bl access = new Bl();
+        BlApi.IBl? access = BlApi.Factory.Get();
         BO.Product product = new BO.Product();
         char option = 'a';
         while (option >= 'a' && option <='f')
@@ -218,7 +217,7 @@ internal class Program
 
     static void Main(string[] args)
     {
-        IDal access = new DalList();
+        DalApi.IDal? access = DalApi.Factory.Get();
         IEnumerable<DO.Product?> products = access.product.ReadAll();
         foreach (var item in products)
         {

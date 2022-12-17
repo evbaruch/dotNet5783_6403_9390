@@ -1,6 +1,4 @@
-﻿using BlApi;
-using BlImplementation;
-using BO;
+﻿using BO;
 using DO;
 using System;
 using System.Collections.Generic;
@@ -31,7 +29,7 @@ namespace PL.PProduct
         public ProductListWindow()
         {
             InitializeComponent();
-            IBl bl = new Bl();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             ProductListview.ItemsSource = bl.Product.Products();
             //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
             CategoriesSelector.Items.Add("All");
@@ -44,7 +42,7 @@ namespace PL.PProduct
 
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IBl bl = new Bl();
+            BlApi.IBl? bl = BlApi.Factory.Get();
             if (CategoriesSelector.SelectedItem.ToString() == "All")
             {
                 ProductListview.ItemsSource = bl.Product.Products();

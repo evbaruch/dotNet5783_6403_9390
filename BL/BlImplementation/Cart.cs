@@ -1,6 +1,5 @@
 ﻿using BlApi;
 using BO;
-using Dal;
 using DalApi;
 using System.Linq;
 
@@ -8,14 +7,14 @@ namespace BlImplementation;
 
 internal class Cart : ICart
 {
-    private IDal Dal = new DalList();
+    DalApi.IDal? dal = DalApi.Factory.Get();
 
     public BO.Cart AddProduct(BO.Cart cart, int productID)
     {
         try
         {
             //We will get a list of all our products here
-            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll(
+            IEnumerable<DO.Product?> DO_product = dal.product.ReadAll(
                 (DO.Product? a) => a?.InStoke > 0 && a?.ID == productID
                                                                       );
 
@@ -58,7 +57,7 @@ internal class Cart : ICart
                 {
                     BO.OrderItem orderItem = new BO.OrderItem();
 
-                    orderItem.ID = (int)(Dal.orderItem.ReadAll().ElementAt(Dal.orderItem.ReadAll().Count() - 1)?.ID + 1);
+                    orderItem.ID = (int)(dal.orderItem.ReadAll().ElementAt(dal.orderItem.ReadAll().Count() - 1)?.ID + 1);
                     orderItem.Name = product?.Name;
                     orderItem.Price = product?.Price;
                     orderItem.Amount = 1;
@@ -100,7 +99,7 @@ internal class Cart : ICart
             }
 
             //We will get a list of all our products here
-            IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
+            IEnumerable<DO.Product?> DO_product = dal.product.ReadAll();
 
             foreach (var item in cart.listOfOrderItem)
             {
@@ -176,7 +175,7 @@ internal class Cart : ICart
             //We will check that there is even a valid name
             if (cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null)
             {
-                IEnumerable<DO.Product?> DO_product = Dal.product.ReadAll();
+                IEnumerable<DO.Product?> DO_product = dal.product.ReadAll();
 
                 //Throughout this process I check that my order list is correct
                 foreach (var item in cart.listOfOrderItem)
@@ -205,8 +204,8 @@ internal class Cart : ICart
                         {                                                                                    
                                                                                                              
                             if (product?.InStoke - item.Amount == 0)//If I marked the products exactly        
-                            {                                                                                
-                                Dal.product.Delete((DO.Product)product);                                                 
+                            {
+                                dal.product.Delete((DO.Product)product);                                                 
                             }                                                                                
                             if (product?.InStoke - item.Amount > 0)                                           
                             {                                                                                
@@ -216,9 +215,9 @@ internal class Cart : ICart
                                 newProduct.Name = product?.Name;                                              
                                 newProduct.Price = item.Price;                                               
                                 newProduct.Category = product?.Category;                                      
-                                newProduct.InStoke = product?.InStoke - item.Amount;                          
-                                                                                                             
-                                Dal.product.Update(newProduct);
+                                newProduct.InStoke = product?.InStoke - item.Amount;
+
+                                dal.product.Update(newProduct);
                                 break;
 
 
@@ -241,7 +240,7 @@ internal class Cart : ICart
                 newOrder.CstomerAddress = cart.CustomerAddress;
                 newOrder.OrderDate = DateTime.Now;
 
-                int OrderID = Dal.order.Create(newOrder);
+                int OrderID = dal.order.Create(newOrder);
 
                 //Order item formula
                 foreach (var item in cart.listOfOrderItem)
@@ -253,7 +252,7 @@ internal class Cart : ICart
                     newOrderItem.Price = item.Price;
                     newOrderItem.Amount = item.Amount;
 
-                    Dal.orderItem.Create(newOrderItem);
+                    dal.orderItem.Create(newOrderItem);
                 }
 
                 return;
