@@ -1,16 +1,19 @@
 # dotNet5783_6403_9390
-  * a new line in readme file :)
-    if(Batman == evyatar and Robin == yehuda)
-    {
-        cout << A
-    }
-    else
-    {
-        cout << B
-    }
 
-    console : B
+	*bonuses
 
- שמות כל הסוגים, כמו כן השדות, התכונות, והמתודות עם הרשאה  יש להגדיר בפורמט public = PascalCase
-שמות כל השדות והתכונות בהרשאה  יש להגדיר בפורמט private או  internal = camelCase_
-שמות כל המתודות בהרשאה , הפרמטרים, והמשתנים המקומיים יש להגדיר בפורמט private או  internal = camelCase
+		Stage 1: 
+			חסר תיעוד
+		Stage 2: 
+			חסר תיעוד
+		Stage 3: 
+			חסר תיעוד
+		Stage 4: 
+			Lazy Initialization in singleton dal-list:			
+			חסר
+		Stage 5: 
+			חסר תיעוד
+		Stage 6: 
+			חסר תיעוד
+		Stage 7: 
+			חסר תיעוד
