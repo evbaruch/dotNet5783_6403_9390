@@ -9,7 +9,8 @@
 		Stage 3: 
 			חסר תיעוד
 		Stage 4: 
-			Lazy Initialization in singleton dal-list:			
+			Lazy Initialization in singleton dal-list:
+				in order to save initalization before use we going to use a lazy Initialization - meaning the Initialization will ocurr only when the "Instance" attribute is called
 			חסר
 		Stage 5: 
 			חסר תיעוד
