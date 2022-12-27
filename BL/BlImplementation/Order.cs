@@ -249,7 +249,6 @@ internal class Order : IOrder
                         {
                             orderUpdate.TotalPrice += item.Price*plus_minus;
                             item.Amount += plus_minus;
-                            // לא מצליח לעדכן את השכבת נתונים
                         }
                         foreach (var idFind in orderToUpdate)
                         {
