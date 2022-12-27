@@ -80,21 +80,19 @@ public class DalProduct : IProduct
     }
     public IEnumerable<Product?> ReadAll(Func<Product?, bool>? func)
     {
-        List<Product?> finalResult = new List<Product?>();
+        //List<Product?> finalResult = new List<Product?>();
         if (func != null)
         {
+            var finalResult = from item in DataSource.listProduct
+                              where func(item)
+                              select item;
 
-            foreach (var item in DataSource.listProduct)
-            {
-                if (func(item))
-                {
-                    finalResult.Add(item);
-                }
-            }
             return finalResult;
         }
         else
         {
+            List<Product?> finalResult = new List<Product?>();
+
             finalResult = DataSource.listProduct;
             return finalResult;
         }
@@ -102,13 +100,23 @@ public class DalProduct : IProduct
 
     public Product ReadObject(Func<Product?, bool>? func)
     {
-        foreach (var item in DataSource.listProduct)
+
+
+        if (func != null)
         {
-            if (func(item))
-            {
-                return (Product)item;
-            }
+            var product = DataSource.listProduct.Find(x => func(x));
+            return (Product)product;
         }
+
+        //foreach (var item in DataSource.listProduct)
+        //{
+
+        //    if (func(item))
+        //    {
+        //        return (Product)item;
+        //    }
+        //}
+
         return new()
         {
             ID = -1,
