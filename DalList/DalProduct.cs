@@ -101,21 +101,14 @@ public class DalProduct : IProduct
     public Product ReadObject(Func<Product?, bool>? func)
     {
 
-
         if (func != null)
         {
             var product = DataSource.listProduct.Find(x => func(x));
-            return (Product)product;
+            if (product != null)
+            {
+                return (Product)product;
+            }
         }
-
-        //foreach (var item in DataSource.listProduct)
-        //{
-
-        //    if (func(item))
-        //    {
-        //        return (Product)item;
-        //    }
-        //}
 
         return new()
         {
