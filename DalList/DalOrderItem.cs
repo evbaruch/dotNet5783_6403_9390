@@ -60,20 +60,19 @@ public class DalOrderItem : IOrderItem
     }
     public IEnumerable<OrderItem?> ReadAll(Func<OrderItem?, bool>? func)
     {
-        List<OrderItem?> finalResult = new List<OrderItem?>();
+
         if (func != null)
         {
-            foreach(var item in DataSource.listOrderItem)
-            {
-                if (func(item))
-                {
-                    finalResult.Add(item);
-                }
-            }
+            var finalResult = from item in DataSource.listOrderItem
+                              where func(item)
+                              select item;
+
             return finalResult;
+
         }
         else
         {
+            List<OrderItem?> finalResult = new List<OrderItem?>();
             finalResult = DataSource.listOrderItem;
             return finalResult;
         }
@@ -81,13 +80,15 @@ public class DalOrderItem : IOrderItem
 
     public OrderItem ReadObject(Func<OrderItem?, bool>? func)
     {
-        foreach (var item in DataSource.listOrderItem)
+        if (func != null)
         {
-            if (func(item))
+            var orderItem = DataSource.listOrderItem.Find(x => func(x));
+            if (orderItem != null)
             {
-                return (OrderItem)item;
+                return (OrderItem)orderItem;
             }
         }
+
         return new()
         {
             ID = -1,
