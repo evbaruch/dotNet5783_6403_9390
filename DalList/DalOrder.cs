@@ -62,13 +62,16 @@ public class DalOrder : IOrder
         List<Order?> finalResult = new List<Order?>();
         if (func != null)
         {
-            foreach (var item in DataSource.listOrder)
-            {
-                if (func(item))
-                {
-                    finalResult.Add(item);
-                }
-            }
+            finalResult = (List<Order?>)(from Order in DataSource.listOrder 
+                                        where func(Order)
+                                        select Order);
+            //foreach (var item in DataSource.listOrder)
+            //{
+            //    if (func(item))
+            //    {
+            //        finalResult.Add(item);
+            //    }
+            //}
             return finalResult;
         }
         else
@@ -80,13 +83,22 @@ public class DalOrder : IOrder
 
     public Order ReadObject (Func<Order?, bool>? func)
     {
-        foreach (var item in DataSource.listOrder)
+
+        if (func != null)
         {
-            if(func(item))
+            var order = DataSource.listOrder.Find(x => func(x));
+            if (order != null)
             {
-                return (Order)item;
+                return (Order)order;
             }
         }
+        //foreach (var item in DataSource.listOrder)
+        //{
+        //    if(func(item))
+        //    {
+        //        return (Order)item;
+        //    }
+        //}
         return new()
         {
             ID = -1,
