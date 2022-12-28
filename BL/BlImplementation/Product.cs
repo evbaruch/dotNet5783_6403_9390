@@ -11,19 +11,22 @@ internal class Product : IProduct
 {
     DalApi.IDal? dal = DalApi.Factory.Get();
 
-    public IEnumerable<BO.ProductForList> Products(Func<DO.Product?, bool>? func = null)
+
+    public IEnumerable<BO.ProductForList> Products(Func<DO.Product?, bool>? filter = null)
     {
-        IEnumerable<DO.Product?> products = dal.product.ReadAll(func).ToList();
-        IEnumerable<BO.ProductForList> ProductForLists = new List<BO.ProductForList>();
-        List<BO.ProductForList> LProductForLists = ProductForLists.ToList();
-        foreach (var item in products) // go over the products and get all the data from DO 
+        var products = dal.product.ReadAll(filter).ToList();
+        var productForLists = products.Select(product => new BO.ProductForList
         {
-            BO.ProductForList temp = new(){ID = (int)(item?.ID), Name = item?.Name,Price = item?.Price,Category = (BO.Enums.productsCategory?)item?.Category };
-            LProductForLists.Add(temp);
-        }
-        IEnumerable<BO.ProductForList> a = LProductForLists;
-        return a;
+            ID = (int)(product?.ID),
+            Name = product?.Name,
+            Price = product?.Price,
+            Category = (BO.Enums.productsCategory?)product?.Category
+
+        }).ToList();
+
+        return productForLists;
     }
+
 
     public BO.Product ProductDetails(int id)
     {
@@ -49,99 +52,112 @@ internal class Product : IProduct
         }
     }
 
+    //public BO.ProductItem ProductDetails(int productID, BO.Cart cart)//את זה עביתר כתב
+    //{
+    //    try
+    //    {
+
+    //        if (productID > 0)
+    //        {
+    //            int I = 0;
+    //            int J = 0;
+    //            List<BO.OrderItem> orderItems = cart.listOfOrderItem;
+    //            if (orderItems.Count > 0)
+    //            {
+    //                foreach (var item in orderItems)
+    //                {
+    //                    if (item.ProductID == productID)
+    //                    {
+    //                        break;
+    //                    }
+    //                    I++;
+    //                }
+    //                List<DO.Product?> products = dal.product.ReadAll().ToList();
+    //                foreach (var item in products)
+    //                {
+    //                    if (item?.ID == productID)
+    //                    {
+    //                        break;
+    //                    }
+    //                    J++;
+    //                }
+    //                BO.Product product = new()
+    //                {
+    //                    Price = products[J]?.Price,
+    //                    Name = products[J]?.Name,
+    //                    ID = productID,
+    //                    Category = (Enums.productsCategory?)products[J]?.Category,
+    //                    InStock = products[J]?.InStoke
+    //                };
+    //                BO.ProductItem productItem = new()
+    //                {
+    //                    ID = product.ID,
+    //                    Name = product.Name,
+    //                    Price = product.Price,
+    //                    Category = product.Category,
+    //                    Amount = orderItems[I].Amount,
+    //                    InStock = product.InStock > 0 ? true : false
+    //                };
+    //                return productItem;
+    //            }
+    //            else
+    //            {
+    //                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
+    //            }
+    //        }
+    //        else
+    //        {
+    //            throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
+    //        }
+    //    }
+    //    catch (DO.IDWhoException)
+    //    {
+    //        throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+    //    }
+    //    catch (DO.ISawYouAlreadyException)
+    //    {
+    //        throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+    //    }
+    //    catch (Exception excption)
+    //    {
+    //        throw excption;
+    //    }
+    //}
+
     public BO.ProductItem ProductDetails(int productID, BO.Cart cart)
     {
-        try
+        if (productID <= 0)//נבדוק שקיבלנו תז תקין
         {
+            throw new DataNotFoundException("Product does not exist", new Exception("BlImplementation->Product->GetProductDetails = product don't exist - BlIm"));
+        }
 
-            if (productID > 0)
-            {
-                int I = 0;
-                int J = 0;
-                List<BO.OrderItem> orderItems = cart.listOfOrderItem;
-                if (orderItems.Count >0)
-                {
-                    foreach (var item in orderItems)
-                    {
-                        if (item.ProductID == productID)
-                        {
-                            break;
-                        }
-                        I++;
-                    }
-                    List<DO.Product?> products = dal.product.ReadAll().ToList();
-                    foreach (var item in products)
-                    {
-                        if (item?.ID == productID)
-                        {
-                            break;
-                        }
-                        J++;
-                    }
-                    BO.Product product = new()
-                    {
-                        Price = products[J]?.Price,
-                        Name = products[J]?.Name,
-                        ID = productID,
-                        Category = (Enums.productsCategory?)products[J]?.Category,
-                        InStock = products[J]?.InStoke
-                    };
-                    BO.ProductItem productItem = new()
-                    {
-                        ID = product.ID,
-                        Name = product.Name,
-                        Price = product.Price,
-                        Category = product.Category,
-                        Amount = orderItems[I].Amount,
-                        InStock = product.InStock > 0 ? true : false
-                    };
-                    return productItem;
-                }
-                else
-                {
-                    throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
-                }
+        var orderItems = cart.listOfOrderItem;
+        if (orderItems.Count == 0)//נבדוק אם בכלל קיים מוצרים בעגלה
+        {
+            throw new DataNotFoundException("Product does not exist", new Exception("BlImplementation->Product->GetProductDetails = product don't exist - BlIm"));
+        }
 
-                //productItem.ID = productID;
-                //productItem.Name = cart.CustomerName;
-                //foreach (var item in cart.listOfOrderItem) // looking for an productItem with the same id product in order to find out the price  
-                //{
-                //    if (item.ProductID == productItem.ID)
-                //    {
-                //        productItem.Price = item.Price;
-                //        break;
-                //    }
-                //}
-                //foreach (var item in cart.listOfOrderItem) // looking for an productItem with the same id product in order to find out the amount
-                //{
-                //    if (item.ProductID == productItem.ID)
-                //    {
-                //        productItem.Amount++;
-                //    }
-                //}
-                //productItem.InStock = (productItem.Amount>0) ? true : false;
-                //DO.Product preProduct = new() { ID = productItem.ID, Name = productItem.Name };
-                //preProduct = Dal.product.Read(preProduct);
-                //productItem.Category = (BO.Enums.productsCategory?)preProduct.Category;
-                //return productItem;
-            }
-            else
-            {
-                throw new DataNotFoundException(" ", new Exception("BlImplementation->Product->ProductDetails = product don't exist - BlIm"));
-            }
-        }
-        catch (DO.IDWhoException)
+        var orderItem = orderItems.FirstOrDefault(item => item.ProductID == productID);
+        if (orderItem == null)//נבדוק אם המוצר שלנו קיים בעגלה
         {
-            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+            throw new DataNotFoundException("Product does not exist", new Exception("BlImplementation->Product->GetProductDetails = product don't exist - BlIm"));
         }
-        catch (DO.ISawYouAlreadyException)
+
+        var product = dal.product.ReadObject(item => item?.ID == productID);
+        if (product.ID == -1)//נבדוק אם המוצר הזה קיים בכלל במוצרים
         {
-            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
+            throw new DataNotFoundException("Product does not exist", new Exception("BlImplementation->Product->GetProductDetails = product don't exist - BlIm"));
         }
-        catch (Exception excption)
+
+        return new BO.ProductItem
         {
-            throw excption;
-        }
+            ID = product.ID,
+            Name = product.Name,
+            Price = product.Price,
+            Category = (Enums.productsCategory)product.Category,
+            Amount = orderItem.Amount,
+            InStock = product.InStoke > 0
+        };
     }
 
     public void DeleteProduct(int id)
