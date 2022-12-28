@@ -92,13 +92,7 @@ public class DalOrder : IOrder
                 return (Order)order;
             }
         }
-        //foreach (var item in DataSource.listOrder)
-        //{
-        //    if(func(item))
-        //    {
-        //        return (Order)item;
-        //    }
-        //}
+
         return new()
         {
             ID = -1,

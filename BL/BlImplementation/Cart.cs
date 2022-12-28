@@ -1,7 +1,5 @@
 ﻿using BlApi;
 using BO;
-using DalApi;
-using System.Linq;
 
 namespace BlImplementation;
 
@@ -11,267 +9,149 @@ internal class Cart : ICart
 
     public BO.Cart AddProduct(BO.Cart cart, int productID)
     {
-        try
-        {
-            //We will get a list of all our products here
-            IEnumerable<DO.Product?> DO_product = dal.product.ReadAll(
-                (DO.Product? a) => a?.InStoke > 0 && a?.ID == productID
-                                                                      );
+        // Get the product with the specified ID
+        DO.Product? DO_product = dal.product.ReadObject(p => p?.InStoke > 0 && p?.ID == productID);
 
-            foreach (var item in cart.listOfOrderItem)
+        // If the product was not found, throw an exception
+        if (DO_product?.ID == -1)
+        {
+            throw new DataNotFoundException("Product not found", new Exception("BlImplementation->ICart->AddProduct"));
+        }
+
+        // Find the OrderItem that has the matching ProductID
+        BO.OrderItem item = cart.listOfOrderItem.FirstOrDefault(i => i.ProductID == productID);
+
+        // If an OrderItem was found with a matching ProductID
+        if (item != null)
+        {
+            // Reset the previous price
+            cart.TotalPrice -= item.TotalPrice;
+
+            // Update the quantity and total price of the OrderItem
+            item.Amount++;
+            item.TotalPrice = item.Amount * DO_product?.Price;
+
+            // Update the total price of the entire order
+            cart.TotalPrice += item.TotalPrice;
+        }
+        // If an OrderItem with a matching ProductID was not found
+        else
+        {
+            // Create a new OrderItem with the specified ProductID and price
+            BO.OrderItem orderItem = new BO.OrderItem
             {
-                //If it already exists in our cart
-                if (item.ProductID == productID)
-                {
-                    //Grab the same product in the store
-                    foreach (var product in DO_product)
-                    {
-                        //As soon as we reach it we will check if there are any products left
-                        if (product?.InStoke > 0 && product?.ID == productID)
-                        {
-                            //We will reset the previous price because we can update it later
-                            cart.TotalPrice -= item.TotalPrice;
+                ID = dal.orderItem.ReadAll().Max(i => i.Value.ID) + 1,
+                Name = DO_product?.Name,
+                Price = DO_product?.Price,
+                Amount = 1,
+                TotalPrice = DO_product?.Price,
+                ProductID = productID
+            };
 
-                            //We will update the quantity of products in one and the price
-                            item.Amount++;
-                            item.TotalPrice = item.Amount * product?.Price;
-
-                            //Update the total price of the entire order
-                            cart.TotalPrice += item.TotalPrice;
-
-                            return cart;
-                        }
-                    }
-                    //It is not possible that there will be an error that we did not find the product at all, but it is possible that it is not left in stock 
-                    throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->AddProduct = Product not in stock"));
-                }
-
-
-            }
-            //If the product is not in our cart
-            //Grab the same product in the store
-            foreach (var product in DO_product)
-            {
-                //We seize the product according to its appearance
-                if (product?.ID == productID)
-                {
-                    BO.OrderItem orderItem = new BO.OrderItem();
-
-                    orderItem.ID = (int)(dal.orderItem.ReadAll().ElementAt(dal.orderItem.ReadAll().Count() - 1)?.ID + 1);
-                    orderItem.Name = product?.Name;
-                    orderItem.Price = product?.Price;
-                    orderItem.Amount = 1;
-                    orderItem.TotalPrice = product?.Price;
-
-                    orderItem.ProductID = productID;
-
-                    cart.TotalPrice += product?.Price;
-                    cart.listOfOrderItem.Add(orderItem);
-
-                    return cart;
-                }
-            }
-            //In case I can't find the product, we will throw an exception
-            throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->AddProduct = Product not found"));
+            // Add the OrderItem to the list and update the total price of the cart
+            cart.listOfOrderItem.Add(orderItem);
+            cart.TotalPrice += DO_product?.Price;
         }
-        catch(DO.IDWhoException )
-        {
-            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
-        }
-        catch(DO.ISawYouAlreadyException)
-        {
-            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
-        }
-        catch (Exception exeption)
-        {
-            throw exeption;
-        }
+
+        return cart;
     }
 
     public BO.Cart UpdateProductQuantity(BO.Cart cart, int productID, int productQuantity)
     {
-        try
+        if (productQuantity < 0)
         {
-            //If I get 0 then I don't change anything so we return immediately
-            if (productQuantity < 0)
-            {
-                throw new IncorrectDataException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = A negative update has been entered"));
-            }
-
-            //We will get a list of all our products here
-            IEnumerable<DO.Product?> DO_product = dal.product.ReadAll();
-
-            foreach (var item in cart.listOfOrderItem)
-            {
-                if (item.ProductID == productID)
-                {
-                    if (item.Amount - productQuantity < 0)//If you add items
-                    {
-                        int? size = productQuantity - item.Amount;
-                        //So we will perform the addition function the number of times 
-                        for (int i = 0; i < size; i++)
-                        {
-                            cart = this.AddProduct(cart, productID);
-
-                        }
-                        return cart;
-                    }
-                    if (item.Amount - productQuantity == 0) //There was no change
-                    {
-                        return cart;
-                    }
-                    if (item.Amount - productQuantity > 0)//If I return products
-                    {
-                        if (productQuantity > 0)//If I remove but there are still products
-                        {
-                            //We will reset the previous price because we can update it later
-                            cart.TotalPrice -= item.TotalPrice;
-
-                            //We will update the total quantity and price of the product
-                            item.Amount = productQuantity;
-                            item.TotalPrice = item.Amount * item.Price;
-
-                            //We will update the total price of the order
-                            cart.TotalPrice += item.TotalPrice;
-
-                            return cart;
-                        }
-                        else//If all products run out
-                        {
-                            //We will update you
-                            cart.TotalPrice -= item.TotalPrice;
-
-                            //We will delete it from the order
-                            cart.listOfOrderItem.Remove(item);
-
-                            return cart;
-                        }
-                    }
-                }
-                //In case we did not find the product at all
-                throw new DataNotFoundException(" ", new Exception("BlImplementation->ICart->UpdateProductQuantity = Product not found"));
-            }
-            return cart;//We will return without change
+            throw new IncorrectDataException("A negative update has been entered", new Exception("BlImplementation->ICart->UpdateProductQuantity"));
         }
-        catch (DO.IDWhoException)
+
+        var DO_product = dal.product.ReadAll();
+        var matchingItem = cart.listOfOrderItem.FirstOrDefault(item => item.ProductID == productID);
+
+        if (matchingItem == null)
         {
-            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+            throw new DataNotFoundException("Product not found", new Exception("BlImplementation->ICart->UpdateProductQuantity"));
         }
-        catch (DO.ISawYouAlreadyException)
-        {
-            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
-        }
-        catch (Exception exeption)
-        {
 
-            throw exeption;
+        if (productQuantity == 0)
+        {
+            //If a zero was entered then we will delete it from the cart
+            cart.listOfOrderItem.Remove(matchingItem);
         }
+        else
+        {
+            // Reset the previous price
+            cart.TotalPrice -= matchingItem.TotalPrice;
+
+            // Update the quantity and total price of the OrderItem
+            matchingItem.Amount = productQuantity;
+            matchingItem.TotalPrice = productQuantity * matchingItem.Price;
+
+            // Update the total price of the entire order
+            cart.TotalPrice += matchingItem.TotalPrice;
+        }
+
+        return cart;
     }
 
-    public void OrderConfirmation(BO.Cart cart) // the Customer pesonal details are already in the system ,no need to send them
+    public void OrderConfirmation(BO.Cart cart)
     {
-        try
+        // We will check that there is a valid name, email, and address for the customer.
+        if (string.IsNullOrEmpty(cart.CustomerName) || string.IsNullOrEmpty(cart.CustomerEmail) || string.IsNullOrEmpty(cart.CustomerAddress))
         {
-            //We will check that there is even a valid name
-            if (cart.CustomerName != null && cart.CustomerEmail != null && cart.CustomerAddress != null)
+            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid customer information provided");
+        }
+
+        IEnumerable<DO.Product?> products = dal.product.ReadAll();
+
+        // Check that all products in the cart exist in the product list And  if products are missing.
+        foreach (var orderItem in cart.listOfOrderItem)//I didn't change it to LINQ because it didn't make sense
+        {
+            DO.Product? product = products.FirstOrDefault(item => item?.ID == orderItem.ProductID);
+            if (product == null)
             {
-                IEnumerable<DO.Product?> DO_product = dal.product.ReadAll();
-
-                //Throughout this process I check that my order list is correct
-                foreach (var item in cart.listOfOrderItem)
-                {
-                    bool flag = false;
-                    foreach (var product in DO_product)
-                    {
-                        if (item.ProductID == product?.ID)
-                        {
-                            flag = true;
-                        }
-                    }
-                    if (!flag)
-                    {
-                        //This means that one product that I have in the list I do not have it in the products
-                        throw new IncorrectDataException("",new Exception("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart"));
-                    }
-                }
-
-                //Updating the products from our data
-                foreach (var item in cart.listOfOrderItem)
-                {
-                    foreach (var product in DO_product)//בעיה                                                
-                    {                                                                                        
-                        if (item.ProductID == product?.ID)                                                    
-                        {                                                                                    
-                                                                                                             
-                            if (product?.InStoke - item.Amount == 0)//If I marked the products exactly        
-                            {
-                                dal.product.Delete((DO.Product)product);                                                 
-                            }                                                                                
-                            if (product?.InStoke - item.Amount > 0)                                           
-                            {                                                                                
-                                DO.Product newProduct = new DO.Product();                                    
-                                                                                                             
-                                newProduct.ID = item.ProductID;                                              
-                                newProduct.Name = product?.Name;                                              
-                                newProduct.Price = item.Price;                                               
-                                newProduct.Category = product?.Category;                                      
-                                newProduct.InStoke = product?.InStoke - item.Amount;
-
-                                dal.product.Update(newProduct);
-                                break;
-
-
-                            }
-                            else
-                            {
-                                //Not enough products
-                                throw new IncorrectDataException("", new Exception("BlImplementation->ICart->OrderConfirmation = Not enough products"));
-                            }
-                        }
-                    }
-                }
-
-
-                //We will add an order to our data
-                DO.Order newOrder = new DO.Order();
-
-                newOrder.CustomerName = cart.CustomerName;
-                newOrder.CustomerEmail = cart.CustomerEmail;
-                newOrder.CstomerAddress = cart.CustomerAddress;
-                newOrder.OrderDate = DateTime.Now;
-
-                int OrderID = dal.order.Create(newOrder);
-
-                //Order item formula
-                foreach (var item in cart.listOfOrderItem)
-                {
-                    DO.OrderItem newOrderItem = new DO.OrderItem();
-
-                    newOrderItem.ProductID = item.ProductID;
-                    newOrderItem.OrderID = OrderID;
-                    newOrderItem.Price = item.Price;
-                    newOrderItem.Amount = item.Amount;
-
-                    dal.orderItem.Create(newOrderItem);
-                }
-
-                return;
+                throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart");
             }
-            //Invalid name
-            throw new IncorrectDataException("", new Exception("BlImplementation->ICart->OrderConfirmation = Invalid name"));
+            if (product?.InStoke < orderItem.Amount)
+            {
+                throw new DataNotFoundException("BlImplementation->ICart->OrderConfirmation = Missing products for the product");
+            }
         }
-        catch (DO.IDWhoException)
-        {
-            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
-        }
-        catch (DO.ISawYouAlreadyException)
-        {
-            throw new IncorrectDataException(" ", new Exception("ISawYouAlreadyException was throw"));
-        }
-        catch (Exception exeption)
-        {
 
-            throw exeption;
+
+        //We will create a new order
+        DO.Order newOrder = new DO.Order()
+        {
+            ID = dal.order.ReadAll().Max(i => i.Value.ID) + 1,
+            CustomerName = cart.CustomerName,
+            CustomerEmail = cart.CustomerEmail,
+            CstomerAddress = cart.CustomerAddress,
+            OrderDate = DateTime.Now
+        };
+        int orderID = dal.order.Create(newOrder);
+
+        // Update the product quantities in the product list and update OrderItem.
+        foreach (var orderItem in cart.listOfOrderItem)//I didn't change it to LINQ because it didn't make sense
+        {
+            DO.Product? product = products.FirstOrDefault(item => item?.ID == orderItem.ProductID);
+
+            DO.Product newProduct = new DO.Product()
+            {
+                ID = (int)(product?.ID),
+                Name = product?.Name,
+                Price = product?.Price,
+                Category = product?.Category,
+                InStoke = product?.InStoke - orderItem.Amount
+            };
+            dal.product.Update(newProduct);
+
+            DO.OrderItem newOrderItem = new DO.OrderItem()
+            {
+                ID = (int)orderItem?.ID,
+                ProductID = (int)orderItem?.ProductID,
+                OrderID = orderID,
+                Price = orderItem.Price,
+                Amount = orderItem.Amount,
+            };
+            dal.orderItem.Create(newOrderItem);
         }
     }
 }
