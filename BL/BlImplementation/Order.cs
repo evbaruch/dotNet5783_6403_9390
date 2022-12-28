@@ -2,7 +2,9 @@
 using BO;
 using DalApi;
 using DO;
+using System.ComponentModel;
 using System.Data;
+using System.Security.Cryptography;
 using IOrder = BlApi.IOrder;
 
 namespace BlImplementation;
@@ -16,37 +18,54 @@ internal class Order : IOrder
         IEnumerable<DO.Order?> orders = dal.order.ReadAll().ToList();
         IEnumerable<DO.OrderItem?> orderItems = dal.orderItem.ReadAll().ToList();
         List<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
-        foreach (var item in orders) // go over the products and get all the data from DO 
-        {
-            BO.OrderForList temp = new()
-            {
-                ID =  (int)(item?.ID),
-                CustomerName = item?.CustomerName,
-            };
-            temp.AmountOfItems = 0;
-            temp.TotalPrice = 0;
-            foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
-            {
-                if (inItem?.OrderID == item?.ID)
-                {
-                    temp.AmountOfItems++;
-                    temp.TotalPrice += inItem?.Price;
-                }
-            }
-            if (dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
-            {
-                temp.Status = (BO.Enums.OrderStatus.ordered);
-            }
-            else if (dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
-            { // if the value of the shiping is define but the time of the delivery is't it's only shiped
-                temp.Status = (BO.Enums.OrderStatus.shiped);
-            }
-            else // else (both define)
-            {
-                temp.Status = (BO.Enums.OrderStatus.delivered);
-            }
-            OrderForList.Add(temp);
-        }
+        OrderForList = (from item in orders
+                        let order = dal.order.Read(new() { ID = (int)(item?.ID ?? -1) })
+                        let status = order.ShipDate == null ?
+                                     BO.Enums.OrderStatus.ordered :
+                                     order.DeliveryDate == null ?
+                                     BO.Enums.OrderStatus.shiped :
+                                     BO.Enums.OrderStatus.delivered
+                        select new OrderForList
+                        {
+                            AmountOfItems = orderItems.Count(x => x?.OrderID == item?.ID),
+                            TotalPrice = orderItems.Where(x => x?.OrderID == item?.ID).Sum(a => a?.Price),
+                            CustomerName = item?.CustomerName,
+                            ID = (int)(item?.ID ?? -1),
+                            Status = status
+                        }).ToList();
+        
+
+        //foreach (var item in orders) // go over the products and get all the data from DO 
+        //{
+        //    BO.OrderForList temp = new()
+        //    {
+        //        ID =  (int)(item?.ID),
+        //        CustomerName = item?.CustomerName,
+        //    };
+        //    temp.AmountOfItems = 0;
+        //    temp.TotalPrice = 0;
+        //    foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
+        //    {
+        //        if (inItem?.OrderID == item?.ID)
+        //        {
+        //            temp.AmountOfItems++;
+        //            temp.TotalPrice += inItem?.Price;
+        //        }
+        //    }
+        //    if (dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
+        //    {
+        //        temp.Status = (BO.Enums.OrderStatus.ordered);
+        //    }
+        //    else if (dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
+        //    { // if the value of the shiping is define but the time of the delivery is't it's only shiped
+        //        temp.Status = (BO.Enums.OrderStatus.shiped);
+        //    }
+        //    else // else (both define)
+        //    {
+        //        temp.Status = (BO.Enums.OrderStatus.delivered);
+        //    }
+        //    OrderForList.Add(temp);
+        //}
         return OrderForList;
     }
 
@@ -80,6 +99,7 @@ internal class Order : IOrder
                         order.Items[j].Name = dal.product.Read(new() { ID = order.Items[j].ProductID }).Name;
                         order.Items[j].Price = orderItems.ElementAt(i)?.Price;
                         order.Items[j].Amount = orderItems.ElementAt(i)?.Amount;
+                        order.Items[j].TotalPrice = orderItems.ElementAt(i)?.Price * orderItems.ElementAt(i)?.Amount;
                         order.TotalPrice += orderItems.ElementAt(i)?.Price * orderItems.ElementAt(i)?.Amount;
                         j++;
                     }
@@ -236,30 +256,53 @@ internal class Order : IOrder
             if (productID > 0 && orderID > 0)
             {
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
-                foreach (var item in orderUpdate.Items) // go over the order item and modify the amount 
+                var itemToUpdate = (from item in orderUpdate.Items
+                                    where item.ProductID == productID
+                                    select item).FirstOrDefault();
+                if (itemToUpdate != null)
                 {
-                    if (item.ProductID == productID)
+                    var idFind = (from o in orderToUpdate
+                                  where o?.OrderID == orderID && o?.ProductID == itemToUpdate.ProductID
+                                  select o).FirstOrDefault();
+                    if (itemToUpdate.Amount + plus_minus <= 0)
                     {
-                        if (item.Amount + plus_minus <= 0)
-                        {
-                            orderUpdate.TotalPrice += item.Price*item.Amount;
-                            orderToUpdate.Remove(new() {ID = (int)item.ID});
-                        }
-                        else
-                        {
-                            orderUpdate.TotalPrice += item.Price*plus_minus;
-                            item.Amount += plus_minus;
-                        }
-                        foreach (var idFind in orderToUpdate)
-                        {
-                            if(idFind?.OrderID == orderID && idFind?.ProductID == item.ProductID)
-                            {
-                                item.ID = (int)(idFind?.ID);
-                            }
-                        }
-                        dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });
+                        orderUpdate.TotalPrice += itemToUpdate.Price * itemToUpdate.Amount;
+                        orderToUpdate.Remove(idFind);
+                    }
+                    else
+                    {
+                        orderUpdate.TotalPrice += itemToUpdate.Price * plus_minus;
+                        itemToUpdate.Amount += plus_minus;
+                        itemToUpdate.ID = (int)idFind?.ID;
+                        dal.orderItem.Update(new() { ID = itemToUpdate.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
                     }
                 }
+
+                // in my opinion the linq here is not efficient but it's the only way we manage to find
+                //foreach (var item in orderUpdate.Items) // go over the order item and modify the amount 
+                //{
+                //    if (item.ProductID == productID)
+                //    {
+                //        if (item.Amount + plus_minus <= 0)
+                //        {
+                //            orderUpdate.TotalPrice += item.Price*item.Amount;
+                //            orderToUpdate.Remove(new() {ID = (int)item.ID});
+                //        }
+                //        else
+                //        {
+                //            orderUpdate.TotalPrice += item.Price*plus_minus;
+                //            item.Amount += plus_minus;
+                //        }
+                //        foreach (var idFind in orderToUpdate)
+                //        {
+                //            if(idFind?.OrderID == orderID && idFind?.ProductID == item.ProductID)
+                //            {
+                //                item.ID = (int)(idFind?.ID);
+                //            }
+                //        }
+                //        dal.orderItem.Update(new() {ID = (int)item.ID, ProductID = item.ProductID , Amount = item.Amount, Price = item.Price , OrderID = orderID });
+                //    }
+                //}
                 return orderUpdate;
             }
             else
