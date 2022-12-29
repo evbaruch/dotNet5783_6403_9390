@@ -1,15 +1,15 @@
-﻿<Window x:Class="PL.PProduct.ProductListWindow"
+﻿<Window x:Class="PL.AdminWindows.ProductListWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL.PProduct"
+        xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
         Title="ProductListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
 
         <Grid.Background>
-            <ImageBrush ImageSource="..\background\main window\mainWindow8.jpeg"/>
+            <ImageBrush ImageSource="..\..\background\main window\mainWindow8.jpeg"/>
         </Grid.Background>
 
 
@@ -94,7 +94,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (1).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (1).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -104,7 +104,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (10).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (10).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -114,7 +114,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (12).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (12).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -139,7 +139,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (6).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (6).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -149,7 +149,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (2).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (2).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -159,7 +159,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\background\products\product (9).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\product (9).jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -173,7 +173,7 @@
                 FontSize="15"
                 Background="#FF9FC4E5"
                 >
-                
+
                 <ListView.View>
 
                     <GridView>
