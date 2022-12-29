@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL
+namespace PL.AdminWindows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainAdminWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainAdminWindow : Window
     {
-        public MainWindow()
+        public MainAdminWindow()
         {
             BlApi.IBl? bl = BlApi.Factory.Get();
             InitializeComponent();
@@ -28,9 +27,8 @@ namespace PL
 
         private void ProductListWindow_Click(object sender, RoutedEventArgs e)
         {
-            new PProduct.ProductListWindow().Show();
-            this.Close(); 
+            new AdminWindows.ProductListWindow().Show();
+            this.Close();
         }
-
     }
 }

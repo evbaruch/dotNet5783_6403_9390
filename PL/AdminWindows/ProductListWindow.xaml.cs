@@ -1,11 +1,7 @@
-﻿using BO;
-using DO;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,15 +13,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PL.PProduct
+namespace PL.AdminWindows
 {
     /// <summary>
     /// Interaction logic for ProductListWindow.xaml
     /// </summary>
     public partial class ProductListWindow : Window
     {
+
         public bool hasBeenSorted = true;
-            
+
         public ProductListWindow()
         {
             InitializeComponent();
@@ -33,12 +30,12 @@ namespace PL.PProduct
             ProductListview.ItemsSource = bl.Product.Products();
             //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory)); 
             // insted of locking the Item Source i prefer do it like that
-            CategoriesSelector.Items.Add("All"); 
+            CategoriesSelector.Items.Add("All");
             for (int i = 0; i<5; i++)
             {
                 CategoriesSelector.Items.Add($"{(BO.Enums.productsCategory)i}");
             }
-            
+
         }
 
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,7 +59,7 @@ namespace PL.PProduct
 
         private void updateProduct_Click(object sender, MouseButtonEventArgs e)
         {
-            if ((BO.ProductForList)ProductListview.SelectedItem != null) 
+            if ((BO.ProductForList)ProductListview.SelectedItem != null)
             {
                 var product = (BO.ProductForList)ProductListview.SelectedItem;
                 new modifyProductWindow(product.ID).Show();
@@ -73,13 +70,13 @@ namespace PL.PProduct
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new AdminWindows.MainAdminWindow().Show();
+            new MainAdminWindow().Show();
             this.Close();
         }
 
         private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void GridViewSortByID_Click(object sender, RoutedEventArgs e) // sort the list by ID
