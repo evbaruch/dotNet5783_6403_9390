@@ -27,29 +27,18 @@ namespace PL.AdminWindows
                 updateProduct.IsEnabled = false;
                 updateProduct.Visibility = Visibility.Hidden;
 
-                //IDTextBlock.Visibility = Visibility.Hidden;
-                //IDTextBlock.IsEnabled = false;
-                //IDTextBox.Visibility = Visibility.Hidden;
-                //IDTextBox.IsEnabled = false;
-
-
                 CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
 
             }
 
-            public modifyProductWindow(int ID) // update mode
+            public modifyProductWindow(BO.ProductForList product) // update mode
             {
                 BlApi.IBl? bl = BlApi.Factory.Get();
                 InitializeComponent();
 
                 HeadLine.Text = "Updete product"; // defining to match the purpose in this run
 
-                var product = bl.Product.ProductDetails(ID); // inserting the relevent informtion into the text box
-                IDTextBox.Text = product.ID.ToString();
-                Name.Text =  product.Name;
-                CategoriesSelector.Text = product.Category.ToString();
-                Price.Text = product.Price.ToString();
-                inStock.Text = product.InStock.ToString();
+                this.DataContext = product;
 
                 AddProduct.IsEnabled = false; // disable the unnecessary butten and hide it
                 AddProduct.Visibility = Visibility.Hidden;

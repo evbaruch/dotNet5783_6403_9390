@@ -13,29 +13,51 @@
                 <ImageBrush ImageSource="..\background\main window\mainWindow2.jpeg"/>
             </Grid.Background>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40*"/>
-                <RowDefinition Height="500*"/>
-                <RowDefinition Height="500*"/>
-                <RowDefinition Height="350*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="350*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Button 
+           Content="Back" 
+           Grid.Column="0" 
+           x:Name="Back"
+           HorizontalAlignment="Left" 
+           Margin="5,5,5,5"
+           Padding="5"
+           Width="104"
+           Click="Back_Click"
+            >
+                <Button.Resources>
+                    <Style 
+                        TargetType="Border">
+                        <Setter 
+                            Property="CornerRadius"
+                            Value="5"/>
+                    </Style>
+                </Button.Resources>
+        </Button>
+        
+        <Grid 
+            Name="midupLSide"
+            Height="auto"
+            Grid.Row="2"
+            Width="auto">
 
-            <Label 
-            Content="Re-Evolution" 
-            Grid.Row="1" 
-            Width="auto"
-            Height="80"
-            FontSize="80" 
-            HorizontalAlignment="Center" 
-            FontStyle ="Italic" 
-            Foreground="White"
-            FontFamily="Monotype Corsiva"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
 
             <Button 
             x:Name="ProductListWindow" 
             Content="Products" 
-            Grid.Row="2" 
+            Grid.Column="2" 
             Width="100" 
             Height="30"
             HorizontalAlignment="Stretch"
@@ -51,5 +73,28 @@
                     </Style>
                 </Button.Resources>
             </Button>
+
+            <Button 
+            x:Name="OrderListWindow" 
+            Content="Orders"
+            Grid.Column="1"
+            Width="100" 
+            Height="30"
+            HorizontalAlignment="Stretch"
+            Click="OrderListWindow_Click"
+            FontWeight="Bold"
+            >
+                <Button.Resources>
+                    <Style 
+                    TargetType="Border">
+                        <Setter 
+                        Property="CornerRadius"
+                        Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            
         </Grid>
+        
+    </Grid>
 </Window>

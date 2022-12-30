@@ -94,6 +94,7 @@
                 Grid.Column="1"
                 Grid.Row="0"
                 x:Name="IDTextBox"
+                Text = "{Binding ID}"
                 Width="auto"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -119,6 +120,7 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 Width="auto"
+                Text ="{Binding Name}"
                 x:Name="Name"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -145,6 +147,7 @@
                 Grid.Column="1"
                 Grid.Row="2"
                 Width="auto"
+                Text ="{Binding Price}"
                 x:Name="Price"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -164,7 +167,8 @@
                 Width="auto"
                 Margin="150,0,30,0"
                 FontSize="15"
-                VerticalAlignment="Center" SelectionChanged="CategoriesSelector_SelectionChanged"
+                VerticalAlignment="Center" 
+                SelectionChanged="CategoriesSelector_SelectionChanged"
                 />
 
                 <TextBlock 
@@ -193,6 +197,7 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Width="auto"
+                Text ="{Binding InStock}"
                 x:Name="inStock"
                 FontSize="15"
                 Margin="150,0,30,0"

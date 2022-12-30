@@ -30,5 +30,17 @@ namespace PL.AdminWindows
             new AdminWindows.ProductListWindow().Show();
             this.Close();
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
+        }
+
+        private void OrderListWindow_Click(object sender, RoutedEventArgs e)
+        {
+            new AdminWindows.Order.OrderListWindow().Show();
+            this.Close();
+        }
     }
 }

@@ -62,7 +62,7 @@ namespace PL.AdminWindows
             if ((BO.ProductForList)ProductListview.SelectedItem != null)
             {
                 var product = (BO.ProductForList)ProductListview.SelectedItem;
-                new modifyProductWindow(product.ID).Show();
+                new modifyProductWindow(product).Show();
                 this.Close();
             }
         }
