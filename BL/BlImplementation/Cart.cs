@@ -74,6 +74,7 @@ internal class Cart : ICart
         if (productQuantity == 0)
         {
             //If a zero was entered then we will delete it from the cart
+            cart.TotalPrice -= matchingItem.TotalPrice;
             cart.listOfOrderItem.Remove(matchingItem);
         }
         else

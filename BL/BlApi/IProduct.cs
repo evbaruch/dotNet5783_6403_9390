@@ -21,6 +21,7 @@ public interface IProduct
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
+    public IEnumerable<ProductItem> ProductItemList(Func<DO.Product?, bool>? func = null);
     public Product ProductDetails(int id);
     /// <summary>
     ///  request for a product (catalog)

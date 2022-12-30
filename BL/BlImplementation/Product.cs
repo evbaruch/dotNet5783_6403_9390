@@ -4,6 +4,7 @@ using IProduct = BlApi.IProduct;
 using System.Linq;
 using BO;
 using System.Reflection.Metadata;
+using DO;
 
 namespace BlImplementation;
 
@@ -25,6 +26,22 @@ internal class Product : IProduct
         }).ToList();
 
         return productForLists;
+    }
+
+    public IEnumerable<BO.ProductItem> ProductItemList(Func<DO.Product?, bool>? filter = null)
+    {
+        var products = dal.product.ReadAll(filter).ToList();
+        var productItem = products.Select(item => new BO.ProductItem
+        {
+            ID = (int)(item?.ID),
+            Name = item?.Name,
+            Price= item?.Price,
+            Category = (BO.Enums.productsCategory?)item?.Category,
+            Amount = 0,
+            InStock = item?.InStoke > 0
+        }).ToList();
+
+        return productItem;
     }
 
 
@@ -154,7 +171,7 @@ internal class Product : IProduct
             ID = product.ID,
             Name = product.Name,
             Price = product.Price,
-            Category = (Enums.productsCategory)product.Category,
+            Category = (BO.Enums.productsCategory)product.Category,
             Amount = orderItem.Amount,
             InStock = product.InStoke > 0
         };
