@@ -22,6 +22,7 @@ namespace PL.UserWindows
     {
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+        BO.Cart cart = new Cart();
         public NewOrder()
         {
             InitializeComponent();
@@ -30,14 +31,15 @@ namespace PL.UserWindows
 
         private void CartWindow(object sender, RoutedEventArgs e)
         {
-            CartAndProduct.Cart cartWindow = new CartAndProduct.Cart();
+            CartAndProduct.Cart cartWindow = new CartAndProduct.Cart(cart);
             cartWindow.ShowDialog();
         }
 
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CartAndProduct.Product productWindow = new CartAndProduct.Product();
-            productWindow.productItem = (BO.ProductItem)ProductItemForList.SelectedItem;
+            CartAndProduct.Product productWindow = new CartAndProduct.Product(
+                (BO.ProductItem)ProductItemForList.SelectedItem, cart
+                );           
             productWindow.ShowDialog();
         }
     }
