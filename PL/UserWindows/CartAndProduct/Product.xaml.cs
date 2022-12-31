@@ -30,11 +30,16 @@ namespace PL.UserWindows.CartAndProduct
         BO.Cart dataCart = new BO.Cart();
         BO.ProductItem dataProductItem = new BO.ProductItem();  
 
-        public Product(ProductItem? ProductContent, BO.Cart cart)
+        public Product(ProductItem? ProductContent, BO.Cart cart, bool IsUptdat)
         {
             InitializeComponent();
             productTextBlock.Text = ProductContent.ToString();
 
+
+            if (IsUptdat)
+            {
+                TextBoxValue.Text = ProductContent.Amount.ToString();
+            }
             dataCart = cart;
             dataProductItem = ProductContent;
         }
@@ -51,6 +56,7 @@ namespace PL.UserWindows.CartAndProduct
                 MessageBox.Show("ERROR No number entered");
                 return;
             }
+
             bl.Cart.AddProduct(dataCart, dataProductItem.ID);
             bl.Cart.UpdateProductQuantity(dataCart, dataProductItem.ID, int.Parse(TextBoxValue.Text));
 

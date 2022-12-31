@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,12 @@ namespace PL.UserWindows.CartAndProduct
             dataCart = cart;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonConfirma_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(CustomerName.Text) || string.IsNullOrEmpty(CustomerEmail.Text) || string.IsNullOrEmpty(CustomerAddress.Text))
             {
@@ -52,8 +53,28 @@ namespace PL.UserWindows.CartAndProduct
             dataCart.CustomerEmail = CustomerEmail.Text;
             dataCart.CustomerAddress = CustomerAddress.Text;
 
-            //dataCart.CustomerName = 
+            
             bl.Cart.OrderConfirmation(dataCart);
+
+
+            this.Close();
+        }
+
+        private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.ProductItem productItem = new BO.ProductItem();
+            BO.OrderItem orderItem = new BO.OrderItem();
+
+            orderItem = (BO.OrderItem)ListCart.SelectedItem;
+
+            productItem = bl.Product.ProductDetails(orderItem.ProductID, dataCart);
+
+            CartAndProduct.Product productWindow = new CartAndProduct.Product(
+                productItem, dataCart, true
+                );
+
+            this.Close();
+            productWindow.ShowDialog();
         }
     }
 }

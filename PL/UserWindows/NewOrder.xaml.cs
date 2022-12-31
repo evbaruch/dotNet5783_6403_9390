@@ -38,9 +38,16 @@ namespace PL.UserWindows
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             CartAndProduct.Product productWindow = new CartAndProduct.Product(
-                (BO.ProductItem)ProductItemForList.SelectedItem, cart
+                (BO.ProductItem)ProductItemForList.SelectedItem, cart, false
                 );           
             productWindow.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            this.Close();
+            mainWindow.ShowDialog();
         }
     }
 }
