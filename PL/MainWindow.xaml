@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="291*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -20,8 +24,8 @@
             Name="UpGrid"
             Height="auto"
             Grid.Row="1"
-            Width="auto">
-            
+            Width="auto" Grid.ColumnSpan="2">
+
             <Label 
             Content="Re-Evolution" 
             Width="auto"
@@ -31,14 +35,14 @@
             FontStyle ="Italic" 
             Foreground="DeepSkyBlue"
             FontFamily="Monotype Corsiva"/>
-            
+
         </Grid>
 
         <Grid
             Name="MidGrid"
             Height="auto"
-            Grid.Row="2"
-            Width="auto">
+            Grid.Row="1"
+            Width="auto" Grid.ColumnSpan="2" Margin="0,224,0,157" Grid.RowSpan="3">
 
             <Button 
             x:Name="AdminListWindow" 
@@ -58,7 +62,8 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            
+            <Button Content="peasant mod" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top" Height="27" Width="100" Click="Button_Click"/>
+
         </Grid>
     </Grid>
 </Window>

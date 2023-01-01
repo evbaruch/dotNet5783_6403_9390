@@ -30,5 +30,14 @@ namespace PL
             new MainAdminWindow().Show();
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            UserWindows.NewOrder newOrder = new UserWindows.NewOrder();
+            this.Close();
+            newOrder.ShowDialog();
+
+        }
     }
 }

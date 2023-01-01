@@ -55,14 +55,15 @@
 
 
 
-        <Button Content="back" Grid.Row="1" Click="Button_Click" />
-        <Button Content="confirma" Grid.Row="1" Grid.Column="2" Click="Button_Click_1" />
+        <Button Content="back" Grid.Row="1" Click="ButtonBack_Click" />
+        <Button Content="confirma" Grid.Row="1" Grid.Column="2" Click="ButtonConfirma_Click" />
 
         <ListView
             x:Name="ListCart"             
             Grid.Column="1"
             FontSize="15"
             Background="#FF9FC4E5"
+            MouseDoubleClick = "showProduct_DoubleClick"
             >
         </ListView>
 
