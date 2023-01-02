@@ -82,7 +82,7 @@ internal class Order : IOrder
                     ID = orderID,
                     CustomerName = orderItem.CustomerName,
                     CustomerEmail = orderItem.CustomerEmail,
-                    CustomerAdress = orderItem.CstomerAddress,
+                    CustomerAddress = orderItem.CstomerAddress,
                     OrderDate = orderItem.OrderDate,
                     ShipDate = orderItem.ShipDate,
                     DeliveryrDate = orderItem.DeliveryDate,

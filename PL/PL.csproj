@@ -93,7 +93,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MaterialDesignThemes.Wpf">
+      <HintPath>..\..\..\..\..\.nuget\packages\materialdesignthemes\4.6.1\lib\net6.0\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

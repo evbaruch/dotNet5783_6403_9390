@@ -34,7 +34,7 @@ namespace PL.AdminWindows.Order
 
         private void OrderListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new AdminWindows.Order.modifyOrderWindow().Show();
+            new AdminWindows.Order.modifyOrderWindow((BO.OrderForList)(OrderListview.SelectedItem)).Show();
         }
 
         private void OrderListview_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -19,14 +19,27 @@ namespace PL.AdminWindows.Order
     /// </summary>
     public partial class modifyOrderWindow : Window
     {
-        public modifyOrderWindow()
+        public modifyOrderWindow(BO.OrderForList orderForList)
         {
             InitializeComponent();
+            BlApi.IBl? bl = BlApi.Factory.Get();
+            OrderItemListview.ItemsSource = bl.Order.OrderDetailsRequest(orderForList.ID).Items;
+            DataContext = bl.Order.OrderDetailsRequest(orderForList.ID);
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void OrderItemListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void OrderItemListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
