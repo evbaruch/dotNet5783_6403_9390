@@ -149,14 +149,18 @@ internal static class DataSource
         }
 
         //OrderItem
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 20; i++)
         {
-            int Index = random.Next(0, 10);
-            int ProductID = (int)listProduct[Index]?.ID;
-            double Price = (double)listProduct[Index]?.Price;
-            Index = random.Next(0, 20);
-            int OrderID = (int)listOrder[Index]?.ID;
-            listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
+            for (int j = 0; j < random.Next(1, 5); j++)
+            {
+                int Index = random.Next(0, 10);
+                int ProductID = (int)listProduct[Index]?.ID;
+                double Price = (double)listProduct[Index]?.Price;
+
+                int OrderID = (int)listOrder[i]?.ID;
+
+                listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
+            }
         }
 
     }
