@@ -31,7 +31,7 @@ namespace PL.UserWindows
 
         private void CartWindow(object sender, RoutedEventArgs e)
         {
-            CartAndProduct.Cart cartWindow = new CartAndProduct.Cart(cart);
+            CartAndProduct.Cart cartWindow = new CartAndProduct.Cart(cart, this);
             cartWindow.ShowDialog();
         }
 

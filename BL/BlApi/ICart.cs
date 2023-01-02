@@ -24,5 +24,5 @@ public interface ICart
     /// Basket confirmation for order \ placing an order (for shopping basket screen or order completion screen)
     /// </summary>
     /// <param name="cart"></param>
-    public void OrderConfirmation(Cart cart);
+    public int OrderConfirmation(Cart cart);
 }

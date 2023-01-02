@@ -28,12 +28,14 @@ namespace PL.UserWindows.CartAndProduct
         }
 
         BO.Cart dataCart = new BO.Cart();
-        public Cart(BO.Cart cart)
+        NewOrder dataNewOrder = new NewOrder();
+        public Cart(BO.Cart cart,NewOrder newOrder)
         {
             InitializeComponent();
             ListCart.ItemsSource = cart.listOfOrderItem;
             TotalPrice.Text = cart.TotalPrice.ToString();
             dataCart = cart;
+            dataNewOrder = newOrder;
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -54,10 +56,19 @@ namespace PL.UserWindows.CartAndProduct
             dataCart.CustomerAddress = CustomerAddress.Text;
 
             
-            bl.Cart.OrderConfirmation(dataCart);
+            int orderID = bl.Cart.OrderConfirmation(dataCart);
 
 
+
+
+            dataNewOrder.Close();
             this.Close();
+
+            MessageBox.Show($"Thank you for shopping with us" +
+                            $" Your order number is:" + orderID);
+
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.ShowDialog();
         }
 
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
