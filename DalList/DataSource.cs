@@ -143,17 +143,20 @@ internal static class DataSource
         }
 
         //Product
-        for (int i = 0; i < 10; i++)
+        do
         {
             listProduct.Add(addProduct());
-        }
+
+            listProduct = listProduct.DistinctBy(x => x?.Name).ToList();
+
+        } while (listProduct.Count < 10);
 
         //OrderItem
         for (int i = 0; i < 20; i++)
         {
             for (int j = 0; j < random.Next(1, 5); j++)
             {
-                int Index = random.Next(0, 10);
+                int Index = random.Next(0, listProduct.Count);
                 int ProductID = (int)listProduct[Index]?.ID;
                 double Price = (double)listProduct[Index]?.Price;
 
