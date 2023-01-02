@@ -94,7 +94,7 @@ internal static class DataSource
         orderItem.ProductID = ProductID;
         orderItem.OrderID = OrderID;
         orderItem.Price = Price;
-        orderItem.Amount = random.Next(1, 4);
+        orderItem.Amount += 1;
         return orderItem;
     }
     internal static bool addProduct(Product a)
@@ -158,7 +158,6 @@ internal static class DataSource
             int OrderID = (int)listOrder[Index]?.ID;
             listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
         }
-
     }
 
     //These three functions get the hash of the datum and return its index to me
