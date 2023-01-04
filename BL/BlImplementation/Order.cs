@@ -18,6 +18,7 @@ internal class Order : IOrder
         IEnumerable<DO.Order?> orders = dal.order.ReadAll().ToList();
         IEnumerable<DO.OrderItem?> orderItems = dal.orderItem.ReadAll().ToList();
         List<BO.OrderForList> OrderForList = new List<BO.OrderForList>();
+
         OrderForList = (from item in orders
                         let order = dal.order.Read(new() { ID = (int)(item?.ID ?? -1) })
                         let status = order.ShipDate == null ?
@@ -27,12 +28,13 @@ internal class Order : IOrder
                                      BO.Enums.OrderStatus.delivered
                         select new OrderForList
                         {
-                            AmountOfItems = orderItems.Count(x => x?.OrderID == item?.ID),
-                            TotalPrice = orderItems.Where(x => x?.OrderID == item?.ID).Sum(a => a?.Price),
+                            AmountOfItems = orderItems.Sum(x => x?.OrderID == item?.ID ? x?.Amount : 0),
+                            TotalPrice = orderItems.Where(x => x?.OrderID == item?.ID).Sum(a => a?.Price*a?.Amount),
                             CustomerName = item?.CustomerName,
                             ID = (int)(item?.ID ?? -1),
                             Status = status
                         }).ToList();
+        OrderForList = OrderForList.OrderBy(x => x.AmountOfItems).ToList();
         
 
         //foreach (var item in orders) // go over the products and get all the data from DO 

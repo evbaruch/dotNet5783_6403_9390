@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
-        Title="modifyProductWindow" Height="640" Width="800">
+        Title="modifyProductWindow" Height="640" Width="800" x:Name="MyWindow">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -94,7 +94,7 @@
                 Grid.Column="1"
                 Grid.Row="0"
                 x:Name="IDTextBox"
-                Text = "{Binding ID}"
+                Text = "{Binding Path = ProductObservableCollection[0].ID ,ElementName =MyWindow}"
                 Width="auto"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -120,7 +120,7 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 Width="auto"
-                Text ="{Binding Name}"
+                Text ="{Binding Path = ProductObservableCollection[0].Name ,ElementName =MyWindow}"
                 x:Name="Name"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -147,7 +147,7 @@
                 Grid.Column="1"
                 Grid.Row="2"
                 Width="auto"
-                Text ="{Binding Price}"
+                Text ="{Binding Path = ProductObservableCollection[0].Price ,ElementName =MyWindow}"
                 x:Name="Price"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -162,6 +162,8 @@
 
                 <ComboBox
                 x:Name="CategoriesSelector"
+                SelectedItem ="{Binding Path = ProductObservableCollection[0].Category ,ElementName =MyWindow}"
+                ItemsSource="{Binding Path = categories ,ElementName =MyWindow}"
                 Grid.Column="1"
                 Grid.Row="3"
                 Width="auto"
@@ -197,7 +199,7 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Width="auto"
-                Text ="{Binding InStock}"
+                Text ="{Binding Path = ProductObservableCollection[0].InStock ,ElementName =MyWindow}"
                 x:Name="inStock"
                 FontSize="15"
                 Margin="150,0,30,0"

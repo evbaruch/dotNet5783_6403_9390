@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows.Order"
         mc:Ignorable="d"
-        Title="OrderListWindow" Height="640" Width="800">
+        Title="OrderListWindow" 
+        Height="640"
+        Width="800"
+        x:Name="MyWindow">
+    
     <Grid Name="MainGrid">
 
         <Grid.RowDefinitions>
@@ -55,6 +59,7 @@
 
             <ListView 
                 Grid.Column="1"
+                ItemsSource = "{Binding Path = OrderForObservableCollection, ElementName = MyWindow}"
                 x:Name="OrderListview" 
                 MouseDoubleClick = "OrderListview_MouseDoubleClick" 
                 SelectionChanged ="OrderListview_SelectionChanged"
@@ -67,7 +72,7 @@
                     <GridView>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= ID}"
+                            DisplayMemberBinding ="{Binding ID}"
                             Width="auto">
                             <GridViewColumnHeader
                                 
@@ -75,7 +80,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= CustomerName}" 
+                            DisplayMemberBinding ="{Binding CustomerName}" 
                             Width="auto">
                             <GridViewColumnHeader
                                 
@@ -83,7 +88,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= Status}"  
+                            DisplayMemberBinding="{Binding Status}"  
                             Width="auto">
                             <GridViewColumnHeader
                                 
@@ -91,7 +96,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= AmountOfItems}"
+                            DisplayMemberBinding="{Binding AmountOfItems}"
                             Width="auto">
                             <GridViewColumnHeader
                                 
@@ -99,7 +104,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Path= TotalPrice}"
+                            DisplayMemberBinding="{Binding TotalPrice}"
                             Width="auto">
                             <GridViewColumnHeader
                                 

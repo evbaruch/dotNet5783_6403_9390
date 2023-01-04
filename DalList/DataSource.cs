@@ -1,5 +1,6 @@
 ﻿using DO;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Xml.Linq;
 using static DO.Enums;
 
@@ -40,6 +41,7 @@ internal static class DataSource
         }
         return false;
     }
+
     private static Order addOrder(string CustomerName, string CustomerEmail, string CstomerAddress)
     {
         //It randomly updates order data other than user data
@@ -94,7 +96,7 @@ internal static class DataSource
         orderItem.ProductID = ProductID;
         orderItem.OrderID = OrderID;
         orderItem.Price = Price;
-        orderItem.Amount += 1;
+        orderItem.Amount = 1;
         return orderItem;
     }
     internal static bool addProduct(Product a)
@@ -147,8 +149,9 @@ internal static class DataSource
         {
             listProduct.Add(addProduct());
 
-            listProduct = listProduct.DistinctBy(x => x?.Name).ToList();
-
+            listProduct = (from p in listProduct
+                           group p by p?.Name into g
+                           select g.FirstOrDefault()).ToList();
         } while (listProduct.Count < 10);
 
         //OrderItem
@@ -165,6 +168,18 @@ internal static class DataSource
                 listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
             }
         }
+        var temp = listOrderItem
+        .GroupBy(oi => new { oi?.ProductID, oi?.OrderID })
+        .Select(g => new OrderItem
+        {
+            ID = (int)(g.First()?.ID),
+            ProductID = (int)g.Key.ProductID,
+            OrderID = (int)g.Key.OrderID,
+            Price = g.First()?.Price,
+            Amount = g.Sum(oi => oi?.Amount)
+        }).ToList();
+        listOrderItem = temp.Select(oi => (OrderItem?)oi).ToList();
+
     }
 
     //These three functions get the hash of the datum and return its index to me

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,13 +20,38 @@ namespace PL.AdminWindows.Order
     /// <summary>
     /// Interaction logic for OrderListWindow.xaml
     /// </summary>
-    public partial class OrderListWindow : Window
+    public partial class OrderListWindow : Window, INotifyPropertyChanged
     {
+        static ManualResetEvent pauseEvent = new ManualResetEvent(false);
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<BO.OrderForList> _orderForObservableCollection;
+        public ObservableCollection<BO.OrderForList> OrderForObservableCollection
+        {
+            get { return _orderForObservableCollection; }
+            set
+            {
+                _orderForObservableCollection = value;
+                OnPropertyChanged(nameof(OrderForObservableCollection));
+            }
+        }
+        
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         public OrderListWindow()
         {
+            
+            
+            var orderList = bl.Order.OrderListRequest();
+            OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
+            //OrderListview.ItemsSource = bl.Order.OrderListRequest();
             InitializeComponent();
-            BlApi.IBl? bl = BlApi.Factory.Get();
-            OrderListview.ItemsSource = bl.Order.OrderListRequest();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -34,7 +62,7 @@ namespace PL.AdminWindows.Order
 
         private void OrderListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new AdminWindows.Order.modifyOrderWindow((BO.OrderForList)(OrderListview.SelectedItem)).Show();
+            new AdminWindows.Order.modifyOrderWindow((BO.OrderForList)(OrderListview.SelectedItem), this).Show();
         }
 
         private void OrderListview_SelectionChanged(object sender, SelectionChangedEventArgs e)

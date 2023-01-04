@@ -76,5 +76,10 @@ namespace PL.UserWindows.CartAndProduct
             this.Close();
             productWindow.ShowDialog();
         }
+
+        private void ListCart_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

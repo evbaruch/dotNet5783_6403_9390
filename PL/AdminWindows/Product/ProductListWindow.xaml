@@ -171,7 +171,7 @@
                 MouseDoubleClick = "updateProduct_Click" 
                 SelectionChanged ="ProductListview_SelectionChanged"
                 FontSize="15"
-                Background="#FF9FC4E5"
+                Background="#FF9FC4E5" Foreground="White"
                 >
 
                 <ListView.View>
