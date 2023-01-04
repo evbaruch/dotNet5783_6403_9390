@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
-        Title="ProductListWindow" Height="640" Width="800">
+        Title="ProductListWindow" Height="640" Width="800" x:Name="MyWindow">
     <Grid Name="MainGrid">
 
         <Grid.Background>
@@ -33,13 +33,14 @@
 
             <ComboBox 
                 Name="CategoriesSelector"
+                ItemsSource="{Binding Categories , ElementName=MyWindow}"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch"
                 Grid.Column="1" 
                 Margin="110,0,0,0"
                 FontSize="20"
                 SelectionChanged="CategoriesSelector_SelectionChanged"
-                />
+            />
 
             <Button 
                 Content="Back" 
@@ -167,6 +168,7 @@
 
             <ListView 
                 Grid.Column="1"
+                ItemsSource = "{Binding Path = ProductForObservableCollection, ElementName = MyWindow}"
                 x:Name="ProductListview" 
                 MouseDoubleClick = "updateProduct_Click" 
                 SelectionChanged ="ProductListview_SelectionChanged"
@@ -183,7 +185,7 @@
                             Width="auto">
                             <GridViewColumnHeader
                                 Tag="ID"
-                                Click="GridViewSortByID_Click"
+                                Click="GridViewColumnHeaderSort_Click"
                                 Content="ID"/>
                         </GridViewColumn>
 
@@ -192,7 +194,7 @@
                             Width="auto">
                             <GridViewColumnHeader
                                 Tag="Name"
-                                Click="GridViewSortByName_Click"
+                                Click="GridViewColumnHeaderSort_Click"
                                 Content="Name"/>
                         </GridViewColumn>
 
@@ -201,7 +203,7 @@
                             Width="auto">
                             <GridViewColumnHeader
                                 Tag="Category"
-                                Click="GridViewSortByCategory_Click"
+                                Click="GridViewColumnHeaderSort_Click"
                                 Content="Category"/>
                         </GridViewColumn>
 
@@ -210,7 +212,7 @@
                             Width="auto">
                             <GridViewColumnHeader
                                 Tag="Price"
-                                Click="GridViewSortByPrice_Click"
+                                Click="GridViewColumnHeaderSort_Click"
                                 Content="Price"/>
                         </GridViewColumn>
 
