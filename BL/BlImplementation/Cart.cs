@@ -93,12 +93,17 @@ internal class Cart : ICart
         return cart;
     }
 
-    public void OrderConfirmation(BO.Cart cart)
+    public int OrderConfirmation(BO.Cart cart)//מחזיר את תז של הזמנה
     {
         // We will check that there is a valid name, email, and address for the customer.
         if (string.IsNullOrEmpty(cart.CustomerName) || string.IsNullOrEmpty(cart.CustomerEmail) || string.IsNullOrEmpty(cart.CustomerAddress))
         {
-            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid customer information provided");
+            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = Invalid customer information provided");          
+        }
+
+        if (cart.listOfOrderItem.Count == 0)
+        {
+            throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There are no products in the cart");
         }
 
         IEnumerable<DO.Product?> products = dal.product.ReadAll();
@@ -154,5 +159,7 @@ internal class Cart : ICart
             };
             dal.orderItem.Create(newOrderItem);
         }
+
+        return dal.order.ReadAll().Max(i => i.Value.ID);
     }
 }
