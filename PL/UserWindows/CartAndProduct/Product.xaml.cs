@@ -1,17 +1,10 @@
 ﻿using BO;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Automation.Provider;
 
 namespace PL.UserWindows.CartAndProduct
 {
@@ -20,28 +13,25 @@ namespace PL.UserWindows.CartAndProduct
     /// </summary>
     public partial class Product : Window
     {
+        
+
         BlApi.IBl? bl = BlApi.Factory.Get();
-
-        public Product()
-        {            
-            InitializeComponent();
-        }
-
         BO.Cart dataCart = new BO.Cart();
-        BO.ProductItem dataProductItem = new BO.ProductItem();  
-
-        public Product(ProductItem? ProductContent, BO.Cart cart, bool IsUptdat)
+        BO.ProductItem dataProductItem = new BO.ProductItem();
+        NewOrder dataNewOrder = new NewOrder();
+        public Product(ProductItem? ProductContent, BO.Cart cart,NewOrder newOrder, bool IsUptdat)
         {
-            InitializeComponent();
-            productTextBlock.Text = ProductContent.ToString();
+           InitializeComponent();
 
+            dataProductItem = ProductContent;
+            productTextBlock.Text = ProductContent.ToString();
+            dataNewOrder = newOrder;
+            dataCart = cart;
 
             if (IsUptdat)
             {
                 TextBoxValue.Text = ProductContent.Amount.ToString();
             }
-            dataCart = cart;
-            dataProductItem = ProductContent;
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -60,7 +50,23 @@ namespace PL.UserWindows.CartAndProduct
             bl.Cart.AddProduct(dataCart, dataProductItem.ID);
             bl.Cart.UpdateProductQuantity(dataCart, dataProductItem.ID, int.Parse(TextBoxValue.Text));
 
+            //dataNewOrder.Dispatcher.Invoke();
             //MessageBox.Show(dataCart.ToString());
+            dataNewOrder.Dispatcher.Invoke(() =>
+            {
+
+                
+
+                foreach (var item in dataNewOrder.productItemForObservableCollection)
+                {
+                    if (item.ID == dataProductItem.ID)
+                    {
+                        item.Amount = int.Parse(TextBoxValue.Text);
+                    }
+                }
+
+                dataNewOrder.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(dataNewOrder.productItemForObservableCollection);    
+            });
 
             this.Close();
         }
