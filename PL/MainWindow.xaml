@@ -7,10 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="109*"/>
-            <ColumnDefinition Width="291*"/>
-        </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -44,25 +40,75 @@
             Grid.Row="1"
             Width="auto" Grid.ColumnSpan="2" Margin="0,224,0,157" Grid.RowSpan="3">
 
-            <Button 
-            x:Name="AdminListWindow" 
-            Content="god mode"  
-            Width="100" 
-            Height="30"
-            Click="AdminMainWindow_Click"
-            HorizontalAlignment="Stretch"
-            FontWeight="Bold"
-            >
-                <Button.Resources>
-                    <Style 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                Name="MidGodButtenGrid"
+                Height="auto"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="auto"
+                >
+
+                <Button 
+                    x:Name="AdminListWindow" 
+                    Content="god mode"  
+                    Width="100" 
+                    Height="30"
+                    Click="AdminMainWindow_Click"
+                    HorizontalAlignment="Stretch"
+                    FontWeight="Bold"
+                >
+                    <Button.Resources>
+                        <Style 
                     TargetType="Border">
-                        <Setter 
+                            <Setter 
                         Property="CornerRadius"
                         Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Content="peasant mod" HorizontalAlignment="Center" Margin="0,133,0,0" VerticalAlignment="Top" Height="27" Width="100" Click="Button_Click"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+            <Grid
+                Name="MidpeasantButtenGrid"
+                Height="auto"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="auto">
+
+                <Button 
+                    Content="peasant mod"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="auto"
+                    Width="auto"
+                    Click="Button_Click"
+                    FontWeight="Bold">
+                    <Button.Resources>
+                        <Style 
+                    TargetType="Border">
+                            <Setter 
+                        Property="CornerRadius"
+                        Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </Grid>
+
 
         </Grid>
     </Grid>

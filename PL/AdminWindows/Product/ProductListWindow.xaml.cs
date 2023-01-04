@@ -1,7 +1,10 @@
-﻿using System;
+﻿using BO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,23 +21,60 @@ namespace PL.AdminWindows
     /// <summary>
     /// Interaction logic for ProductListWindow.xaml
     /// </summary>
-    public partial class ProductListWindow : Window
+    public partial class ProductListWindow : Window, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<BO.ProductForList> _ProductForObservableCollection;
+        public ObservableCollection<BO.ProductForList> ProductForObservableCollection
+        {
+            get { return _ProductForObservableCollection; }
+            set
+            {
+                _ProductForObservableCollection = value;
+                OnPropertyChanged(nameof(ProductForObservableCollection));
+            }
+        }
+
+        private ObservableCollection<String> _Categories;
+        public ObservableCollection<String> Categories
+        {
+            get { return _Categories;}
+            set
+            {
+                _Categories = value;
+                OnPropertyChanged(nameof(Categories));
+            }
+        }
 
         public bool hasBeenSorted = true;
 
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         public ProductListWindow()
         {
-            InitializeComponent();
-            BlApi.IBl? bl = BlApi.Factory.Get();
-            ProductListview.ItemsSource = bl.Product.Products();
+            var productForLists = bl.Product.Products();
+            ProductForObservableCollection = new ObservableCollection<BO.ProductForList>(productForLists);
+            Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
+
+            //CategoriesSelector.Items.Add("All");
+            //for (int i = 0; i<5; i++)
+            //{
+            //    CategoriesSelector.Items.Add($"{(BO.Enums.productsCategory)i}");
+            //}
+
+            InitializeComponent(); 
             //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory)); 
             // insted of locking the Item Source i prefer do it like that
-            CategoriesSelector.Items.Add("All");
-            for (int i = 0; i<5; i++)
-            {
-                CategoriesSelector.Items.Add($"{(BO.Enums.productsCategory)i}");
-            }
+            
 
         }
 
@@ -77,69 +117,26 @@ namespace PL.AdminWindows
         private void ProductListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
+        } 
 
-        private void GridViewSortByID_Click(object sender, RoutedEventArgs e) // sort the list by ID
+        private void GridViewColumnHeaderSort_Click(object sender, RoutedEventArgs e)
         {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
-            view.SortDescriptions.Clear();
-            if (hasBeenSorted)
+            GridViewColumnHeader gridViewColumnHeader = (sender as GridViewColumnHeader);
+            if (gridViewColumnHeader != null)
             {
-                view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Descending));
-                hasBeenSorted = false;
-            }
-            else
-            {
-                view.SortDescriptions.Add(new SortDescription("ID", ListSortDirection.Ascending));
-                hasBeenSorted = true;
-            }
-        }
-
-        private void GridViewSortByName_Click(object sender, RoutedEventArgs e) // sort the list by Name
-        {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
-            view.SortDescriptions.Clear();
-            if (hasBeenSorted)
-            {
-                view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Descending));
-                hasBeenSorted = false;
-            }
-            else
-            {
-                view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-                hasBeenSorted = true;
-            }
-        }
-
-        private void GridViewSortByCategory_Click(object sender, RoutedEventArgs e) // sort the list by Category
-        {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
-            view.SortDescriptions.Clear();
-            if (hasBeenSorted)
-            {
-                view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Descending));
-                hasBeenSorted = false;
-            }
-            else
-            {
-                view.SortDescriptions.Add(new SortDescription("Category", ListSortDirection.Ascending));
-                hasBeenSorted = true;
-            }
-        }
-
-        private void GridViewSortByPrice_Click(object sender, RoutedEventArgs e) // sort the list by Price
-        {
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
-            view.SortDescriptions.Clear();
-            if (hasBeenSorted)
-            {
-                view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Descending));
-                hasBeenSorted = false;
-            }
-            else
-            {
-                view.SortDescriptions.Add(new SortDescription("Price", ListSortDirection.Ascending));
-                hasBeenSorted = true;
+                string name = (gridViewColumnHeader.Tag as string);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
+                view.SortDescriptions.Clear();
+                if (hasBeenSorted)
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Descending));
+                    hasBeenSorted = false;
+                }
+                else
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Ascending));
+                    hasBeenSorted = true;
+                }
             }
         }
     }
