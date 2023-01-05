@@ -538,6 +538,18 @@
                 <ColumnDefinition Width="1000*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions >
+            
+            <Button 
+                x:Name="Increase"
+                Width="20" 
+                Height="20"
+                Padding="0"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" 
+                Click="Increase_Click"
+                Content="+" 
+                FontSize="14" 
+                Tag="{Binding ProductID}" />
 
             <ListView 
                 Grid.Column="1"
@@ -599,6 +611,7 @@
                                     <StackPanel Orientation="Horizontal">
                                         
                                         <Button
+                                            x:Name="Decrease"
                                             Width="20"
                                             Height="20"
                                             Padding="0"
@@ -613,18 +626,10 @@
                                             Tag="{Binding ProductID}" />
                                         
                                         <Label Content="{Binding Amount}" />
-                                        
-                                        <Button 
-                                            Width="20" 
-                                            Height="20"
-                                            Padding="0"
-                                            HorizontalContentAlignment="Center"
-                                            VerticalContentAlignment="Center" 
-                                            Click="Increase_Click"
-                                            Content="+" 
-                                            FontSize="14" 
-                                            Tag="{Binding ProductID}" />
-                                        
+
+                                        <Button Content="{x:Reference Increase}" />
+
+
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

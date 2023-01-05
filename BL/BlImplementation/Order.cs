@@ -211,25 +211,28 @@ internal class Order : IOrder
             DO.Order trackedOrder = dal.order.Read(new() { ID = orderID });
             if(orderID > 0)
             {
-                Tuple<DateTime, BO.Enums.OrderStatus> a;
+                
                 BO.OrderTracking tracking = new() {ID = orderID };
-                if (trackedOrder.ShipDate == null) // if the value of the shiping is not define it's only ordered
-                {
-                    tracking.Status = (BO.Enums.OrderStatus.ordered);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
-                else if (trackedOrder.ShipDate != null && trackedOrder.DeliveryDate == null)
-                { // if the value of the shiping is define but the time of the delivery is't it's only shiped
-                    tracking.Status = (BO.Enums.OrderStatus.shiped);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
-                else // else (both define)
-                {
-                    tracking.Status = (BO.Enums.OrderStatus.delivered);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
                 tracking.OrderStatuses = new() { };
-                tracking.OrderStatuses.Add(a);
+
+                tracking.Status = (BO.Enums.OrderStatus.ordered);
+                tracking.OrderStatuses.Add( new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status));
+
+
+                if (trackedOrder.ShipDate != null)
+                { // if the value of the shiping is define
+
+                    tracking.Status = (BO.Enums.OrderStatus.shiped);
+                    tracking.OrderStatuses.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.ShipDate, (BO.Enums.OrderStatus)tracking.Status));
+
+                    if(trackedOrder.DeliveryDate != null)// and if the value of the deliverying is define
+                    {
+                        tracking.Status = (BO.Enums.OrderStatus.delivered);
+                        tracking.OrderStatuses.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.DeliveryDate, (BO.Enums.OrderStatus)tracking.Status));
+                    }
+                }
+                
+                
                 return tracking;
             }
             else

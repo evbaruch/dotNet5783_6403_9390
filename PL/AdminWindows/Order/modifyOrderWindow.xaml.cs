@@ -58,6 +58,7 @@ namespace PL.AdminWindows.Order
         public bool hasBeenSorted = true;
 
         private OrderListWindow parentWindow;
+        //private PL.OrderTracking.OrderTracker stepParentWindow;
 
         public modifyOrderWindow(BO.OrderForList orderForList, OrderListWindow parentWindow)
         {
@@ -67,6 +68,26 @@ namespace PL.AdminWindows.Order
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
             InitializeComponent();
         }
+        //public modifyOrderWindow(BO.OrderForList orderForList, PL.OrderTracking.OrderTracker parentWindow)
+        //{
+        //    //this.stepParentWindow = parentWindow;
+        //    var order = bl.Order.OrderDetailsRequest(orderForList.ID);
+        //    OrderObservableCollection = new ObservableCollection<BO.Order> { order };
+        //    OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
+        //    InitializeComponent();
+
+        //    IDTextBox.IsReadOnly = true ;
+        //    NameTextBox.IsReadOnly = true ;
+        //    EmailTextBox.IsReadOnly = true ;
+        //    AddressTextBox.IsReadOnly= true ;
+        //    StatusTextBox.IsReadOnly = true ;
+        //    ShipUpdate.Visibility = Visibility.Hidden;
+        //    ShipUpdate.IsEnabled = false;
+        //    DeliveryUpdate.IsEnabled = false;
+        //    DeliveryUpdate.Visibility = Visibility.Hidden;
+        //    Increase.IsEnabled = false;
+        //    Increase.Visibility = Visibility.Hidden;
+        //}
 
         private void OrderItemListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
