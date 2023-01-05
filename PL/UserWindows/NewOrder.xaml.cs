@@ -94,40 +94,44 @@ namespace PL.UserWindows
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            
+            int productId = (int)button.Tag;
 
             // Update the OrderForObservableCollection in the parent window
+            foreach (var item in productItemForObservableCollection)
+            {
+                if (item.ID == productId)
+                {
+                    item.Amount--;
+                    bl.Cart.UpdateProductQuantity(cart, productId, (int)item.Amount);
+                    break;
+                }
+            }
+
             this.Dispatcher.Invoke(() =>
             {
-                foreach (var item in productItemForObservableCollection)
-                {
-                    if (item.ID == (int)button.Tag)
-                    {
-                        item.Amount--;
-                        bl.Cart.UpdateProductQuantity(cart, (int)button.Tag, (int)item.Amount);
-                    }
-                }
-
                 this.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemForObservableCollection);
-            });
+            });          
         }
+
+
 
         private void Increase_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            bl.Cart.AddProduct(cart, (int)button.Tag);
+            int productId = (int)button.Tag;
+
+            bl.Cart.AddProduct(cart, productId);
+
+            // Find the product in the collection and update its amount
+            var product = productItemForObservableCollection.FirstOrDefault(p => p.ID == productId);
+            if (product != null)
+            {
+                product.Amount++;
+            }
 
             // Update the OrderForObservableCollection in the parent window
             this.Dispatcher.Invoke(() =>
             {
-                foreach (var item in productItemForObservableCollection)
-                {
-                    if (item.ID == (int)button.Tag)
-                    {
-                        item.Amount++;
-                    }
-                }
-
                 this.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemForObservableCollection);
             });
         }
