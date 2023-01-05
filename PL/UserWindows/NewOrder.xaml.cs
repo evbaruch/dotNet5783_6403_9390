@@ -42,6 +42,7 @@ namespace PL.UserWindows
 
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart cart = new Cart();
+        public bool hasBeenSorted = true;
 
         //IEnumerable<BO.ProductItem> productItemList = new List<BO.ProductItem>();
         public NewOrder()
@@ -49,22 +50,31 @@ namespace PL.UserWindows
             IEnumerable<BO.ProductItem>  productItemList = bl.Product.ProductItemList();
             productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemList);
             InitializeComponent();
-
+            
         }
 
         private void CartWindow(object sender, RoutedEventArgs e)
         {
             CartAndProduct.Cart cartWindow = new CartAndProduct.Cart(cart, this);
             cartWindow.ShowDialog();
+
+          
         }
 
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CartAndProduct.Product productWindow = new CartAndProduct.Product(
-                (BO.ProductItem)ProductItemForList.SelectedItem,cart, this ,false
-                );           
-            productWindow.ShowDialog();
+            
+            if ((BO.ProductItem)ProductItemForList.SelectedItem != null)
+            {
+                CartAndProduct.Product productWindow = new CartAndProduct.Product(
+                    (BO.ProductItem)ProductItemForList.SelectedItem, cart, this, false
+                    );
+                productWindow.ShowDialog();
+            }
+
         }
+
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -73,14 +83,75 @@ namespace PL.UserWindows
             mainWindow.ShowDialog();
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void OrderItemListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
-        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        private void Decrease_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            
 
+            // Update the OrderForObservableCollection in the parent window
+            this.Dispatcher.Invoke(() =>
+            {
+                foreach (var item in productItemForObservableCollection)
+                {
+                    if (item.ID == (int)button.Tag)
+                    {
+                        item.Amount--;
+                        bl.Cart.UpdateProductQuantity(cart, (int)button.Tag, (int)item.Amount);
+                    }
+                }
+
+                this.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemForObservableCollection);
+            });
         }
+
+        private void Increase_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            bl.Cart.AddProduct(cart, (int)button.Tag);
+
+            // Update the OrderForObservableCollection in the parent window
+            this.Dispatcher.Invoke(() =>
+            {
+                foreach (var item in productItemForObservableCollection)
+                {
+                    if (item.ID == (int)button.Tag)
+                    {
+                        item.Amount++;
+                    }
+                }
+
+                this.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemForObservableCollection);
+            });
+        }
+
+        private void GridViewColumnHeaderSort_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader gridViewColumnHeader = (sender as GridViewColumnHeader);
+            if (gridViewColumnHeader != null)
+            {
+                string name = (gridViewColumnHeader.Tag as string);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductItemForList.ItemsSource);
+                view.SortDescriptions.Clear();
+                if (hasBeenSorted)
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Descending));
+                    hasBeenSorted = false;
+                }
+                else
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Ascending));
+                    hasBeenSorted = true;
+                }
+            }
+        }
+
     }
 }

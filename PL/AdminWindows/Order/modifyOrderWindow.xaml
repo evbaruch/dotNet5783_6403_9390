@@ -548,7 +548,7 @@
                 SelectionChanged="OrderItemListview_SelectionChanged"
                 FontSize="10"
                 Background="#FF9FC4E5"
-    >
+                >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
