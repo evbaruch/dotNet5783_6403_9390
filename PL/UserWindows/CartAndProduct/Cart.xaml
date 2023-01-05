@@ -90,7 +90,7 @@
             Grid.Column="1"
             FontSize="15"
             Background="#FF9FC4E5"
-            MouseDoubleClick = "showProduct_DoubleClick" SelectionChanged="ListCart_SelectionChanged"
+            MouseDoubleClick = "showProduct_DoubleClick" 
             >
         </ListView>
 

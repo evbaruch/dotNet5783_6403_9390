@@ -1,18 +1,5 @@
-﻿using BlApi;
-using BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL.UserWindows.CartAndProduct
 {
@@ -29,7 +16,7 @@ namespace PL.UserWindows.CartAndProduct
 
         BO.Cart dataCart = new BO.Cart();
         NewOrder dataNewOrder = new NewOrder();
-        public Cart(BO.Cart cart,NewOrder newOrder)
+        public Cart(BO.Cart cart, NewOrder newOrder)
         {
             InitializeComponent();
             ListCart.ItemsSource = cart.listOfOrderItem;
@@ -55,7 +42,7 @@ namespace PL.UserWindows.CartAndProduct
             dataCart.CustomerEmail = CustomerEmail.Text;
             dataCart.CustomerAddress = CustomerAddress.Text;
 
-            
+
             int orderID = bl.Cart.OrderConfirmation(dataCart);
 
 
@@ -81,16 +68,11 @@ namespace PL.UserWindows.CartAndProduct
             productItem = bl.Product.ProductDetails(orderItem.ProductID, dataCart);
 
             CartAndProduct.Product productWindow = new CartAndProduct.Product(
-                productItem, dataCart, true
+                productItem, dataCart, dataNewOrder, true
                 );
 
             this.Close();
             productWindow.ShowDialog();
-        }
-
-        private void ListCart_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

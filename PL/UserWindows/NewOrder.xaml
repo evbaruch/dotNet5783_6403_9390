@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.UserWindows"
         mc:Ignorable="d"
-        Title="NewOrder" Height="640" Width="800">
+        x:Name="MyWindow" Title="NewOrder" Height="640" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"/>
@@ -19,29 +19,59 @@
         </Grid.ColumnDefinitions>
         
         <Button Grid.Column="2"  Content="Cart" Click="CartWindow" />
-        
-        <ListView
-            x:Name="ProductItemForList"
-            MouseDoubleClick = "showProduct_DoubleClick" 
-            Grid.Column="1"
-            Grid.Row="1"
-            FontSize="15"
-            Background="#FF9FC4E5"
-            >
+
+        <ListView x:Name="ProductItemForList"
+          MouseDoubleClick="showProduct_DoubleClick"
+          ItemsSource="{Binding Path=productItemForObservableCollection, ElementName=MyWindow}"
+          Grid.Column="1"
+          Grid.Row="1"
+          FontSize="15"
+          Background="#FF9FC4E5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="auto">
+                        <GridViewColumnHeader Content="ID" />
+                    </GridViewColumn>
+                    <GridViewColumn Width="auto">
+                        <GridViewColumnHeader Content="Name" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding ImageUrl}" Width="50" Height="50" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Price}" Width="auto">
+                        <GridViewColumnHeader Content="Price" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Category}" Width="auto">
+                        <GridViewColumnHeader Content="Category" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Amount}" Width="auto">
+                        <GridViewColumnHeader Content="Amount" />
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding InStock}" Width="auto">
+                        <GridViewColumnHeader Content="InStock" />
+                    </GridViewColumn>
+                    <GridViewColumn Width="auto">
+                        <GridViewColumnHeader Content="Actions" />
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Add" Click="AddButton_Click" />
+                                    <Button Content="Remove" Click="RemoveButton_Click" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
-            
         </ListView>
+
+
         <Button Content="back" Click="Button_Click"/>
-
-
-
-
-
-
 
     </Grid>
 </Window>
