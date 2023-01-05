@@ -81,7 +81,8 @@
                             DisplayMemberBinding ="{Binding ID}"
                             Width="auto">
                             <GridViewColumnHeader
-                                
+                                Tag="ID"
+                                Click ="GridViewColumnHeaderSort_Click"
                                 Content="ID"/>
                         </GridViewColumn>
 
@@ -89,7 +90,8 @@
                             DisplayMemberBinding ="{Binding CustomerName}" 
                             Width="auto">
                             <GridViewColumnHeader
-                                
+                                Tag="CustomerName"
+                                Click ="GridViewColumnHeaderSort_Click"
                                 Content="CustomerName"/>
                         </GridViewColumn>
 
@@ -97,7 +99,8 @@
                             DisplayMemberBinding="{Binding Status}"  
                             Width="auto">
                             <GridViewColumnHeader
-                                
+                                Tag="Status"
+                                Click ="GridViewColumnHeaderSort_Click"
                                 Content="Status"/>
                         </GridViewColumn>
 
@@ -105,7 +108,8 @@
                             DisplayMemberBinding="{Binding AmountOfItems}"
                             Width="auto">
                             <GridViewColumnHeader
-                                
+                                Tag="AmountOfItems"
+                                Click ="GridViewColumnHeaderSort_Click"
                                 Content="Amount Of Items"/>
                         </GridViewColumn>
 
@@ -113,7 +117,8 @@
                             DisplayMemberBinding="{Binding TotalPrice}"
                             Width="auto">
                             <GridViewColumnHeader
-                                
+                                Tag="TotalPrice"
+                                Click ="GridViewColumnHeaderSort_Click"
                                 Content="TotalPrice"/>
                         </GridViewColumn>
 

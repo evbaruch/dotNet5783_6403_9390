@@ -4,6 +4,7 @@ using DalApi;
 using DO;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using IOrder = BlApi.IOrder;
 
@@ -254,9 +255,11 @@ internal class Order : IOrder
     {
         try
         {
+            BO.Order order = OrderDetailsRequest(orderID);
             List <DO.OrderItem?>orderToUpdate = dal.orderItem.ReadAll().ToList();
             if (productID > 0 && orderID > 0)
             {
+                
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
                 var itemToUpdate = (from item in orderUpdate.Items
                                     where item.ProductID == productID
@@ -272,6 +275,10 @@ internal class Order : IOrder
                         orderToUpdate.Remove(idFind);
 
                         dal.orderItem.Delete(new() { ID = (int)idFind?.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
+                        if(orderUpdate.TotalPrice <= 0)
+                        {
+                             dal.order.Delete(new() { ID = orderID });
+                        }
                     }
                     else
                     {

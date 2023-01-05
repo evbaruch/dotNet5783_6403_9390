@@ -9,7 +9,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
-        Title="modifyOrderWindow" Height="440" Width="500" x:Name="MyWindow">
+        Title="modifyOrderWindow" Height="440" Width="600" x:Name="MyWindow">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -540,39 +540,60 @@
             </Grid.ColumnDefinitions >
 
             <ListView 
-    Grid.Column="1"
-    ItemsSource="{Binding OrderItemObservableCollection, ElementName=MyWindow}"
-    x:Name="OrderItemListview" 
-    MouseDoubleClick="OrderItemListview_MouseDoubleClick"
-    Width="auto"
-    SelectionChanged="OrderItemListview_SelectionChanged"
-    FontSize="10"
-    Background="#FF9FC4E5"
+                Grid.Column="1"
+                ItemsSource="{Binding OrderItemObservableCollection, ElementName=MyWindow}"
+                x:Name="OrderItemListview" 
+                MouseDoubleClick="OrderItemListview_MouseDoubleClick"
+                Width="auto"
+                SelectionChanged="OrderItemListview_SelectionChanged"
+                FontSize="10"
+                Background="#FF9FC4E5"
     >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 
                 DisplayMemberBinding="{Binding ID}"
                 >
-                            <GridViewColumnHeader Content="ID"/>
+                            <GridViewColumnHeader
+                                Content="ID"
+                                Tag="ID"
+                                Click="GridViewColumnHeaderSort_Click"
+                                />
                         </GridViewColumn>
                         <GridViewColumn 
                 DisplayMemberBinding="{Binding Name}" 
                 >
-                            <GridViewColumnHeader Content="Name"/>
+                            <GridViewColumnHeader 
+                                Content="Name"
+                                Tag="Name"
+                                Click="GridViewColumnHeaderSort_Click"
+                                />
                         </GridViewColumn>
                         <GridViewColumn 
                 DisplayMemberBinding="{Binding ProductID}"  
                 >
-                            <GridViewColumnHeader Content="ProductID"/>
+                            <GridViewColumnHeader 
+                                Content="ProductID"
+                                Tag="ProductID"
+                                Click="GridViewColumnHeaderSort_Click"
+                                />
                         </GridViewColumn>
                         <GridViewColumn 
                 DisplayMemberBinding="{Binding Price}"
                 >
-                            <GridViewColumnHeader Content="Price"/>
+                            <GridViewColumnHeader 
+                                Content="Price"  
+                                Tag="Price"
+                                Click="GridViewColumnHeaderSort_Click" 
+                                />
                         </GridViewColumn>
                         <GridViewColumn>
-                            <GridViewColumnHeader Content="Amount" AllowDrop="True" Focusable="True"/>
+                            <GridViewColumnHeader
+                                Content="Amount" 
+                                AllowDrop="True" 
+                                Focusable="True" 
+                                Tag="Amount"
+                                Click="GridViewColumnHeaderSort_Click"/>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -583,8 +604,12 @@
                                             Padding="0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" 
+                                            FontSize="14" 
+                                            
                                             Click="Decrease_Click" 
-                                            Content="-" FontSize="14" 
+                                            
+                                            Content="-" 
+                                            
                                             Tag="{Binding ProductID}" />
                                         
                                         <Label Content="{Binding Amount}" />
@@ -607,7 +632,11 @@
                         <GridViewColumn 
                 DisplayMemberBinding="{Binding TotalPrice}"
                 >
-                            <GridViewColumnHeader Content="TotalPrice"/>
+                            <GridViewColumnHeader
+                                Content="TotalPrice"
+                                 Tag="TotalPrice"
+                                Click="GridViewColumnHeaderSort_Click"
+                                />
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
