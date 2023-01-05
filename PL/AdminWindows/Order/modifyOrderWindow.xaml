@@ -534,81 +534,118 @@
             Width="auto">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="1000*"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions >
 
             <ListView 
-                Grid.Column="1"
-                ItemsSource = "{Binding Path = OrderItemObservableCollection, ElementName = MyWindow}"
-                x:Name="OrderItemListview" 
-                MouseDoubleClick = "OrderItemListview_MouseDoubleClick"
-                Width="auto"
-                SelectionChanged ="OrderItemListview_SelectionChanged"
-                FontSize="10"
-                Background="#FF9FC4E5"
-                >
-
+    Grid.Column="1"
+    ItemsSource="{Binding OrderItemObservableCollection, ElementName=MyWindow}"
+    x:Name="OrderItemListview" 
+    MouseDoubleClick="OrderItemListview_MouseDoubleClick"
+    Width="auto"
+    SelectionChanged="OrderItemListview_SelectionChanged"
+    FontSize="10"
+    Background="#FF9FC4E5"
+    >
                 <ListView.View>
-
                     <GridView>
-
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding ID}"
-                            Width="auto"
-                            
-                            >
-                            
-                            <GridViewColumnHeader
-                                
-                                Content="ID"/>
+                DisplayMemberBinding="{Binding ID}"
+                >
+                            <GridViewColumnHeader Content="ID"/>
                         </GridViewColumn>
-
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Name}" 
-                            Width="auto">
-                            <GridViewColumnHeader
-                                
-                                Content="Name"/>
+                DisplayMemberBinding="{Binding Name}" 
+                >
+                            <GridViewColumnHeader Content="Name"/>
                         </GridViewColumn>
-
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding ProductID}"  
-                            Width="auto">
-                            <GridViewColumnHeader
-                                
-                                Content="ProductID"/>
+                DisplayMemberBinding="{Binding ProductID}"  
+                >
+                            <GridViewColumnHeader Content="ProductID"/>
                         </GridViewColumn>
-
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Price}"
-                            Width="auto">
-                            <GridViewColumnHeader
-                                
-                                Content="Price"/>
+                DisplayMemberBinding="{Binding Price}"
+                >
+                            <GridViewColumnHeader Content="Price"/>
                         </GridViewColumn>
-
+                        <GridViewColumn>
+                            <GridViewColumnHeader Content="Amount" AllowDrop="True" Focusable="True"/>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        
+                                        <Button
+                                            Width="20"
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" 
+                                            Click="Decrease_Click" 
+                                            Content="-" FontSize="14" 
+                                            Tag="{Binding ProductID}" />
+                                        
+                                        <Label Content="{Binding Amount}" />
+                                        
+                                        <Button 
+                                            Width="20" 
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" 
+                                            Click="Increase_Click"
+                                            Content="+" 
+                                            FontSize="14" 
+                                            Tag="{Binding ProductID}" />
+                                        
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                         <GridViewColumn 
-                            DisplayMemberBinding="{Binding Amount}"
-                            Width="auto">
-                            <GridViewColumnHeader
-                                
-                                Content="Amount"/>
+                DisplayMemberBinding="{Binding TotalPrice}"
+                >
+                            <GridViewColumnHeader Content="TotalPrice"/>
                         </GridViewColumn>
-
-                        <GridViewColumn 
-                            DisplayMemberBinding="{Binding TotalPrice}"
-                            Width="auto">
-                            <GridViewColumnHeader
-                                
-                                Content="TotalPrice"/>
-                        </GridViewColumn>
-
                     </GridView>
-
                 </ListView.View>
             </ListView>
+
+
+        </Grid>
+
+        <Grid
+            Name="DownGrid"
+            Height="auto"
+            Grid.Row="2"
+            Width="auto">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1000*"/>
+                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="300*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Grid.Column="1"
+                Margin="5,5,5,5"
+                x:Name="TotalTextBlock"
+                Text="Total price:"
+                FontSize="10"
+                VerticalAlignment="Center" TextAlignment="Right"
+                />
+
+            <TextBlock 
+                Grid.Column="2"
+                x:Name="TotalTextBox"
+                Text= "{Binding OrderObservableCollection[0].TotalPrice , ElementName=MyWindow}" 
+                Width="auto"
+                FontSize="10"
+                Margin="5,2,5,2"
+                VerticalAlignment="Center"
+                />
 
         </Grid>
 

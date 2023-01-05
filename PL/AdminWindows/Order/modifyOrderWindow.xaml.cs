@@ -73,17 +73,33 @@ namespace PL.AdminWindows.Order
 
         private void ShipUpdate_Click(object sender, RoutedEventArgs e)
         {
-            bl.Order.OrderShippingUpdate(int.Parse(IDTextBox.Text));
-            var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
-            // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
-            OrderObservableCollection[0] = updatedOrder;
-            OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
-
-            parentWindow.Dispatcher.Invoke(() =>
+            try
             {
-                var orderList = bl.Order.OrderListRequest();
-                parentWindow.OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
-            });
+                bl.Order.OrderShippingUpdate(int.Parse(IDTextBox.Text));
+                var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
+                // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
+                OrderObservableCollection[0] = updatedOrder;
+                OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
+
+                parentWindow.Dispatcher.Invoke(() =>
+                {
+                    var orderList = bl.Order.OrderListRequest();
+                    parentWindow.OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
+                });
+            }
+            catch (BO.DataNotFoundException)
+            {
+                MessageBox.Show("the order isn't exist or aiready been shipped", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+            }
+            catch (BO.IncorrectDataException)
+            {
+                MessageBox.Show("The details you entered are not correct", "Uncorrect details error", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The data you have enter is not found, please try again", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+
+            }
         }
 
         private void DeliveryUpdate_Click(object sender, RoutedEventArgs e)
@@ -104,6 +120,42 @@ namespace PL.AdminWindows.Order
         private void OrderItemListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void Decrease_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button.Tag , -1);
+            var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
+            // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
+            OrderObservableCollection[0] = updatedOrder;
+            OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
+
+            parentWindow.Dispatcher.Invoke(() =>
+            {
+                //if (OrderItemObservableCollection[0].Amount == 0)
+                //{
+                //    bl.Order.
+                //}
+                var orderList = bl.Order.OrderListRequest();
+                parentWindow.OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
+            });
+        }
+
+        private void Increase_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button.Tag, 1);
+            var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
+            // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
+            OrderObservableCollection[0] = updatedOrder;
+            OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
+
+            parentWindow.Dispatcher.Invoke(() =>
+            {
+                var orderList = bl.Order.OrderListRequest();
+                parentWindow.OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
+            });
         }
     }
 }

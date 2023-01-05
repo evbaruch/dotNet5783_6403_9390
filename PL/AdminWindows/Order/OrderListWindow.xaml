@@ -57,6 +57,12 @@
             Grid.Row="1"
             Width="auto">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions >
+
             <ListView 
                 Grid.Column="1"
                 ItemsSource = "{Binding Path = OrderForObservableCollection, ElementName = MyWindow}"
@@ -115,12 +121,6 @@
 
                 </ListView.View>
             </ListView>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="600*"/>
-                <ColumnDefinition Width="200*"/>
-            </Grid.ColumnDefinitions >
 
         </Grid>
     </Grid>

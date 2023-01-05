@@ -266,17 +266,19 @@ internal class Order : IOrder
                     var idFind = (from o in orderToUpdate
                                   where o?.OrderID == orderID && o?.ProductID == itemToUpdate.ProductID
                                   select o).FirstOrDefault();
-                    if (itemToUpdate.Amount + plus_minus <= 0)
+                    if (itemToUpdate.Amount + plus_minus == 0)
                     {
-                        orderUpdate.TotalPrice += itemToUpdate.Price * itemToUpdate.Amount;
+                        orderUpdate.TotalPrice += itemToUpdate.Price * plus_minus;
                         orderToUpdate.Remove(idFind);
+
+                        dal.orderItem.Delete(new() { ID = (int)idFind?.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
                     }
                     else
                     {
                         orderUpdate.TotalPrice += itemToUpdate.Price * plus_minus;
                         itemToUpdate.Amount += plus_minus;
-                        itemToUpdate.ID = (int)idFind?.ID;
-                        dal.orderItem.Update(new() { ID = itemToUpdate.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
+
+                        dal.orderItem.Update(new() { ID = (int)idFind?.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
                     }
                 }
 
