@@ -540,15 +540,15 @@
             </Grid.ColumnDefinitions >
 
             <ListView 
-    Grid.Column="1"
-    ItemsSource="{Binding OrderItemObservableCollection, ElementName=MyWindow}"
-    x:Name="OrderItemListview" 
-    MouseDoubleClick="OrderItemListview_MouseDoubleClick"
-    Width="auto"
-    SelectionChanged="OrderItemListview_SelectionChanged"
-    FontSize="10"
-    Background="#FF9FC4E5"
-    >
+                Grid.Column="1"
+                ItemsSource="{Binding OrderItemObservableCollection, ElementName=MyWindow}"
+                x:Name="OrderItemListview" 
+                MouseDoubleClick="OrderItemListview_MouseDoubleClick"
+                Width="auto"
+                SelectionChanged="OrderItemListview_SelectionChanged"
+                FontSize="10"
+                Background="#FF9FC4E5"
+                >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn 

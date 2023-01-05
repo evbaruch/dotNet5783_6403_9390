@@ -13,9 +13,9 @@
             <RowDefinition Height="70*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="100*"/>
             <ColumnDefinition Width="600*"/>
-            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
         
         <Button Grid.Column="2"  Content="Cart" Click="CartWindow" />
@@ -29,11 +29,12 @@
           Background="#FF9FC4E5">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="auto">
-                        <GridViewColumnHeader Content="ID" />
-                    </GridViewColumn>
+                                        
                     <GridViewColumn Width="auto">
-                        <GridViewColumnHeader Content="Name" />
+                        <GridViewColumnHeader 
+                            Content="Name" 
+                            Tag="Name"
+                            Click="GridViewColumnHeaderSort_Click" />
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -43,33 +44,85 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Price}" Width="auto">
-                        <GridViewColumnHeader Content="Price" />
+                    
+                    <GridViewColumn
+                        DisplayMemberBinding="{Binding Price}"
+                        Width="auto">
+                        <GridViewColumnHeader
+                            Tag="Price"
+                            Click="GridViewColumnHeaderSort_Click"
+                            Content="Price" />
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Category}" Width="auto">
-                        <GridViewColumnHeader Content="Category" />
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Amount}" Width="auto">
-                        <GridViewColumnHeader Content="Amount" />
-                    </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding InStock}" Width="auto">
-                        <GridViewColumnHeader Content="InStock" />
-                    </GridViewColumn>
-                    <GridViewColumn Width="auto">
-                        <GridViewColumnHeader Content="Actions" />
+                    
+                    <GridViewColumn>
+                        <GridViewColumnHeader
+                            Content="Amount"
+                            Tag="Amount"
+                            Click="GridViewColumnHeaderSort_Click" 
+                            AllowDrop="True"
+                            Focusable="True"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="Add" Click="AddButton_Click" />
-                                    <Button Content="Remove" Click="RemoveButton_Click" />
+
+                                    <Button
+                                            x:Name="DecreaseButton"
+                                            Width="20"
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" 
+                                            Click="Decrease_Click" 
+                                            Content="-" FontSize="14" 
+                                            Tag="{Binding ID}" />
+
+                                    <Label Content="{Binding Amount}" />
+
+                                    <Button 
+                                            x:Name="IncreaseButton"
+                                            Width="20" 
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center" 
+                                            Click="Increase_Click"                                            
+                                            Content="+" 
+                                            FontSize="14" 
+                                            Tag="{Binding ID}" />
+
                                 </StackPanel>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding Category}" Width="auto">
+                        <GridViewColumnHeader 
+                            Content="Category"
+                            Tag="Category"
+                            Click="GridViewColumnHeaderSort_Click"/>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding ID}" Width="auto">
+                        <GridViewColumnHeader 
+                            Content="ID"
+                            Tag="ID"
+                            Click="GridViewColumnHeaderSort_Click"
+                            /> 
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding InStock}" Width="auto">
+                        <GridViewColumnHeader
+                            Content="InStock"
+                            Tag="InStock"
+                            Click="GridViewColumnHeaderSort_Click"
+                            />
+                    </GridViewColumn>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
 
+        
 
         <Button Content="back" Click="Button_Click"/>
 

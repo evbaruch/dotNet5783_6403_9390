@@ -50,13 +50,9 @@ namespace PL.UserWindows.CartAndProduct
             bl.Cart.AddProduct(dataCart, dataProductItem.ID);
             bl.Cart.UpdateProductQuantity(dataCart, dataProductItem.ID, int.Parse(TextBoxValue.Text));
 
-            //dataNewOrder.Dispatcher.Invoke();
-            //MessageBox.Show(dataCart.ToString());
             dataNewOrder.Dispatcher.Invoke(() =>
             {
-
-                
-
+              
                 foreach (var item in dataNewOrder.productItemForObservableCollection)
                 {
                     if (item.ID == dataProductItem.ID)
