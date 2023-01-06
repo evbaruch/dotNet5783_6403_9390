@@ -53,12 +53,23 @@ namespace PL.AdminWindows.Order
             }
         }
 
+        private ObservableCollection<string> _StatusControlersObservableCollection;
+        public ObservableCollection<string> StatusControlersObservableCollection
+        {
+            get { return _StatusControlersObservableCollection; }
+            set
+            {
+                _StatusControlersObservableCollection = value;
+                OnPropertyChanged(nameof(StatusControlersObservableCollection));
+            }
+        }
+
         BlApi.IBl? bl = BlApi.Factory.Get();
 
         public bool hasBeenSorted = true;
 
         private OrderListWindow parentWindow;
-        //private PL.OrderTracking.OrderTracker stepParentWindow;
+        private PL.OrderTracking.OrderTracker stepParentWindow;
 
         public modifyOrderWindow(BO.OrderForList orderForList, OrderListWindow parentWindow)
         {
@@ -66,28 +77,20 @@ namespace PL.AdminWindows.Order
             var order = bl.Order.OrderDetailsRequest(orderForList.ID);
             OrderObservableCollection = new ObservableCollection<BO.Order> { order };
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
+            StatusControlersObservableCollection = new ObservableCollection<string>(new() { "true", "false", "Visible" });
+            InitializeComponent();
+
+        }
+
+        public modifyOrderWindow(BO.OrderForList orderForList, PL.OrderTracking.OrderTracker parentWindow)
+        {
+            this.stepParentWindow = parentWindow;
+            var order = bl.Order.OrderDetailsRequest(orderForList.ID);
+            OrderObservableCollection = new ObservableCollection<BO.Order> { order };
+            OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
+            StatusControlersObservableCollection = new ObservableCollection<string>(new() { "false"  , "true" , "Hidden"});
             InitializeComponent();
         }
-        //public modifyOrderWindow(BO.OrderForList orderForList, PL.OrderTracking.OrderTracker parentWindow)
-        //{
-        //    //this.stepParentWindow = parentWindow;
-        //    var order = bl.Order.OrderDetailsRequest(orderForList.ID);
-        //    OrderObservableCollection = new ObservableCollection<BO.Order> { order };
-        //    OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
-        //    InitializeComponent();
-
-        //    IDTextBox.IsReadOnly = true ;
-        //    NameTextBox.IsReadOnly = true ;
-        //    EmailTextBox.IsReadOnly = true ;
-        //    AddressTextBox.IsReadOnly= true ;
-        //    StatusTextBox.IsReadOnly = true ;
-        //    ShipUpdate.Visibility = Visibility.Hidden;
-        //    ShipUpdate.IsEnabled = false;
-        //    DeliveryUpdate.IsEnabled = false;
-        //    DeliveryUpdate.Visibility = Visibility.Hidden;
-        //    Increase.IsEnabled = false;
-        //    Increase.Visibility = Visibility.Hidden;
-        //}
 
         private void OrderItemListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

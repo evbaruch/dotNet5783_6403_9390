@@ -147,6 +147,7 @@
                     <TextBox 
                         Grid.Column="1"
                         Grid.Row="0"
+                        IsReadOnly="{Binding StatusControlersObservableCollection[1] ,ElementName=MyWindow }"
                         x:Name="IDTextBox"
                         Text= "{Binding OrderObservableCollection[0].ID , ElementName=MyWindow}" 
                         Width="auto"
@@ -172,6 +173,7 @@
                     <TextBox 
                         Grid.Column="1"
                         Grid.Row="0"
+                        IsReadOnly="{Binding StatusControlersObservableCollection[1] ,ElementName=MyWindow }"
                         x:Name="NameTextBox"
                         Text= "{Binding OrderObservableCollection[0].CustomerName, ElementName=MyWindow}" 
                         Width="auto"
@@ -197,6 +199,7 @@
                     <TextBox 
                         Grid.Column="1"
                         Grid.Row="0"
+                        IsReadOnly="{Binding StatusControlersObservableCollection[1] ,ElementName=MyWindow }"
                         x:Name="EmailTextBox"
                         Text= "{Binding OrderObservableCollection[0].CustomerEmail, ElementName=MyWindow}" 
                         Width="auto"
@@ -222,6 +225,7 @@
                     <TextBox 
                         Grid.Column="1"
                         Grid.Row="0"
+                        IsReadOnly="{Binding StatusControlersObservableCollection[1] ,ElementName=MyWindow }"
                         x:Name="AddressTextBox"
                         Text= "{Binding OrderObservableCollection[0].CustomerAddress, ElementName=MyWindow}" 
                         Width="auto"
@@ -370,6 +374,7 @@
                         x:Name="StatusTextBox"
                         Width="auto"
                         FontSize="10"
+                        IsReadOnly="{Binding StatusControlersObservableCollection[1] ,ElementName=MyWindow }"
                         Margin="5,5,80,5"
                         Text= "{Binding OrderObservableCollection[0].Status, ElementName=MyWindow}" 
                         VerticalAlignment="Center"
@@ -397,6 +402,7 @@
                     <materialDesign:TimePicker
                         x:Name="OrderTimeTimePicker"
                         Width="auto"
+                        IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
                         FontSize="10"
                         Margin="10,5,5,5"
                         Text= "{Binding OrderObservableCollection[0].OrderDate, ElementName=MyWindow}" 
@@ -424,6 +430,7 @@
                     <materialDesign:TimePicker
                         x:Name="ShipTimeTimePicker"
                         Width="auto"
+                        IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
                         FontSize="10"
                         Margin="10,5,5,5"
                         Text="{Binding OrderObservableCollection[0].ShipDate, ElementName=MyWindow}"  
@@ -451,6 +458,7 @@
                     <materialDesign:TimePicker
                         x:Name="TimeTimePicker"
                         Width="auto"
+                        IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
                         FontSize="10"
                         Margin="10,5,5,5"
                         Text="{Binding OrderObservableCollection[0].DeliveryrDate, ElementName=MyWindow}" 
@@ -483,6 +491,8 @@
                 <Button 
                 Content="Now" 
                 Grid.Row="2" 
+                IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
                 x:Name="ShipUpdate"
                 FontSize="6"
                 HorizontalAlignment="Center" 
@@ -503,6 +513,8 @@
                 <Button 
                 Content="Now" 
                 Grid.Row="3" 
+                IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
                 x:Name="DeliveryUpdate"
                 FontSize="6"
                 HorizontalAlignment="Center" 
@@ -539,17 +551,7 @@
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions >
             
-            <Button 
-                x:Name="Increase"
-                Width="20" 
-                Height="20"
-                Padding="0"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center" 
-                Click="Increase_Click"
-                Content="+" 
-                FontSize="14" 
-                Tag="{Binding ProductID}" />
+            
 
             <ListView 
                 Grid.Column="1"
@@ -606,12 +608,14 @@
                                 Focusable="True" 
                                 Tag="Amount"
                                 Click="GridViewColumnHeaderSort_Click"/>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate >
                                     <StackPanel Orientation="Horizontal">
                                         
                                         <Button
                                             x:Name="Decrease"
+                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                                            Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
                                             Width="20"
                                             Height="20"
                                             Padding="0"
@@ -627,8 +631,24 @@
                                         
                                         <Label Content="{Binding Amount}" />
 
-                                        <Button Content="{x:Reference Increase}" />
-
+                                        
+                                        <Button 
+                                            x:Name="Increase"
+                                            IsEnabled="{Binding StatusControlersObservableCollection[0] ,ElementName=MyWindow }"
+                                            Visibility="{Binding StatusControlersObservableCollection[2] ,ElementName=MyWindow }"
+                                            Width="20" 
+                                            Height="20"
+                                            Padding="0"
+                                            HorizontalContentAlignment="Center"
+                                            VerticalContentAlignment="Center"
+                                            
+                                            Click="Increase_Click"
+                                            
+                                            Content="+" 
+                                            
+                                            FontSize="14" 
+                                            
+                                            Tag="{Binding ProductID}" />
 
                                     </StackPanel>
                                 </DataTemplate>
