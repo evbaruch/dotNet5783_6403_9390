@@ -125,6 +125,17 @@
         
 
         <Button Content="back" Click="Button_Click"/>
+        
+        <ComboBox
+            x:Name="CategoriesSelector"
+            ItemsSource="{Binding Categories , ElementName=MyWindow}"
+            Grid.Column="1"
+            HorizontalAlignment="Left"
+            Margin="437,34,0,0"
+            VerticalAlignment="Top"
+            Width="120"
+            SelectionChanged ="CategoriesSelector_SelectionChanged"
+            />
 
     </Grid>
 </Window>

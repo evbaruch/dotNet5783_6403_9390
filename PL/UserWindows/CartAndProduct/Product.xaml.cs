@@ -1,10 +1,12 @@
 ﻿using BO;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Automation.Provider;
+using System.Windows.Controls;
 
 namespace PL.UserWindows.CartAndProduct
 {
@@ -41,30 +43,40 @@ namespace PL.UserWindows.CartAndProduct
 
         private void ButtonConfirma_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(TextBoxValue.Text))
+            try
             {
-                MessageBox.Show("ERROR No number entered");
-                return;
-            }
-
-            bl.Cart.AddProduct(dataCart, dataProductItem.ID);
-            bl.Cart.UpdateProductQuantity(dataCart, dataProductItem.ID, int.Parse(TextBoxValue.Text));
-
-            dataNewOrder.Dispatcher.Invoke(() =>
-            {
-              
-                foreach (var item in dataNewOrder.productItemForObservableCollection)
+                int number;
+                bool isNumber = int.TryParse(TextBoxValue.Text, out number);
+                if (!isNumber)
                 {
-                    if (item.ID == dataProductItem.ID)
-                    {
-                        item.Amount = int.Parse(TextBoxValue.Text);
-                    }
+                    MessageBox.Show("ERROR No number entered");
+                    return;
                 }
 
-                dataNewOrder.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(dataNewOrder.productItemForObservableCollection);    
-            });
+                bl.Cart.AddProduct(dataCart, dataProductItem.ID);
+                bl.Cart.UpdateProductQuantity(dataCart, dataProductItem.ID, number);
 
-            this.Close();
+                dataNewOrder.Dispatcher.Invoke(() =>
+                {
+
+                    foreach (var item in dataNewOrder.productItemForObservableCollection)
+                    {
+                        if (item.ID == dataProductItem.ID)
+                        {
+                            item.Amount = int.Parse(TextBoxValue.Text);
+                        }
+                    }
+
+                    dataNewOrder.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(dataNewOrder.productItemForObservableCollection);
+                });
+
+                this.Close();
+            }
+            catch (BO.DataNotFoundException)
+            {
+                MessageBox.Show("This product is out of stock");
+            }
+            
         }
     }
 }
