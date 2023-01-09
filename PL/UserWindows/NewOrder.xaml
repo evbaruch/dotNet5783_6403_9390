@@ -38,7 +38,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding ImageUrl}" Width="50" Height="50" />
+                                    <Image Source="{Binding ImageUrl[0]  , ElementName=MyWindow}" Width="100" Height="100" />
                                     <TextBlock Text="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>
