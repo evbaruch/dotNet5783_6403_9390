@@ -1,5 +1,6 @@
 ﻿using MaterialDesignThemes.Wpf;
 using PL.AdminWindows;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,8 +18,29 @@ namespace PL
 
         private void AdminMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            new MainAdminWindow().Show();
-            this.Close();
+            InputPopUP inputPopUP = new InputPopUP();
+            inputPopUP.Show("User name:", "Pin:","log in");
+            if (inputPopUP.SeconedInput == "12345")
+            {
+                
+                var MainAdminWindow = new MainAdminWindow();
+                MainAdminWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                MainAdminWindow.Left = this.Left;
+                MainAdminWindow.Top = this.Top;
+                MainAdminWindow.Show();
+                this.Close();
+
+                //new MainAdminWindow().Show();
+                //this.Close();
+            }
+            else if(inputPopUP.SeconedInput == null)
+            {
+
+            }
+            else 
+            {
+                MessageBox.Show("the User name or the pin is not correct", "Error", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -94,13 +116,29 @@ namespace PL
 
             //// Show the input dialog and wait for it to close
             //inputDialog.ShowDialog();
-            
-            InputPopUP inputPopUP = new InputPopUP();
-            inputPopUP.Show();
-            if (inputPopUP.OrderID != null && inputPopUP.OrderID != "" )
+
+            try
             {
-                new PL.OrderTracking.OrderTracker(int.Parse(inputPopUP.OrderID)).Show();
-                this.Close();
+                InputPopUP inputPopUP = new InputPopUP();
+                inputPopUP.Show("User name:", "Order ID:", "search");
+                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "")
+                {
+                    new PL.OrderTracking.OrderTracker(int.Parse(inputPopUP.SeconedInput)).Show();
+                    this.Close();
+                }
+            }
+            catch (BO.DataNotFoundException)
+            {
+                MessageBox.Show("the order isn't exist", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+            }
+            catch (BO.IncorrectDataException)
+            {
+                MessageBox.Show("The details you entered are not correct", "Uncorrect details error", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The data you have enter is not found, please try again", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+
             }
 
         }

@@ -20,41 +20,55 @@ namespace PL
     /// </summary>
     public partial class InputPopUP : UserControl
     {
-        private static string _UserName;
-        private static string _OrderID;
+        private static string _FirstInput;
+        private static string _SeconedInput;
+
+        public string Label1Text { get; set; }
+        public string Label2Text { get; set; }
+        public string ButtenText { get; set; }
+
+        public InputPopUP(string first , string seconed ,string third)
+        {
+            Label1Text = first;
+            Label2Text = seconed;
+            ButtenText = third;
+            InitializeComponent();
+            //this.DataContext = this;
+        }
 
         public InputPopUP()
         {
             InitializeComponent();
+            //this.DataContext = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _UserName = inputTextBox1.Text;
-            _OrderID  = inputTextBox2.Text;
+            _FirstInput = inputTextBox1.Text;
+            _SeconedInput  = inputTextBox2.Text;
 
             var window = Window.GetWindow(this);
             window.Close();
         }
 
-        public string UserName
+        public string FirstInput
         {
             get
             {
-                return _UserName;
+                return _FirstInput;
             }
         }
 
-        public string OrderID
+        public string SeconedInput
         {
             get
             {
-                return _OrderID;
+                return _SeconedInput;
             }
         }
 
 
-        public void Show()
+        public void Show(string first, string seconed,string third)
         {
             // Create a window to host the message box
             var messageBoxWindow = new Window();
@@ -64,7 +78,7 @@ namespace PL
             messageBoxWindow.ResizeMode = ResizeMode.NoResize;
 
             // Create an instance of the message box control
-            var messageBoxControl = new InputPopUP();
+            var messageBoxControl = new InputPopUP(first, seconed,third);
 
             // Set the window's content to the message box control
             messageBoxWindow.Content = messageBoxControl;
