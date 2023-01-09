@@ -1,4 +1,5 @@
 ﻿using BO;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -16,12 +17,10 @@ namespace PL.UserWindows.CartAndProduct
     public partial class Cart : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         private ObservableCollection<BO.OrderItem> _listOfOrderItemForObservableCollection;
         public ObservableCollection<BO.OrderItem> listOfOrderItemForObservableCollection
         {
@@ -32,7 +31,6 @@ namespace PL.UserWindows.CartAndProduct
                 OnPropertyChanged(nameof(listOfOrderItemForObservableCollection));
             }
         }
-
         private ObservableCollection<string> _TotalPriceForObservableCollection;
         public ObservableCollection<string> TotalPriceForObservableCollection
         {
@@ -44,10 +42,13 @@ namespace PL.UserWindows.CartAndProduct
             }
         }
 
+
+
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart dataCart = new BO.Cart();
         NewOrder dataNewOrder = new NewOrder();
         public bool hasBeenSorted = true;
+
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
             
@@ -67,30 +68,33 @@ namespace PL.UserWindows.CartAndProduct
 
         private void ButtonConfirma_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(CustomerName.Text) || string.IsNullOrEmpty(CustomerEmail.Text) || string.IsNullOrEmpty(CustomerAddress.Text))
+            try
             {
-                MessageBox.Show("ERROR");
-                return;
+                if (string.IsNullOrEmpty(CustomerName.Text) || string.IsNullOrEmpty(CustomerEmail.Text) || string.IsNullOrEmpty(CustomerAddress.Text))
+                {
+                    MessageBox.Show("ERROR");
+                    return;
+                }
+
+                dataCart.CustomerName = CustomerName.Text;
+                dataCart.CustomerEmail = CustomerEmail.Text;
+                dataCart.CustomerAddress = CustomerAddress.Text;
+
+                int orderID = bl.Cart.OrderConfirmation(dataCart);
+
+                dataNewOrder.Close();
+                this.Close();
+
+                MessageBox.Show($"Thank you for shopping with us" +
+                                $" Your order number is:" + orderID);
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.ShowDialog();
             }
-
-            dataCart.CustomerName = CustomerName.Text;
-            dataCart.CustomerEmail = CustomerEmail.Text;
-            dataCart.CustomerAddress = CustomerAddress.Text;
-
-
-            int orderID = bl.Cart.OrderConfirmation(dataCart);
-
-
-
-
-            dataNewOrder.Close();
-            this.Close();
-
-            MessageBox.Show($"Thank you for shopping with us" +
-                            $" Your order number is:" + orderID);
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.ShowDialog();
+            catch (BO.DataNotFoundException)
+            {
+                MessageBox.Show($"a product is out of stock");
+            }           
         }
 
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -152,6 +156,8 @@ namespace PL.UserWindows.CartAndProduct
                         this.listOfOrderItemForObservableCollection.FirstOrDefault(x => x.ProductID == product.ID)
                         );
 
+                    //update the product's quantity in the `dataCart` object
+                    bl.Cart.UpdateProductQuantity(dataCart, productId, (int)product.Amount);
                 }
                 else
                 {
@@ -192,9 +198,7 @@ namespace PL.UserWindows.CartAndProduct
                 dataNewOrder.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(dataNewOrder.productItemForObservableCollection);
                 this.listOfOrderItemForObservableCollection = new ObservableCollection<BO.OrderItem>(this.listOfOrderItemForObservableCollection);
                 this.TotalPriceForObservableCollection = new ObservableCollection<string>(this.TotalPriceForObservableCollection);
-            });
-
-            
+            });         
         }
     }
 }

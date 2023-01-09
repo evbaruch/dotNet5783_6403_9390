@@ -23,12 +23,10 @@ namespace PL.UserWindows
     public partial class NewOrder : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
         private ObservableCollection<BO.ProductItem> _productItemForObservableCollection;
         public ObservableCollection<BO.ProductItem> productItemForObservableCollection
         {
@@ -39,18 +37,32 @@ namespace PL.UserWindows
                 OnPropertyChanged(nameof(productItemForObservableCollection));
             }
         }
+        private ObservableCollection<String> _Categories;
+        public ObservableCollection<String> Categories
+        {
+            get { return _Categories; }
+            set
+            {
+                _Categories = value;
+                OnPropertyChanged(nameof(Categories));
+            }
+        }
+
 
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart cart = new Cart();
         public bool hasBeenSorted = true;
+        private ObservableCollection<BO.ProductItem> _DataProductItemForObservableCollection;
 
-        //IEnumerable<BO.ProductItem> productItemList = new List<BO.ProductItem>();
         public NewOrder()
         {
+            Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
+
             IEnumerable<BO.ProductItem>  productItemList = bl.Product.ProductItemList();
             productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemList);
+            _DataProductItemForObservableCollection = productItemForObservableCollection;
             InitializeComponent();
-            
+
         }
 
         private void CartWindow(object sender, RoutedEventArgs e)
@@ -74,8 +86,6 @@ namespace PL.UserWindows
 
         }
 
-
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
@@ -83,28 +93,26 @@ namespace PL.UserWindows
             mainWindow.ShowDialog();
         }
 
-
-
-
-        private void OrderItemListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
+
+
             Button button = sender as Button;
             int productId = (int)button.Tag;
 
-            // Update the OrderForObservableCollection in the parent window
-            foreach (var item in productItemForObservableCollection)
+            // Find the product in the OrderForObservableCollection
+            ProductItem productToUpdate = productItemForObservableCollection.FirstOrDefault(item => item.ID == productId);
+
+            if (productToUpdate.Amount == 0)
             {
-                if (item.ID == productId)
-                {
-                    item.Amount--;
-                    bl.Cart.UpdateProductQuantity(cart, productId, (int)item.Amount);
-                    break;
-                }
+                return;
+            }
+
+            // Decrement the product's quantity and update the cart
+            if (productToUpdate != null)
+            {
+                productToUpdate.Amount--;
+                bl.Cart.UpdateProductQuantity(cart, productId, (int)productToUpdate.Amount);
             }
 
             this.Dispatcher.Invoke(() =>
@@ -113,17 +121,22 @@ namespace PL.UserWindows
             });          
         }
 
-
-
         private void Increase_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             int productId = (int)button.Tag;
 
-            bl.Cart.AddProduct(cart, productId);
-
             // Find the product in the collection and update its amount
             var product = productItemForObservableCollection.FirstOrDefault(p => p.ID == productId);
+
+            if (product.InStock == false)
+            {
+                return;
+            }
+
+            bl.Cart.AddProduct(cart, productId);
+
+
             if (product != null)
             {
                 product.Amount++;
@@ -157,5 +170,20 @@ namespace PL.UserWindows
             }
         }
 
+        private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CategoriesSelector.SelectedItem.ToString() == "All")
+            {
+                productItemForObservableCollection = _DataProductItemForObservableCollection;
+            }
+            else
+            {
+                //a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString()
+                string selectedCategory = CategoriesSelector.SelectedItem.ToString();
+                var filteredProducts = _DataProductItemForObservableCollection.Where(x => x.Category.ToString() == selectedCategory);
+                productItemForObservableCollection = new ObservableCollection<ProductItem>(filteredProducts);
+
+            }
+        }
     }
 }
