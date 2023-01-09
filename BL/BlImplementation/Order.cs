@@ -4,6 +4,7 @@ using DalApi;
 using DO;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using IOrder = BlApi.IOrder;
 
@@ -210,25 +211,28 @@ internal class Order : IOrder
             DO.Order trackedOrder = dal.order.Read(new() { ID = orderID });
             if(orderID > 0)
             {
-                Tuple<DateTime, BO.Enums.OrderStatus> a;
+                
                 BO.OrderTracking tracking = new() {ID = orderID };
-                if (trackedOrder.ShipDate == null) // if the value of the shiping is not define it's only ordered
-                {
-                    tracking.Status = (BO.Enums.OrderStatus.ordered);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
-                else if (trackedOrder.ShipDate != null && trackedOrder.DeliveryDate == null)
-                { // if the value of the shiping is define but the time of the delivery is't it's only shiped
-                    tracking.Status = (BO.Enums.OrderStatus.shiped);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
-                else // else (both define)
-                {
-                    tracking.Status = (BO.Enums.OrderStatus.delivered);
-                    a = new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status);
-                }
                 tracking.OrderStatuses = new() { };
-                tracking.OrderStatuses.Add(a);
+
+                tracking.Status = (BO.Enums.OrderStatus.ordered);
+                tracking.OrderStatuses.Add( new Tuple<DateTime, BO.Enums.OrderStatus> ((DateTime)trackedOrder.OrderDate, (BO.Enums.OrderStatus)tracking.Status));
+
+
+                if (trackedOrder.ShipDate != null)
+                { // if the value of the shiping is define
+
+                    tracking.Status = (BO.Enums.OrderStatus.shiped);
+                    tracking.OrderStatuses.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.ShipDate, (BO.Enums.OrderStatus)tracking.Status));
+
+                    if(trackedOrder.DeliveryDate != null)// and if the value of the deliverying is define
+                    {
+                        tracking.Status = (BO.Enums.OrderStatus.delivered);
+                        tracking.OrderStatuses.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.DeliveryDate, (BO.Enums.OrderStatus)tracking.Status));
+                    }
+                }
+                
+                
                 return tracking;
             }
             else
@@ -254,9 +258,11 @@ internal class Order : IOrder
     {
         try
         {
+            BO.Order order = OrderDetailsRequest(orderID);
             List <DO.OrderItem?>orderToUpdate = dal.orderItem.ReadAll().ToList();
             if (productID > 0 && orderID > 0)
             {
+                
                 BO.Order orderUpdate = OrderDetailsRequest(orderID);
                 var itemToUpdate = (from item in orderUpdate.Items
                                     where item.ProductID == productID
@@ -272,6 +278,10 @@ internal class Order : IOrder
                         orderToUpdate.Remove(idFind);
 
                         dal.orderItem.Delete(new() { ID = (int)idFind?.ID, ProductID = itemToUpdate.ProductID, Amount = itemToUpdate.Amount, Price = itemToUpdate.Price, OrderID = orderID });
+                        if(orderUpdate.TotalPrice <= 0)
+                        {
+                             dal.order.Delete(new() { ID = orderID });
+                        }
                     }
                     else
                     {

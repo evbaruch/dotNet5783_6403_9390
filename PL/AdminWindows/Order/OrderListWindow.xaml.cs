@@ -41,7 +41,9 @@ namespace PL.AdminWindows.Order
                 OnPropertyChanged(nameof(OrderForObservableCollection));
             }
         }
-        
+
+        public bool hasBeenSorted = true;
+
         BlApi.IBl? bl = BlApi.Factory.Get();
 
         public OrderListWindow()
@@ -69,5 +71,27 @@ namespace PL.AdminWindows.Order
         {
 
         }
+
+        private void GridViewColumnHeaderSort_Click(object sender, RoutedEventArgs e)
+        {
+            GridViewColumnHeader gridViewColumnHeader = (sender as GridViewColumnHeader);
+            if (gridViewColumnHeader != null)
+            {
+                string name = (gridViewColumnHeader.Tag as string);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderListview.ItemsSource);
+                view.SortDescriptions.Clear();
+                if (hasBeenSorted)
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Descending));
+                    hasBeenSorted = false;
+                }
+                else
+                {
+                    view.SortDescriptions.Add(new SortDescription(name, ListSortDirection.Ascending));
+                    hasBeenSorted = true;
+                }
+            }
+        }
     }
 }
+

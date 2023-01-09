@@ -50,7 +50,7 @@ public class DalOrder : IOrder
                             );
         if ( isNULL?.ID != -1) // if the ID exist delete the details else throw an Error
         {
-            DataSource.listOrder.Remove(order);
+                DataSource.listOrder.Remove(isNULL);
         }
         else
         {
