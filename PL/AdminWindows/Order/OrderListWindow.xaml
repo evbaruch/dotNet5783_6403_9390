@@ -9,13 +9,19 @@
         Height="640"
         Width="800"
         x:Name="MyWindow">
-    
+
     <Grid Name="MainGrid">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF82E7EF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="220*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition/>
+            <RowDefinition Height="11*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid 
@@ -25,9 +31,9 @@
             Width="auto">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="600*"/>
-                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions >
 
             <Button 

@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         x:Name="MyWindow" Title="NewOrder" Height="640" Width="800">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FF82E7EF" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"/>
             <RowDefinition Height="500*"/>
@@ -17,7 +23,7 @@
             <ColumnDefinition Width="600*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Button Grid.Column="2"  Content="Cart" Click="CartWindow" />
 
         <ListView x:Name="ProductItemForList"
@@ -29,7 +35,7 @@
           Background="#FF9FC4E5">
             <ListView.View>
                 <GridView>
-                                        
+
                     <GridViewColumn Width="auto">
                         <GridViewColumnHeader 
                             Content="Name" 
@@ -44,7 +50,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
                     <GridViewColumn
                         DisplayMemberBinding="{Binding Price}"
                         Width="auto">
@@ -53,7 +59,7 @@
                             Click="GridViewColumnHeaderSort_Click"
                             Content="Price" />
                     </GridViewColumn>
-                    
+
                     <GridViewColumn>
                         <GridViewColumnHeader
                             Content="Amount"
@@ -107,7 +113,7 @@
                             Content="ID"
                             Tag="ID"
                             Click="GridViewColumnHeaderSort_Click"
-                            /> 
+                            />
                     </GridViewColumn>
 
                     <GridViewColumn DisplayMemberBinding="{Binding InStock}" Width="auto">
@@ -117,15 +123,15 @@
                             Click="GridViewColumnHeaderSort_Click"
                             />
                     </GridViewColumn>
-                    
+
                 </GridView>
             </ListView.View>
         </ListView>
 
-        
+
 
         <Button Content="back" Click="Button_Click"/>
-        
+
         <ComboBox
             x:Name="CategoriesSelector"
             ItemsSource="{Binding Categories , ElementName=MyWindow}"
