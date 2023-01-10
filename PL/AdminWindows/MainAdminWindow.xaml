@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
-        Title="MainAdminWindow" Height="640" Width="800">
+        Title="MainAdminWindow" Height="640" Width="800"
+        x:Name="MyWindow"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid
         Name="MainGrid">
 
-            <Grid.Background>
-                <ImageBrush ImageSource="..\background\main window\mainWindow2.jpeg"/>
-            </Grid.Background>
+        <Grid.Background>
+            <ImageBrush ImageSource="{Binding CurrentBackgroundImage, ElementName=MyWindow ,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid.Background>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="90*"/>

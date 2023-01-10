@@ -167,7 +167,7 @@ namespace PL.AdminWindows.Order
             try
             {
                 Button button = sender as Button;
-                bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button.Tag, -1);
+                bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button!.Tag, -1);
                 var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
                 // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
                 OrderObservableCollection[0] = updatedOrder;
