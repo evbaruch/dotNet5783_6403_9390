@@ -66,11 +66,11 @@
 
                 <Button 
                     x:Name="AdminListWindow" 
-                    Content="god mode"  
+                    Content="God mode"  
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="auto"
+                    Width="120"
                     Click="AdminMainWindow_Click"
                     FontWeight="Bold"
                 >
@@ -93,11 +93,11 @@
                 Width="auto">
 
                 <Button 
-                    Content="peasant mod"
+                    Content="Peasant mode"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="auto"
+                    Width="120"
                     Click="Button_Click"
                     FontWeight="Bold">
                     <Button.Resources>
@@ -120,12 +120,12 @@
                 Width="auto">
 
                 <Button 
-                    Content="observation"
+                    Content="Observation"
                     x:Name="observation"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="auto"
+                    Width="120"
                     Click="observation_Click"
                     FontWeight="Bold">
                     <Button.Resources>
