@@ -22,6 +22,14 @@ namespace PL.UserWindows
     /// </summary>
     public partial class NewOrder : Window, INotifyPropertyChanged
     {
+        //public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register("ImageUrl", typeof(string), typeof(MyWindow), new PropertyMetadata(null));
+
+        //public string ImageUrl
+        //{
+        //    get { return (string)GetValue(ImageUrlProperty); }
+        //    set { SetValue(ImageUrlProperty, value); }
+        //}
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -48,6 +56,28 @@ namespace PL.UserWindows
             }
         }
 
+        private ObservableCollection<String> _ImageUrl;
+        public ObservableCollection<String> ImageUrl
+        {
+            get { return _ImageUrl; }
+            set
+            {
+                _ImageUrl = value;
+                OnPropertyChanged(nameof(ImageUrl));
+            }
+        }
+
+        private void foo()
+        {
+            string[] item = new string[15];
+            item[0] = @"..\background\products\angel.jpeg";
+            item[1] = @"..\background\products\centaur.jpeg";
+
+
+
+            ImageUrl = new ObservableCollection<string> (item);
+        }
+
 
         BlApi.IBl? bl = BlApi.Factory.Get();
         BO.Cart cart = new Cart();
@@ -56,6 +86,8 @@ namespace PL.UserWindows
 
         public NewOrder()
         {
+            foo();
+
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
 
             IEnumerable<BO.ProductItem>  productItemList = bl.Product.ProductItemList();
@@ -63,6 +95,7 @@ namespace PL.UserWindows
             _DataProductItemForObservableCollection = productItemForObservableCollection;
             InitializeComponent();
 
+             
         }
 
         private void CartWindow(object sender, RoutedEventArgs e)

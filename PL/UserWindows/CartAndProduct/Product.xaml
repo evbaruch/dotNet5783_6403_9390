@@ -42,7 +42,7 @@
             Grid.Column="1"  
             Grid.Row="1"  
             Margin="185,42,140,50" 
-            MaxLength ="1"/>
+            MaxLength ="2"/>
 
         <TextBlock 
             Grid.Column="1" 
