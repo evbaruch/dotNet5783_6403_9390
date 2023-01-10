@@ -47,7 +47,7 @@ namespace PL.UserWindows.CartAndProduct
             {
                 int number;
                 bool isNumber = int.TryParse(TextBoxValue.Text, out number);
-                if (!isNumber)
+                if (!isNumber || number < 0)
                 {
                     MessageBox.Show("ERROR No number entered");
                     return;
