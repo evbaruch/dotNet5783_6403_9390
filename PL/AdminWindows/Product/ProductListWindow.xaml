@@ -8,11 +8,6 @@
         Title="ProductListWindow" Height="640" Width="800" x:Name="MyWindow">
     <Grid Name="MainGrid">
 
-        <Grid.Background>
-            <ImageBrush ImageSource="..\..\background\main window\mainWindow8.jpeg"/>
-        </Grid.Background>
-
-
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="220*"/>
@@ -67,7 +62,7 @@
                 Margin="0,0,365,0"
                 Grid.Column="1"
                 FontSize="20" 
-                Foreground="White"/>
+                Foreground="Black"/>
 
         </Grid>
 
@@ -173,7 +168,8 @@
                 MouseDoubleClick = "updateProduct_Click" 
                 SelectionChanged ="ProductListview_SelectionChanged"
                 FontSize="15"
-                Background="#FF9FC4E5" Foreground="White"
+                Background="White"
+                Foreground="Black"
                 >
 
                 <ListView.View>

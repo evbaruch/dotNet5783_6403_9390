@@ -499,6 +499,7 @@
                 Margin="5,5,5,5"
                 Width="104"
                 Click="ShipUpdate_Click"
+                Tag="{Binding OrderObservableCollection[0].ID , ElementName=MyWindow}" 
                 >
                     <Button.Resources>
                         <Style 
@@ -521,6 +522,7 @@
                 Margin="5,5,5,5"
                 Width="104"
                 Click="DeliveryUpdate_Click"
+                Tag ="{Binding OrderObservableCollection[0].ID , ElementName=MyWindow}" 
                 >
                     <Button.Resources>
                         <Style 
@@ -627,7 +629,9 @@
                                             
                                             Content="-" 
                                             
-                                            Tag="{Binding ProductID}" />
+                                            Tag="{Binding ProductID}"
+                                            
+                                            />
                                         
                                         <Label Content="{Binding Amount}" />
 

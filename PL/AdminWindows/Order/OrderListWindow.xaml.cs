@@ -64,7 +64,7 @@ namespace PL.AdminWindows.Order
 
         private void OrderListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new AdminWindows.Order.modifyOrderWindow((BO.OrderForList)(OrderListview.SelectedItem), this).Show();
+            new AdminWindows.Order.modifyOrderWindow(((BO.OrderForList)((ListView)sender).SelectedItem), this).Show();
         }
 
         private void OrderListview_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -78,7 +78,7 @@ namespace PL.AdminWindows.Order
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderListview.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderListview.ItemsSource);//
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {
