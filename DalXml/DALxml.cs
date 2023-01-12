@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Dal;
 
-internal class DALxml
+sealed internal class DalXml : IDal
 {
 }

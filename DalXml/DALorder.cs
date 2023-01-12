@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Dal;
 
-internal class DALorder
+internal class DALOrder : IOrder
 {
 }
