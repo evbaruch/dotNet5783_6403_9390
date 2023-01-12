@@ -24,7 +24,17 @@ namespace PL.AdminWindows.Order
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private Color _selectedColor;
+        public Color SelectedColor
+        {
+            get => _selectedColor;
+            set
+            {
+                _selectedColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedColor"));
 
+            }
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -73,6 +83,7 @@ namespace PL.AdminWindows.Order
 
         public modifyOrderWindow(BO.OrderForList orderForList, OrderListWindow parentWindow)
         {
+            SelectedColor = Color.FromRgb(130, 231, 239);
             this.parentWindow = parentWindow;
             var order = bl.Order.OrderDetailsRequest(orderForList.ID);
             OrderObservableCollection = new ObservableCollection<BO.Order> { order };
