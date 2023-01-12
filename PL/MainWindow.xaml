@@ -76,7 +76,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="120"
+                    Width="130"
                     Click="AdminMainWindow_Click"
                     FontWeight="Bold" Margin="0,1,0,0"
                 >
@@ -103,7 +103,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="120"
+                    Width="130"
                     Click="Button_Click"
                     FontWeight="Bold">
                     <Button.Resources>
@@ -131,7 +131,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
-                    Width="120"
+                    Width="130"
                     Click="observation_Click"
                     FontWeight="Bold">
                     <Button.Resources>

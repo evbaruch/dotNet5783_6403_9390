@@ -9,12 +9,13 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="modifyOrderWindow" Height="440" Width="600" x:Name="MyWindow">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
-                <GradientStop Color="#FF82E7EF" Offset="1"/>
+                <GradientStop Color="{Binding SelectedColor, ElementName=MyWindow ,UpdateSourceTrigger=PropertyChanged}" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -25,6 +26,8 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        
         
         <Grid 
             Name="UpGrid"
@@ -376,6 +379,8 @@
                     Grid.Row = "0"
                     Width="auto" >
 
+                    
+                    
                     <TextBox
                         x:Name="StatusTextBox"
                         Width="auto"
@@ -405,6 +410,7 @@
                         <ColumnDefinition Width="37*"/>
                     </Grid.ColumnDefinitions>
 
+                    
                     <materialDesign:TimePicker
                         x:Name="OrderTimeTimePicker"
                         Width="auto"
@@ -494,6 +500,27 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <xctk:ColorPicker
+                    x:Name="colorPicker"
+                    SelectedColor="{Binding SelectedColor, Mode=TwoWay}"
+                    Padding="0"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Grid.Row="0"
+                    ShowDropDownButton="False" 
+                    Height="31" 
+                    VerticalAlignment="Top"
+                    >
+                    <xctk:ColorPicker.Resources>
+                        <Style 
+                        TargetType="Border">
+                            <Setter 
+                            Property="CornerRadius"
+                            Value="5"/>
+                        </Style>
+                    </xctk:ColorPicker.Resources>
+                </xctk:ColorPicker>
+
                 <Button 
                 Content="Now" 
                 Grid.Row="2" 
@@ -505,6 +532,7 @@
                 Margin="5,5,5,5"
                 Width="104"
                 Click="ShipUpdate_Click"
+                Tag="{Binding OrderObservableCollection[0].ID , ElementName=MyWindow}" 
                 >
                     <Button.Resources>
                         <Style 
@@ -527,6 +555,7 @@
                 Margin="5,5,5,5"
                 Width="104"
                 Click="DeliveryUpdate_Click"
+                Tag ="{Binding OrderObservableCollection[0].ID , ElementName=MyWindow}" 
                 >
                     <Button.Resources>
                         <Style 
@@ -633,7 +662,9 @@
                                             
                                             Content="-" 
                                             
-                                            Tag="{Binding ProductID}" />
+                                            Tag="{Binding ProductID}"
+                                            
+                                            />
                                         
                                         <Label Content="{Binding Amount}" />
 

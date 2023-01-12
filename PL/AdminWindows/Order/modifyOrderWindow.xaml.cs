@@ -24,7 +24,17 @@ namespace PL.AdminWindows.Order
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private Color _selectedColor;
+        public Color SelectedColor
+        {
+            get => _selectedColor;
+            set
+            {
+                _selectedColor = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedColor"));
 
+            }
+        }
 
         protected void OnPropertyChanged(string propertyName)
         {
@@ -73,6 +83,7 @@ namespace PL.AdminWindows.Order
 
         public modifyOrderWindow(BO.OrderForList orderForList, OrderListWindow parentWindow)
         {
+            SelectedColor = Color.FromRgb(130, 231, 239);
             this.parentWindow = parentWindow;
             var order = bl.Order.OrderDetailsRequest(orderForList.ID);
             OrderObservableCollection = new ObservableCollection<BO.Order> { order };
@@ -101,7 +112,7 @@ namespace PL.AdminWindows.Order
         {
             try
             {
-                bl.Order.OrderShippingUpdate(int.Parse(IDTextBox.Text));
+                bl.Order.OrderShippingUpdate((int)(sender as Button).Tag);
                 var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
                 // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
                 OrderObservableCollection[0] = updatedOrder;
@@ -131,7 +142,7 @@ namespace PL.AdminWindows.Order
         private void DeliveryUpdate_Click(object sender, RoutedEventArgs e)
         {
             try { 
-            bl.Order.UpdateDeliveryOrder(int.Parse(IDTextBox.Text));
+            bl.Order.UpdateDeliveryOrder((int)(sender as Button).Tag);
             var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
             // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
             OrderObservableCollection[0] = updatedOrder;
@@ -167,7 +178,8 @@ namespace PL.AdminWindows.Order
             try
             {
                 Button button = sender as Button;
-                bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button!.Tag, -1);
+                var a = (BO.OrderItem)button.DataContext;
+                bl.Order.OrderUpdate(a.ID, (int)button!.Tag, -1);
                 var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
                 // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
                 OrderObservableCollection[0] = updatedOrder;
@@ -207,7 +219,8 @@ namespace PL.AdminWindows.Order
         private void Increase_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
-            bl.Order.OrderUpdate(int.Parse(IDTextBox.Text), (int)button.Tag, 1);
+            var temp = (BO.OrderItem)button.DataContext;
+            bl.Order.OrderUpdate(temp.ID, (int)button!.Tag, 1);
             var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
             // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
             OrderObservableCollection[0] = updatedOrder;
