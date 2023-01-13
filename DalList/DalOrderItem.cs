@@ -10,14 +10,14 @@ public class DalOrderItem : IOrderItem
 {
     public int Create(OrderItem orderItem)
     {
-        orderItem.ID = DataSource.Config.get_ID_OrderItem;
+        orderItem.OrderItemID = DataSource.Config.get_ID_OrderItem;
         DataSource.listOrderItem.Add(orderItem);
-        return orderItem.ID;
+        return orderItem.OrderItemID;
     }
     public OrderItem Read(OrderItem orderItem)
     {
         OrderItem? isNULL = ReadObject(
-            a => a?.ID == orderItem.ID
+            a => a?.OrderItemID == orderItem.OrderItemID
                             );
         int I = DataSource.listOrderItem.IndexOf(isNULL);
         if (I != -1) // if the ID exist return the details else throw an Error
@@ -32,7 +32,7 @@ public class DalOrderItem : IOrderItem
     public void Update(OrderItem orderItem)
     {
         OrderItem? isNULL = ReadObject(
-            a => a?.ID == orderItem.ID
+            a => a?.OrderItemID == orderItem.OrderItemID
                             );
         int I = DataSource.listOrderItem.IndexOf(isNULL);
         if (I != -1) // if the ID exist update the details else throw an Error
@@ -47,9 +47,9 @@ public class DalOrderItem : IOrderItem
     public void Delete(OrderItem orderItem)
     {
         OrderItem? isNULL = ReadObject(
-            a => a?.ID == orderItem.ID
+            a => a?.OrderItemID == orderItem.OrderItemID
                             );
-        if (isNULL?.ID != -1) // if the ID exist delete the details else throw an Error
+        if (isNULL?.OrderItemID != -1) // if the ID exist delete the details else throw an Error
         {
             DataSource.listOrderItem.Remove(orderItem);
         }
@@ -91,7 +91,7 @@ public class DalOrderItem : IOrderItem
 
         return new()
         {
-            ID = -1,
+            OrderItemID = -1,
             ProductID = -1,
             OrderID = -1,
             Price = null,

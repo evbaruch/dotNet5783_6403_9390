@@ -6,7 +6,7 @@ namespace DO;
 public struct Order
 {
     Random random = new Random();
-    public int ID { set; get; }
+    public int OrderID { set; get; }
     public string? CustomerName { set; get; }
     public string? CustomerEmail { set; get; }
     public string? CstomerAddress { set; get; }
@@ -16,7 +16,7 @@ public struct Order
     
     public Order(Order order)
     {
-        ID = order.ID;
+        OrderID = order.OrderID;
         CustomerName = order.CustomerName;
         CustomerEmail = order.CustomerEmail;
         CstomerAddress = order.CstomerAddress; 
@@ -28,7 +28,7 @@ public struct Order
     public Order(int id, string customerName, string customerEmail, string customerAddress)
     {
 
-        this.ID = id;
+        this.OrderID = id;
         this.CustomerName = customerName;
         this.CustomerEmail = customerEmail;
         this.CstomerAddress = customerEmail;
@@ -37,7 +37,7 @@ public struct Order
         this.DeliveryDate = this.ShipDate + new TimeSpan(random.Next(0, 7), random.Next(0, 59), random.Next(0, 59), random.Next(0, 59)); // random time from the ship time
     }
     public override string ToString() => $@"
-    ID:              {ID}
+    ID:              {OrderID}
     CustomerName:    {CustomerName} 
     CustomerEmail:   {CustomerEmail} 
     CstomerAddress:  {CstomerAddress}

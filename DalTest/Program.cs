@@ -1,6 +1,7 @@
 ﻿using DO;
 using DalApi;
 using static DO.Enums;
+using DalTest;
 
 namespace Dal;
 
@@ -32,7 +33,7 @@ partial class Program
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
-                tempOrder.ID = ID;
+                tempOrder.OrderID = ID;
                 Console.WriteLine(access.order.Read(tempOrder));
                 break;
 
@@ -49,7 +50,7 @@ partial class Program
             case 'd':
                 Console.WriteLine("please enter the ID of the object you want to update");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                tempOrder.ID = ID;
+                tempOrder.OrderID = ID;
                 Console.WriteLine(access.order.Read(tempOrder));
                 Console.WriteLine("please enter your updated name, Email and Address");
                 tempOrder.CustomerName = Console.ReadLine();
@@ -62,7 +63,7 @@ partial class Program
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                tempOrder.ID = ID;
+                tempOrder.OrderID = ID;
                 access.order.Delete(tempOrder);
                 break;
             default:
@@ -97,7 +98,7 @@ partial class Program
             case 'b':
                 Console.WriteLine("please enter the ID you want to display");
                 isRead = int.TryParse(Console.ReadLine(), out int ID);
-                tempOrderItem.ID = ID;
+                tempOrderItem.OrderItemID = ID;
                 Console.WriteLine(access.orderItem.Read(tempOrderItem));
                 break;
 
@@ -114,7 +115,7 @@ partial class Program
             case 'd':
                 Console.WriteLine("please enter the ID of the object you want to updat");
                 int.TryParse(Console.ReadLine(), out ID);
-                tempOrderItem.ID = ID;
+                tempOrderItem.OrderItemID = ID;
                 Console.WriteLine(access.orderItem.Read(tempOrderItem));
                 Console.WriteLine("please enter (ProductID,OrderID,Price,Amount)");
                 tempOrderItem.ProductID  = Console.Read();
@@ -128,7 +129,7 @@ partial class Program
             case 'e':
                 Console.WriteLine("please enter the ID of the object you want to delete");
                 isRead = int.TryParse(Console.ReadLine(), out ID);
-                tempOrderItem.ID = ID;
+                tempOrderItem.OrderItemID = ID;
                 access.orderItem.Delete(tempOrderItem);
                 break;
 
@@ -243,6 +244,18 @@ partial class Program
                         break;
                     case "3":
                         optionProduct();
+                        break;
+                    case "4":
+                        DalApi.IDal? access = DalApi.Factory.Get();
+
+                        XmlTools.SaveListToXMLSerializer(access.product.ReadAll().ToList(), "Product");
+                        XmlTools.SaveListToXMLSerializer(access.order.ReadAll().ToList(), "Order");
+                        XmlTools.SaveListToXMLSerializer(access.orderItem.ReadAll().ToList(), "OrderItem");
+
+                        int lastOrderItemID = access.orderItem.ReadAll().Last()?.OrderItemID ?? 0;
+                        int lastOrderID = access.order.ReadAll().Last()?.OrderID ?? 0;
+                        XmlTools.SaveConfigXElement("OrderID", lastOrderID);
+                        XmlTools.SaveConfigXElement("OrderItemID", lastOrderItemID);
                         break;
                     default:
                         Console.WriteLine("wrong input");

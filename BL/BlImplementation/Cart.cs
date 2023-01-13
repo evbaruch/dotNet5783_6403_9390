@@ -40,7 +40,7 @@ internal class Cart : ICart
             // Create a new OrderItem with the specified ProductID and price
             BO.OrderItem orderItem = new BO.OrderItem
             {
-                ID = dal.orderItem.ReadAll().Max(i => i.Value.ID) + 1,
+                ID = dal.orderItem.ReadAll().Max(i => i.Value.OrderItemID) + 1,
                 Name = DO_product?.Name,
                 Price = DO_product?.Price,
                 Amount = 1,
@@ -126,7 +126,7 @@ internal class Cart : ICart
         //We will create a new order
         DO.Order newOrder = new DO.Order()
         {
-            ID = dal.order.ReadAll().Max(i => i.Value.ID) + 1,
+            OrderID = dal.order.ReadAll().Max(i => i.Value.OrderID) + 1,
             CustomerName = cart.CustomerName,
             CustomerEmail = cart.CustomerEmail,
             CstomerAddress = cart.CustomerAddress,
@@ -151,7 +151,7 @@ internal class Cart : ICart
 
             DO.OrderItem newOrderItem = new DO.OrderItem()
             {
-                ID = (int)orderItem?.ID,
+                OrderItemID = (int)orderItem?.ID,
                 ProductID = (int)orderItem?.ProductID,
                 OrderID = orderID,
                 Price = orderItem.Price,
@@ -160,6 +160,6 @@ internal class Cart : ICart
             dal.orderItem.Create(newOrderItem);
         }
 
-        return dal.order.ReadAll().Max(i => i.Value.ID);
+        return dal.order.ReadAll().Max(i => i.Value.OrderID);
     }
 }

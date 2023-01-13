@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace DalTest;
-
+namespace Dal;
+using DO;
 static class XmlTools
 {
-    static string? s_dir = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName + @"\xml\";
+    static string? s_dir = Directory.GetParent(System.IO.Directory.GetCurrentDirectory())?.FullName + @"\xml\";
     static XmlTools()
     {
         if (!Directory.Exists(s_dir))
@@ -19,16 +19,16 @@ static class XmlTools
 
     #region Extension Fuctions
     public static T? ToEnumNullable<T>(this XElement element, string name) where T : struct, Enum =>
-        Enum.TryParse<T>((string?)element.Element(name), out var result) ? result : null;
+        Enum.TryParse<T>((string?)element.Element(name), out var result) ? (T?)result : null;
 
     public static DateTime? ToDateTimeNullable(this XElement element, string name) =>
-        DateTime.TryParse((string?)element.Element(name), out var result) ? result : null;
+        DateTime.TryParse((string?)element.Element(name), out var result) ? (DateTime?)result : null;
 
     public static double? ToDoubleNullable(this XElement element, string name) =>
-        double.TryParse((string?)element.Element(name), out var result) ? result : null;
+        double.TryParse((string?)element.Element(name), out var result) ? (double?)result : null;
 
     public static int? ToIntNullable(this XElement element, string name) =>
-        int.TryParse((string?)element.Element(name), out var result) ? result : null;
+        int.TryParse((string?)element.Element(name), out var result) ? (int?)result : null;
     #endregion
 
     #region SaveLoadWithXElement
@@ -104,7 +104,6 @@ static class XmlTools
             throw new Exception($"fail to load xml file: {filePath}", ex);
         }
     }
-
     public static void SaveConfigXElement(string entity, int serial)
     {
         string filePath = $"{s_dir}Config.xml";
@@ -119,7 +118,18 @@ static class XmlTools
             throw new Exception($"fail to load xml file: {filePath}", ex);
         }
     }
-    #endregion
+
+    public static DO.Product ConvertProduct_Xml_to_D0(this XElement xElem)
+    {
+        return new DO.Product
+        {
+            ID = int.Parse(xElem.Element("ID")!.Value),
+            Name = xElem.Element("Name")!.Value,
+            Category = (Enums.productsCategory?)Enum.Parse(typeof(DO.Enums.productsCategory), xElem.Element("Category")!.Value),
+            InStoke = int.Parse(xElem.Element("InStock")!.Value),
+            Price = double.Parse(xElem.Element("Price")!.Value)
+        };
+    }
 
     public static XElement LoadConfig()
     {
@@ -133,7 +143,6 @@ static class XmlTools
         {
             throw new Exception($"fail to load xml file: {filePath}", ex);
         }
+        #endregion
     }
-
 }
-

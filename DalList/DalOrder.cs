@@ -8,16 +8,16 @@ public class DalOrder : IOrder
 {
     public int Create(Order order)
     {      
-        order.ID = DataSource.Config.get_ID_Order;
+        order.OrderID = DataSource.Config.get_ID_Order;
         DataSource.listOrder.Add(order);
-        return order.ID;
+        return order.OrderID;
     }
     public Order Read(Order order)
     {
         Order? isNULL = ReadObject(
-            a => a?.ID == order.ID
+            a => a?.OrderID == order.OrderID
                             );
-        if (isNULL?.ID != -1) // if the ID exist return the details else throw an Error
+        if (isNULL?.OrderID != -1) // if the ID exist return the details else throw an Error
         {
 
             return (Order)isNULL;
@@ -31,7 +31,7 @@ public class DalOrder : IOrder
     public void Update(Order order)
     {
         Order? isNULL = ReadObject(
-            a => a?.ID == order.ID
+            a => a?.OrderID == order.OrderID
                             );
         int I = DataSource.listOrder.IndexOf(isNULL);//DataSource.searchOrder(order.ID);
         if (I != -1) // if the ID exist update the details else throw an Error
@@ -46,9 +46,9 @@ public class DalOrder : IOrder
     public void Delete(Order order)
     {
        Order? isNULL=  ReadObject(
-            a => a?.ID == order.ID
+            a => a?.OrderID == order.OrderID
                             );
-        if ( isNULL?.ID != -1) // if the ID exist delete the details else throw an Error
+        if ( isNULL?.OrderID != -1) // if the ID exist delete the details else throw an Error
         {
                 DataSource.listOrder.Remove(isNULL);
         }
@@ -95,7 +95,7 @@ public class DalOrder : IOrder
 
         return new()
         {
-            ID = -1,
+            OrderID = -1,
             CstomerAddress = null,
             CustomerEmail = null,
             CustomerName = null,

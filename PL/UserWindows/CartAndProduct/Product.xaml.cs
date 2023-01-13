@@ -21,6 +21,7 @@ namespace PL.UserWindows.CartAndProduct
         BO.Cart dataCart = new BO.Cart();
         BO.ProductItem dataProductItem = new BO.ProductItem();
         NewOrder dataNewOrder = new NewOrder();
+
         public Product(ProductItem? ProductContent, BO.Cart cart,NewOrder newOrder, bool IsUptdat)
         {
            InitializeComponent();

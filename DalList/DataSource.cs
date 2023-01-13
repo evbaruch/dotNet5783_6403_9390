@@ -47,7 +47,7 @@ internal static class DataSource
         //It randomly updates order data other than user data
 
         Order order = new Order();
-        order.ID = Config.get_ID_Order;
+        order.OrderID = Config.get_ID_Order;
         order.CustomerName = CustomerName;
         order.CustomerEmail = CustomerEmail;
         order.CstomerAddress = CstomerAddress;
@@ -92,7 +92,7 @@ internal static class DataSource
         //This constructor depends on both user and order data
 
         OrderItem orderItem = new OrderItem();
-        orderItem.ID = Config.get_ID_OrderItem;
+        orderItem.OrderItemID = Config.get_ID_OrderItem;
         orderItem.ProductID = ProductID;
         orderItem.OrderID = OrderID;
         orderItem.Price = Price;
@@ -163,7 +163,7 @@ internal static class DataSource
                 int ProductID = (int)listProduct[Index]?.ID;
                 double Price = (double)listProduct[Index]?.Price;
 
-                int OrderID = (int)listOrder[i]?.ID;
+                int OrderID = (int)listOrder[i]?.OrderID;
 
                 listOrderItem.Add(addOrderItem(ProductID, OrderID, Price));
             }
@@ -172,7 +172,7 @@ internal static class DataSource
         .GroupBy(oi => new { oi?.ProductID, oi?.OrderID })
         .Select(g => new OrderItem
         {
-            ID = (int)(g.First()?.ID),
+            OrderItemID = (int)(g.First()?.OrderItemID),
             ProductID = (int)g.Key.ProductID,
             OrderID = (int)g.Key.OrderID,
             Price = g.First()?.Price,
