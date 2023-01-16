@@ -90,7 +90,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (1).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\brain.jpeg"/>
                     </Grid.Background>
                 </Grid>
 

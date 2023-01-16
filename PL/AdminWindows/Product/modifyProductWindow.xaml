@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="modifyProductWindow" Height="640" Width="800" x:Name="MyWindow">
     <Grid>
         <Grid.Background>
@@ -55,7 +56,7 @@
                 Grid.Column="1"
                 Margin="2,2,2,2"
                 x:Name="HeadLine"
-                Text="New product"
+                Text="{Binding Status[4]}"
                 Height="30"
                 FontSize="20"
                 Width="150"
@@ -100,7 +101,7 @@
                 Grid.Column="1"
                 Grid.Row="0"
                 x:Name="IDTextBox"
-                Text = "{Binding Path = ProductObservableCollection[0].ID ,ElementName =MyWindow}"
+                Text = "{Binding Insert.ID ,ElementName =MyWindow , Mode=TwoWay}"
                 Width="auto"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -126,7 +127,7 @@
                 Grid.Column="1"
                 Grid.Row="1"
                 Width="auto"
-                Text ="{Binding Path = ProductObservableCollection[0].Name ,ElementName =MyWindow}"
+                Text = "{Binding Insert.Name ,ElementName =MyWindow , Mode=TwoWay}"
                 x:Name="Name"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -153,7 +154,7 @@
                 Grid.Column="1"
                 Grid.Row="2"
                 Width="auto"
-                Text ="{Binding Path = ProductObservableCollection[0].Price ,ElementName =MyWindow}"
+                Text = "{Binding Insert.Price ,ElementName =MyWindow , Mode=TwoWay}"
                 x:Name="Price"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -168,7 +169,7 @@
 
                 <ComboBox
                 x:Name="CategoriesSelector"
-                SelectedItem ="{Binding Path = ProductObservableCollection[0].Category ,ElementName =MyWindow}"
+                SelectedItem ="{Binding Insert.Category ,ElementName =MyWindow , Mode=TwoWay}"
                 ItemsSource="{Binding Path = categories ,ElementName =MyWindow}"
                 Grid.Column="1"
                 Grid.Row="3"
@@ -205,7 +206,7 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Width="auto"
-                Text ="{Binding Path = ProductObservableCollection[0].InStock ,ElementName =MyWindow}"
+                Text = "{Binding Insert.InStock ,ElementName =MyWindow , Mode=TwoWay}"
                 x:Name="inStock"
                 FontSize="15"
                 Margin="150,0,30,0"
@@ -235,6 +236,8 @@
                 <Button
                 Content="Add"
                 x:Name="AddProduct"
+                IsEnabled="{Binding Status[0]}"
+                Visibility="{Binding Status[2]}"
                 FontSize="20"
                 Width="100"
                 Grid.Column="1"
@@ -254,6 +257,8 @@
                 <Button
                 Content="Update"
                 x:Name="updateProduct"
+                IsEnabled="{Binding Status[1]}"
+                Visibility="{Binding Status[3]}"
                 FontSize="20"
                 Width="100"
                 Grid.Column="1"

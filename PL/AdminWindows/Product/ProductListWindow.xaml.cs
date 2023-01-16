@@ -59,12 +59,14 @@ namespace PL.AdminWindows
 
         BlApi.IBl? bl = BlApi.Factory.Get();
 
+        private ObservableCollection<ProductForList> AllProduct;
+
         public ProductListWindow()
         {
             var productForLists = bl.Product.Products();
             ProductForObservableCollection = new ObservableCollection<BO.ProductForList>(productForLists);
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
-
+            AllProduct = ProductForObservableCollection;
             //CategoriesSelector.Items.Add("All");
             //for (int i = 0; i<5; i++)
             //{
@@ -81,14 +83,30 @@ namespace PL.AdminWindows
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             BlApi.IBl? bl = BlApi.Factory.Get();
-            if (CategoriesSelector.SelectedItem.ToString() == "All")
+
+            var categories = sender as ComboBox;
+            if (categories.SelectedItem.ToString() == "All")
             {
-                ProductListview.ItemsSource = bl.Product.Products();
+                ProductForObservableCollection =  AllProduct;
             }
             else
             {
-                ProductListview.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString()); // the way we get only the specific category
+                //a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString()
+                string selectedCategory = categories.SelectedItem.ToString();
+                var filteredProducts = AllProduct.Where(x => x.Category.ToString() == selectedCategory);
+                ProductForObservableCollection = new ObservableCollection<ProductForList>(filteredProducts);
+
             }
+
+            //var categoriesSelector = sender as ComboBox;
+            //if (categoriesSelector.SelectedItem.ToString() == "All")
+            //{
+            //     ProductListView.ItemsSource = bl.Product.Products();
+            //}
+            //else
+            //{
+            //    ProductListView.ItemsSource = bl.Product.Products(a => a?.Category.ToString() == categoriesSelector.SelectedItem.ToString()); // the way we get only the specific category
+            //}
         }
 
         private void addProduct_Click(object sender, RoutedEventArgs e)
@@ -99,9 +117,9 @@ namespace PL.AdminWindows
 
         private void updateProduct_Click(object sender, MouseButtonEventArgs e)
         {
-            if ((BO.ProductForList)ProductListview.SelectedItem != null)
+            if ((BO.ProductForList)((sender as ListView).SelectedItem) != null)
             {
-                var product = (BO.ProductForList)ProductListview.SelectedItem;
+                var product = (BO.ProductForList)((sender as ListView).SelectedItem);
                 new modifyProductWindow(product).Show();
                 this.Close();
             }

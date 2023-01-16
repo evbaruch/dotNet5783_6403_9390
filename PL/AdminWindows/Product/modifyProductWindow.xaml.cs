@@ -42,31 +42,59 @@ namespace PL.AdminWindows
             }
         }
 
+        
+
+        public static readonly DependencyProperty MyPropertyProperty =
+        DependencyProperty.Register("Insert", typeof(BO.Product), typeof(modifyProductWindow));
+
+        public BO.Product Insert
+        {
+            get { return (BO.Product)GetValue(MyPropertyProperty); }
+            set { SetValue(MyPropertyProperty, value); }
+        }
+
+        private ObservableCollection<string> _Status;
+        public ObservableCollection<string> Status
+        {
+            get { return _Status; }
+            set
+            {
+                _Status = value;
+                OnPropertyChanged(nameof(Status));
+            }
+        }
+
         public IEnumerable<BO.Enums.productsCategory> categories { get; set; }
  
         BlApi.IBl? bl = BlApi.Factory.Get();
 
         public modifyProductWindow()
         {
+            Status = new ObservableCollection<string>(new() { "true", "false", "Visible" , "Hidden" , "New product" });
             categories =  (IEnumerable<BO.Enums.productsCategory>?)Enum.GetValues(typeof(BO.Enums.productsCategory));
             // CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
+            Insert = new BO.Product();
             InitializeComponent();
-            updateProduct.IsEnabled = false;
-            updateProduct.Visibility = Visibility.Hidden;
+            
+            //updateProduct.IsEnabled = false;
+            //updateProduct.Visibility = Visibility.Hidden;
         }
 
         public modifyProductWindow(BO.ProductForList product) // update mode
         {
+            
+            Status = new ObservableCollection<string>(new() { "false", "true", "Hidden" , "Visible" , "Updete product" });
             ProductObservableCollection = new ObservableCollection<BO.Product> { bl.Product.ProductDetails(product.ID) };
+            Insert = bl.Product.ProductDetails(product.ID);
             categories =  (IEnumerable<BO.Enums.productsCategory>?)Enum.GetValues(typeof(BO.Enums.productsCategory));
             InitializeComponent();
 
-            HeadLine.Text = "Updete product"; // defining to match the purpose in this run
+            /*HeadLine.Text = "Updete product"; */// defining to match the purpose in this run
 
-            this.DataContext = product;
+            //this.DataContext = product;
 
-            AddProduct.IsEnabled = false; // disable the unnecessary butten and hide it
-            AddProduct.Visibility = Visibility.Hidden;
+            //AddProduct.IsEnabled = false; // disable the unnecessary butten and hide it
+            //AddProduct.Visibility = Visibility.Hidden;
 
             //CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
         }
@@ -78,29 +106,30 @@ namespace PL.AdminWindows
               // notice: we had make some improvment about the ID , the ID can be entered by the manager or be determined automatically
               // in case the manager is entering a too short or too long ID the system will notify him and offer to determine it automatically
               // in evry case of exeption the system notify the manager and give him a chance to fix the exeption by changing the input
-                if ((Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == "")) // making sure the text box isn't empty 
+            
+                if ((Insert.Name == "") || (Insert.Price.ToString() == "") || (Insert.Category.ToString() == "") || (Insert.InStock.ToString()== "")) // making sure the text box isn't empty 
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
                 else
                 {
-                    if (IDTextBox.Text == "")
+                    if (Insert.ID.ToString() == "")
                     {
-                        IDTextBox.Text = "0";
+                        Insert.ID = 0;
                     }
-                    else if (int.Parse(IDTextBox.Text) < 100000 || int.Parse(IDTextBox.Text) > 999999)// making sure the ID is in the right lenght
+                    else if (Insert.ID < 100000 || Insert.ID > 999999)// making sure the ID is in the right lenght
                     {
                         if (MessageBox.Show("The ID you entered isn't valid ,would you like to get an automatic ID?", "invalid ID", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
                         {
-                            IDTextBox.Text = "0";
+                            Insert.ID = 0;
                         }
                         else
                         {
                             return;
                         }
                     }
-                    BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
-                    bl.Product.AddProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
+                    
+                    bl.Product.AddProduct(new() { ID= Insert.ID, Name = Insert.Name, Price = Insert.Price, Category = Insert.Category, InStock = Insert.InStock });
                     new ProductListWindow().Show();
                     this.Close();
                 }
@@ -123,12 +152,12 @@ namespace PL.AdminWindows
         {
             try
             {
-                if ((IDTextBox.Text == "") || (Name.Text == "") || (Price.Text == "") || (CategoriesSelector.Text == "") || (inStock.Text == "")) // making sure the text box isn't empty 
+                if ((Insert.Name == "") || (Insert.Price.ToString() == "") || (Insert.Category.ToString() == "") || (Insert.InStock.ToString()== "") || Insert.ID.ToString() == "") // making sure the text box isn't empty 
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
-                BO.Enums.productsCategory.TryParse(CategoriesSelector.Text, out BO.Enums.productsCategory Categor);
-                bl.Product.UpdateProduct(new() { ID= int.Parse(IDTextBox.Text), Name = Name.Text, Price = int.Parse(Price.Text), Category = Categor, InStock = int.Parse(inStock.Text) });
+                
+                bl.Product.UpdateProduct(new() { ID= Insert.ID, Name = Insert.Name, Price = Insert.Price, Category = Insert.Category, InStock = Insert.InStock });
                 new ProductListWindow().Show();
                 this.Close();
             }

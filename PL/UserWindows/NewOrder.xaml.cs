@@ -205,14 +205,15 @@ namespace PL.UserWindows
 
         private void CategoriesSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (CategoriesSelector.SelectedItem.ToString() == "All")
+            var categories = sender as ComboBox;
+            if (categories.SelectedItem.ToString() == "All")
             {
                 productItemForObservableCollection = _DataProductItemForObservableCollection;
             }
             else
             {
                 //a => a?.Category.ToString() == CategoriesSelector.SelectedItem.ToString()
-                string selectedCategory = CategoriesSelector.SelectedItem.ToString();
+                string selectedCategory = categories.SelectedItem.ToString();
                 var filteredProducts = _DataProductItemForObservableCollection.Where(x => x.Category.ToString() == selectedCategory);
                 productItemForObservableCollection = new ObservableCollection<ProductItem>(filteredProducts);
 
