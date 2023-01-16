@@ -163,7 +163,7 @@ partial class Program
                 tempProduct.Price = Console.Read();
                 productsCategory.TryParse(Console.ReadLine(), out category);
                 tempProduct.Category = category;
-                tempProduct.InStoke = Console.Read();
+                tempProduct.InStock = Console.Read();
                 access.product.Create(tempProduct);
                 break;
 
@@ -195,7 +195,7 @@ partial class Program
                 tempProduct.Price = Console.Read();
                 productsCategory.TryParse(Console.ReadLine(), out category);
                 tempProduct.Category = category;
-                tempProduct.InStoke = Console.Read();
+                tempProduct.InStock = Console.Read();
                 access.product.Update(tempProduct);
                 break;
 

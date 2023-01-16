@@ -126,7 +126,7 @@ static class XmlTools
             ID = int.Parse(xElem.Element("ID")!.Value),
             Name = xElem.Element("Name")!.Value,
             Category = (Enums.productsCategory?)Enum.Parse(typeof(DO.Enums.productsCategory), xElem.Element("Category")!.Value),
-            InStoke = int.Parse(xElem.Element("InStock")!.Value),
+            InStock = int.Parse(xElem.Element("InStock")!.Value),
             Price = double.Parse(xElem.Element("Price")!.Value)
         };
     }

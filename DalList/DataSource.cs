@@ -123,7 +123,7 @@ internal static class DataSource
         _product.Category = eunmVal;
         _product.Name = productsNames[(int)eunmVal,num];
         _product.Price = productsPrice[(int)eunmVal, num];   
-        _product.InStoke = random.Next(2, 12);
+        _product.InStock = random.Next(2, 12);
 
         return _product;
     }
