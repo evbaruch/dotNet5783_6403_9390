@@ -1,1 +1,87 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Product><ID>995469</ID><Name>cancer</Name><Price>1000</Price><Category>healing</Category><InStoke>3</InStoke></Product><Product><ID>675221</ID><Name>brain</Name><Price>800</Price><Category>internalTransformation</Category><InStoke>6</InStoke></Product><Product><ID>459243</ID><Name>boy</Name><Price>2000</Price><Category>modifiedBabies</Category><InStoke>5</InStoke></Product><Product><ID>463145</ID><Name>girl</Name><Price>2000</Price><Category>modifiedBabies</Category><InStoke>5</InStoke></Product><Product><ID>480711</ID><Name>fast healing</Name><Price>750</Price><Category>healing</Category><InStoke>5</InStoke></Product><Product><ID>494480</ID><Name>hermaphrodite</Name><Price>1500</Price><Category>modifiedBabies</Category><InStoke>11</InStoke></Product><Product><ID>559757</ID><Name>inherited illness</Name><Price>900</Price><Category>healing</Category><InStoke>5</InStoke></Product><Product><ID>437976</ID><Name>computer brain</Name><Price>5000</Price><Category>cyberneticTransformation</Category><InStoke>11</InStoke></Product><Product><ID>312419</ID><Name>muscles</Name><Price>250</Price><Category>internalTransformation</Category><InStoke>9</InStoke></Product><Product><ID>368743</ID><Name>satyr</Name><Price>500</Price><Category>externalTransformation</Category><InStoke>2</InStoke></Product><Product><ID>470633</ID><Name>sap</Name><Price>12</Price><Category>internalTransformation</Category><InStoke>12</InStoke></Product><Product><ID>382217</ID><Name>macabi beer</Name><Price>7</Price><Category>healing</Category><InStoke>0</InStoke></Product></ArrayOfProduct>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Product>
+		<ID>995469</ID>
+		<Name>cancer</Name>
+		<Price>1000</Price>
+		<Category>healing</Category>
+		<InStoke>4</InStoke>
+	</Product>
+	<Product>
+		<ID>675221</ID>
+		<Name>brain</Name>
+		<Price>800</Price>
+		<Category>internalTransformation</Category>
+		<InStoke>1</InStoke>
+	</Product>
+	<Product>
+		<ID>459243</ID>
+		<Name>boy</Name>
+		<Price>2000</Price>
+		<Category>modifiedBabies</Category>
+		<InStoke>3</InStoke>
+	</Product>
+	<Product>
+		<ID>463145</ID>
+		<Name>girl</Name>
+		<Price>2000</Price>
+		<Category>modifiedBabies</Category>
+		<InStoke>5</InStoke>
+	</Product>
+	<Product>
+		<ID>480711</ID>
+		<Name>fast healing</Name>
+		<Price>750</Price>
+		<Category>healing</Category>
+		<InStoke>5</InStoke>
+	</Product>
+	<Product>
+		<ID>494480</ID>
+		<Name>hermaphrodite</Name>
+		<Price>1500</Price>
+		<Category>modifiedBabies</Category>
+		<InStoke>11</InStoke>
+	</Product>
+	<Product>
+		<ID>559757</ID>
+		<Name>inherited illness</Name>
+		<Price>900</Price>
+		<Category>healing</Category>
+		<InStoke>5</InStoke>
+	</Product>
+	<Product>
+		<ID>437976</ID>
+		<Name>computer brain</Name>
+		<Price>5000</Price>
+		<Category>cyberneticTransformation</Category>
+		<InStoke>11</InStoke>
+	</Product>
+	<Product>
+		<ID>312419</ID>
+		<Name>muscles</Name>
+		<Price>250</Price>
+		<Category>internalTransformation</Category>
+		<InStoke>9</InStoke>
+	</Product>
+	<Product>
+		<ID>368743</ID>
+		<Name>satyr</Name>
+		<Price>500</Price>
+		<Category>externalTransformation</Category>
+		<InStoke>0</InStoke>
+	</Product>
+	<Product>
+		<ID>470633</ID>
+		<Name>sap</Name>
+		<Price>12</Price>
+		<Category>internalTransformation</Category>
+		<InStoke>8</InStoke>
+	</Product>
+	<Product>
+		<ID>382217</ID>
+		<Name>Regrowing body parts</Name>
+		<Price>4</Price>
+		<Category>externalTransformation</Category>
+		<InStoke>8</InStoke>
+	</Product>
+</ArrayOfProduct>

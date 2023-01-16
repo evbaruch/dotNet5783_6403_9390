@@ -22,8 +22,7 @@ public class DalProduct : IProduct
                 }
                 while (Read(new() { ID = checkIDProduct }).Name != null);
             }
-                return checkIDProduct;
-            
+            return checkIDProduct;
         }
         catch (IDWhoException)
         {
@@ -32,6 +31,7 @@ public class DalProduct : IProduct
             return (int)product.ID;
         }
     }
+
     public Product Read(Product product)
     {
         Product? isNULL = ReadObject(a => a?.ID == product.ID);
@@ -48,6 +48,7 @@ public class DalProduct : IProduct
         }
 
     }
+
     public void Update(Product product)
     {
         Product? isNULL = ReadObject(
@@ -63,6 +64,7 @@ public class DalProduct : IProduct
             throw new IDWhoException("object doesn't exist - Update");
         }
     }
+
     public void Delete(Product product)
     {
         Product? isNULL = ReadObject(
@@ -78,6 +80,7 @@ public class DalProduct : IProduct
             throw new IndexOutOfRangeException("Delete range Error");
         }
     }
+
     public IEnumerable<Product?> ReadAll(Func<Product?, bool>? func)
     {
         //List<Product?> finalResult = new List<Product?>();

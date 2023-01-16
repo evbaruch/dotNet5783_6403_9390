@@ -19,6 +19,7 @@ internal class DalOrder : IOrder
         List<DO.Order?> listOrder = XmlTools.LoadListFromXMLSerializer<DO.Order>(orderPath);
 
         order.OrderID = int.Parse(config.Element("OrderID")!.Value) + 1;
+        XmlTools.SaveConfigXElement("OrderID", order.OrderID);
         listOrder.Add(order);
         XmlTools.SaveListToXMLSerializer(listOrder, orderPath);
         return order.OrderID;

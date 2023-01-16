@@ -27,8 +27,8 @@
     <None Remove="background\main window\mainWindow7.jpeg" />
     <None Remove="background\main window\mainWindow8.jpeg" />
     <None Remove="background\products\angel.jpeg" />
+    <None Remove="background\products\brain.jpeg" />
     <None Remove="background\products\centaur.jpeg" />
-    <None Remove="background\products\product %281%29.jpeg" />
     <None Remove="background\products\product %2810%29.jpeg" />
     <None Remove="background\products\product %2811%29.jpeg" />
     <None Remove="background\products\product %2812%29.jpeg" />
@@ -62,7 +62,7 @@
     <Resource Include="background\main window\mainWindow7.jpeg" />
     <Resource Include="background\main window\mainWindow8.jpeg" />
     <Resource Include="background\products\angel.jpeg" />
-    <Resource Include="background\products\product (1).jpeg" />
+    <Resource Include="background\products\brain.jpeg" />
     <Resource Include="background\products\product (10).jpeg" />
     <Resource Include="background\products\product (11).jpeg" />
     <Resource Include="background\products\product (12).jpeg" />
