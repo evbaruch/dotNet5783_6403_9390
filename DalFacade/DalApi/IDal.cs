@@ -14,4 +14,6 @@ public interface IDal
    IOrderItem orderItem { get;}
 
    IProduct product { get;}
+
+   IUser user { get; }
 }

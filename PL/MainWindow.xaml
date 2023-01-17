@@ -16,14 +16,34 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="350*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        
+        <Button 
+            Content="Sign in"  
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Height="auto"
+            Width="130"
+            Click="Sign_in"
+            FontWeight="Bold" 
+            Margin="0,5,650,5"
+                >
+            <Button.Resources>
+                <Style 
+                    TargetType="Border">
+                    <Setter 
+                        Property="CornerRadius"
+                        Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
         <Grid
             Name="UpGrid"
             Height="auto"

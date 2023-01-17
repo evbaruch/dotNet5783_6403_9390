@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DO;
+using static BO.Enums;
 
-public struct User
+namespace BO;
+public class User
 {
     public string? UserName { set; get; }
     public string? Address { get; set; }
     public string? Email { get; set; }
     public string? Password { set; get; }
     public bool? IsAdmin { set; get; }
+    public Cart? currentCart { set; get; }
     public List<Order>? listOfOrder { set; get; }
+
+    public override string ToString() => $@"
+    Name:      {UserName} 
+    Address:   {Address} 
+    Email:     {Email}
+    IsAdmin:   {IsAdmin}
+    Past orders:   \n {listOfOrder}
+    ";
 }

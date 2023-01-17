@@ -13,6 +13,7 @@ internal static class DataSource
     internal static List<Order?> listOrder = new List<Order?>();
     internal static List<OrderItem?> listOrderItem = new List<OrderItem?>();
     internal static List<Product?> listProduct = new List<Product?>();
+    internal static List<User?> listUser = new List<User?>();
 
     //Name data and price data
     internal static string[,] productsNames = new string[5, 3] { {"angel","centaur","satyr" },
@@ -87,6 +88,7 @@ internal static class DataSource
         }
         return false;
     }
+
     private static OrderItem addOrderItem(int ProductID, int OrderID, double Price)
     {
         //This constructor depends on both user and order data
@@ -99,6 +101,19 @@ internal static class DataSource
         orderItem.Amount = 1;
         return orderItem;
     }
+
+    private static User addUser(string userName, string address, string email , string passward , bool isAdmin)
+    {
+        User user = new User();
+        user.UserName = userName ;
+        user.Address = address;
+        user.Email = email;
+        user.Password = passward;
+        user.IsAdmin = isAdmin;
+        user.listOfOrder = new List<Order>();
+        return user;
+    }
+
     internal static bool addProduct(Product a)
     {
         //We will check here that we have space left in the dataset
@@ -136,6 +151,9 @@ internal static class DataSource
         string[] CustomerName = new string[] { "yehuda", "Batman", "Evyatar", "Rabin", "Shmuel", "Kaplan", "sapphire", "bshan", "harry", "potter" };
         string[] CustomerEmail = new string[] { "yehuda@gmail.com", "Batman@gmail.com", "Evyatar@gmail.com", "Rabin@gmail.com", "Shmuel@gmail.com", "Kaplan@gmail.com", "sapphire@gmail.com", "bshan@gmail.com", "harry@gmail.com", "potter@gmail.com" };
         string[] CustomerAddress = new string[] { "Jerusalem", "Paris", "Tsfat", "Tel aviv", "Barcelona", "Vina", "Hugurts", "Tberia", "london", "no were street 26 secund floor" };
+
+        //User
+        listUser.Add(addUser("evyatar&yehuda","machon lev","minip@g.jct.ac.il","12345",true));
 
         //Order
         for (int i = 0; i < 20; i++)

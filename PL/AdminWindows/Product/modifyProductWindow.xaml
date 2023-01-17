@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="modifyProductWindow" Height="640" Width="800" x:Name="MyWindow">
+    <Window.Background>
+        <ImageBrush/>
+    </Window.Background>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

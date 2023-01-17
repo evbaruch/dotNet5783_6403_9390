@@ -1,6 +1,7 @@
 ﻿using MaterialDesignThemes.Wpf;
 using PL.AdminWindows;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,6 +12,8 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        BlApi.IBl? bl = BlApi.Factory.Get();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -18,28 +21,42 @@ namespace PL
 
         private void AdminMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            InputPopUP inputPopUP = new InputPopUP();
-            inputPopUP.Show("User name:", "Pin:","log in");
-            if (inputPopUP.SeconedInput == "12345")
+            try
             {
-                
-                var MainAdminWindow = new MainAdminWindow();
-                MainAdminWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-                MainAdminWindow.Left = this.Left;
-                MainAdminWindow.Top = this.Top;
-                MainAdminWindow.Show();
-                this.Close();
+                InputPopUP inputPopUP = new InputPopUP();
+                inputPopUP.Show("User name:", "Pin:", "log in");
+                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
+                {
+                    if (inputPopUP.SeconedInput == bl.User.UserDetails(inputPopUP.FirstInput).Password.ToString() && bl.User.UserDetails(inputPopUP.FirstInput).IsAdmin == true)
+                    {
 
-                //new MainAdminWindow().Show();
-                //this.Close();
-            }
-            else if(inputPopUP.SeconedInput == null)
-            {
+                        var MainAdminWindow = new MainAdminWindow();
+                        MainAdminWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                        MainAdminWindow.Left = this.Left;
+                        MainAdminWindow.Top = this.Top;
+                        MainAdminWindow.Show();
+                        this.Close();
 
+                        //new MainAdminWindow().Show();
+                        //this.Close();
+                    }
+                    else 
+                    {
+                        MessageBox.Show("you are not a god ,you may apply a request to become a god", "peasent!!!!", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+                    }
+                }
             }
-            else 
+            catch (BO.DataNotFoundException)
             {
-                MessageBox.Show("the User name or the pin is not correct", "Error", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+                MessageBox.Show("The data you have enter is not found, please try again", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+            }
+            catch (BO.IncorrectDataException)
+            {
+                MessageBox.Show("The details you entered are not correct", "Uncorrect details error", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("An error has occurred", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
             }
         }
 
@@ -121,7 +138,7 @@ namespace PL
             {
                 InputPopUP inputPopUP = new InputPopUP();
                 inputPopUP.Show("User name:", "Order ID:", "search");
-                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "")
+                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
                 {
                     new PL.OrderTracking.OrderTracker(int.Parse(inputPopUP.SeconedInput)).Show();
                     this.Close();
@@ -141,6 +158,12 @@ namespace PL
 
             }
 
+        }
+
+        private void Sign_in(object sender, RoutedEventArgs e)
+        {
+            UserWindows.SignIN signIN = new UserWindows.SignIN();
+            signIN.ShowDialog();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BlApi;
+using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,4 +15,6 @@ sealed internal class Bl : IBl
     public IOrder Order => new Order();
 
     public IProduct Product => new Product();
+
+    public IUser User => new User();
 }

@@ -251,6 +251,7 @@ partial class Program
                         XmlTools.SaveListToXMLSerializer(access.product.ReadAll().ToList(), "Product");
                         XmlTools.SaveListToXMLSerializer(access.order.ReadAll().ToList(), "Order");
                         XmlTools.SaveListToXMLSerializer(access.orderItem.ReadAll().ToList(), "OrderItem");
+                        XmlTools.SaveListToXMLSerializer(access.user.ReadAll().ToList(), "User");
 
                         int lastOrderItemID = access.orderItem.ReadAll().Last()?.OrderItemID ?? 0;
                         int lastOrderID = access.order.ReadAll().Last()?.OrderID ?? 0;
