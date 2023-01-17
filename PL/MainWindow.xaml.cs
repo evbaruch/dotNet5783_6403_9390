@@ -165,5 +165,15 @@ namespace PL
             UserWindows.SignIN signIN = new UserWindows.SignIN();
             signIN.ShowDialog();
         }
+
+        private void Simulator(object sender, RoutedEventArgs e)
+        {
+            new PL.Simulator().Show();
+        }
+
+        private void LogIN(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
