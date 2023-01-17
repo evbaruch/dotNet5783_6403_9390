@@ -172,7 +172,7 @@ internal class Cart : ICart
         foreach (var orderItem in cart.listOfOrderItem)//I didn't change it to LINQ because it didn't make sense
         {
             DO.Product? product = products.FirstOrDefault(item => item?.ID == orderItem.ProductID);
-            if (product?.InStoke < orderItem.Amount)
+            if (product?.InStock < orderItem.Amount)
             {
                 missingProducts += orderItem.Name + ": ";
             }
