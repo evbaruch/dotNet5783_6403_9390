@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Simulator" Height="450" Width="600">
+        Title="Simulator" Height="450" Width="600" Closing="Window_Closing">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,7 +13,35 @@
                 <GradientStop Color="#FF82E7EF" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+
+        <Button 
+            Content="{Binding Status}"  
+            Grid.Row="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Height="auto"
+            Width="130"
+            Margin="5,5,450,5"
+            Click="Close"
+            FontWeight="Bold" 
+            >
+            <Button.Resources>
+                <Style 
+                            TargetType="Border">
+                    <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
     </Grid>
 </Window>
