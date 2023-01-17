@@ -37,38 +37,6 @@ internal class Order : IOrder
                         }).ToList();
         OrderForList = OrderForList.OrderBy(x => x.AmountOfItems).ToList();
         
-
-        //foreach (var item in orders) // go over the products and get all the data from DO 
-        //{
-        //    BO.OrderForList temp = new()
-        //    {
-        //        ID =  (int)(item?.ID),
-        //        CustomerName = item?.CustomerName,
-        //    };
-        //    temp.AmountOfItems = 0;
-        //    temp.TotalPrice = 0;
-        //    foreach (var inItem in orderItems) // go over the orderItem and find all the order Item and modify accordingly the amount and total price
-        //    {
-        //        if (inItem?.OrderID == item?.ID)
-        //        {
-        //            temp.AmountOfItems++;
-        //            temp.TotalPrice += inItem?.Price;
-        //        }
-        //    }
-        //    if (dal.order.Read(new() { ID = (int)item?.ID }).ShipDate == null) // if the value of the shiping is not define it's only ordered
-        //    {
-        //        temp.Status = (BO.Enums.OrderStatus.ordered);
-        //    }
-        //    else if (dal.order.Read(new() { ID = (int)(item?.ID) }).ShipDate != null && dal.order.Read(new() { ID = (int)item?.ID }).DeliveryDate == null)
-        //    { // if the value of the shiping is define but the time of the delivery is't it's only shiped
-        //        temp.Status = (BO.Enums.OrderStatus.shiped);
-        //    }
-        //    else // else (both define)
-        //    {
-        //        temp.Status = (BO.Enums.OrderStatus.delivered);
-        //    }
-        //    OrderForList.Add(temp);
-        //}
         return OrderForList;
     }
 
@@ -347,5 +315,37 @@ internal class Order : IOrder
         }
     }
 
-    
+    public int? PriorityOrder(Func<DO.Order?, bool>? filter = null)
+    {
+        DO.Order order = new DO.Order();
+
+        if (filter != null)
+        {
+            order = dal.order.ReadObject(filter);
+        }
+        else
+        {
+            DO.Order? OrderOrderDate = dal.order.ReadAll(x => x?.ShipDate == null ).MinBy(x => x?.OrderDate);
+            DO.Order? OrderShipDate = dal.order.ReadAll(x => x?.DeliveryDate == null).MinBy(x => x?.ShipDate);
+
+            if( OrderOrderDate != null && OrderOrderDate?.OrderDate < OrderShipDate?.ShipDate)
+            {
+
+                //OrderShippingUpdate(OrderOrderDate.Value.OrderID);//
+
+                return OrderOrderDate?.OrderID;
+            }
+            else if(OrderShipDate != null)
+            {
+                //UpdateDeliveryOrder(OrderShipDate.Value.OrderID);//
+
+                return OrderShipDate?.OrderID;
+            }
+
+            return null;
+        }
+
+
+        return order.OrderID;
+    }
 }

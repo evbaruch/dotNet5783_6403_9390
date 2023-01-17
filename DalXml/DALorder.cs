@@ -84,9 +84,10 @@ internal class DalOrder : IOrder
         List<Order?> finalResult = new List<Order?>();
         if (func != null)
         {
-            finalResult = (List<Order?>)(from Order in listOrder
-                                         where func(Order)
-                                         select Order);
+            finalResult = (from Order in listOrder
+                                where func(Order)
+                                select Order).ToList();
+
             //foreach (var item in DataSource.listOrder)
             //{
             //    if (func(item))
