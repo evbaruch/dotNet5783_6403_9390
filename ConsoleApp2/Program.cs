@@ -80,6 +80,7 @@ internal class Program
                 "d - Update Delivery Order\n" +
                 "e - Order Tracking\n" +
                 "f - Order Update\n" +
+                "g - PriorityOrder\n" +
                 "any other letter in order to exit");
             bool isRead = char.TryParse(Console.ReadLine(), out option);
             switch (option)
@@ -125,6 +126,14 @@ internal class Program
                     int.TryParse(Console.ReadLine(), out int toAlter);
                     access.Order.OrderUpdate(orderID, productID, toAlter);
                     //access.Order.OrderUpdate();
+                    break;
+
+                case 'g':
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Console.WriteLine(access.Order.PriorityOrder());
+                    }
+
                     break;
 
                 default:

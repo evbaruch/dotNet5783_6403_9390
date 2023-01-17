@@ -39,4 +39,6 @@ public interface IOrder
     /// </summary>
     /// <param name="id"></param>
     public Order OrderUpdate(int OrderID, int productID, int plus_minus);
+
+    public int? PriorityOrder(Func<DO.Order?, bool>? filter = null);
 }
