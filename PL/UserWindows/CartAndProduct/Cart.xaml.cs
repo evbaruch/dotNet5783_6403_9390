@@ -1,11 +1,13 @@
 ﻿using BO;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 
@@ -48,6 +50,7 @@ namespace PL.UserWindows.CartAndProduct
         BO.Cart dataCart = new BO.Cart();
         NewOrder dataNewOrder = new NewOrder();
         public bool hasBeenSorted = true;
+        IEnumerable<BO.ProductForList> ListOfproductForList;
 
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
@@ -92,8 +95,9 @@ namespace PL.UserWindows.CartAndProduct
                 mainWindow.ShowDialog();
             }
             catch (BO.DataNotFoundException)
-            {
-                MessageBox.Show($"a product is out of stock");
+            {               
+                MessageBox.Show($"There are missing products" +
+                                $"\n" + bl.Cart.MissingProducts(dataCart));
             }           
         }
 
@@ -175,7 +179,7 @@ namespace PL.UserWindows.CartAndProduct
             }
         }
 
-        private void Increase_Click(object sender, RoutedEventArgs e)//יש פה בעיה קשה 
+        private void Increase_Click(object sender, RoutedEventArgs e) 
         {
             Button button = sender as Button;
             int productId = (int)button.Tag;
