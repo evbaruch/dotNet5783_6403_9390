@@ -29,6 +29,7 @@
             >
 
             <Button 
+                IsHitTestVisible ="True"
                 Content="Sign in"  
                 Grid.Row="0"
                 HorizontalAlignment="Center"
@@ -47,8 +48,9 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            
+
             <Button 
+                IsHitTestVisible ="True"
                 Content="Log in"  
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
@@ -68,6 +70,7 @@
             </Button>
 
             <Button 
+                IsHitTestVisible ="True"
                 Content="Simulator"  
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"

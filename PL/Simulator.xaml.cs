@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +23,29 @@ namespace PL
         public Simulator()
         {
             InitializeComponent();
+            
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+            e.Cancel = true;
+        }
+
+        private void WindowSoftClosing(object sender, CancelEventArgs e)
+        {
+            e.Cancel = false;
         }
 
         private void Close(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes);
+            if(MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question,MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
+                this.Closing -= Window_Closing;
+                this.Closing += WindowSoftClosing;
                 this.Close();
             }
         }
+
     }
 }

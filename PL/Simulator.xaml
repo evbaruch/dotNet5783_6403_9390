@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="Simulator" Height="450" Width="600" Closing="Window_Closing">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="247*"/>
+            <ColumnDefinition Width="53*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -23,13 +27,12 @@
         </Grid.RowDefinitions>
 
         <Button 
-            Content="{Binding Status}"  
-            Grid.Row="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
+            Content="{Binding Status}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
             Height="auto"
             Width="130"
-            Margin="5,5,450,5"
+            Margin="12,0,0,0"
             Click="Close"
             FontWeight="Bold" 
             >
