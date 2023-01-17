@@ -24,4 +24,12 @@
 		<IsAdmin>false</IsAdmin>
 		<listOfOrder />
 	</User>
+	<User>
+		<UserName>moshe</UserName>
+		<Address>beit shemesh</Address>
+		<Email>moshe@gmail.com</Email>
+		<Password>123456789</Password>
+		<IsAdmin>false</IsAdmin>
+		<listOfOrder />
+	</User>
 </ArrayOfUser>
