@@ -23,26 +23,79 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Button 
-            Content="Sign in"  
+        <ComboBox 
             Grid.Row="0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Height="auto"
-            Width="130"
-            Click="Sign_in"
-            FontWeight="Bold" 
-            Margin="0,5,650,5"
+            Margin="730,0,0,0"
+            >
+
+            <Button 
+                Content="Sign in"  
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Height="auto"
+                Width="130"
+                Click="Sign_in"
+                FontWeight="Bold" 
                 >
-            <Button.Resources>
+                <Button.Resources>
+                    <Style 
+                            TargetType="Border">
+                        <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button 
+                Content="Log in"  
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Height="auto"
+                Width="130"
+                Click="LogIN"
+                FontWeight="Bold" 
+                >
+                <Button.Resources>
+                    <Style 
+                            TargetType="Border">
+                        <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button 
+                Content="Simulator"  
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Height="auto"
+                Width="130"
+                Click="Simulator"
+                FontWeight="Bold" 
+                >
+                <Button.Resources>
+                    <Style 
+                            TargetType="Border">
+                        <Setter 
+                                Property="CornerRadius"
+                                Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+
+            <ComboBox.Resources>
                 <Style 
-                    TargetType="Border">
+                   TargetType="Border">
                     <Setter 
-                        Property="CornerRadius"
-                        Value="5"/>
+                       Property="CornerRadius"
+                       Value="5"/>
                 </Style>
-            </Button.Resources>
-        </Button>
+            </ComboBox.Resources>
+
+        </ComboBox>
 
         <Grid
             Name="UpGrid"
