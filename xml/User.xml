@@ -12,8 +12,8 @@
 		<UserName>yehuda</UserName>
 		<Address>jerusalem</Address>
 		<Email>yehuda@gmail.com</Email>
-		<Password>12345</Password>
-		<IsAdmin>false</IsAdmin>
+		<Password>0613</Password>
+		<IsAdmin>true</IsAdmin>
 		<listOfOrder />
 	</User>
 	<User>
