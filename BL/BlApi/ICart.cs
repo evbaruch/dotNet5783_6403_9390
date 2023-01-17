@@ -25,4 +25,6 @@ public interface ICart
     /// </summary>
     /// <param name="cart"></param>
     public int OrderConfirmation(Cart cart);
+
+    public string MissingProducts(BO.Cart cart);
 }

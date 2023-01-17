@@ -162,4 +162,22 @@ internal class Cart : ICart
 
         return dal.order.ReadAll().Max(i => i.Value.OrderID);
     }
+
+    public string MissingProducts(BO.Cart cart)
+    {
+        string missingProducts = "";
+        IEnumerable<DO.Product?> products = dal.product.ReadAll();
+
+        // Check that all products in the cart exist in the product list And  if products are missing.
+        foreach (var orderItem in cart.listOfOrderItem)//I didn't change it to LINQ because it didn't make sense
+        {
+            DO.Product? product = products.FirstOrDefault(item => item?.ID == orderItem.ProductID);
+            if (product?.InStoke < orderItem.Amount)
+            {
+                missingProducts += orderItem.Name + ": ";
+            }
+        }
+
+        return missingProducts;
+    }
 }
