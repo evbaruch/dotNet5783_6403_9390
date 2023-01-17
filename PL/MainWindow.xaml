@@ -47,6 +47,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
+            
             <Button 
                 Content="Log in"  
                 HorizontalAlignment="Center"

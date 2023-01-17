@@ -23,5 +23,13 @@ namespace PL
         {
             InitializeComponent();
         }
+
+        private void Close(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes);
+            {
+                this.Close();
+            }
+        }
     }
 }
