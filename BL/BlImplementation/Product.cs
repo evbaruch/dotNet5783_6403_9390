@@ -38,7 +38,7 @@ internal class Product : IProduct
             Price= item?.Price,
             Category = (BO.Enums.productsCategory?)item?.Category,
             Amount = 0,
-            InStock = item?.InStoke > 0
+            InStock = item?.InStock > 0
         }).ToList();
 
         return productItem;
@@ -54,7 +54,7 @@ internal class Product : IProduct
             {
                 DO.Product temp = new() { ID = id };
                 temp = dal.product.Read(temp);
-                product = new() { ID = temp.ID, Name = temp.Name, Price = temp.Price, Category = (BO.Enums.productsCategory?)temp.Category, InStock = temp.InStoke };
+                product = new() { ID = temp.ID, Name = temp.Name, Price = temp.Price, Category = (BO.Enums.productsCategory?)temp.Category, InStock = temp.InStock };
                 return product;
             }
             else
@@ -101,7 +101,7 @@ internal class Product : IProduct
             Price = product.Price,
             Category = (BO.Enums.productsCategory)product.Category,
             Amount = orderItem.Amount,
-            InStock = product.InStoke > 0
+            InStock = product.InStock > 0
         };
     }
 
@@ -153,7 +153,7 @@ internal class Product : IProduct
         {
             if ((product != null) && (product.ID > 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
-                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
+                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStock = product.InStock };
                 dal.product.Update(addproduct);
             }
             else
@@ -181,7 +181,7 @@ internal class Product : IProduct
         {
             if ((product != null) && (product.ID >= 0) && (product.Name != "") && (product.Price > 0) && (product.InStock > 0)) // only if all of the details are legal
             {
-                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStoke = product.InStock };
+                DO.Product addproduct = new() { Price = product.Price, Name = product.Name, Category = (DO.Enums.productsCategory?)product.Category, ID = product.ID, InStock = product.InStock };
                 dal.product.Create(addproduct);
             }
             else

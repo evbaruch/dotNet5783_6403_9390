@@ -10,7 +10,7 @@ internal class Cart : ICart
     public BO.Cart AddProduct(BO.Cart cart, int productID)
     {
         // Get the product with the specified ID
-        DO.Product? DO_product = dal.product.ReadObject(p => p?.InStoke > 0 && p?.ID == productID);
+        DO.Product? DO_product = dal.product.ReadObject(p => p?.InStock > 0 && p?.ID == productID);
 
         // If the product was not found, throw an exception
         if (DO_product?.ID == -1)
@@ -116,7 +116,7 @@ internal class Cart : ICart
             {
                 throw new IncorrectDataException("BlImplementation->ICart->OrderConfirmation = There is a non-existent product in the cart");
             }
-            if (product?.InStoke < orderItem.Amount)
+            if (product?.InStock < orderItem.Amount)
             {
                 throw new DataNotFoundException("BlImplementation->ICart->OrderConfirmation = Missing products for the product");
             }
@@ -145,7 +145,7 @@ internal class Cart : ICart
                 Name = product?.Name,
                 Price = product?.Price,
                 Category = product?.Category,
-                InStoke = product?.InStoke - orderItem.Amount
+                InStock = product?.InStock - orderItem.Amount
             };
             dal.product.Update(newProduct);
 

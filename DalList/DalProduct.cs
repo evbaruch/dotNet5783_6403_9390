@@ -117,7 +117,7 @@ public class DalProduct : IProduct
         {
             ID = -1,
             Name = null,
-            InStoke = null,
+            InStock = null,
             Price = null,
             Category = null
         };

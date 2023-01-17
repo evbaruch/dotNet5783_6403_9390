@@ -12,6 +12,7 @@ public class DalOrder : IOrder
         DataSource.listOrder.Add(order);
         return order.OrderID;
     }
+
     public Order Read(Order order)
     {
         Order? isNULL = ReadObject(

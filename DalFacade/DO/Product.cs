@@ -8,15 +8,15 @@ public struct Product
     public string? Name { set; get; }
     public double? Price { set; get; }
     public /*enum*/productsCategory? Category { set; get; }
-    public int? InStoke { set; get; }
+    public int? InStock { set; get; }
 
-    public Product(int id, string name, double price, productsCategory category, int instoke)
+    public Product(int id, string name, double price, productsCategory category, int instock)
     {
         this.ID = id;
         this.Name = name;
         this.Price = price;
         this.Category = category;
-        this.InStoke = instoke;
+        this.InStock = instock;
     }
 
     public override string ToString() => $@"
@@ -24,6 +24,6 @@ public struct Product
     Name:      {Name}
     Price:     {Price}
     Category:  {Category}
-    InStoke:   {InStoke}
+    InStock:   {InStock}
     ";
 }
