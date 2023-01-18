@@ -8,7 +8,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PL.AdminWindows;
-using Simulator;
 
 namespace PL;
 
@@ -67,6 +66,6 @@ public partial class SimulatorWindow : Window
     {
         
 
-        Simulator.Simulator.RunningSimulation();
+        //Simulator.Simulator.RunningSimulation();
     }
 }

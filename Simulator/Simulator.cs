@@ -74,7 +74,7 @@ public static class Simulator
 
             if (order.Status == BO.Enums.OrderStatus.ordered)
                 bl.Order.OrderShippingUpdate(order.ID);
-            else if (order.Status == Enums.OrderStatus.shiped)
+            else if (order.Status == Enums.OrderStatus.shipped)
                 bl.Order.UpdateDeliveryOrder(order.ID);
             else
                 stopSimulation?.Invoke(null, EventArgs.Empty);
