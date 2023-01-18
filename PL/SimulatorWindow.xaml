@@ -28,13 +28,13 @@
 
         <Button 
             Content="{Binding close , ElementName=MyWindow}"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Height="auto"
-            Width="100"
-            Margin="10"
+            Width="auto"
             Click="Close"
             FontWeight="Bold" 
+            Grid.ColumnSpan="2"  
             
             >
             <Button.Resources>
@@ -87,7 +87,7 @@
 
             </Grid.RowDefinitions>
 
-            
+
 
             <ProgressBar
                 Grid.Column="2"
