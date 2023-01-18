@@ -18,8 +18,8 @@ namespace PL;
 /// <summary>
 /// Interaction logic for Simulator.xaml
 /// </summary>
-public partial class SimulatorWindow : Window 
-{ 
+public partial class SimulatorWindow : Window
+{
 
     public static readonly DependencyProperty MyTrackerProperty =
         DependencyProperty.Register("OrderCurrent", typeof(BO.OrderTracking), typeof(SimulatorWindow));
@@ -51,22 +51,28 @@ public partial class SimulatorWindow : Window
     public int estimatedTime
     {
         get { return (int)GetValue(MyEstimatedTimeProperty); }
-        set
-        {
-            SetValue(MyEstimatedTimeProperty, value);
-            _estimatedTime = maxBar - value;
-        }
+        set {SetValue(MyEstimatedTimeProperty, value);}
     }
 
-    public static readonly DependencyProperty My_EstimatedTimeProperty =
-        DependencyProperty.Register("_estimatedTime", typeof(int), typeof(SimulatorWindow));
+    public static readonly DependencyProperty MymaxBarProperty =
+        DependencyProperty.Register("maxBar", typeof(int), typeof(SimulatorWindow));
 
-    public int _estimatedTime;
+    public int maxBar
+    {
+        get { return (int)GetValue(MymaxBarProperty); }
+        set { SetValue(MymaxBarProperty, value); }
+    }
 
+    public static readonly DependencyProperty MyBarProperty =
+       DependencyProperty.Register("BarProgress", typeof(int), typeof(SimulatorWindow));
 
-    private int maxBar;
-
+    public int BarProgress
+    {
+        get { return (int)GetValue(MyBarProperty); }
+        set { SetValue(MyBarProperty, value); }
+    }
     
+
 
     public int BackTime = 0;
 
@@ -76,10 +82,9 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
-        
+        BarProgress = 0;
         Time ="00:00:00";
         close = "Colse";
-        estimatedTime = 10;
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += Timer_Tick;
         InitializeComponent();
@@ -88,8 +93,21 @@ public partial class SimulatorWindow : Window
 
     private void Timer_Tick(object sender, EventArgs e)
     {
-        Time =TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
+        BarProgress++;
+
+        estimatedTime--;
+        if (estimatedTime<0)
+        {
+            Simulator.StopSimulation();
+            timer.Stop();
+            estimatedTime = 0;
+        }
+        else
+        {
+            Time =TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
+        }
     }
+
 
     private void Window_Closing(object sender, CancelEventArgs e)
     {
@@ -108,10 +126,10 @@ public partial class SimulatorWindow : Window
         {
 
             this.Closing -= Window_Closing;
-            this.Closing += WindowSoftClosing;
             Simulator.StopSimulation();
-            await Ramaining_Time();
             timer.Stop();
+            await Ramaining_Time();
+            this.Closing += WindowSoftClosing;
             this.Close();
         }
     }
@@ -162,6 +180,8 @@ public partial class SimulatorWindow : Window
         else
         {
             estimatedTime = a;
+            maxBar = a;
+            BarProgress = 0;
         }
     }
 

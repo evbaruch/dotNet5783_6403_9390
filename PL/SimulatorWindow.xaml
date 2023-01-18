@@ -90,7 +90,7 @@
 
 
             <ProgressBar
-                Value="{Binding _estimatedTime, ElementName=MyWindow}"
+                Value="{Binding BarProgress, ElementName=MyWindow}"
                 Maximum="{Binding maxBar, ElementName=MyWindow}"
                 Grid.Column="2"
                 Height="10"
