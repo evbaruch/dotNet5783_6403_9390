@@ -50,12 +50,26 @@ public partial class SimulatorWindow : Window
 
     public static readonly DependencyProperty MyEstimatedTimeProperty =
         DependencyProperty.Register("estimatedTime", typeof(int), typeof(SimulatorWindow));
-
+    
     public int estimatedTime
     {
         get { return (int)GetValue(MyEstimatedTimeProperty); }
-        set { SetValue(MyEstimatedTimeProperty, value); }
+        set
+        {
+            SetValue(MyEstimatedTimeProperty, value);
+            _estimatedTime = maxBar - value;
+        }
     }
+
+    public static readonly DependencyProperty My_EstimatedTimeProperty =
+        DependencyProperty.Register("_estimatedTime", typeof(int), typeof(SimulatorWindow));
+
+    public int _estimatedTime;
+
+
+    private int maxBar;
+
+    
 
     public int BackTime = 0;
 
@@ -105,7 +119,7 @@ public partial class SimulatorWindow : Window
 
     private async Task Ramaining_Time()
     {
-        while (estimatedTime > 0)
+        while (estimatedTime != 0)
         {
             estimatedTime--;
             close = "colsing in " + estimatedTime;
