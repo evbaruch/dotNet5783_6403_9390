@@ -42,7 +42,7 @@ public static class Simulator
 
     public static void StartSimulation()
     {
-        thread = new Thread(simulation);//{ Name = "Simulation" };
+        thread = new Thread(simulation);// { Name = "Simulation" };
 
         thread.Start();
     }
@@ -64,7 +64,7 @@ public static class Simulator
         {
             var order = bl.Order.OrderDetailsRequest(bl.Order.PriorityOrder() ?? throw new NullReferenceException());
             var timeToHandle = new Random().Next(3, 7);
-            var aproximateTime = new Random().Next(timeToHandle - 2, timeToHandle + 2);
+            var aproximateTime = new Random().Next(timeToHandle, timeToHandle);
 
             updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime));//????????
 
