@@ -13,37 +13,36 @@ public static class Simulator
     private static IBl bl = Factory.Get();
 
     private static event EventHandler<Tuple<Order, int>>? updateSimulation;//??????????
-    private static event EventHandler? stopSimulation;//?????????????
+    //private static event EventHandler? stopSimulation;//?????????????
 
     private static volatile bool isSimulationStoped = false;
     private static Thread? thread;
 
-    public static void SubscribeToStopSimulation(EventHandler handler)
-    {
-        stopSimulation += handler;
-    }
+
 
     public static void SubscribeToUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
     {
         updateSimulation += handler;
     }
 
-    public static void UnsubscribeFromStopSimulation(EventHandler handler)
-    {
-        if (stopSimulation!.GetInvocationList().Contains(handler)) //???????????
-            stopSimulation -= handler;
-    }
-
-    public static void UnsubscribeFromUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
-    {
-        if (updateSimulation!.GetInvocationList().Contains(handler)) //??????????????
-            updateSimulation -= handler;
-    }
+    //public static void SubscribeToStopSimulation(EventHandler handler)
+    //{
+    //    stopSimulation += handler;
+    //}
+    //public static void UnsubscribeFromStopSimulation(EventHandler handler)
+    //{
+    //    if (stopSimulation!.GetInvocationList().Contains(handler)) //???????????
+    //        stopSimulation -= handler;
+    //}
+    //public static void UnsubscribeFromUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
+    //{
+    //    if (updateSimulation!.GetInvocationList().Contains(handler)) //??????????????
+    //        updateSimulation -= handler;
+    //}
 
     public static void StartSimulation()
     {
         thread = new Thread(simulation);// { Name = "Simulation" };
-
         thread.Start();
     }
 
@@ -77,8 +76,10 @@ public static class Simulator
             else if (order.Status == Enums.OrderStatus.shipped)
                 bl.Order.UpdateDeliveryOrder(order.ID);
             else
-                stopSimulation?.Invoke(null, EventArgs.Empty);
+                StopSimulation();
+                //stopSimulation?.Invoke(null, EventArgs.Empty);
         }
-        stopSimulation?.Invoke(null, EventArgs.Empty);
+        StopSimulation();
+        //stopSimulation?.Invoke(null, EventArgs.Empty);
     }
 }
