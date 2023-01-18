@@ -61,10 +61,10 @@
             >
             <Button.Resources>
                 <Style 
-                            TargetType="Border">
+                    TargetType="Border">
                     <Setter 
-                                Property="CornerRadius"
-                                Value="5"/>
+                        Property="CornerRadius"
+                        Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
