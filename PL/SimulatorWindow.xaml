@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SimulatorWindow" Height="450" Width="600">
+        Title="SimulatorWindow" Height="450" Width="600" x:Name="MyWindow" Closing="Window_Closing">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -15,15 +15,15 @@
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="4*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="80*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Button 
@@ -73,11 +73,11 @@
             Grid.Column="1" 
             Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="66*"/>
+                <ColumnDefinition Width="56*"/>
+                <ColumnDefinition Width="157*"/>
+                <ColumnDefinition Width="85*"/>
+                <ColumnDefinition Width="65*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -89,12 +89,11 @@
 
             <ProgressBar
                 Grid.Column="2"
+                Height="10"
+                Width="140"
                 Grid.Row="1"
-                Height="10"           
-                Width="150"
-                Background="#FF7C96FF"
-                Margin="25,30,25,39"
-                Grid.RowSpan="2"/>
+                
+                Background="#FF7C96FF"/>
 
             <TextBlock
                 HorizontalAlignment="Center"
@@ -111,38 +110,74 @@
                 />
 
             <TextBlock
-                HorizontalAlignment="Left"
                 Grid.Row="1"
-                TextWrapping="Wrap"
-                Text="order :"
-                VerticalAlignment="Top"
-                Margin="10,19,0,0"/>
+                Text="order ID:"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" />
+
+            <Label 
+                Content="{Binding OrderCurrent.ID, ElementName=MyWindow}"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" 
+                />
 
             <TextBlock
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" 
                 Grid.Row="2"
-                TextWrapping="Wrap"
-                Text="status:"
-                Margin="11,3,0,19"
-                RenderTransformOrigin="0.444,0.538"/>
+                Text="status:" Height="16" />
+
+            <Label 
+                Content="{Binding OrderCurrent.Status, ElementName=MyWindow}"
+                Grid.Row="2"
+                Grid.Column="1"
+                VerticalAlignment="Center" 
+                />
 
             <TextBlock
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center" 
                 Grid.Row="1"
                 Grid.Column="3"
-                TextWrapping="Wrap"
-                Text="time:"
-                VerticalAlignment="Top"
-                Margin="10,19,0,0"/>
+                Text="Estimate time:" />
+
+            <Label 
+                Grid.Row="1"
+                Grid.Column="4"/>
 
             <TextBlock
-                HorizontalAlignment="Left"
+               HorizontalAlignment="Right"
+                VerticalAlignment="Center" 
                 Grid.Row="2"
                 Grid.Column="3"
-                TextWrapping="Wrap"
-                Text="status:"
-                Margin="11,3,0,19"
-                RenderTransformOrigin="0.444,0.538"/>
+                Text="Processed Status:" />
+
+            <Label 
+                Grid.Row="2"
+                Grid.Column="4"
+                VerticalAlignment="Center" 
+                >
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Content" Value="Initials"/>
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding OrderCurrent.Status , ElementName=MyWindow}"
+                                Value="Ordered">
+                                <Setter Property="Content" Value="Shipping"/>
+                            </DataTrigger>
+                            <DataTrigger 
+                                Binding="{Binding OrderCurrent.Status , ElementName=MyWindow}"
+                                Value="Shipped">
+                                <Setter Property="Content" Value="Delivering"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+
 
 
         </Grid>

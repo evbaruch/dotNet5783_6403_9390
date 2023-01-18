@@ -25,7 +25,7 @@ internal class Order : IOrder
                         let status = order.ShipDate == null ?
                                      BO.Enums.OrderStatus.ordered :
                                      order.DeliveryDate == null ?
-                                     BO.Enums.OrderStatus.shiped :
+                                     BO.Enums.OrderStatus.shipped :
                                      BO.Enums.OrderStatus.delivered
                         select new OrderForList
                         {
@@ -81,7 +81,7 @@ internal class Order : IOrder
                 }
                 else if (order.ShipDate != null && order.DeliveryrDate == null) 
                 {// if the value of the shiping is define but the time of the delivery is't it's only shiped
-                    order.Status = (BO.Enums.OrderStatus.shiped);
+                    order.Status = (BO.Enums.OrderStatus.shipped);
                 }
                 else // else (both define)
                 {
@@ -113,7 +113,7 @@ internal class Order : IOrder
         try
         {
             DO.Order updateOrder = dal.order.Read(new() { OrderID = orderID });
-            if (orderID > 0 && updateOrder.ShipDate == null) // only if the order hadn't been shiped update the shiping date to now
+            if (orderID > 0 && updateOrder.ShipDate == null) // only if the order hadn't been shipped update the shiping date to now
             {
                 updateOrder.ShipDate = DateTime.Now;
                 BO.Order order = OrderDetailsRequest(orderID);
@@ -190,7 +190,7 @@ internal class Order : IOrder
                 if (trackedOrder.ShipDate != null)
                 { // if the value of the shiping is define
 
-                    tracking.Status = (BO.Enums.OrderStatus.shiped);
+                    tracking.Status = (BO.Enums.OrderStatus.shipped);
                     tracking.OrderStatuses.Add(new Tuple<DateTime, BO.Enums.OrderStatus>((DateTime)trackedOrder.ShipDate, (BO.Enums.OrderStatus)tracking.Status));
 
                     if (trackedOrder.DeliveryDate != null)// and if the value of the deliverying is define
