@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="Simulator" Height="450" Width="600" Closing="Window_Closing">
+        Title="Simulator" Height="480" Width="600" Closing="Window_Closing">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="247*"/>
-            <ColumnDefinition Width="53*"/>
-        </Grid.ColumnDefinitions>
+
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -18,23 +15,28 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <Button 
-            Content="{Binding Status}"
-            HorizontalAlignment="Left"
+            Content="back"
+            HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Height="auto"
-            Width="130"
-            Margin="12,0,0,0"
+            Width="100"
+            Margin="10"
             Click="Close"
             FontWeight="Bold" 
+            
             >
             <Button.Resources>
                 <Style 
@@ -45,6 +47,84 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+
+            </Grid.RowDefinitions>
+
+            <ProgressBar
+                Grid.Column="2"
+                Grid.Row="1"
+                Height="10"           
+                Width="150"
+                Background="#FF7C96FF"
+                Margin="25,30,25,39"
+                Grid.RowSpan="2"/>
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                Grid.Column="2"
+                TextWrapping="Wrap"
+                Text="00:00:00"
+                VerticalAlignment="Top"
+                Height="61"
+                Width="150"
+                Margin="0,38,0,0"
+                FontSize="40"
+                Foreground="#FF0131F5"
+                
+                />
+
+            <TextBlock
+                HorizontalAlignment="Left"
+                Grid.Row="1"
+                TextWrapping="Wrap"
+                Text="order :"
+                VerticalAlignment="Top"
+                Margin="10,19,0,0"/>
+
+            <TextBlock
+                HorizontalAlignment="Left"
+                Grid.Row="2"
+                TextWrapping="Wrap"
+                Text="status:"
+                Margin="11,3,0,19"
+                RenderTransformOrigin="0.444,0.538"/>
+
+            <TextBlock
+                HorizontalAlignment="Left"
+                Grid.Row="1"
+                Grid.Column="3"
+                TextWrapping="Wrap"
+                Text="time:"
+                VerticalAlignment="Top"
+                Margin="10,19,0,0"/>
+
+            <TextBlock
+                HorizontalAlignment="Left"
+                Grid.Row="2"
+                Grid.Column="3"
+                TextWrapping="Wrap"
+                Text="status:"
+                Margin="11,3,0,19"
+                RenderTransformOrigin="0.444,0.538"/>
+
+
+        </Grid>
+
+
+
 
     </Grid>
 </Window>

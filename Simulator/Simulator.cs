@@ -13,5 +13,10 @@ public static class Simulator
 
     }
 
+    public static void RtapingSimulation()
+    {
+
+    }
+
 
 }
