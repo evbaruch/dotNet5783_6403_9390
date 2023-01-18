@@ -28,6 +28,7 @@ public partial class SimulatorWindow : Window
 
 
     BlApi.IBl? bl = BlApi.Factory.Get();
+    int estimatedTime = 0;
 
     public SimulatorWindow()
     {
@@ -52,6 +53,7 @@ public partial class SimulatorWindow : Window
         if (MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
         {
             this.Closing -= Window_Closing;
+
             this.Closing += WindowSoftClosing;
             this.Close();
         }
@@ -62,10 +64,15 @@ public partial class SimulatorWindow : Window
 
     }
 
+    private void foo(object sender, Tuple<BO.Order, int> e)
+    {
+        //MessageBox.Show(e.ToString());
+        estimatedTime = e.Item2;
+    }
+
     private void Start_Button(object sender, RoutedEventArgs e)
     {
-        
-
-        //Simulator.Simulator.RunningSimulation();
+        Simulator.SubscribeToUpdateSimulation(foo);
+        Simulator.StartSimulation();
     }
 }
