@@ -168,7 +168,7 @@ namespace PL
 
         private void Simulator(object sender, RoutedEventArgs e)
         {
-            new PL.Simulator().Show();
+            new PL.SimulatorWindow().Show();
         }
 
         private void LogIN(object sender, RoutedEventArgs e)
