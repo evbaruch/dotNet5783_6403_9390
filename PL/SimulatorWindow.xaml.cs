@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MaterialDesignThemes.Wpf;
 using Microsoft.VisualBasic;
 using PL.AdminWindows;
 
@@ -22,7 +23,6 @@ public partial class SimulatorWindow : Window
 
     public static readonly DependencyProperty MyTrackerProperty =
         DependencyProperty.Register("OrderCurrent", typeof(BO.OrderTracking), typeof(SimulatorWindow));
-
     public BO.OrderTracking OrderCurrent
     {
         get { return (BO.OrderTracking)GetValue(MyTrackerProperty); }
@@ -31,7 +31,6 @@ public partial class SimulatorWindow : Window
 
     public static readonly DependencyProperty MyTimeProperty =
         DependencyProperty.Register("Time", typeof(string), typeof(SimulatorWindow));
-
     public string Time
     {
         get { return (string)GetValue(MyTimeProperty); }
@@ -41,7 +40,6 @@ public partial class SimulatorWindow : Window
 
     public static readonly DependencyProperty MyButtonProperty =
         DependencyProperty.Register("close", typeof(string), typeof(SimulatorWindow));
-
     public string close
     {
         get { return (string)GetValue(MyButtonProperty); }
@@ -50,7 +48,6 @@ public partial class SimulatorWindow : Window
 
     public static readonly DependencyProperty MyEstimatedTimeProperty =
         DependencyProperty.Register("estimatedTime", typeof(int), typeof(SimulatorWindow));
-    
     public int estimatedTime
     {
         get { return (int)GetValue(MyEstimatedTimeProperty); }
@@ -79,7 +76,7 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
-        OrderCurrent = bl.Order.OrderTracking((int)bl.Order.PriorityOrder());
+        
         Time ="00:00:00";
         close = "Colse";
         estimatedTime = 10;
@@ -109,10 +106,12 @@ public partial class SimulatorWindow : Window
     {
         if (MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
         {
-            timer.Stop();
+
             this.Closing -= Window_Closing;
-            await Ramaining_Time();
             this.Closing += WindowSoftClosing;
+            Simulator.StopSimulation();
+            await Ramaining_Time();
+            timer.Stop();
             this.Close();
         }
     }
@@ -133,16 +132,52 @@ public partial class SimulatorWindow : Window
 
     }
 
-    private void foo(object sender, Tuple<BO.Order, int> e)
+    private void SimulationData(object sender, Tuple<BO.Order, int> e)
     {
         //MessageBox.Show(e.ToString());
-        estimatedTime = e.Item2;
+        EstimatedTime(e.Item2);
+        CurrentOrder(bl.Order.OrderTracking(e.Item1.ID));
     }
+
+    private void CurrentOrder(BO.OrderTracking a)
+    {
+        if (!CheckAccess())
+        {
+            Action<BO.OrderTracking> d = CurrentOrder;
+            Dispatcher.BeginInvoke(d, new BO.OrderTracking() { ID =  a.ID, OrderStatuses = a.OrderStatuses, Status = a.Status});
+        }
+        else
+        {
+            OrderCurrent = a;
+        }
+    }
+
+    private void EstimatedTime(int a)
+    {
+        if (!CheckAccess())
+        {
+            Action<int> d = EstimatedTime;
+            Dispatcher.BeginInvoke(d, new object[] { a });
+        }
+        else
+        {
+            estimatedTime = a;
+        }
+    }
+
+    //private void StopSimulation(object sender, EventArgs e)
+    //{
+    //    MessageBox.Show("end");
+    //    Simulator.StopSimulation();
+    //}
 
     private void Start_Button(object sender, RoutedEventArgs e)
     {
         timer.Start();
-        Simulator.SubscribeToUpdateSimulation(foo);
+        Simulator.SubscribeToUpdateSimulation(SimulationData);
+        //Simulator.SubscribeToStopSimulation(StopSimulation);
         Simulator.StartSimulation();
+
     }
+
 }
