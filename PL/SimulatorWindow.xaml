@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
 
         <Button 
-            Content="back"
+            Content="{Binding close , ElementName=MyWindow}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Height="auto"
@@ -87,11 +87,14 @@
 
             </Grid.RowDefinitions>
 
+            
+
             <ProgressBar
                 Grid.Column="2"
                 Height="10"
                 Width="140"
                 Grid.Row="1"
+                
                 
                 Background="#FF7C96FF"/>
 
@@ -99,7 +102,7 @@
                 HorizontalAlignment="Center"
                 Grid.Column="2"
                 TextWrapping="Wrap"
-                Text="00:00:00"
+                Text="{Binding Time , ElementName=MyWindow}"
                 VerticalAlignment="Top"
                 Height="61"
                 Width="150"
