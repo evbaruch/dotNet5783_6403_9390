@@ -138,7 +138,7 @@ namespace PL
             {
                 InputPopUP inputPopUP = new InputPopUP();
                 inputPopUP.Show("User name:", "Order ID:", "search");
-                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
+                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "")// && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
                 {
                     new PL.OrderTracking.OrderTracker(int.Parse(inputPopUP.SeconedInput)).Show();
                     this.Close();

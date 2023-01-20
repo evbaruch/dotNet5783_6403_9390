@@ -44,6 +44,7 @@ public static class Simulator
     {
         thread = new Thread(simulation);// { Name = "Simulation" };
         thread.Start();
+        isSimulationStoped = false;
     }
 
     public static void StopSimulation()

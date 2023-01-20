@@ -71,7 +71,21 @@ public partial class SimulatorWindow : Window
         get { return (int)GetValue(MyBarProperty); }
         set { SetValue(MyBarProperty, value); }
     }
-    
+
+
+
+    public bool flag
+    {
+        get { return (bool)GetValue(flagProperty); }
+        set { SetValue(flagProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for flag.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty flagProperty =
+        DependencyProperty.Register("flag", typeof(bool), typeof(SimulatorWindow));
+
+
+
 
 
     public int BackTime = 0;
@@ -82,6 +96,7 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
+        flag = true;
         BarProgress = 0;
         Time ="00:00:00";
         close = "Colse";
@@ -193,6 +208,7 @@ public partial class SimulatorWindow : Window
 
     private void Start_Button(object sender, RoutedEventArgs e)
     {
+        flag = false;
         timer.Start();
         Simulator.SubscribeToUpdateSimulation(SimulationData);
         //Simulator.SubscribeToStopSimulation(StopSimulation);
@@ -200,4 +216,10 @@ public partial class SimulatorWindow : Window
 
     }
 
+    private void Stop_Click(object sender, RoutedEventArgs e)
+    {
+        flag = true;
+        timer.Stop();
+        Simulator.StopSimulation();
+    }
 }

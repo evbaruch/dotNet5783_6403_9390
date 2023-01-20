@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace PL.AdminWindows.Order
 {
@@ -41,14 +42,26 @@ namespace PL.AdminWindows.Order
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+
+        public BO.Order order
+        {
+            get { return (BO.Order)GetValue(orderProperty); }
+            set { SetValue(orderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for order.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty orderProperty =
+            DependencyProperty.Register("order", typeof(BO.Order), typeof(modifyOrderWindow));
+
         private ObservableCollection<BO.Order> _orderObservableCollection;
-        public ObservableCollection<BO.Order> OrderObservableCollection
+        public ObservableCollection<BO.Order> orderObservableCollection
         {
             get { return _orderObservableCollection; }
             set
             {
                 _orderObservableCollection = value;
-                OnPropertyChanged(nameof(OrderObservableCollection));
+                OnPropertyChanged(nameof(orderObservableCollection));
             }
         }
 
@@ -85,8 +98,8 @@ namespace PL.AdminWindows.Order
         {
             SelectedColor = Color.FromRgb(130, 231, 239);
             this.parentWindow = parentWindow;
-            var order = bl.Order.OrderDetailsRequest(orderForList.ID);
-            OrderObservableCollection = new ObservableCollection<BO.Order> { order };
+            order = bl.Order.OrderDetailsRequest(orderForList.ID);
+            orderObservableCollection = new ObservableCollection<BO.Order> { order };
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
             StatusControlersObservableCollection = new ObservableCollection<string>(new() { "true", "false", "Visible" });
             InitializeComponent();
@@ -96,10 +109,9 @@ namespace PL.AdminWindows.Order
         public modifyOrderWindow(BO.OrderForList orderForList, PL.OrderTracking.OrderTracker parentWindow)
         {
             this.stepParentWindow = parentWindow;
-            var order = bl.Order.OrderDetailsRequest(orderForList.ID);
-            OrderObservableCollection = new ObservableCollection<BO.Order> { order };
+            order = bl.Order.OrderDetailsRequest(orderForList.ID);
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
-            StatusControlersObservableCollection = new ObservableCollection<string>(new() { "false"  , "true" , "Hidden"});
+            StatusControlersObservableCollection = new ObservableCollection<string>(new() { "false"  , "true" , "Hidden" });
             InitializeComponent();
         }
 
@@ -113,9 +125,10 @@ namespace PL.AdminWindows.Order
             try
             {
                 bl.Order.OrderShippingUpdate((int)(sender as Button).Tag);
-                var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
+                var updatedOrder = bl.Order.OrderDetailsRequest(order.ID);
                 // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
-                OrderObservableCollection[0] = updatedOrder;
+                order = updatedOrder;
+                orderObservableCollection = new ObservableCollection<BO.Order> { order };
                 OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
 
                 parentWindow.Dispatcher.Invoke(() =>
@@ -143,12 +156,10 @@ namespace PL.AdminWindows.Order
         {
             try { 
             bl.Order.UpdateDeliveryOrder((int)(sender as Button).Tag);
-            var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
-            // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
-            OrderObservableCollection[0] = updatedOrder;
-            OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
+            order = bl.Order.OrderDetailsRequest(order.ID);
+            orderObservableCollection = new ObservableCollection<BO.Order> { order };
 
-            parentWindow.Dispatcher.Invoke(() =>
+                parentWindow.Dispatcher.Invoke(() =>
             {
                 var orderList = bl.Order.OrderListRequest();
                 parentWindow.OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
@@ -180,10 +191,9 @@ namespace PL.AdminWindows.Order
                 Button button = sender as Button;
                 var a = (BO.OrderItem)button.DataContext;
                 bl.Order.OrderUpdate(a.ID, (int)button!.Tag, -1);
-                var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
-                // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
-                OrderObservableCollection[0] = updatedOrder;
-                OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
+                order = bl.Order.OrderDetailsRequest(order.ID);
+                OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);
+                orderObservableCollection = new ObservableCollection<BO.Order> { order };
 
                 parentWindow.Dispatcher.Invoke(() =>
                 {
@@ -221,9 +231,8 @@ namespace PL.AdminWindows.Order
             Button button = sender as Button;
             var temp = (BO.OrderItem)button.DataContext;
             bl.Order.OrderUpdate(temp.ID, (int)button!.Tag, 1);
-            var updatedOrder = bl.Order.OrderDetailsRequest(OrderObservableCollection[0].ID);
-            // Update the OrderObservableCollection and OrderItemObservableCollection with the updated order details
-            OrderObservableCollection[0] = updatedOrder;
+            var updatedOrder = bl.Order.OrderDetailsRequest(order.ID);
+            order = updatedOrder;
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(updatedOrder.Items);
 
             parentWindow.Dispatcher.Invoke(() =>
@@ -239,7 +248,7 @@ namespace PL.AdminWindows.Order
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderItemListview.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderItemObservableCollection);
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {
