@@ -84,12 +84,13 @@ namespace PL.UserWindows
         public bool hasBeenSorted = true;
         private ObservableCollection<BO.ProductItem> _DataProductItemForObservableCollection;
 
-        public NewOrder()
+        public bool keepWishlist { get; set; }
+
+        public NewOrder(bool isRegistered)
         {
             foo();
-
+            keepWishlist = isRegistered;
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
-
             IEnumerable<BO.ProductItem>  productItemList = bl.Product.ProductItemList();
             productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemList);
             _DataProductItemForObservableCollection = productItemForObservableCollection;

@@ -43,9 +43,8 @@ internal class User : IUser
             {
                 DO.User temp = new() { UserName = userName };
                 temp = dal.user.Read(temp);
-                user = new() { UserName = temp.UserName, Address = temp.Address, Email = temp.Email, IsAdmin = temp.IsAdmin, Password = temp.Password, listOfOrder = (from move in temp.listOfOrder
-                                                                                                                                                                                 select order.OrderDetailsRequest(move.OrderID)).ToList()
-                };
+                user = new() { UserName = temp.UserName, Address = temp.Address, Email = temp.Email, IsAdmin = temp.IsAdmin, Password = temp.Password};
+                user.listOfOrder = order.OrderListRequest().TakeWhile(x => x?.CustomerName == userName).ToList();
                 return user;
             }
             else
@@ -67,18 +66,8 @@ internal class User : IUser
             Order order = new Order();
             if ((user != null) && (user.UserName != "") && (user.Address != "") && (user.Password != null) && (user.Email != "")) // only if all of the details are legal
             {
-                DO.User addUser = new() {UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false , listOfOrder =(from move in user.listOfOrder
-                                                                                                                                                                                       select new DO.Order
-                                                                                                                                                                                       {
-                                                                                                                                                                                           CstomerAddress = move.CustomerAddress,
-                                                                                                                                                                                           CustomerEmail = move.CustomerEmail,
-                                                                                                                                                                                           CustomerName = move.CustomerName,
-                                                                                                                                                                                           DeliveryDate = move.DeliveryrDate,
-                                                                                                                                                                                           ShipDate = move.ShipDate,
-                                                                                                                                                                                           OrderDate = move.OrderDate,
-                                                                                                                                                                                           OrderID = move.ID
-                                                                                                                                                                                       }).ToList()
-                };
+                DO.User addUser = new() {UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false };
+                addUser.listOfOrder = dal.order.ReadAll(x => x?.CustomerName==user.UserName).ToList();
                 dal.user.Create(addUser);
             }
             else
@@ -149,17 +138,8 @@ internal class User : IUser
             Order order = new Order();
             if ((user != null) && (user.UserName != "") && (user.Address != "") && (user.Password != null) && (user.Email != "")) // only if all of the details are legal
             {
-                DO.User updUser = new() { UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false , listOfOrder = (from move in user.listOfOrder
-                                                                                                                                                                                        select new DO.Order 
-                                                                                                                                                                                        { CstomerAddress = move.CustomerAddress,
-                                                                                                                                                                                          CustomerEmail = move.CustomerEmail,
-                                                                                                                                                                                          CustomerName = move.CustomerName,
-                                                                                                                                                                                          DeliveryDate = move.DeliveryrDate,
-                                                                                                                                                                                          ShipDate = move.ShipDate, 
-                                                                                                                                                                                          OrderDate = move.OrderDate,
-                                                                                                                                                                                          OrderID = move.ID
-                                                                                                                                                                                        }).ToList()
-                };
+                DO.User updUser = new() { UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false };
+                updUser.listOfOrder =  dal.order.ReadAll(x=>x?.CustomerName == user.UserName).ToList();
             dal.user.Update(updUser);
             }
             else

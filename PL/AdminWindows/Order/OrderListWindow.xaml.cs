@@ -42,14 +42,16 @@ namespace PL.AdminWindows.Order
             }
         }
 
+        public string name { get; set; }
+
         public bool hasBeenSorted = true;
 
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public OrderListWindow()
+        public OrderListWindow(string Name)
         {
             
-            
+            name = Name;
             var orderList = bl.Order.OrderListRequest();
             OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(orderList);
             //OrderListview.ItemsSource = bl.Order.OrderListRequest();
@@ -58,7 +60,7 @@ namespace PL.AdminWindows.Order
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new MainAdminWindow().Show();
+            new MainAdminWindow(name).Show();
             this.Close();
         }
 

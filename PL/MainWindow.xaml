@@ -6,7 +6,8 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:PL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="640" Width="800">
+        Title="MainWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -26,6 +27,9 @@
         <ComboBox 
             Grid.Row="0"
             Margin="730,0,0,0"
+            Height="30"
+            Width="50"
+            SelectionChanged="ComboBox_SelectionChanged"
             >
 
             <Button 

@@ -110,7 +110,7 @@ internal static class DataSource
         user.Email = email;
         user.Password = passward;
         user.IsAdmin = isAdmin;
-        user.listOfOrder = new List<Order>();
+        user.listOfOrder = new List<Order?>();
         return user;
     }
 

@@ -12,6 +12,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+
         BlApi.IBl? bl = BlApi.Factory.Get();
 
         public MainWindow()
@@ -23,14 +24,17 @@ namespace PL
         {
             try
             {
+
                 InputPopUP inputPopUP = new InputPopUP();
+                inputPopUP.FirstInput = null;
+                inputPopUP.SeconedInput = null;
                 inputPopUP.Show("User name:", "Pin:", "log in");
                 if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
                 {
                     if (inputPopUP.SeconedInput == bl.User.UserDetails(inputPopUP.FirstInput).Password.ToString() && bl.User.UserDetails(inputPopUP.FirstInput).IsAdmin == true)
                     {
 
-                        var MainAdminWindow = new MainAdminWindow();
+                        var MainAdminWindow = new MainAdminWindow(inputPopUP.FirstInput);
                         MainAdminWindow.WindowStartupLocation = WindowStartupLocation.Manual;
                         MainAdminWindow.Left = this.Left;
                         MainAdminWindow.Top = this.Top;
@@ -62,11 +66,8 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
-            UserWindows.NewOrder newOrder = new UserWindows.NewOrder();
+            new UserWindows.NewOrder(false).Show();
             this.Close();
-            newOrder.ShowDialog();
-
         }
 
         private void observation_Click(object sender, RoutedEventArgs e)
@@ -173,7 +174,47 @@ namespace PL
 
         private void LogIN(object sender, RoutedEventArgs e)
         {
-
+            InputPopUP inputPopUP = new InputPopUP();
+            inputPopUP.FirstInput = null;
+            inputPopUP.SeconedInput = null;
+            inputPopUP.Show("User name:", "Pin:", "log in");
+            if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
+            {
+                if (inputPopUP.SeconedInput == bl.User.UserDetails(inputPopUP.FirstInput).Password.ToString() && bl.User.UserDetails(inputPopUP.FirstInput).IsAdmin == false)
+                {
+                    var UserMainWindow = new UserMainWindow(inputPopUP.FirstInput);
+                    UserMainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                    UserMainWindow.Left = this.Left;
+                    UserMainWindow.Top = this.Top;
+                    UserMainWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("His highness is a god ,gods have there ways", "wrong path", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+                }
+            }
         }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedContent = (sender as ComboBox).SelectedIndex;
+            switch (selectedContent)
+            {
+                case 0:
+                    Sign_in(sender,sender as RoutedEventArgs);
+                    break;
+                case 1:
+                    LogIN(sender,sender as RoutedEventArgs);
+                    break;
+                case 2:
+                    Simulator(sender,sender as RoutedEventArgs);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 }

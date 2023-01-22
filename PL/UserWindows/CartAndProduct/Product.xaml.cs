@@ -18,9 +18,12 @@ namespace PL.UserWindows.CartAndProduct
         
 
         BlApi.IBl? bl = BlApi.Factory.Get();
+
         BO.Cart dataCart = new BO.Cart();
+
         BO.ProductItem dataProductItem = new BO.ProductItem();
-        NewOrder dataNewOrder = new NewOrder();
+
+        NewOrder dataNewOrder { get; set; }
 
         public Product(ProductItem? ProductContent, BO.Cart cart,NewOrder newOrder, bool IsUptdat)
         {

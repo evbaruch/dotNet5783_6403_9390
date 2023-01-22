@@ -57,6 +57,7 @@ namespace PL
             {
                 return _FirstInput;
             }
+            set { _FirstInput = value; }
         }
 
         public string SeconedInput
@@ -65,6 +66,7 @@ namespace PL
             {
                 return _SeconedInput;
             }
+            set { _SeconedInput = value; }
         }
 
 

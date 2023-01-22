@@ -61,8 +61,11 @@ namespace PL.AdminWindows
 
         private ObservableCollection<ProductForList> AllProduct;
 
-        public ProductListWindow()
+        public string name { get; set; }
+
+        public ProductListWindow(string Name)
         {
+            name = Name;
             var productForLists = bl.Product.Products();
             ProductForObservableCollection = new ObservableCollection<BO.ProductForList>(productForLists);
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
@@ -111,7 +114,7 @@ namespace PL.AdminWindows
 
         private void addProduct_Click(object sender, RoutedEventArgs e)
         {
-            new modifyProductWindow().Show();
+            new modifyProductWindow(name).Show();
             this.Close(); // closing the window after moving to another window
         }
 
@@ -120,7 +123,7 @@ namespace PL.AdminWindows
             if ((BO.ProductForList)((sender as ListView).SelectedItem) != null)
             {
                 var product = (BO.ProductForList)((sender as ListView).SelectedItem);
-                new modifyProductWindow(product).Show();
+                new modifyProductWindow(product,name).Show();
                 this.Close();
             }
         }
@@ -128,7 +131,7 @@ namespace PL.AdminWindows
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new MainAdminWindow().Show();
+            new MainAdminWindow(name).Show();
             this.Close();
         }
 

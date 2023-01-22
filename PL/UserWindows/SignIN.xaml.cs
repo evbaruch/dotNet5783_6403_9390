@@ -49,7 +49,7 @@ namespace PL.UserWindows
                 }
                 else
                 {
-                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.Order>() , currentCart = new BO.Cart(),IsAdmin = false });
+                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = false });
                     this.Close();
                 }
             }

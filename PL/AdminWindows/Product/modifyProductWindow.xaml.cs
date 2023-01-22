@@ -68,8 +68,11 @@ namespace PL.AdminWindows
  
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public modifyProductWindow()
+        public string name { get; set; }
+
+        public modifyProductWindow(string Name)
         {
+            name = Name;
             Status = new ObservableCollection<string>(new() { "true", "false", "Visible" , "Hidden" , "New product" });
             categories =  (IEnumerable<BO.Enums.productsCategory>?)Enum.GetValues(typeof(BO.Enums.productsCategory));
             // CategoriesSelector.ItemsSource = Enum.GetValues(typeof(BO.Enums.productsCategory));
@@ -80,9 +83,9 @@ namespace PL.AdminWindows
             //updateProduct.Visibility = Visibility.Hidden;
         }
 
-        public modifyProductWindow(BO.ProductForList product) // update mode
+        public modifyProductWindow(BO.ProductForList product ,string Name) // update mode
         {
-            
+            name = Name;
             Status = new ObservableCollection<string>(new() { "false", "true", "Hidden" , "Visible" , "Updete product" });
             ProductObservableCollection = new ObservableCollection<BO.Product> { bl.Product.ProductDetails(product.ID) };
             Insert = bl.Product.ProductDetails(product.ID);
@@ -130,7 +133,7 @@ namespace PL.AdminWindows
                     }
                     
                     bl.Product.AddProduct(new() { ID= Insert.ID, Name = Insert.Name, Price = Insert.Price, Category = Insert.Category, InStock = Insert.InStock });
-                    new ProductListWindow().Show();
+                    new ProductListWindow(name).Show();
                     this.Close();
                 }
             }
@@ -158,7 +161,7 @@ namespace PL.AdminWindows
                 }
                 
                 bl.Product.UpdateProduct(new() { ID= Insert.ID, Name = Insert.Name, Price = Insert.Price, Category = Insert.Category, InStock = Insert.InStock });
-                new ProductListWindow().Show();
+                new ProductListWindow(name).Show();
                 this.Close();
             }
             catch (BO.DataNotFoundException)
@@ -177,7 +180,7 @@ namespace PL.AdminWindows
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new ProductListWindow().Show();
+            new ProductListWindow(name).Show();
             this.Close();
         }
 

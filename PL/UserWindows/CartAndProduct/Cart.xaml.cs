@@ -19,10 +19,12 @@ namespace PL.UserWindows.CartAndProduct
     public partial class Cart : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         private ObservableCollection<BO.OrderItem> _listOfOrderItemForObservableCollection;
         public ObservableCollection<BO.OrderItem> listOfOrderItemForObservableCollection
         {
@@ -33,6 +35,7 @@ namespace PL.UserWindows.CartAndProduct
                 OnPropertyChanged(nameof(listOfOrderItemForObservableCollection));
             }
         }
+
         private ObservableCollection<string> _TotalPriceForObservableCollection;
         public ObservableCollection<string> TotalPriceForObservableCollection
         {
@@ -47,14 +50,17 @@ namespace PL.UserWindows.CartAndProduct
 
 
         BlApi.IBl? bl = BlApi.Factory.Get();
+
         BO.Cart dataCart = new BO.Cart();
-        NewOrder dataNewOrder = new NewOrder();
+
+        NewOrder dataNewOrder { get; set; }
+
         public bool hasBeenSorted = true;
+
         IEnumerable<BO.ProductForList> ListOfproductForList;
 
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
-            
             listOfOrderItemForObservableCollection = new ObservableCollection<BO.OrderItem>(cart.listOfOrderItem);
             TotalPriceForObservableCollection = new ObservableCollection<string> { cart.TotalPrice.ToString() };
             InitializeComponent();
@@ -85,14 +91,15 @@ namespace PL.UserWindows.CartAndProduct
 
                 int orderID = bl.Cart.OrderConfirmation(dataCart);
 
-                dataNewOrder.Close();
-                this.Close();
+                
 
                 MessageBox.Show($"Thank you for shopping with us" +
-                                $" Your order number is:" + orderID);
-
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.ShowDialog();
+                                $" Your order number is:" + orderID); 
+                new MainWindow().Show();
+                
+                dataNewOrder.Close();
+                this.Close();
+               
             }
             catch (BO.DataNotFoundException)
             {               

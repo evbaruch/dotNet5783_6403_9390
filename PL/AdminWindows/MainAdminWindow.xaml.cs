@@ -56,12 +56,27 @@ namespace PL.AdminWindows
             }
         }
 
+
+
+        public string AdminName
+        {
+            get { return (string)GetValue(AdminNameProperty); }
+            set { SetValue(AdminNameProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AdminName.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AdminNameProperty =
+            DependencyProperty.Register("AdminName", typeof(string), typeof(MainAdminWindow));
+
+
+
         DispatcherTimer timer = new DispatcherTimer();
 
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public MainAdminWindow()
+        public MainAdminWindow(string AdminName)
         {
+            this.AdminName =  AdminName;
             BackgrundsObservableCollection = new ObservableCollection<string>(Directory.GetFiles("..\\PL\\background\\main window\\"));
             CurrentBackgroundImage =new BitmapImage(new Uri(BackgrundsObservableCollection[0], UriKind.Relative));
             timer.Interval = TimeSpan.FromSeconds(4);
@@ -80,7 +95,7 @@ namespace PL.AdminWindows
 
         private void ProductListWindow_Click(object sender, RoutedEventArgs e)
         {
-            new AdminWindows.ProductListWindow().Show();
+            new AdminWindows.ProductListWindow(AdminName).Show();
             this.Close();
         }
 
@@ -92,7 +107,7 @@ namespace PL.AdminWindows
 
         private void OrderListWindow_Click(object sender, RoutedEventArgs e)
         {
-            new AdminWindows.Order.OrderListWindow().Show();
+            new AdminWindows.Order.OrderListWindow(AdminName).Show();
             this.Close();
         }
     }

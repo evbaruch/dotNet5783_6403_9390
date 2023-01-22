@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -86,7 +87,7 @@ public partial class SimulatorWindow : Window
 
 
 
-
+    Stopwatch timer2 = new Stopwatch();
 
     public int BackTime = 0;
 
@@ -96,6 +97,7 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
+       
         flag = true;
         BarProgress = 0;
         Time ="00:00:00";
@@ -119,7 +121,8 @@ public partial class SimulatorWindow : Window
         }
         else
         {
-            Time =TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
+             Time = timer2.Elapsed.ToString();
+            //Time =TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
         }
     }
 
@@ -127,6 +130,11 @@ public partial class SimulatorWindow : Window
     private void Window_Closing(object sender, CancelEventArgs e)
     {
         MessageBox.Show("This is not the way", "Let me down slowly", MessageBoxButton.OK, MessageBoxImage.Question, MessageBoxResult.OK);
+        e.Cancel = true;
+    }
+
+    private void Window_Closing_whileClose(object sender, CancelEventArgs e)
+    {
         e.Cancel = true;
     }
 
@@ -139,12 +147,11 @@ public partial class SimulatorWindow : Window
     {
         if (MessageBox.Show("Are you sure?", "Just making sure", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel) == MessageBoxResult.OK)
         {
-
             this.Closing -= Window_Closing;
+            this.Closing += Window_Closing_whileClose;
             Simulator.StopSimulation();
-            timer.Stop();
+            timer2.Stop();
             await Ramaining_Time();
-            this.Closing += WindowSoftClosing;
             this.Close();
         }
     }
@@ -157,6 +164,8 @@ public partial class SimulatorWindow : Window
             close = "colsing in " + estimatedTime;
             await Task.Delay(1000);
         }
+        this.Closing += Window_Closing_whileClose;
+        this.Closing += WindowSoftClosing;
     }
 
 
@@ -209,6 +218,7 @@ public partial class SimulatorWindow : Window
     private void Start_Button(object sender, RoutedEventArgs e)
     {
         flag = false;
+        timer2.Start();
         timer.Start();
         Simulator.SubscribeToUpdateSimulation(SimulationData);
         //Simulator.SubscribeToStopSimulation(StopSimulation);
@@ -220,6 +230,7 @@ public partial class SimulatorWindow : Window
     {
         flag = true;
         timer.Stop();
+        timer2.Stop();
         Simulator.StopSimulation();
     }
 }

@@ -64,9 +64,9 @@ public static class Simulator
         {
             var order = bl.Order.OrderDetailsRequest(bl.Order.PriorityOrder() ?? throw new NullReferenceException());
             var timeToHandle = new Random().Next(3, 7);
-            var aproximateTime = new Random().Next(timeToHandle, timeToHandle);
+            var aproximateTime = new Random().Next(timeToHandle ,timeToHandle);
 
-            updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime));//????????
+            updateSimulation?.Invoke(null, new Tuple<Order, int>(order, aproximateTime));
 
             sleep(timeToHandle);
             if (isSimulationStoped)
