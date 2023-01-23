@@ -68,6 +68,17 @@ namespace PL.UserWindows.CartAndProduct
             //TotalPrice.Text = cart.TotalPrice.ToString();
             dataCart = cart;
             dataNewOrder = newOrder;
+
+            if (newOrder.dataIsRegistered)
+            {
+                CustomerName.Text = newOrder.user.UserName.ToString();
+                CustomerEmail.Text = newOrder.user.Email.ToString();
+                CustomerAddress.Text = newOrder.user.Address.ToString();
+
+                dataCart.CustomerName = CustomerName.Text;
+                dataCart.CustomerEmail = CustomerEmail.Text;
+                dataCart.CustomerAddress = CustomerAddress.Text;
+            }
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -85,18 +96,29 @@ namespace PL.UserWindows.CartAndProduct
                     return;
                 }
 
-                dataCart.CustomerName = CustomerName.Text;
-                dataCart.CustomerEmail = CustomerEmail.Text;
-                dataCart.CustomerAddress = CustomerAddress.Text;
+                if (!dataNewOrder.dataIsRegistered)//אם המשתמש לא רשום
+                {
+                    dataCart.CustomerName = CustomerName.Text;
+                    dataCart.CustomerEmail = CustomerEmail.Text;
+                    dataCart.CustomerAddress = CustomerAddress.Text;
+                }
+
+
 
                 int orderID = bl.Cart.OrderConfirmation(dataCart);
 
-                
+
+                if (dataNewOrder.dataIsRegistered)//אם המשתמש רשום
+                {
+                    dataNewOrder.user.listOfOrder.Add( bl.Order.OrderForList(orderID));
+                    bl.User.UpdateUser(dataNewOrder.user);
+                }
 
                 MessageBox.Show($"Thank you for shopping with us" +
                                 $" Your order number is:" + orderID); 
                 new MainWindow().Show();
-                
+
+                dataNewOrder.dataparent.Close();
                 dataNewOrder.Close();
                 this.Close();
                

@@ -44,4 +44,8 @@ public interface IUser
     /// <param name="userName"></param>
     /// <returns></returns>
     public bool IsUserNameUnique(string userName);
+
+    public IEnumerable<BO.ProductItem> UserProductItems(BO.Cart cart);
+
+
 }

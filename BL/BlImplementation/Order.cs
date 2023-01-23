@@ -40,6 +40,25 @@ internal class Order : IOrder
         return OrderForList;
     }
 
+    public BO.OrderForList OrderForList(int orderID)
+    {
+        try
+        {
+            IEnumerable<BO.OrderForList> ListOfOrderForList = OrderListRequest();
+            BO.OrderForList? orderForList = ListOfOrderForList.FirstOrDefault(x => x.ID == orderID);
+
+            if (orderForList == null)
+            {
+                throw new DataNotFoundException(" ", new Exception("BlImplementation->Order->OrderForList = order don't exist - BlIm"));
+            }
+            return orderForList;
+        }
+        catch (DO.IDWhoException)
+        {
+            throw new DataNotFoundException(" ", new Exception("IDWhoException was throw"));
+        }
+    }
+
     public BO.Order OrderDetailsRequest(int orderID) 
     {
         try
