@@ -88,7 +88,8 @@ public partial class UserMainWindow : Window, INotifyPropertyChanged
     private void NewOrderWindow_Click(object sender, RoutedEventArgs e)
     {
         UserWindows.NewOrder newOrder = new UserWindows.NewOrder(true,this);
-        this.Close();
+        // this.Close();
+        this.Hide();
         newOrder.ShowDialog();
     }
 

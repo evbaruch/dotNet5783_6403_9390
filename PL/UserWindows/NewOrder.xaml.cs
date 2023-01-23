@@ -79,24 +79,36 @@ namespace PL.UserWindows
         }
 
 
-        BlApi.IBl? bl = BlApi.Factory.Get();
-        BO.Cart cart = new Cart();
-        public bool hasBeenSorted = true;
+        private BlApi.IBl? bl = BlApi.Factory.Get();
+        private BO.Cart? cart = new Cart();
+        private bool hasBeenSorted = true;
         private ObservableCollection<BO.ProductItem> _DataProductItemForObservableCollection;
-
-        public bool keepWishlist { get; set; }
+        internal UserMainWindow dataparent;
+        internal BO.User user = new BO.User();
+        internal bool dataIsRegistered = false;
 
         public NewOrder(bool isRegistered = false, UserMainWindow parent = null)
         {
             foo();
-            keepWishlist = isRegistered;
+            dataIsRegistered = isRegistered;
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
-            IEnumerable<BO.ProductItem>  productItemList = bl.Product.ProductItemList();
+            IEnumerable<BO.ProductItem> productItemList;
+
+            if (isRegistered && parent != null)//משתמש רשום
+            {
+                dataparent = parent;
+                user = parent.User;
+                cart = parent.User.currentCart;
+                productItemList = bl.User.UserProductItems(cart);
+            }
+            else//משתמש לא רשום
+            {
+                productItemList = bl.Product.ProductItemList();
+            }
+
             productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemList);
             _DataProductItemForObservableCollection = productItemForObservableCollection;
             InitializeComponent();
-
-             
         }
 
         private void CartWindow(object sender, RoutedEventArgs e)
@@ -122,9 +134,19 @@ namespace PL.UserWindows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            this.Close();
-            mainWindow.ShowDialog();
+            if (dataIsRegistered)//משתמש רשום
+            {
+                dataparent.User = user;
+                this.Close();
+                dataparent.Show();
+
+            }
+            else//משתמש לא רשום
+            {
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+            }
         }
 
         private void Decrease_Click(object sender, RoutedEventArgs e)
@@ -149,6 +171,11 @@ namespace PL.UserWindows
                 bl.Cart.UpdateProductQuantity(cart, productId, (int)productToUpdate.Amount);
             }
 
+            if (dataIsRegistered)//נעדכן למשתמש
+            {
+                user.currentCart = cart;
+            }
+
             this.Dispatcher.Invoke(() =>
             {
                 this.productItemForObservableCollection = new ObservableCollection<BO.ProductItem>(productItemForObservableCollection);
@@ -168,12 +195,21 @@ namespace PL.UserWindows
                 return;
             }
 
-            bl.Cart.AddProduct(cart, productId);
+            if (cart == null)
+            {
+                cart = new Cart();
+            }
 
+            bl.Cart.AddProduct(cart, productId);
 
             if (product != null)
             {
                 product.Amount++;
+            }
+
+            if (dataIsRegistered)//נעדכן למשתמש
+            {
+                user.currentCart = cart;   
             }
 
             // Update the OrderForObservableCollection in the parent window

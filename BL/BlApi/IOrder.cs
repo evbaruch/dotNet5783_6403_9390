@@ -44,4 +44,6 @@ public interface IOrder
 
     public bool IsUserNameUnique(string userName);
 
+    public BO.OrderForList OrderForList(int orderID);
+
 }

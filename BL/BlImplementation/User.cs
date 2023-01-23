@@ -140,7 +140,7 @@ internal class User : IUser
             {
                 DO.User updUser = new() { UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false };
                 updUser.listOfOrder =  dal.order.ReadAll(x=>x?.CustomerName == user.UserName).ToList();
-            dal.user.Update(updUser);
+                dal.user.Update(updUser);
             }
             else
             {
@@ -165,5 +165,31 @@ internal class User : IUser
     {
         var users = dal.user.ReadAll(x=>x?.UserName == userName);
         return users.Count() == 0;
+    }
+
+    public IEnumerable<BO.ProductItem> UserProductItems(BO.Cart? cart)
+    {
+        Product product = new Product();
+        IEnumerable<BO.ProductItem> productItem = product.ProductItemList();
+
+        if (cart == null || cart.listOfOrderItem == null)
+        {
+            return productItem;
+        }
+
+
+        foreach (var produc in productItem)
+        {
+            foreach (var order in cart.listOfOrderItem)
+            {
+                if (produc.ID == order.ProductID)
+                {
+                    produc.Amount = order.Amount;
+                }
+            }
+        }
+
+
+        return productItem;
     }
 }
