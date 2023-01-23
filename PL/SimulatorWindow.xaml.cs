@@ -97,7 +97,7 @@ public partial class SimulatorWindow : Window
 
     public SimulatorWindow()
     {
-       
+        
         flag = true;
         BarProgress = 0;
         Time ="00:00:00";
@@ -176,7 +176,6 @@ public partial class SimulatorWindow : Window
 
     private void SimulationData(object sender, Tuple<BO.Order, int> e)
     {
-        //MessageBox.Show(e.ToString());
         EstimatedTime(e.Item2);
         CurrentOrder(bl.Order.OrderTracking(e.Item1.ID));
     }

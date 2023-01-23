@@ -86,7 +86,7 @@ namespace PL.UserWindows
 
         public bool keepWishlist { get; set; }
 
-        public NewOrder(bool isRegistered)
+        public NewOrder(bool isRegistered = false, UserMainWindow parent = null)
         {
             foo();
             keepWishlist = isRegistered;

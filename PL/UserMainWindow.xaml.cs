@@ -61,11 +61,14 @@ public partial class UserMainWindow : Window, INotifyPropertyChanged
 
     public string UserName { get; set; }
 
+    public BO.User User { get; set; }
+
     BlApi.IBl? bl = BlApi.Factory.Get();
 
     public UserMainWindow(string Name)
     {
         UserName = Name;
+        User = bl.User.UserDetails(Name);
         BackgrundsObservableCollection = new ObservableCollection<string>(Directory.GetFiles("..\\PL\\background\\main window\\"));
         CurrentBackgroundImage =new BitmapImage(new Uri(BackgrundsObservableCollection[0], UriKind.Relative));
         timer.Interval = TimeSpan.FromSeconds(4);
@@ -84,7 +87,7 @@ public partial class UserMainWindow : Window, INotifyPropertyChanged
 
     private void NewOrderWindow_Click(object sender, RoutedEventArgs e)
     {
-        UserWindows.NewOrder newOrder = new UserWindows.NewOrder(true);
+        UserWindows.NewOrder newOrder = new UserWindows.NewOrder(true,this);
         this.Close();
         newOrder.ShowDialog();
     }
@@ -98,6 +101,6 @@ public partial class UserMainWindow : Window, INotifyPropertyChanged
     private void ProfileWindow_Click(object sender, RoutedEventArgs e)
     {
         new UserWindows.UserProfile(UserName).Show();
-        this.Close();
+        
     }
 }

@@ -15,11 +15,9 @@ public static class Simulator
 
     private static event EventHandler<Tuple<Order, int>>? updateSimulation;
 
-    //private static event EventHandler? stopSimulation;//?????????????
-
     private static volatile bool isSimulationStoped = false;
 
-    //private static BackgroundWorker backWorker = new BackgroundWorker();
+    private static BackgroundWorker backWorker = new BackgroundWorker();
 
 
     private static Thread? thread;
@@ -31,44 +29,28 @@ public static class Simulator
         updateSimulation += handler;
     }
 
-    //public static void SubscribeToStopSimulation(EventHandler handler)
-    //{
-    //    stopSimulation += handler;
-    //}
-    //public static void UnsubscribeFromStopSimulation(EventHandler handler)
-    //{
-    //    if (stopSimulation!.GetInvocationList().Contains(handler)) //???????????
-    //        stopSimulation -= handler;
-    //}
-    //public static void UnsubscribeFromUpdateSimulation(EventHandler<Tuple<Order, int>> handler)
-    //{
-    //    if (updateSimulation!.GetInvocationList().Contains(handler)) //??????????????
-    //        updateSimulation -= handler;
-    //}
-
     public static void StartSimulation()
     {
-        //backWorker.DoWork += (sender, e) => { simulation(); };
-        thread = new Thread(simulation);// { Name = "Simulation" };
-        thread.Start();
-        //backWorker.WorkerSupportsCancellation = true;
-        //backWorker.RunWorkerCompleted += RunWorkerCompleted;
-        //backWorker.RunWorkerAsync();
+        
+        //thread = new Thread(simulation);// { Name = "Simulation" };
+        //thread.Start();
+
+
+        backWorker.DoWork += (sender, e) => { simulation(); };
+        backWorker.WorkerSupportsCancellation = true;
+        backWorker.RunWorkerAsync();
+
+
         isSimulationStoped = false;
     }
 
     public static void StopSimulation()
     {
         isSimulationStoped = true;
-        //if (backWorker.IsBusy)
-        //    backWorker.CancelAsync();
-        thread?.Interrupt();
+        if (backWorker.IsBusy)
+            backWorker.CancelAsync();
+        //thread?.Interrupt();
     }
-
-    //private static void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-    //{
-    //    // Handle task completion
-    //}
 
     private static void sleep(int seconds)
     {
@@ -95,9 +77,7 @@ public static class Simulator
                 bl.Order.UpdateDeliveryOrder(order.ID);
             else
                 StopSimulation();
-                //stopSimulation?.Invoke(null, EventArgs.Empty);
         }
         StopSimulation();
-        //stopSimulation?.Invoke(null, EventArgs.Empty);
     }
 }
