@@ -156,7 +156,6 @@ namespace PL
             catch (Exception)
             {
                 MessageBox.Show("The data you have enter is not found, please try again", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
-
             }
 
         }
@@ -174,25 +173,40 @@ namespace PL
 
         private void LogIN(object sender, RoutedEventArgs e)
         {
-            InputPopUP inputPopUP = new InputPopUP();
-            inputPopUP.FirstInput = null;
-            inputPopUP.SeconedInput = null;
-            inputPopUP.Show("User name:", "Pin:", "log in");
-            if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
+            try
             {
-                if (inputPopUP.SeconedInput == bl.User.UserDetails(inputPopUP.FirstInput).Password.ToString() && bl.User.UserDetails(inputPopUP.FirstInput).IsAdmin == false)
+                InputPopUP inputPopUP = new InputPopUP();
+                inputPopUP.FirstInput = null;
+                inputPopUP.SeconedInput = null;
+                inputPopUP.Show("User name:", "Pin:", "log in");
+                if (inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "" && inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")
                 {
-                    var UserMainWindow = new UserMainWindow(inputPopUP.FirstInput);
-                    UserMainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-                    UserMainWindow.Left = this.Left;
-                    UserMainWindow.Top = this.Top;
-                    UserMainWindow.Show();
-                    this.Close();
+                    if (inputPopUP.SeconedInput == bl.User.UserDetails(inputPopUP.FirstInput).Password.ToString() && bl.User.UserDetails(inputPopUP.FirstInput).IsAdmin == false)
+                    {
+                        var UserMainWindow = new UserMainWindow(inputPopUP.FirstInput);
+                        UserMainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                        UserMainWindow.Left = this.Left;
+                        UserMainWindow.Top = this.Top;
+                        UserMainWindow.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("His highness is a god ,gods have there ways", "wrong path", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("His highness is a god ,gods have there ways", "wrong path", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
-                }
+            }
+            catch (BO.DataNotFoundException)
+            {
+                MessageBox.Show("the order isn't exist", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+            }
+            catch (BO.IncorrectDataException)
+            {
+                MessageBox.Show("The details you entered are not correct", "Uncorrect details error", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The data you have enter is not found, please try again", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
             }
         }
 

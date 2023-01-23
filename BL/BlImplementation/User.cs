@@ -66,7 +66,7 @@ internal class User : IUser
             Order order = new Order();
             if ((user != null) && (user.UserName != "") && (user.Address != "") && (user.Password != null) && (user.Email != "")) // only if all of the details are legal
             {
-                DO.User addUser = new() {UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false };
+                DO.User addUser = new() {UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = user.IsAdmin };
                 addUser.listOfOrder = dal.order.ReadAll(x => x?.CustomerName==user.UserName).ToList();
                 dal.user.Create(addUser);
             }

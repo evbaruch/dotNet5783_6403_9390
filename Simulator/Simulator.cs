@@ -38,6 +38,7 @@ public static class Simulator
 
         backWorker.DoWork += (sender, e) => { simulation(); };
         backWorker.WorkerSupportsCancellation = true;
+        backWorker.RunWorkerCompleted += RunWorkerCompleted;
         backWorker.RunWorkerAsync();
 
 
@@ -47,10 +48,19 @@ public static class Simulator
     public static void StopSimulation()
     {
         isSimulationStoped = true;
-        if (backWorker.IsBusy)
+        if(backWorker.IsBusy)
+        {
             backWorker.CancelAsync();
+        }
         //thread?.Interrupt();
     }
+
+
+    private static void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    { 
+        // Handle task completion
+    }
+
 
     private static void sleep(int seconds)
     {

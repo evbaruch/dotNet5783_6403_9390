@@ -1,6 +1,8 @@
-﻿using PL.AdminWindows;
+﻿using BO;
+using PL.AdminWindows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
@@ -34,8 +36,11 @@ namespace PL.UserWindows
 
         public bool toAdmin { get; set; }
 
-        public SignIN(bool toAdmin)
+        UserListWindow parentWindow;
+
+        public SignIN(bool toAdmin, UserListWindow parant = null)
         {
+            parentWindow = parant;
             Insert = new BO.User();
             InitializeComponent();
             this.toAdmin=toAdmin;
@@ -57,6 +62,11 @@ namespace PL.UserWindows
                 else
                 {
                     bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = toAdmin });
+
+                    parentWindow.Dispatcher.Invoke(() =>
+                    {
+                        parentWindow.UserForObservableCollection = new ObservableCollection<BO.UserForList>(bl.User.Users());
+                    });
                     this.Close();
                 }
             }

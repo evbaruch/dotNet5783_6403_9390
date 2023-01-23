@@ -94,7 +94,7 @@ public partial class UserListWindow : Window, INotifyPropertyChanged
 
     private void CreateNewAdmin_Click(object sender, RoutedEventArgs e)
     {
-        UserWindows.SignIN signIN = new UserWindows.SignIN(true);
+        UserWindows.SignIN signIN = new UserWindows.SignIN(true , this);
         signIN.ShowDialog();
     }
 }
