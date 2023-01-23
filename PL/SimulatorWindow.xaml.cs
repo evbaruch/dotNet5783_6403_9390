@@ -101,7 +101,7 @@ public partial class SimulatorWindow : Window
         flag = true;
         BarProgress = 0;
         Time ="00:00:00";
-        close = "Colse";
+        close = "Close";
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += Timer_Tick;
         InitializeComponent();
@@ -122,7 +122,7 @@ public partial class SimulatorWindow : Window
         else
         {
              Time = timer2.Elapsed.ToString();
-            //Time =TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
+            //Time = TimeSpan.FromSeconds(++BackTime).ToString(@"hh\:mm\:ss");
         }
     }
 
@@ -161,7 +161,7 @@ public partial class SimulatorWindow : Window
         while (estimatedTime != 0)
         {
             estimatedTime--;
-            close = "colsing in " + estimatedTime;
+            close = "closing in " + estimatedTime;
             await Task.Delay(1000);
         }
         this.Closing += Window_Closing_whileClose;

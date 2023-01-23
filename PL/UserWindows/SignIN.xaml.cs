@@ -32,10 +32,13 @@ namespace PL.UserWindows
 
         BlApi.IBl? bl = BlApi.Factory.Get();
 
-        public SignIN()
+        public bool toAdmin { get; set; }
+
+        public SignIN(bool toAdmin)
         {
             Insert = new BO.User();
             InitializeComponent();
+            this.toAdmin=toAdmin;
         }
 
         private void sign_in(object sender, RoutedEventArgs e)
@@ -47,9 +50,13 @@ namespace PL.UserWindows
                 {
                     MessageBox.Show("you missed some details", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
+                else if(!bl.User.IsUserNameUnique(Insert.UserName))
+                {
+                    MessageBox.Show("The user name you entered is already in use", "details error", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+                }
                 else
                 {
-                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = false });
+                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = toAdmin });
                     this.Close();
                 }
             }

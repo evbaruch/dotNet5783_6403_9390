@@ -38,5 +38,10 @@ public interface IUser
     /// </summary>
     /// <param name="user"></param>
     public void UpdateUser(User user);
-
+    /// <summary>
+    /// check the uniqueness of the UserName
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <returns></returns>
+    public bool IsUserNameUnique(string userName);
 }

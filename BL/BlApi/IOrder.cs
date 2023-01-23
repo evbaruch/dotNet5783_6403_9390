@@ -42,4 +42,6 @@ public interface IOrder
 
     public int? PriorityOrder(Func<DO.Order?, bool>? filter = null);
 
+    public bool IsUserNameUnique(string userName);
+
 }

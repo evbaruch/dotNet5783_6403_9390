@@ -349,5 +349,9 @@ internal class Order : IOrder
         return order.OrderID;
     }
 
-    
+    public bool IsUserNameUnique(string userName)
+    {
+        var users = dal.order.ReadAll(x => x?.CustomerName == userName);
+        return users.Count() == 0;
+    }
 }

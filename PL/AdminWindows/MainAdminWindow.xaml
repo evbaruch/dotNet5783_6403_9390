@@ -90,6 +90,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
             <Button 
@@ -100,6 +101,25 @@
             Height="30"
             HorizontalAlignment="Stretch"
             Click="ProductListWindow_Click"
+            FontWeight="Bold"
+            >
+                <Button.Resources>
+                    <Style 
+                    TargetType="Border">
+                        <Setter 
+                        Property="CornerRadius"
+                        Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button 
+            Content="Users"
+            Grid.Column="3"
+            Width="100" 
+            Height="30"
+            HorizontalAlignment="Stretch"
+            Click="UserListWindow_Click"
             FontWeight="Bold"
             >
                 <Button.Resources>

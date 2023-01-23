@@ -25,7 +25,7 @@ internal class User : IUser
             UserName = user?.UserName,
             Address = user?.Address,
             Email = user?.Email,
-            IsAdmin = false,
+            IsAdmin = user?.IsAdmin,
             NumOfOrder = user?.listOfOrder.Count()
 
         }).ToList();
@@ -161,7 +161,9 @@ internal class User : IUser
         }
     }
 
-    
-
-    
+    public bool IsUserNameUnique(string userName)
+    {
+        var users = dal.user.ReadAll(x=>x?.UserName == userName);
+        return users.Count() == 0;
+    }
 }

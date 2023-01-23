@@ -110,5 +110,11 @@ namespace PL.AdminWindows
             new AdminWindows.Order.OrderListWindow(AdminName).Show();
             this.Close();
         }
+
+        private void UserListWindow_Click(object sender, RoutedEventArgs e)
+        {
+            new AdminWindows.UserListWindow(AdminName).Show();
+            this.Close();
+        }
     }
 }

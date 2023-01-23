@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,15 @@ public static class Simulator
 {
     private static IBl bl = Factory.Get();
 
-    private static event EventHandler<Tuple<Order, int>>? updateSimulation;//??????????
+    private static event EventHandler<Tuple<Order, int>>? updateSimulation;
+
     //private static event EventHandler? stopSimulation;//?????????????
 
     private static volatile bool isSimulationStoped = false;
+
+    //private static BackgroundWorker backWorker = new BackgroundWorker();
+
+
     private static Thread? thread;
 
 
@@ -42,16 +48,27 @@ public static class Simulator
 
     public static void StartSimulation()
     {
+        //backWorker.DoWork += (sender, e) => { simulation(); };
         thread = new Thread(simulation);// { Name = "Simulation" };
         thread.Start();
+        //backWorker.WorkerSupportsCancellation = true;
+        //backWorker.RunWorkerCompleted += RunWorkerCompleted;
+        //backWorker.RunWorkerAsync();
         isSimulationStoped = false;
     }
 
     public static void StopSimulation()
     {
         isSimulationStoped = true;
+        //if (backWorker.IsBusy)
+        //    backWorker.CancelAsync();
         thread?.Interrupt();
     }
+
+    //private static void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    //{
+    //    // Handle task completion
+    //}
 
     private static void sleep(int seconds)
     {
