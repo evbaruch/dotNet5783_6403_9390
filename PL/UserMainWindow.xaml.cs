@@ -95,6 +95,7 @@ public partial class UserMainWindow : Window, INotifyPropertyChanged
 
     private void Back_Click(object sender, RoutedEventArgs e)
     {
+        bl.User.UpdateUser(User);
         new MainWindow().Show();
         this.Close();
     }

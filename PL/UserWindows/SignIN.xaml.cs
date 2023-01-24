@@ -63,10 +63,13 @@ namespace PL.UserWindows
                 {
                     bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = toAdmin });
 
-                    parentWindow.Dispatcher.Invoke(() =>
+                    if (parentWindow != null)
                     {
-                        parentWindow.UserForObservableCollection = new ObservableCollection<BO.UserForList>(bl.User.Users());
-                    });
+                        parentWindow.Dispatcher.Invoke(() =>
+                        {
+                            parentWindow.UserForObservableCollection = new ObservableCollection<BO.UserForList>(bl.User.Users());
+                        });
+                    }
                     this.Close();
                 }
             }

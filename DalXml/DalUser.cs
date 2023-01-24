@@ -54,7 +54,7 @@ internal class DalUser : IUser
     {
         List<DO.User?> listUser = XmlTools.LoadListFromXMLSerializer<DO.User>(UserPath);
         User? isNULL = ReadObject(a => a?.UserName == user.UserName);
-        int I = listUser.IndexOf(isNULL);
+        int I = listUser.FindIndex(x=>x?.UserName==isNULL?.UserName);
         if (I != -1) // if the ID exist update the details else throw an Error
         {
             listUser[I] = user;

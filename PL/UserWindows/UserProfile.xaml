@@ -350,7 +350,7 @@
 
             <ListView 
                 Grid.Column="1"
-                ItemsSource = "{Binding Path = User.listOfOrder, ElementName = MyWindow}"
+                ItemsSource = "{Binding OrderForObservableCollection, ElementName = MyWindow}"
                 x:Name="OrderListview" 
                 MouseDoubleClick ="OrderListview_MouseDoubleClick"
                 SelectionChanged ="OrderListview_SelectionChanged"

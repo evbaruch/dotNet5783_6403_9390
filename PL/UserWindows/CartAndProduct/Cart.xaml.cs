@@ -61,8 +61,10 @@ namespace PL.UserWindows.CartAndProduct
 
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
+
             listOfOrderItemForObservableCollection = new ObservableCollection<BO.OrderItem>(cart.listOfOrderItem);
-            TotalPriceForObservableCollection = new ObservableCollection<string> { cart.TotalPrice.ToString() };
+            TotalPriceForObservableCollection = new ObservableCollection<string> { (from math in cart.listOfOrderItem 
+                                                                                    select math.TotalPrice).Sum().ToString()};
             InitializeComponent();
             //ListCart.ItemsSource = cart.listOfOrderItem;
             //TotalPrice.Text = cart.TotalPrice.ToString();
@@ -111,6 +113,7 @@ namespace PL.UserWindows.CartAndProduct
                 if (dataNewOrder.dataIsRegistered)//אם המשתמש רשום
                 {
                     dataNewOrder.user.listOfOrder.Add( bl.Order.OrderForList(orderID));
+                    dataNewOrder.user.currentCart = new BO.Cart();
                     bl.User.UpdateUser(dataNewOrder.user);
                 }
 

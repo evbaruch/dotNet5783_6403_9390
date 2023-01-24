@@ -52,14 +52,14 @@ public partial class UserProfile : Window, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private ObservableCollection<BO.OrderItem> _orderItemObservableCollection;
-    public ObservableCollection<BO.OrderItem> OrderItemObservableCollection
+    private ObservableCollection<BO.OrderForList> _orderForObservableCollection;
+    public ObservableCollection<BO.OrderForList> OrderForObservableCollection
     {
-        get { return _orderItemObservableCollection; }
+        get { return _orderForObservableCollection; }
         set
         {
-            _orderItemObservableCollection = value;
-            OnPropertyChanged(nameof(OrderItemObservableCollection));
+            _orderForObservableCollection = value;
+            OnPropertyChanged(nameof(OrderForObservableCollection));
         }
     }
 
@@ -71,7 +71,7 @@ public partial class UserProfile : Window, INotifyPropertyChanged
     {
         User = bl.User.UserDetails(userName);
         SelectedColor = Color.FromRgb(130, 231, 239);
-        OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>();
+        OrderForObservableCollection = new ObservableCollection<BO.OrderForList>(User.listOfOrder);
         InitializeComponent();
     }
 
@@ -82,7 +82,10 @@ public partial class UserProfile : Window, INotifyPropertyChanged
 
     private void OrderListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-
+        if (((BO.OrderForList)((ListView)sender).SelectedItem) != null)
+        {
+            new AdminWindows.Order.modifyOrderWindow(((BO.OrderForList)((ListView)sender).SelectedItem), this).Show();
+        }
     }
 
     private void GridViewColumnHeaderSort_Click(object sender, RoutedEventArgs e)
@@ -91,7 +94,7 @@ public partial class UserProfile : Window, INotifyPropertyChanged
         if (gridViewColumnHeader != null)
         {
             string name = (gridViewColumnHeader.Tag as string);
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderItemObservableCollection);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderForObservableCollection);
             view.SortDescriptions.Clear();
             if (hasBeenSorted)
             {

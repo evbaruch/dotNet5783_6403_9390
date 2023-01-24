@@ -92,7 +92,7 @@ namespace PL.AdminWindows.Order
         public bool hasBeenSorted = true;
 
         private OrderListWindow parentWindow;
-        private PL.OrderTracking.OrderTracker stepParentWindow;
+        private object stepParentWindow;
 
         public modifyOrderWindow(BO.OrderForList orderForList, OrderListWindow parentWindow)
         {
@@ -106,8 +106,9 @@ namespace PL.AdminWindows.Order
 
         }
 
-        public modifyOrderWindow(BO.OrderForList orderForList, PL.OrderTracking.OrderTracker parentWindow)
+        public modifyOrderWindow(BO.OrderForList orderForList, object parentWindow)
         {
+            SelectedColor = Color.FromRgb(130, 231, 239);
             this.stepParentWindow = parentWindow;
             order = bl.Order.OrderDetailsRequest(orderForList.ID);
             OrderItemObservableCollection = new ObservableCollection<BO.OrderItem>(order.Items);

@@ -136,7 +136,8 @@ namespace PL.UserWindows
         {
             if (dataIsRegistered)//משתמש רשום
             {
-                dataparent.User = user;
+                user.currentCart = cart;
+                bl.User.UpdateUser(user);
                 this.Close();
                 dataparent.Show();
 
