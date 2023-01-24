@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:PL"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        Icon="/Icon.png"
+        
+        WindowStyle="None"
+        AllowsTransparency="True"
+        
         Title="SimulatorWindow" Height="450" Width="600" x:Name="MyWindow" Closing="Window_Closing" >
     <Grid>
         <Grid.Background>
@@ -151,6 +156,13 @@
                 Width="140"
                 Grid.Row="1"
                 Background="#FF7C96FF"/>
+
+            <Rectangle
+                Stroke="Black"
+                StrokeThickness="5"
+                Grid.Column="2"
+                Margin="-5,38,-4,115"
+                />
 
             <TextBlock
                 HorizontalAlignment="Center"

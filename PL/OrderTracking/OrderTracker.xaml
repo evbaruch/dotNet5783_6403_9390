@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.OrderTracking"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         Title="OrderTracker" Height="440" Width="600" x:Name="MyWindow">
     <Grid>
         <Grid.Background>

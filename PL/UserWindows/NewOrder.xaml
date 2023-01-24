@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.UserWindows"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         x:Name="MyWindow" Title="NewOrder" Height="640" Width="800">
     <Grid>
         <Grid.Background>

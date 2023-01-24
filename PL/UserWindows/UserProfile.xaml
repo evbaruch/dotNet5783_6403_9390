@@ -8,6 +8,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         x:Name="MyWindow"
+        Icon="/Icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="UserProfile" Height="450" Width="600">
     <Grid>
