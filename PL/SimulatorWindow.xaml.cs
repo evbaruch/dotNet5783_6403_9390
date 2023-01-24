@@ -117,6 +117,7 @@ public partial class SimulatorWindow : Window
         {
             Simulator.StopSimulation();
             timer.Stop();
+            MessageBox.Show("Simulation finish", "goog bye!", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
             estimatedTime = 0;
         }
         else
