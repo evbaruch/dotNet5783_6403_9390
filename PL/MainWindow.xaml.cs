@@ -49,6 +49,10 @@ namespace PL
                         MessageBox.Show("you are not a god ,you may apply a request to become a god", "peasent!!!!", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
                     }
                 }
+                else if (((inputPopUP.SeconedInput != null && inputPopUP.SeconedInput != "") && (inputPopUP.FirstInput == null || inputPopUP.FirstInput == "")) || ((inputPopUP.SeconedInput == null || inputPopUP.SeconedInput == "") && (inputPopUP.FirstInput != null && inputPopUP.FirstInput != "")))
+                {
+                    MessageBox.Show("enter two inputs", "missing inputs", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+                }
             }
             catch (BO.DataNotFoundException)
             {
