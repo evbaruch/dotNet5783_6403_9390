@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows.Order"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         Title="OrderListWindow" 
         Height="640"
         Width="800"

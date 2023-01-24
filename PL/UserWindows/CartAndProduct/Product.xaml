@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.UserWindows.CartAndProduct"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         Title="Product" Height="480" Width="600">
     <Grid Height="464" VerticalAlignment="Center">
         <Grid.Background>

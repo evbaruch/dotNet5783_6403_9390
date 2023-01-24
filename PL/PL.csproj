@@ -18,6 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="background\Icon.png" />
     <None Remove="background\main window\mainWindow1.jpeg" />
     <None Remove="background\main window\mainWindow2.jpeg" />
     <None Remove="background\main window\mainWindow3.jpeg" />
@@ -48,9 +49,11 @@
     <None Remove="background\products\product %287%29.jpeg" />
     <None Remove="background\products\product %288%29.jpeg" />
     <None Remove="background\products\product %289%29.jpeg" />
+    <None Remove="Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="background\Icon.png" />
     <Resource Include="background\products\centaur.jpeg" />
   </ItemGroup>
 
@@ -89,6 +92,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="background\main window\mainWindow2.jpeg" />
+    <Resource Include="Icon.png" />
   </ItemGroup>
 
   <ItemGroup>

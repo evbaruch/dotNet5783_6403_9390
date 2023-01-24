@@ -18,54 +18,52 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto" />
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
-        
-      <Label 
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="69*" />
+            <ColumnDefinition Width="223*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label 
           Content="{Binding Label1Text}"
           Target="{Binding ElementName=inputTextBox1}"
           VerticalAlignment="Center"
-          Grid.Row="0"
           Grid.Column="0" />
-        
-      <TextBox 
+
+        <TextBox 
           Name="inputTextBox1"
           Width="200" 
-          Margin="10"
+          Margin="46,0,46,0"
           VerticalAlignment="Center"
-          Grid.Row="0"
-          Grid.Column="1" />
-        
-      <Label 
+          Grid.Column="1" Grid.ColumnSpan="2" />
+
+        <Label 
           Content="{Binding Label2Text}"
           Target="{Binding ElementName=inputTextBox2}"
           VerticalAlignment="Center"
           Grid.Row="1" 
           Grid.Column="0" />
-        
-      <TextBox 
+
+        <TextBox 
           Name="inputTextBox2"
           Width="200"
-          Margin="10"
+          Margin="46,0,46,0"
           VerticalAlignment="Center"
           Grid.Row="1"
-          Grid.Column="1" />
-        
-      <Button 
+          Grid.Column="1" Grid.ColumnSpan="2" />
+
+        <Button 
           Content="{Binding ButtenText}"
-          Margin="10"
-          HorizontalAlignment="Center"
+          Margin="57,10,0,10"
+          HorizontalAlignment="Left"
           Click="Button_Click" 
           Grid.Row="2"
-          Grid.Column="0" 
-          Grid.ColumnSpan="2" />
-        
+          Grid.Column="2" />
+
     </Grid>
 </UserControl>

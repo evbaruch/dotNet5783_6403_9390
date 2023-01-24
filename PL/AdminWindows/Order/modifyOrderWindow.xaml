@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows.Order"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"

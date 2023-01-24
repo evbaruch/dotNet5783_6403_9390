@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.AdminWindows"
         mc:Ignorable="d"
+        Icon="/Icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="modifyProductWindow" Height="640" Width="800" x:Name="MyWindow">
     <Window.Background>
