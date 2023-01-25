@@ -25,18 +25,44 @@ namespace PL.UserWindows.CartAndProduct
 
         NewOrder dataNewOrder { get; set; }
 
+
+
+        public string productDetails
+        {
+            get { return (string)GetValue(productDetailsProperty); }
+            set { SetValue(productDetailsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for productDetails.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty productDetailsProperty =
+            DependencyProperty.Register("productDetails", typeof(string), typeof(PL.UserWindows.CartAndProduct.Product));
+
+
+
+        public int amount
+        {
+            get { return (int)GetValue(amountProperty); }
+            set { SetValue(amountProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for amount.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty amountProperty =
+            DependencyProperty.Register("amount", typeof(int), typeof(PL.UserWindows.CartAndProduct.Product));
+
+
+
         public Product(ProductItem? ProductContent, BO.Cart cart,NewOrder newOrder, bool IsUptdat)
         {
            InitializeComponent();
 
             dataProductItem = ProductContent;
-            productTextBlock.Text = ProductContent.ToString();
+            productDetails = ProductContent.ToString();
             dataNewOrder = newOrder;
             dataCart = cart;
 
             if (IsUptdat)
             {
-                TextBoxValue.Text = ProductContent.Amount.ToString();
+                amount = (int)ProductContent.Amount;
             }
         }
 
@@ -50,7 +76,7 @@ namespace PL.UserWindows.CartAndProduct
             try
             {
                 int number;
-                bool isNumber = int.TryParse(TextBoxValue.Text, out number);
+                bool isNumber = int.TryParse(amount.ToString(), out number);
                 if (!isNumber || number < 0)
                 {
                     MessageBox.Show("ERROR No number entered");
@@ -67,7 +93,7 @@ namespace PL.UserWindows.CartAndProduct
                     {
                         if (item.ID == dataProductItem.ID)
                         {
-                            item.Amount = int.Parse(TextBoxValue.Text);
+                            item.Amount = amount;
                         }
                     }
 

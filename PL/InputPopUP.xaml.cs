@@ -20,6 +20,30 @@ namespace PL
     /// </summary>
     public partial class InputPopUP : UserControl
     {
+
+
+        public string input1
+        {
+            get { return (string)GetValue(input1Property); }
+            set { SetValue(input1Property, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for inputs.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty input1Property =
+            DependencyProperty.Register("inpu1", typeof(string), typeof(InputPopUP));
+
+        public string input2
+        {
+            get { return (string)GetValue(input2Property); }
+            set { SetValue(input2Property, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for inputs.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty input2Property =
+            DependencyProperty.Register("input2", typeof(string), typeof(InputPopUP));
+
+
+
         private static string _FirstInput;
         private static string _SeconedInput;
 
@@ -44,8 +68,8 @@ namespace PL
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _FirstInput = inputTextBox1.Text;
-            _SeconedInput  = inputTextBox2.Text;
+            _FirstInput = input1;
+            _SeconedInput  = input2;
 
             var window = Window.GetWindow(this);
             window.Close();

@@ -62,7 +62,6 @@
         <Button 
            Content="Back" 
            Grid.Column="0" 
-           x:Name="Back"
            HorizontalAlignment="Left" 
            Margin="5,5,5,5"
            Padding="5"

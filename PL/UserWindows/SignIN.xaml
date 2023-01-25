@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL.UserWindows"
         mc:Ignorable="d"
         Icon="/Icon.png"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="SignIN" Height="450" Width="600"
-        x:Name="MyWindow">
+        >
     <Grid>
         
         <Grid.Background>
@@ -88,7 +89,7 @@
             <TextBox 
                 Grid.Column="2"
                 Grid.Row="0"
-                Text = "{Binding Insert.UserName ,ElementName=MyWindow , Mode=TwoWay}"
+                Text = "{Binding Insert.UserName, Mode=TwoWay}"
                 Width="auto"
                 FontSize="15"
                 VerticalAlignment="Center"
@@ -114,7 +115,7 @@
                 Grid.Column="2"
                 Grid.Row="1"
                 Width="auto"
-                Text = "{Binding Insert.Address ,ElementName=MyWindow , Mode=TwoWay}"
+                Text = "{Binding Insert.Address , Mode=TwoWay}"
                 x:Name="Name"
                 FontSize="15"
                 VerticalAlignment="Center"
@@ -140,7 +141,7 @@
                 Grid.Column="2"
                 Grid.Row="2"
                 Width="auto"
-                Text = "{Binding Insert.Email ,ElementName =MyWindow , Mode=TwoWay}"
+                Text = "{Binding Insert.Email , Mode=TwoWay}"
                 FontSize="15"
                 VerticalAlignment="Center"
                 >
@@ -165,7 +166,7 @@
                 Grid.Column="2"
                 Grid.Row="3"
                 Width="auto"
-                Text = "{Binding Insert.Password ,ElementName =MyWindow , Mode=TwoWay}"
+                Text = "{Binding Insert.Password , Mode=TwoWay}"
                 FontSize="15"
                 VerticalAlignment="Center"
                 >

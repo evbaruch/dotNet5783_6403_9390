@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.UserWindows.CartAndProduct"
         mc:Ignorable="d"
+        x:Name="MyWindow"
         Icon="/Icon.png"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="Product" Height="480" Width="600">
     <Grid Height="464" VerticalAlignment="Center">
         <Grid.Background>
@@ -38,16 +40,16 @@
             Click="ButtonConfirma_Click"/>
 
         <TextBlock 
-            x:Name="productTextBlock" 
             Grid.Column="1"  
             TextWrapping="Wrap" 
+            Text="{Binding productDetails}"
             Margin="20" 
             FontSize="20"/>
 
         <TextBox 
-            x:Name="TextBoxValue" 
             Grid.Column="1"  
             Grid.Row="1"  
+            Text="{Binding amount , Mode=TwoWay }"
             Margin="185,42,140,50" 
             MaxLength ="2"/>
 

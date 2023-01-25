@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.UserWindows"
         mc:Ignorable="d"
         Icon="/Icon.png"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         x:Name="MyWindow" Title="NewOrder" Height="640" Width="800">
     <Grid>
         <Grid.Background>
@@ -27,7 +28,7 @@
 
         <Button Grid.Column="2"  Content="Cart" Click="CartWindow" />
 
-        <ListView x:Name="ProductItemForList"
+        <ListView 
           MouseDoubleClick="showProduct_DoubleClick"
           ItemsSource="{Binding Path=productItemForObservableCollection, ElementName=MyWindow}"
           Grid.Column="1"
@@ -73,7 +74,6 @@
                                 <StackPanel Orientation="Horizontal">
 
                                     <Button
-                                            x:Name="DecreaseButton"
                                             Width="20"
                                             Height="20"
                                             Padding="0"
@@ -85,8 +85,7 @@
 
                                     <Label Content="{Binding Amount}" />
 
-                                    <Button 
-                                            x:Name="IncreaseButton"
+                                    <Button
                                             Width="20" 
                                             Height="20"
                                             Padding="0"
@@ -134,7 +133,6 @@
         <Button Content="back" Click="Button_Click"/>
 
         <ComboBox
-            x:Name="CategoriesSelector"
             ItemsSource="{Binding Categories , ElementName=MyWindow}"
             Grid.Column="1"
             HorizontalAlignment="Left"

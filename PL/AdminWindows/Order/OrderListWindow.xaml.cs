@@ -83,7 +83,7 @@ namespace PL.AdminWindows.Order
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderForObservableCollection);//
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(OrderForObservableCollection);
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {

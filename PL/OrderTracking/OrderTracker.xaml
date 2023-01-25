@@ -47,7 +47,6 @@
             <Button 
                 Content="Order details" 
                 Grid.Column="5" 
-                x:Name="OredrDetails"
                 HorizontalAlignment="Center" 
                 Padding="5"
                 Width="auto"
@@ -65,7 +64,6 @@
             <Button 
                 Content="Back" 
                 Grid.Column="0" 
-                x:Name="Back"
                 HorizontalAlignment="Center" 
                 Padding="5"
                 Width="90"
@@ -84,7 +82,6 @@
                 Margin="5,5,5,5"
                 Grid.Column="3"
                 Grid.Row="2"
-                x:Name="StatusTextBlock"
                 Text="Status:"
                 FontSize="15"
                 VerticalAlignment="Center" 
@@ -95,7 +92,6 @@
                 Margin="5,5,5,5"
                 Grid.Column="4"
                 Grid.Row="2"
-                x:Name="TextBlock"
                 Text="{Binding TrackedObservableCollection[0].Status , ElementName=MyWindow}"  
                 FontSize="15"
                 VerticalAlignment="Center" 
@@ -106,7 +102,6 @@
                 Margin="5,5,5,5"
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="IDTextBlock"
                 Text="Order ID:"
                 FontSize="15"
                 VerticalAlignment="Center" 
@@ -117,7 +112,6 @@
                 Margin="5,5,5,5"
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="IDValueTextBlock"
                 Text="{Binding TrackedObservableCollection[0].ID , ElementName=MyWindow}"  
                 FontSize="15"
                 VerticalAlignment="Center" 
@@ -158,7 +152,6 @@
                     Width="auto"
                     Height="auto"
                     Margin="5,0,-5,0"
-                    x:Name="OrderDateTextBlock"
                     Text="{Binding TrackedObservableCollection[0].OrderStatuses[0].Item2 , ElementName=MyWindow}"  
                     VerticalAlignment="Center" 
                     TextAlignment="Center"
@@ -176,7 +169,6 @@
                 Width="auto">
 
                 <TextBlock 
-                x:Name="OrderTextBox"
                 Text="{Binding TrackedObservableCollection[0].OrderStatuses[0].Item1 , ElementName=MyWindow}" 
                 Width="auto"
                 FontSize="10"
@@ -199,7 +191,6 @@
                     Width="auto"
                     Height="auto"
                     Margin="5,0,-5,0"
-                    x:Name="ShipDateTextBlock"
                     Text="{Binding TrackedObservableCollection[0].OrderStatuses[1].Item2 , ElementName=MyWindow}" 
                     VerticalAlignment="Center" 
                     TextAlignment="Center"
@@ -217,7 +208,6 @@
                 Width="auto">
 
                 <TextBlock 
-                x:Name="ShipTextBox"
                 Text="{Binding TrackedObservableCollection[0].OrderStatuses[1].Item1 , ElementName=MyWindow}" 
                 Width="auto"
                 FontSize="10"
@@ -239,7 +229,6 @@
                     Width="auto"
                     Height="auto"
                     Margin="5,0,-5,0"
-                    x:Name="DeliveryDateTextBlock"
                     Text="{Binding TrackedObservableCollection[0].OrderStatuses[2].Item2 , ElementName=MyWindow}"  
                     VerticalAlignment="Center" 
                     TextAlignment="Center"
@@ -257,7 +246,6 @@
                 Width="auto">
 
                 <TextBlock 
-                x:Name="DeliveyTextBox"
                 Text="{Binding TrackedObservableCollection[0].OrderStatuses[2].Item1 , ElementName=MyWindow}" 
                 Width="auto"
                 FontSize="10"

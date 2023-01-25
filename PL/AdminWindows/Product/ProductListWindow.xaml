@@ -28,7 +28,6 @@
             </Grid.ColumnDefinitions >
 
             <ComboBox 
-                Name="CategoriesSelector"
                 ItemsSource="{Binding Categories , ElementName=MyWindow}"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch"
@@ -41,7 +40,6 @@
             <Button 
                 Content="Back" 
                 Grid.Column="0" 
-                x:Name="Back"
                 HorizontalAlignment="Left" 
                 Margin="5,5,5,5"
                 Padding="5"
@@ -164,8 +162,7 @@
 
             <ListView 
                 Grid.Column="1"
-                ItemsSource = "{Binding Path = ProductForObservableCollection, ElementName = MyWindow}"
-                x:Name="ProductListview" 
+                ItemsSource = "{Binding Path = ProductForObservableCollection, ElementName = MyWindow}" 
                 MouseDoubleClick = "updateProduct_Click" 
                 SelectionChanged ="ProductListview_SelectionChanged"
                 FontSize="15"
@@ -229,7 +226,6 @@
         <Button 
             Content="Add new Product" 
             Grid.Row="3" 
-            x:Name="addProduct"
             HorizontalAlignment="Right" 
             Margin="5,5,5,5"
             Padding="5"

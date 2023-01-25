@@ -7,7 +7,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        x:Name="MyWindow"
         Icon="/Icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="UserProfile" Height="450" Width="600">
@@ -15,7 +14,7 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
-                <GradientStop Color="{Binding SelectedColor, ElementName=MyWindow ,UpdateSourceTrigger=PropertyChanged}" Offset="1"/>
+                <GradientStop Color="{Binding SelectedColor,UpdateSourceTrigger=PropertyChanged}" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -120,7 +119,7 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         x:Name="NameTextBox"
-                        Text= "{Binding User.UserName, ElementName=MyWindow}" 
+                        Text= "{Binding User.UserName}" 
                         Width="auto"
                         FontSize="10"
                         Margin="5,5,5,5"
@@ -145,7 +144,7 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         x:Name="EmailTextBox"
-                        Text= "{Binding User.Email, ElementName=MyWindow}" 
+                        Text= "{Binding User.Email}" 
                         Width="auto"
                         FontSize="10"
                         Margin="5,5,5,5"
@@ -256,7 +255,7 @@
                         Width="auto"
                         FontSize="10"
                         Margin="10,5,5,5"
-                        Text= "{Binding User.Address, ElementName=MyWindow}" 
+                        Text= "{Binding User.Address}" 
                         Grid.ColumnSpan="2"
                         >
                         <TextBox.Resources>
@@ -282,7 +281,7 @@
                         Width="auto"
                         FontSize="10"
                         Margin="10,5,5,5"
-                        Text="{Binding User.IsAdmin, ElementName=MyWindow}"  
+                        Text="{Binding User.IsAdmin}"  
                         Grid.ColumnSpan="2"
                         >
                         <TextBox.Resources>
@@ -310,7 +309,6 @@
                 </Grid.RowDefinitions>
 
                 <xctk:ColorPicker
-                    x:Name="colorPicker"
                     SelectedColor="{Binding SelectedColor, Mode=TwoWay}"
                     Padding="0"
                     HorizontalContentAlignment="Center"

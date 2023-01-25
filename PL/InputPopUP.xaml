@@ -5,6 +5,7 @@
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
           mc:Ignorable="d"
+          
           Width="300" Height="190"
           DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
@@ -31,12 +32,11 @@
 
         <Label 
           Content="{Binding Label1Text}"
-          Target="{Binding ElementName=inputTextBox1}"
           VerticalAlignment="Center"
           Grid.Column="0" />
 
         <TextBox 
-          Name="inputTextBox1"
+          Text="{Binding input1,Mode=TwoWay}"
           Width="200" 
           Margin="46,0,46,0"
           VerticalAlignment="Center"
@@ -44,13 +44,12 @@
 
         <Label 
           Content="{Binding Label2Text}"
-          Target="{Binding ElementName=inputTextBox2}"
           VerticalAlignment="Center"
           Grid.Row="1" 
           Grid.Column="0" />
 
         <TextBox 
-          Name="inputTextBox2"
+          Text="{Binding input2 ,Mode=TwoWay}"
           Width="200"
           Margin="46,0,46,0"
           VerticalAlignment="Center"
@@ -59,7 +58,7 @@
 
         <Button 
           Content="{Binding ButtenText}"
-          Margin="57,10,0,10"
+          Margin="-10,30,0,10"
           HorizontalAlignment="Left"
           Click="Button_Click" 
           Grid.Row="2"

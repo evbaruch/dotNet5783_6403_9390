@@ -63,7 +63,10 @@ public partial class UserListWindow : Window, INotifyPropertyChanged
 
     private void UserListview_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        new UserWindows.UserProfile(((BO.UserForList)((ListView)sender).SelectedItem).UserName).Show();
+        if (((BO.UserForList)((ListView)sender).SelectedItem) != null)
+        {
+            new UserWindows.UserProfile(((BO.UserForList)((ListView)sender).SelectedItem).UserName).Show();
+        }
     }
 
     private void UserListview_SelectionChanged(object sender, SelectionChangedEventArgs e)

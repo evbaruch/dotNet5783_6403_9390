@@ -122,11 +122,10 @@ namespace PL.UserWindows
         private void showProduct_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             
-            if ((BO.ProductItem)ProductItemForList.SelectedItem != null)
+            if ((BO.ProductItem)(sender as ListView).SelectedItem != null)
             {
-                CartAndProduct.Product productWindow = new CartAndProduct.Product(
-                    (BO.ProductItem)ProductItemForList.SelectedItem, cart, this, false
-                    );
+                CartAndProduct.Product productWindow = 
+                    new CartAndProduct.Product((BO.ProductItem)(sender as ListView).SelectedItem, cart, this, false);
                 productWindow.ShowDialog();
             }
 
@@ -226,7 +225,7 @@ namespace PL.UserWindows
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductItemForList.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(productItemForObservableCollection);
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {

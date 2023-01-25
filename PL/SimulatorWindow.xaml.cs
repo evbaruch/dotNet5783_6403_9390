@@ -22,6 +22,33 @@ namespace PL;
 public partial class SimulatorWindow : Window
 {
 
+
+
+    public string NewTime
+    {
+        get { return (string)GetValue(NewTimeProperty); }
+        set { SetValue(NewTimeProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for NewTime.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty NewTimeProperty =
+        DependencyProperty.Register("NewTime", typeof(string), typeof(SimulatorWindow));
+
+
+
+    public string currentTime
+    {
+        get { return (string)GetValue(currentTimeProperty); }
+        set { SetValue(currentTimeProperty, value); }
+    }
+
+    // Using a DependencyProperty as the backing store for currentTime.  This enables animation, styling, binding, etc...
+    public static readonly DependencyProperty currentTimeProperty =
+        DependencyProperty.Register("currentTime", typeof(string), typeof(SimulatorWindow));
+
+
+
+
     public static readonly DependencyProperty MyTrackerProperty =
         DependencyProperty.Register("OrderCurrent", typeof(BO.OrderTracking), typeof(SimulatorWindow));
     public BO.OrderTracking OrderCurrent
@@ -127,6 +154,10 @@ public partial class SimulatorWindow : Window
         }
     }
 
+    private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DragMove();
+    }
 
     private void Window_Closing(object sender, CancelEventArgs e)
     {
@@ -206,6 +237,8 @@ public partial class SimulatorWindow : Window
             estimatedTime = a;
             maxBar = a;
             BarProgress = 0;
+            NewTime = (DateTime.Now + TimeSpan.FromSeconds(a)).ToString();
+            currentTime = DateTime.Now.ToString();
         }
     }
 

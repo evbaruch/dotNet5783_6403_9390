@@ -146,7 +146,7 @@ namespace PL.AdminWindows
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductListview.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ProductForObservableCollection);
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {

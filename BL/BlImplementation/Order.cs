@@ -35,6 +35,7 @@ internal class Order : IOrder
                             ID = (int)(item?.OrderID ?? -1),
                             Status = status
                         }).ToList();
+        OrderForList = OrderForList.GroupBy(x => x.AmountOfItems).SelectMany(x => x).ToList();
         OrderForList = OrderForList.OrderBy(x => x.AmountOfItems).ToList();
         
         return OrderForList;

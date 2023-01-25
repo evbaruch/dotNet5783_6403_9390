@@ -25,6 +25,32 @@ namespace PL.UserWindows.CartAndProduct
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+
+
+        public bool IsEnable
+        {
+            get { return (bool)GetValue(IsEnableProperty); }
+            set { SetValue(IsEnableProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsEnable.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsEnableProperty =
+            DependencyProperty.Register("IsEnable", typeof(bool), typeof(PL.UserWindows.CartAndProduct.Cart));
+
+
+
+        public BO.Cart cartDetails
+        {
+            get { return (BO.Cart)GetValue(cartDetailsProperty); }
+            set { SetValue(cartDetailsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for cartDetails.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty cartDetailsProperty =
+            DependencyProperty.Register("cartDetails", typeof(BO.Cart), typeof(PL.UserWindows.CartAndProduct.Cart));
+
+
+
         private ObservableCollection<BO.OrderItem> _listOfOrderItemForObservableCollection;
         public ObservableCollection<BO.OrderItem> listOfOrderItemForObservableCollection
         {
@@ -61,26 +87,31 @@ namespace PL.UserWindows.CartAndProduct
 
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
-
+            IsEnable = true;
             listOfOrderItemForObservableCollection = new ObservableCollection<BO.OrderItem>(cart.listOfOrderItem);
             TotalPriceForObservableCollection = new ObservableCollection<string> { (from math in cart.listOfOrderItem 
                                                                                     select math.TotalPrice).Sum().ToString()};
-            InitializeComponent();
-            //ListCart.ItemsSource = cart.listOfOrderItem;
-            //TotalPrice.Text = cart.TotalPrice.ToString();
+            cartDetails = cart;
+
             dataCart = cart;
+
             dataNewOrder = newOrder;
 
             if (newOrder.dataIsRegistered)
             {
-                CustomerName.Text = newOrder.user.UserName.ToString();
-                CustomerEmail.Text = newOrder.user.Email.ToString();
-                CustomerAddress.Text = newOrder.user.Address.ToString();
+                IsEnable = false;
+                cartDetails.CustomerName = newOrder.user.UserName.ToString();
+                cartDetails.CustomerEmail = newOrder.user.Email.ToString();
+                cartDetails.CustomerAddress = newOrder.user.Address.ToString();
 
-                dataCart.CustomerName = CustomerName.Text;
-                dataCart.CustomerEmail = CustomerEmail.Text;
-                dataCart.CustomerAddress = CustomerAddress.Text;
+                dataCart.CustomerName = cartDetails.CustomerName;
+                dataCart.CustomerEmail = cartDetails.CustomerEmail;
+                dataCart.CustomerAddress = cartDetails.CustomerAddress;
             }
+            InitializeComponent();
+            //ListCart.ItemsSource = cart.listOfOrderItem;
+            //TotalPrice.Text = cart.TotalPrice.ToString();
+            
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -92,7 +123,7 @@ namespace PL.UserWindows.CartAndProduct
         {
             try
             {
-                if (string.IsNullOrEmpty(CustomerName.Text) || string.IsNullOrEmpty(CustomerEmail.Text) || string.IsNullOrEmpty(CustomerAddress.Text))
+                if (string.IsNullOrEmpty(cartDetails.CustomerName) || string.IsNullOrEmpty(cartDetails.CustomerEmail) || string.IsNullOrEmpty(cartDetails.CustomerAddress))
                 {
                     MessageBox.Show("ERROR");
                     return;
@@ -100,9 +131,9 @@ namespace PL.UserWindows.CartAndProduct
 
                 if (!dataNewOrder.dataIsRegistered)//אם המשתמש לא רשום
                 {
-                    dataCart.CustomerName = CustomerName.Text;
-                    dataCart.CustomerEmail = CustomerEmail.Text;
-                    dataCart.CustomerAddress = CustomerAddress.Text;
+                    dataCart.CustomerName = cartDetails.CustomerName;
+                    dataCart.CustomerEmail = cartDetails.CustomerEmail;
+                    dataCart.CustomerAddress = cartDetails.CustomerAddress;
                 }
 
 
@@ -138,7 +169,7 @@ namespace PL.UserWindows.CartAndProduct
             BO.ProductItem productItem = new BO.ProductItem();
             BO.OrderItem orderItem = new BO.OrderItem();
 
-            orderItem = (BO.OrderItem)ListCart.SelectedItem;
+            orderItem = (BO.OrderItem)(sender as ListView).SelectedItem;
             if (orderItem != null)
             {
                 productItem = bl.Product.ProductDetails(orderItem.ProductID, dataCart);
@@ -158,7 +189,7 @@ namespace PL.UserWindows.CartAndProduct
             if (gridViewColumnHeader != null)
             {
                 string name = (gridViewColumnHeader.Tag as string);
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListCart.ItemsSource);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView((sender as ListView).ItemsSource);
                 view.SortDescriptions.Clear();
                 if (hasBeenSorted)
                 {

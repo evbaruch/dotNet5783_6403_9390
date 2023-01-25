@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Icon="/Icon.png"
-        
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         WindowStyle="None"
         AllowsTransparency="True"
         
@@ -161,7 +161,7 @@
                 Stroke="Black"
                 StrokeThickness="5"
                 Grid.Column="2"
-                Margin="-5,38,-4,115"
+                Margin="-4,38,-4,115"
                 />
 
             <TextBlock
@@ -254,7 +254,22 @@
 
 
         </Grid>
+        
+        <Label
+             Content="{Binding NewTime, ElementName=MyWindow}"
+             HorizontalAlignment="Right"
+            Margin="300,0,0,0"
+             VerticalAlignment="Center" 
+             Grid.Row="2"
+            Grid.Column="1"/>
 
+        <Label
+             Content="{Binding currentTime, ElementName=MyWindow}"
+             Margin="0,0,300,0"
+             HorizontalAlignment="Right"
+             VerticalAlignment="Center" 
+             Grid.Row="2"
+             Grid.Column="1"/>
 
 
 

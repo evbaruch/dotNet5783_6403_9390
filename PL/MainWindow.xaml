@@ -154,8 +154,7 @@
                 Width="auto"
                 >
 
-                <Button 
-                    x:Name="AdminListWindow" 
+                <Button  
                     Content="God mode"  
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
@@ -211,7 +210,6 @@
 
                 <Button 
                     Content="Observation"
-                    x:Name="observation"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Height="auto"
