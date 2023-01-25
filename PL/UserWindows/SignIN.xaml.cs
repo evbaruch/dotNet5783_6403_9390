@@ -24,7 +24,7 @@ namespace PL.UserWindows
     public partial class SignIN : Window
     {
         public static readonly DependencyProperty MyPropertyProperty =
-       DependencyProperty.Register("Insert", typeof(BO.User), typeof(modifyProductWindow));
+       DependencyProperty.Register("Insert", typeof(BO.User), typeof(SignIN));
 
         public BO.User Insert
         {

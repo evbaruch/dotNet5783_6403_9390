@@ -256,5 +256,17 @@ namespace PL.UserWindows
 
             }
         }
+
+        private void MyWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (dataIsRegistered)//משתמש רשום
+            {
+                user.currentCart = cart;
+                bl.User.UpdateUser(user);
+                dataparent.Close();
+
+            }
+            e.Cancel = false;
+        }
     }
 }

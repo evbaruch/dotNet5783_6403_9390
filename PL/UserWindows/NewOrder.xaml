@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Icon="/Icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        x:Name="MyWindow" Title="NewOrder" Height="640" Width="800">
+        x:Name="MyWindow" Title="NewOrder" Height="640" Width="800" Closing="MyWindow_Closing">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

@@ -202,7 +202,7 @@ namespace PL
             }
             catch (BO.DataNotFoundException)
             {
-                MessageBox.Show("the order isn't exist", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
+                MessageBox.Show("the User isn't exist", "Not found details error", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation, MessageBoxResult.Cancel);
             }
             catch (BO.IncorrectDataException)
             {
