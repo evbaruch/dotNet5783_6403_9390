@@ -129,6 +129,12 @@ namespace PL.UserWindows.CartAndProduct
                     return;
                 }
 
+                if (!CustomerEmail.Text.Contains("@"))
+                {
+                    MessageBox.Show("Incorrect email");
+                    return;
+                }
+
                 if (!dataNewOrder.dataIsRegistered)//אם המשתמש לא רשום
                 {
                     dataCart.CustomerName = cartDetails.CustomerName;
@@ -152,7 +158,10 @@ namespace PL.UserWindows.CartAndProduct
                                 $" Your order number is:" + orderID); 
                 new MainWindow().Show();
 
-                dataNewOrder.dataparent.Close();
+                if (dataNewOrder.dataparent != null)
+                {
+                    dataNewOrder.dataparent.Close();
+                }
                 dataNewOrder.Close();
                 this.Close();
                
