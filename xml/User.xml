@@ -1,1 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?><ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><User><UserName>evyatar&amp;yehuda</UserName><Address>machon lev</Address><Email>minip@g.jct.ac.il</Email><Password>12345</Password><IsAdmin>true</IsAdmin><listOfOrder /></User></ArrayOfUser>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<User>
+		<UserName>evyatar</UserName>
+		<Address>machon lev</Address>
+		<Email>minip@g.jct.ac.il</Email>
+		<Password>Password</Password>
+		<IsAdmin>true</IsAdmin>
+		<listOfOrder />
+		<CurrentOrder />
+	</User>
+	<User>
+		<UserName>yehuda</UserName>
+		<Address>jct</Address>
+		<Email>yehuda@g.jct.ac.il</Email>
+		<Password>123</Password>
+		<IsAdmin>true</IsAdmin>
+		<listOfOrder />
+		<CurrentOrder />
+	</User>
+</ArrayOfUser>

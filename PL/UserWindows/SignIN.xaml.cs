@@ -59,6 +59,10 @@ namespace PL.UserWindows
                 {
                     MessageBox.Show("The user name you entered is already in use", "details error", MessageBoxButton.OK, MessageBoxImage.Hand, MessageBoxResult.Cancel);
                 }
+                else if(!Insert.Email.Contains("@"))
+                {
+                    MessageBox.Show("use a legal email address", "Missing details error", MessageBoxButton.OKCancel, MessageBoxImage.Hand, MessageBoxResult.Cancel);
+                }
                 else
                 {
                     bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = toAdmin });

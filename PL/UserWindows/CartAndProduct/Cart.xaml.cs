@@ -129,7 +129,7 @@ namespace PL.UserWindows.CartAndProduct
                     return;
                 }
 
-                if (!CustomerEmail.Text.Contains("@"))
+                if (!cartDetails.CustomerEmail.Contains("@"))
                 {
                     MessageBox.Show("Incorrect email");
                     return;

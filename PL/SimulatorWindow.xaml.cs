@@ -193,7 +193,7 @@ public partial class SimulatorWindow : Window
         while (estimatedTime != 0)
         {
             estimatedTime--;
-            close = "closing in " + estimatedTime;
+            close = "Closing in " + estimatedTime;
             await Task.Delay(1000);
         }
         this.Closing += Window_Closing_whileClose;

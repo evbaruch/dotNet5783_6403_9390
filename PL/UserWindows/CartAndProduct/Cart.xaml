@@ -101,8 +101,8 @@
 
 
 
-        <Button Content="back" Grid.Row="1" Click="ButtonBack_Click" />
-        <Button Content="confirma" Grid.Row="1" Grid.Column="2" Click="ButtonConfirma_Click" />
+        <Button Content="Back" Grid.Row="1" Click="ButtonBack_Click" />
+        <Button Content="Confirm" Grid.Row="1" Grid.Column="2" Click="ButtonConfirma_Click" />
 
         <ListView
             ItemsSource="{Binding Path=listOfOrderItemForObservableCollection, ElementName=MyWindow}"

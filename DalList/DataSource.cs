@@ -153,7 +153,8 @@ internal static class DataSource
         string[] CustomerAddress = new string[] { "Jerusalem", "Paris", "Tsfat", "Tel aviv", "Barcelona", "Vina", "Hugurts", "Tberia", "london", "no were street 26 secund floor" };
 
         //User
-        listUser.Add(addUser("evyatar&yehuda","machon lev","minip@g.jct.ac.il","12345",true));
+        listUser.Add(addUser("evyatar","machon lev","minip@g.jct.ac.il","Password",true));
+        listUser.Add(addUser("yehuda", "jct", "yehuda@g.jct.ac.il", "123", true));
 
         //Order
         for (int i = 0; i < 20; i++)

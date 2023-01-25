@@ -130,7 +130,7 @@
 
 
 
-        <Button Content="back" Click="Button_Click"/>
+        <Button Content="Back" Click="Button_Click"/>
 
         <ComboBox
             ItemsSource="{Binding Categories , ElementName=MyWindow}"
