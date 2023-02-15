@@ -65,7 +65,7 @@ namespace PL.UserWindows
                 }
                 else
                 {
-                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new BO.Cart(),IsAdmin = toAdmin });
+                    bl.User.SighIn(new() { UserName=Insert.UserName, Address = Insert.Address, Email = Insert.Email, Password = Insert.Password, listOfOrder = new List<BO.OrderForList>() , currentCart = new List<OrderItem>(),IsAdmin = toAdmin });
 
                     if (parentWindow != null)
                     {

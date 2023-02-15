@@ -61,7 +61,7 @@ namespace PL.OrderTracking
 
         private void OredrDetails_Click(object sender, RoutedEventArgs e)
         {
-            new PL.AdminWindows.Order.modifyOrderWindow(bl.Order.OrderListRequest().First(x => x.ID == int.Parse((sender as TextBlock).Text)), this).Show(); // yhedoa is a ...
+            new PL.AdminWindows.Order.modifyOrderWindow(bl.Order.OrderListRequest().First(x => x.ID == TrackedObservableCollection[0].ID), this).Show(); // yhedoa is a ...
         }
     }
 }

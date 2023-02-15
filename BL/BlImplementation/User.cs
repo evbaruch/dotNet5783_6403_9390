@@ -46,10 +46,11 @@ internal class User : IUser
                 user = new() { UserName = temp.UserName, Address = temp.Address, Email = temp.Email, IsAdmin = temp.IsAdmin, Password = temp.Password};
                 user.listOfOrder = (from numbers in dal.user.Read(new() { UserName = userName}).listOfOrder
                                    select order.OrderForList(numbers)).ToList();
-                user.currentCart = new BO.Cart();
-                user.currentCart.listOfOrderItem = new List<BO.OrderItem>();
-                user.currentCart.listOfOrderItem = (from move in dal.user.Read(new() {UserName = user.UserName }).CurrentOrder
-                                                   select new BO.OrderItem { Amount = move.Amount , ID = move.OrderItemID , Name = userName, Price = move.Price , ProductID = move.ProductID , TotalPrice = move.Amount * move.Price}).ToList();
+                user.currentCart = new List<BO.OrderItem>();
+
+                var a = dal.user.Read(new() { UserName = user.UserName }).listOfOrder;
+                user.currentCart = (from move in dal.user.Read(new() {UserName = user.UserName }).CurrentOrder
+                                                   select new BO.OrderItem { Amount = move.Amount , ID = move.OrderItemID , Name = "", Price = move.Price , ProductID = move.ProductID , TotalPrice = move.Amount * move.Price}).ToList();
                 return user;
             }
             else
@@ -146,7 +147,7 @@ internal class User : IUser
                 DO.User updUser = new() { UserName = user.UserName , Address = user.Address , Password = user.Password.ToString(), Email = user.Email , IsAdmin = false };
                 updUser.listOfOrder =  (from element in user.listOfOrder
                                        select element.ID).ToList();
-                updUser.CurrentOrder = (from move in user.currentCart.listOfOrderItem
+                updUser.CurrentOrder = (from move in user.currentCart
                                        select new DO.OrderItem { Amount = move.Amount ,ProductID = move.ProductID , OrderItemID = move.ID , Price = move.Price}).ToList(); 
                 dal.user.Update(updUser);
             }

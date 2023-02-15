@@ -19,7 +19,7 @@ namespace PL;
 /// <summary>
 /// Interaction logic for Simulator.xaml
 /// </summary>
-public partial class SimulatorWindow : Window
+public partial class SimulatorWindow : Window 
 {
 
 

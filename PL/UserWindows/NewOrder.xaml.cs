@@ -98,8 +98,9 @@ namespace PL.UserWindows
             {
                 dataparent = parent;
                 user = parent.User;
-                cart = parent.User.currentCart;
+                cart.listOfOrderItem = parent.User.currentCart;
                 productItemList = bl.User.UserProductItems(cart);
+                cart.listOfOrderItem.ForEach(x => x.Name = productItemList.FirstOrDefault(y => y.ID == x.ProductID).Name);
             }
             else//משתמש לא רשום
             {
@@ -113,6 +114,7 @@ namespace PL.UserWindows
 
         private void CartWindow(object sender, RoutedEventArgs e)
         {
+            
             CartAndProduct.Cart cartWindow = new CartAndProduct.Cart(cart, this);
             cartWindow.ShowDialog();
 
@@ -135,7 +137,7 @@ namespace PL.UserWindows
         {
             if (dataIsRegistered)//משתמש רשום
             {
-                user.currentCart = cart;
+                user.currentCart = cart.listOfOrderItem;
                 bl.User.UpdateUser(user);
                 this.Close();
                 dataparent.Show();
@@ -173,7 +175,7 @@ namespace PL.UserWindows
 
             if (dataIsRegistered)//נעדכן למשתמש
             {
-                user.currentCart = cart;
+                user.currentCart = cart.listOfOrderItem;
             }
 
             this.Dispatcher.Invoke(() =>
@@ -209,7 +211,7 @@ namespace PL.UserWindows
 
             if (dataIsRegistered)//נעדכן למשתמש
             {
-                user.currentCart = cart;   
+                user.currentCart = cart.listOfOrderItem;   
             }
 
             // Update the OrderForObservableCollection in the parent window
@@ -255,18 +257,6 @@ namespace PL.UserWindows
                 productItemForObservableCollection = new ObservableCollection<ProductItem>(filteredProducts);
 
             }
-        }
-
-        private void MyWindow_Closing(object sender, CancelEventArgs e)
-        {
-            if (dataIsRegistered)//משתמש רשום
-            {
-                user.currentCart = cart;
-                bl.User.UpdateUser(user);
-                dataparent.Close();
-
-            }
-            e.Cancel = false;
         }
     }
 }

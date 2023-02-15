@@ -15,7 +15,7 @@ public class User
 
     public string? Password { set; get; }
     public bool? IsAdmin { set; get; }
-    public Cart? currentCart { set; get; }
+    public List<OrderItem>? currentCart { set; get; }
     public List<OrderForList>? listOfOrder { set; get; }
 
     public override string ToString() => $@"

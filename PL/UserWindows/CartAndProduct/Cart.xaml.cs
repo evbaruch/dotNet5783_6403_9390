@@ -150,7 +150,7 @@ namespace PL.UserWindows.CartAndProduct
                 if (dataNewOrder.dataIsRegistered)//אם המשתמש רשום
                 {
                     dataNewOrder.user.listOfOrder.Add( bl.Order.OrderForList(orderID));
-                    dataNewOrder.user.currentCart = new BO.Cart();
+                    dataNewOrder.user.currentCart = new List<OrderItem>();
                     bl.User.UpdateUser(dataNewOrder.user);
                 }
 
