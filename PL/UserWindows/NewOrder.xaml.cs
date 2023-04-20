@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,8 @@ namespace PL.UserWindows
                 OnPropertyChanged(nameof(productItemForObservableCollection));
             }
         }
+
+
         private ObservableCollection<String> _Categories;
         public ObservableCollection<String> Categories
         {
@@ -67,17 +70,6 @@ namespace PL.UserWindows
             }
         }
 
-        private void foo()
-        {
-            string[] item = new string[15];
-            item[0] = @"..\background\products\angel.jpeg";
-            item[1] = @"..\background\products\centaur.jpeg";
-
-
-
-            ImageUrl = new ObservableCollection<string> (item);
-        }
-
 
         private BlApi.IBl? bl = BlApi.Factory.Get();
         private BO.Cart? cart = new Cart();
@@ -89,7 +81,8 @@ namespace PL.UserWindows
 
         public NewOrder(bool isRegistered = false, UserMainWindow parent = null)
         {
-            foo();
+                                                                                
+            ImageUrl = new ObservableCollection<string>(Directory.GetFiles(@"..\PL\background\products\"));
             dataIsRegistered = isRegistered;
             Categories = new ObservableCollection<string>(Enum.GetNames(typeof(BO.Enums.productsCategory)).Prepend("All"));
             IEnumerable<BO.ProductItem> productItemList;

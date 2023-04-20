@@ -89,7 +89,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\brain.jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\brain1.jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -99,7 +99,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (10).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\angel.jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -109,7 +109,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (12).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\boy.jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -134,7 +134,7 @@
                     Grid.Row="0"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (6).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\centaur.jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -144,7 +144,7 @@
                     Grid.Row="1"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (2).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\computer brain.jpeg"/>
                     </Grid.Background>
                 </Grid>
 
@@ -154,7 +154,7 @@
                     Grid.Row="2"
                     Width="auto">
                     <Grid.Background>
-                        <ImageBrush ImageSource="..\..\background\products\product (9).jpeg"/>
+                        <ImageBrush ImageSource="..\..\background\products\hand weapon.jpeg"/>
                     </Grid.Background>
                 </Grid>
 

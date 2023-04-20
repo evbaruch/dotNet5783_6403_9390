@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -73,6 +74,16 @@ namespace PL.UserWindows.CartAndProduct
             }
         }
 
+        private ObservableCollection<String> _ImageUrl;
+        public ObservableCollection<String> ImageUrl
+        {
+            get { return _ImageUrl; }
+            set
+            {
+                _ImageUrl = value;
+                OnPropertyChanged(nameof(ImageUrl));
+            }
+        }
 
 
         BlApi.IBl? bl = BlApi.Factory.Get();
@@ -87,6 +98,8 @@ namespace PL.UserWindows.CartAndProduct
 
         public Cart(BO.Cart cart, NewOrder newOrder)
         {
+
+            ImageUrl = new ObservableCollection<string>(Directory.GetFiles(@"..\PL\background\products\"));
             IsEnable = true;
             listOfOrderItemForObservableCollection = new ObservableCollection<BO.OrderItem>(cart.listOfOrderItem);
             TotalPriceForObservableCollection = new ObservableCollection<string> { (from math in cart.listOfOrderItem 

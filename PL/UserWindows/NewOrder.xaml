@@ -8,6 +8,10 @@
         Icon="/Icon.png"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         x:Name="MyWindow" Title="NewOrder" Height="640" Width="800" >
+    <Window.Resources>
+        <local:ImageUrlConverter x:Key="imageUrlConverter" />
+        <CollectionViewSource x:Key="imageUrlList" Source="{Binding ImageUrl}" />
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -46,7 +50,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding ImageUrl[0]  , ElementName=MyWindow}" Width="100" Height="100" />
+                                    <Image  Source="{Binding Name, Converter={StaticResource imageUrlConverter}, ConverterParameter={StaticResource imageUrlList}}"  Width="100" Height="100" />
                                     <TextBlock Text="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>

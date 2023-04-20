@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.UserWindows.CartAndProduct"
+        xmlns:preLocal="clr-namespace:PL.UserWindows"
         mc:Ignorable="d"
         Icon="/Icon.png"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         x:Name="MyWindow" Title="Cart" Height="480" Width="600">
+    <Window.Resources>
+        <preLocal:ImageUrlConverter x:Key="imageUrlConverter" />
+        <CollectionViewSource x:Key="imageUrlList" Source="{Binding ImageUrl}" />
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -122,7 +128,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding ImageUrl}" Width="50" Height="50" />
+                                    <Image  Source="{Binding Name, Converter={StaticResource imageUrlConverter}, ConverterParameter={StaticResource imageUrlList}}"  Width="100" Height="100" />
                                     <TextBlock Text="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>

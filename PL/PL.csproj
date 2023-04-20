@@ -28,32 +28,57 @@
     <None Remove="background\main window\mainWindow7.jpeg" />
     <None Remove="background\main window\mainWindow8.jpeg" />
     <None Remove="background\products\angel.jpeg" />
+    <None Remove="background\products\angel1.jpeg" />
+    <None Remove="background\products\angel2.jpeg" />
+    <None Remove="background\products\angel5.jpeg" />
+    <None Remove="background\products\boy.jpeg" />
+    <None Remove="background\products\boy1.jpeg" />
     <None Remove="background\products\brain.jpeg" />
+    <None Remove="background\products\brain1.jpeg" />
+    <None Remove="background\products\brain2.jpeg" />
+    <None Remove="background\products\brain3.jpeg" />
+    <None Remove="background\products\brain4.jpeg" />
+    <None Remove="background\products\cancer.jpeg" />
     <None Remove="background\products\centaur.jpeg" />
-    <None Remove="background\products\product %2810%29.jpeg" />
-    <None Remove="background\products\product %2811%29.jpeg" />
-    <None Remove="background\products\product %2812%29.jpeg" />
-    <None Remove="background\products\product %2813%29.jpeg" />
-    <None Remove="background\products\product %2814%29.jpeg" />
-    <None Remove="background\products\product %2815%29.jpeg" />
-    <None Remove="background\products\product %2816%29.jpeg" />
-    <None Remove="background\products\product %2817%29.jpeg" />
-    <None Remove="background\products\product %2818%29.jpeg" />
-    <None Remove="background\products\product %2819%29.jpeg" />
-    <None Remove="background\products\product %282%29.jpeg" />
-    <None Remove="background\products\product %2820%29.jpeg" />
-    <None Remove="background\products\product %283%29.jpeg" />
-    <None Remove="background\products\product %284%29.jpeg" />
-    <None Remove="background\products\product %285%29.jpeg" />
-    <None Remove="background\products\product %286%29.jpeg" />
-    <None Remove="background\products\product %287%29.jpeg" />
-    <None Remove="background\products\product %288%29.jpeg" />
-    <None Remove="background\products\product %289%29.jpeg" />
+    <None Remove="background\products\centaur1.jpeg" />
+    <None Remove="background\products\centaur2.jpeg" />
+    <None Remove="background\products\centaur3.jpeg" />
+    <None Remove="background\products\centaur4.jpeg" />
+    <None Remove="background\products\centaur5.jpeg" />
+    <None Remove="background\products\computer brain.jpeg" />
+    <None Remove="background\products\computer brain2.jpeg" />
+    <None Remove="background\products\computer brain3.jpeg" />
+    <None Remove="background\products\fast healing.jpeg" />
+    <None Remove="background\products\girl boy.jpeg" />
+    <None Remove="background\products\girl.jpeg" />
+    <None Remove="background\products\girl1.jpeg" />
+    <None Remove="background\products\hand weapon.jpeg" />
+    <None Remove="background\products\hand weapon1.jpeg" />
+    <None Remove="background\products\hand weapon2.jpeg" />
+    <None Remove="background\products\hand weapon3.jpeg" />
+    <None Remove="background\products\hand weapon4.jpeg" />
+    <None Remove="background\products\hand weapon5.jpeg" />
+    <None Remove="background\products\hand weapon6.jpeg" />
+    <None Remove="background\products\hermaphrodite.jpeg" />
+    <None Remove="background\products\inherited illness.jpeg" />
+    <None Remove="background\products\muscles.jpeg" />
+    <None Remove="background\products\muscles1.jpeg" />
+    <None Remove="background\products\Rick and Morty.jpeg" />
+    <None Remove="background\products\Rick and Morty1.jpeg" />
+    <None Remove="background\products\satyr.jpeg" />
+    <None Remove="background\products\satyr1.jpeg" />
+    <None Remove="background\products\satyr2.jpeg" />
+    <None Remove="background\products\sight.jpeg" />
+    <None Remove="background\products\sight1.jpeg" />
+    <None Remove="background\products\sight2.jpeg" />
+    <None Remove="background\products\sight3.jpeg" />
+    <None Remove="background\products\sight4.jpeg" />
     <None Remove="Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="background\Icon.png" />
+    <Resource Include="background\products\brain.jpeg" />
     <Resource Include="background\products\centaur.jpeg" />
   </ItemGroup>
 
@@ -65,26 +90,26 @@
     <Resource Include="background\main window\mainWindow7.jpeg" />
     <Resource Include="background\main window\mainWindow8.jpeg" />
     <Resource Include="background\products\angel.jpeg" />
-    <Resource Include="background\products\brain.jpeg" />
-    <Resource Include="background\products\product (10).jpeg" />
-    <Resource Include="background\products\product (11).jpeg" />
-    <Resource Include="background\products\product (12).jpeg" />
-    <Resource Include="background\products\product (13).jpeg" />
-    <Resource Include="background\products\product (14).jpeg" />
-    <Resource Include="background\products\product (15).jpeg" />
-    <Resource Include="background\products\product (16).jpeg" />
-    <Resource Include="background\products\product (17).jpeg" />
-    <Resource Include="background\products\product (18).jpeg" />
-    <Resource Include="background\products\product (19).jpeg" />
-    <Resource Include="background\products\product (2).jpeg" />
-    <Resource Include="background\products\product (20).jpeg" />
-    <Resource Include="background\products\product (3).jpeg" />
-    <Resource Include="background\products\product (4).jpeg" />
-    <Resource Include="background\products\product (5).jpeg" />
-    <Resource Include="background\products\product (6).jpeg" />
-    <Resource Include="background\products\product (7).jpeg" />
-    <Resource Include="background\products\product (8).jpeg" />
-    <Resource Include="background\products\product (9).jpeg" />
+    <Resource Include="background\products\fast healing.jpeg" />
+    <Resource Include="background\products\hand weapon.jpeg" />
+    <Resource Include="background\products\hand weapon1.jpeg" />
+    <Resource Include="background\products\girl boy.jpeg" />
+    <Resource Include="background\products\computer brain2.jpeg" />
+    <Resource Include="background\products\angel1.jpeg" />
+    <Resource Include="background\products\hand weapon2.jpeg" />
+    <Resource Include="background\products\inherited illness.jpeg" />
+    <Resource Include="background\products\angel2.jpeg" />
+    <Resource Include="background\products\computer brain.jpeg" />
+    <Resource Include="background\products\hand weapon3.jpeg" />
+    <Resource Include="background\products\computer brain3.jpeg" />
+    <Resource Include="background\products\sight.jpeg" />
+    <Resource Include="background\products\sight1.jpeg" />
+    <Resource Include="background\products\sight2.jpeg" />
+    <Resource Include="background\products\sight3.jpeg" />
+    <Resource Include="background\products\sight4.jpeg" />
+    <Resource Include="background\products\hand weapon4.jpeg" />
+    <Resource Include="background\products\hand weapon5.jpeg" />
+    <Resource Include="background\products\hand weapon6.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +117,29 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="background\main window\mainWindow2.jpeg" />
+    <Resource Include="background\products\cancer.jpeg" />
+    <Resource Include="background\products\muscles.jpeg" />
+    <Resource Include="background\products\muscles1.jpeg" />
+    <Resource Include="background\products\brain1.jpeg" />
+    <Resource Include="background\products\satyr.jpeg" />
+    <Resource Include="background\products\satyr1.jpeg" />
+    <Resource Include="background\products\satyr2.jpeg" />
+    <Resource Include="background\products\centaur1.jpeg" />
+    <Resource Include="background\products\centaur2.jpeg" />
+    <Resource Include="background\products\centaur3.jpeg" />
+    <Resource Include="background\products\centaur4.jpeg" />
+    <Resource Include="background\products\angel5.jpeg" />
+    <Resource Include="background\products\Rick and Morty1.jpeg" />
+    <Resource Include="background\products\brain2.jpeg" />
+    <Resource Include="background\products\brain3.jpeg" />
+    <Resource Include="background\products\brain4.jpeg" />
+    <Resource Include="background\products\hermaphrodite.jpeg" />
+    <Resource Include="background\products\boy.jpeg" />
+    <Resource Include="background\products\girl1.jpeg" />
+    <Resource Include="background\products\Rick and Morty.jpeg" />
+    <Resource Include="background\products\boy1.jpeg" />
+    <Resource Include="background\products\centaur5.jpeg" />
+    <Resource Include="background\products\girl.jpeg" />
     <Resource Include="Icon.png" />
   </ItemGroup>
 
@@ -99,10 +147,6 @@
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalXml\DalXml.csproj" />
     <ProjectReference Include="..\Simulator\Simulator.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UserWindows\CartAndProduct\" />
   </ItemGroup>
 
   <ItemGroup>
